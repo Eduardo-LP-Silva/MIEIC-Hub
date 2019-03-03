@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Raleway:900');
+
+/* Mobile */
+@media (max-width: 991px)
+{
+    .nav-item
+    {
+        border: 0 !important;
+    }
+
+    .dropdown-menu
+    {
+        width: 100% !important;
+    }
+
+    .dropdown-item
+    {
+        margin: auto !important;
+        width: 20% !important;
+        border: 0 !important;
+    }
+
+    #searchBar
+    {
+        margin: auto !important;
+        width: 100% !important;
+    }
+
+    #footer
+    {
+        flex-direction: column;
+        height: 10em !important;
+    }
+}
+
+/* General */
+body
+{
+    background: black;
+    color: white;
+}
+
+.navbar
+{
+    background-color: black;
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+}
+
+.navbar > button
+{
+    outline: 0;
+}
+
+/* Banner */
+#banner
+{
+    background-color: black;
+    font-family: Raleway;
+    font-size: 60pt;
+    text-align: center;
+}
+
+#banner > span:first-child
+{
+    color: rgb(175, 28, 28);
+}
+
+#banner > span:nth-child(2)
+{
+    color: white;
+}
+
+/* Navbar general */
+nav
+{
+    border-top: 0.1em solid gray;
+    border-bottom: 0.1em solid gray;
+}
+
+/* Items */
+.nav-item > a
+{
+    font-size: 13pt;
+    color: white !important;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    -ms-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    transition: all 0.1s;
+    outline: 0;
+}
+
+.nav-item > a:hover
+{
+    color: red !important;
+    transform: scale(1.2);
+}
+
+/* Separators */
+.nav-item:not(:last-child)
+{
+    border-right: 0.2em solid rgb(175, 28, 28);
+}
+
+/* Products */
+.dropdown-menu
+{
+    width: 90%;
+    background-color: black;
+    text-align: center;
+
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 0;
+
+    -webkit-transition: max-height 0.5s;
+    -moz-transition: max-height 0.5s;
+    -ms-transition: max-height 0.5s;
+    -o-transition: max-height 0.5s;
+    transition: max-height 0.5s;
+}
+
+.dropdown-menu.show
+{
+    opacity: 1;
+    max-height: 20em;
+}
+
+.dropdown-menu
+{
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-item
+{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    text-align: center;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    -ms-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    transition: all 0.1s;
+}
+
+.dropdown-item:hover
+{
+    color: red !important;
+    font-size: 14pt;
+}
+
+.dropdown-item:not(:first-child)
+{
+    border-top: 0.1em solid grey;
+}
+
+.nav-item.dropdown .dropdown-menu .dropdown-item
+{
+    background-color: black;
+    color: white;
+
+}
+
+/* Search */
+#searchBar
+{
+    width: 13em;
+}
+
+.nav-item form
+{
+    display: inline-flex;
+    flex: 1 1 300px;
+}
+
+.nav-item input
+{
+    border-radius: 0.9em 0 0 0.9em;
+    height: 2.4em;
+    width: 5em;
+    border: none;
+
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.nav-item input:focus
+{
+    width: 13em;
+}
+
+.nav-item button
+{
+    background-color: rgb(255, 255, 255);
+    color: white;
+
+    border-radius: 0 0.9em 0.9em 0;
+    height: 2.4em;
+    border: none;
+    border-left: 0.1em solid black;
+}
+
+.nav-item button:hover
+{
+    background-color: #af1c1c;
+    color: white;
+}
+
+/* Profile */
+.nav-item button:focus
+{
+    outline: none;
+    box-shadow: none;
+}
+
+.nav-item img
+{
+    width: 3em;
+    outline: none;
+}
+
+/* About Us*/
+.about-us
+{
+  overflow: hidden;
+  text-align: center;
+  background-color: black;
+  padding: 20px;
+}
+
+.about-us h1
+{
+  overflow: hidden;
+  text-align: center;
+  background-color: black;
+  padding: 20px;
+  color: rgb(175, 28, 28);
+}
+
+.border
+{
+  display: block;
+  margin: auto;
+  width: 150px;
+  height: 3px;
+  margin-bottom: 50px;
+  background-color: rgb(175, 28, 28);
+}
+
+.pictures
+{
+  margin-bottom: 50px;
+  color: white;
+}
+
+.pictures a
+{
+  display: inline-block;
+  margin: 0 30px;
+  height: 180px;
+  width: 180px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.pictures a img
+{
+  width: 100%;
+  filter: grayscale(100%);
+  transition: 0.4s all;
+}
+
+.pictures a:hover img
+{
+  filter: none;
+}
+
+.pictures a:focus
+{
+  filter: none;
+}
+
+ .section
+{
+  width: 600px;
+  margin: auto;
+  font-size: 20px;
+  text-align: center;
+  font-family: Poppins;
+  height: 0;
+  overflow: hidden;
+}
+
+.section:target
+{
+  height: auto;
+}
+
+.name
+{
+  margin-top: 0px;
+  display: block;
+  text-align: center;
+  font-size: 30px;
+  font-family: Poppins;
+  margin-bottom: 20px;
+}
+
+#footer
+{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    height: 5em;
+    margin-top: 2em;
+
+    background: black;
+    color: white;
+}
+
+#footer > a
+{
+    text-decoration: none;
+    color: white;
+
+    padding-bottom: 0.8em;
+}
