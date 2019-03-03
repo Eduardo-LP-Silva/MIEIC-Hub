@@ -11,7 +11,7 @@
 ## Artefacts
 * User Requirements specification
     * [A1: Project presentation](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/a1)
-    * A2: Actors and User stories
+    * [A2: Actors and User stories](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/a2)
     * A3: User Interfaces Prototype
 * Database specification
     * A4: Conceptual Data Model
