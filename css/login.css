@@ -23,6 +23,7 @@ body, html
 
 .login
 {
+  margin-top: 20px;
   width: 320px;
   height: 420px;
   top: 50%;
@@ -68,6 +69,7 @@ body, html
   background: transparent;
   outline: none;
   height: 40px;
+  color: white;
 }
 
 .login input[type="text"]::placeholder, input[type="password"]::placeholder
