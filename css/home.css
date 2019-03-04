@@ -13,7 +13,8 @@ body
     background-color: black;
     
     width: 75%;
-    height: 28em;
+    min-height: 11em;
+    max-height: 28em;
 
     margin: auto !important;
 }
@@ -70,6 +71,9 @@ body
     height: 13em;
     margin-top: 2em;
 
+    margin-left: 1em;
+    margin-right: 1em;
+
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
@@ -84,6 +88,7 @@ body
     transition: all 0.3s;
 
     min-width: 8em !important;
+    max-width: 25%;
 
     overflow-y: hidden;
 }
