@@ -11,7 +11,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" defer></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
-        <script src="../js/polls.js"></script>
+        <script src="../js/polls.js" defer></script>
         <title>MIEICHub</title>
     </head>
     <body>
@@ -46,7 +46,7 @@
                     <li class="nav-item justify-content-center" id="searchBar">
                         <form class="form-inline justify-content-center my-1">
                             <input type="text" name="" placeholder="Search...">
-                            <button type="button" class="btn btn-light">🔍</button>
+                            <button type="button" class="btn btn-light"></button>
                         </form>
                     </li>
                     <li class="nav-item">
@@ -65,30 +65,64 @@
             <h1>Hoddies 2019</h1>
             <div class="container">
                 <div class="row">
-                    <a class="col" id="panel_1" href="#">
+                    <div class="col">
                         <div class="design_container">
+                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
+                            <span>17</span>
                             <img src="../resources/images/hoodie_example.jpg">
+                            <div class="modal">
+                                <img class="modal-content" src="../resources/images/hoodie_example.jpg" alt="Design #1">
+                            </div>
                         </div>
                         <h1>Design #1</h1>
-                    </a>
-                    <a class="col offset-md-1" id="panel_2" href="#">
+                    </div>
+                    <div class="col offset-md-1">
                         <div class="design_container">
-                            <img src="../resources/images/stickers_example.png">
+                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
+                            <span>5</span>
+                            <img src="../resources/images/poll_1.jpg">
                         </div>
                         <h1>Design #2</h1>
-                    </a>
-                    <a class="col offset-md-1" id="panel_3" href="#">
+                    </div>
+                    <div class="col offset-md-1">
                         <div class="design_container">
-                            <img src="../resources/images/hoodie_example.jpg">
+                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
+                            <span>35</span>
+                            <img src="../resources/images/poll_2.jpg">
                         </div>
                         <h1>Design #3</h1>
-                    </a>
-                    <a class="col offset-md-1" id="panel_3" href="#">
+                    </div>
+                    <div class="col offset-md-1">
                         <div class="design_container">
-                            <img src="../resources/images/hoodie_example.jpg">
+                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
+                            <span>10</span>
+                            <img src="../resources/images/poll_3.jpg">
                         </div>
                         <h1>Design #4</h1>
-                    </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="poll">
+            <h1>Misc January 19</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="design_container">
+                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
+                            <span>17</span>
+                            <img src="../resources/images/poll_5.jpg">
+                        </div>
+                        <h1>Item #1</h1>
+                    </div>
+                    <div class="col offset-md-1">
+                        <div class="design_container">
+                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
+                            <span>5</span>
+                            <img src="../resources/images/poll_6.jpg">
+                        </div>
+                        <h1>Item #2</h1>
+                    </div>
                 </div>
             </div>
         </section>

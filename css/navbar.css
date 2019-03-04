@@ -155,7 +155,7 @@ nav
 /* Search */
 #searchBar
 {
-    width: 13em;
+    width: 10em;
 }
 
 .nav-item form
@@ -180,18 +180,25 @@ nav
 
 .nav-item input:focus
 {
-    width: 13em;
+    width: 10em;
 }
 
 .nav-item button
 {
     background-color: rgb(255, 255, 255);
     color: white;
-
-    border-radius: 0 0.9em 0.9em 0;
+    
     height: 2.4em;
+    width: 3em !important;
+
     border: none;
+    border-radius: 0 0.9em 0.9em 0;
     border-left: 0.1em solid black;
+
+    background-image: url("../resources/icons/search.svg");
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .nav-item button:hover
