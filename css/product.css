@@ -5,10 +5,6 @@ div#content {
     font-family: Poppins;
 }
 
-#reviews .rating .checked {
-    color:orange;
-}
-
 div#content div#product div#gallery {
     border-right: solid;
     margin: 1em 0;
@@ -28,19 +24,81 @@ div#content div#product div#info h1 {
 
 div#content div#product div#info h2 {
     font-size: 1.6em;
-    margin-top: 1em;
 }
 
-div#content div#product div#info .accordion {
+div#content div#info div#size {
     margin: 1em 0;
 }
 
-div#content #reviews {
+div#content div#info .btn-group button {
+    background-color: #af1c1c;
+}
+
+div#content div#info .btn-group button:hover {
+    background-color: black;
+    opacity: 0.8;
+}
+
+div#content div#product div#info .accordion {
+    margin: 2em 0;
+}
+
+div#content div#product div#info .accordion .btn-link{
+    color: black;
+}
+
+div#content div#product div#info .accordion .btn-link:hover{
+    text-decoration: none;
+    color: #af1c1c;
+}
+
+div#content div#product div#info .accordion .btn-link:focus {
+    text-decoration: none;
+}
+
+div#content div#info div#buy button {
+    margin: 0 1em 0 0;
+    border-color: rgb(16, 66, 16);
+    background-color: rgb(63, 148, 63);
+}
+
+
+div#content div#info div#buy button:hover {
+    background-color: rgb(45, 107, 45);
+}
+
+div#content div#reviews .rating .checked {
+    color:orange;
+}
+
+div#content div#reviews {
     margin: 1em;
     border:solid;
 }
 
-div#content #reviews h1{
-    margin: 1em 0;
+div#content div#reviews h1{
+    margin: 1em;
     font-size: 1.6em;
+}
+
+div#content div#reviews div.media {
+    padding: 1em;
+    margin: 1em 0;
+    border-top: solid grey;
+
+}
+
+div#content div#reviews div.rating {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* ---------------------------------------- */
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
+
+.carousel-control-prev-icon{
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
 }
