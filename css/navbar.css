@@ -53,12 +53,18 @@
     text-align: center;
 }
 
-#banner > span:first-child
+#banner > *
+{
+    text-decoration: none;
+    outline: none;
+} 
+
+#banner > a:first-child
 {
     color: rgb(175, 28, 28);
 }
 
-#banner > span:nth-child(2)
+#banner > a:nth-child(2)
 {
     color: white;
 }
