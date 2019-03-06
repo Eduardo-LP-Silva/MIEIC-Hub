@@ -30,3 +30,9 @@
 
     padding-bottom: 0.8em;
 }
+
+#footer > span
+{
+    border: 0.1em solid white;
+    height: 50%;
+}
