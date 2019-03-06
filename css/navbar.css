@@ -39,6 +39,11 @@
     outline: 0;
 }
 
+#navbarSupportedContent > ul
+{
+    align-items: center !important;
+}
+
 /* Banner */
 #banner
 {
@@ -63,6 +68,11 @@ nav
 {
     border-top: 0.1em solid gray;
     border-bottom: 0.1em solid gray;
+}
+
+.nav-item
+{
+    max-height: 3em;
 }
 
 /* Items */
@@ -90,7 +100,7 @@ nav
     border-right: 0.2em solid rgb(175, 28, 28);
 }
 
-/* Products */
+/* Dropdowns */
 .dropdown-menu
 {
     width: 90%;
@@ -150,6 +160,11 @@ nav
     background-color: black;
     color: white;
 
+}
+
+#profileDD
+{
+    padding: 0;
 }
 
 /* Search */
@@ -216,6 +231,6 @@ nav
 
 .nav-item img
 {
-    width: 3em;
+    width: 2.5em;
     outline: none;
 }

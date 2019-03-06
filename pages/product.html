@@ -29,10 +29,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav nav-fill w-100">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" id="productsDD" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                             Products
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu" aria-labelledby="productsDD">
                             <a class="dropdown-item" href="#">Apparel</a>
                             <a class="dropdown-item" href="#">Phone Cases</a>
                             <a class="dropdown-item" href="#">Stickers</a>
@@ -45,25 +46,35 @@
                     </li>
                     <li class="nav-item justify-content-center" id="searchBar">
                         <form class="form-inline justify-content-center my-1">
-                            <input  type="text" name="" placeholder="Search...">
-                            <button type="button" class="btn btn-light">🔍</button>
+                            <input type="text" name="" placeholder="Search...">
+                            <button type="button" class="btn btn-light"></button>
                         </form>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Upcoming</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="profileDD" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img src="../resources/icons/baseline-person-24px.svg" alt="Profile">
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="profileDD">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Wishlist</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="#">Sign-out</a>
+                        </div>
+                    </li>
                     <li class="nav-item">
                         <a href="#">
-                            <img src="../resources/icons/baseline-person-24px.svg" alt="Profile">
+                            <img src="../resources/icons/cart.svg" alt="Cart">
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
-
         <div id="content" class="container">
             <div id="product" class="row">
-
                 <!-- Product photos-->
                 <div id="gallery" class="carousel slide col-md-6" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -71,7 +82,6 @@
                         <li data-target="#gallery" data-slide-to="1"></li>
                         <li data-target="#gallery" data-slide-to="2"></li>
                     </ol>
-                    
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <img class="d-block w-100" src="../resources/merchandising/camisolas/1.jpg">
@@ -92,72 +102,62 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-
                 <!-- Informations -->
                 <div id="info" class="col-md-6">
                     <h1>Sweatshirt</h1>
                     <h2>Price: 15.00€</h2>
-
                     <div id="size">
-                    <h2>Size:</h2>
-                    <div class="btn-group w-75" role="group" aria-label="Size">
+                        <h2>Size:</h2>
+                        <div class="btn-group w-75" role="group" aria-label="Size">
                             <button type="button" class="btn btn-secondary">XS</button>
                             <button type="button" class="btn btn-secondary">S</button>
                             <button type="button" class="btn btn-secondary">M</button>
                             <button type="button" class="btn btn-secondary">L</button>
                             <button type="button" class="btn btn-secondary">XL</button>
+                        </div>
                     </div>
-                    </div>      
-
                     <div class="accordion" id="informations">
                         <div class="card">
                             <div class="card-header" id="descriptionheader">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#description" aria-expanded="false" aria-controls="description">
-                                Description and details
-                                </button>
-                            </h2>
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#description"
+                                        aria-expanded="false" aria-controls="description">
+                                        Description and details
+                                    </button>
+                                </h2>
                             </div>
-                        
                             <div id="description" class="collapse" aria-labelledby="descriptionheader" data-parent="#informations">
                                 <div class="card-body">
                                     Here we write the description
                                 </div>
                             </div>
                         </div>
-
                         <div class="card">
-                                <div class="card-header" id="deliveryheader">
+                            <div class="card-header" id="deliveryheader">
                                 <h2 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#delivery" aria-expanded="false" aria-controls="delivery">
-                                    Delivery info
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#delivery"
+                                        aria-expanded="false" aria-controls="delivery">
+                                        Delivery info
                                     </button>
                                 </h2>
+                            </div>
+                            <div id="delivery" class="collapse" aria-labelledby="deliveryheader" data-parent="#informations">
+                                <div class="card-body">
+                                    Here we write the delivery info
                                 </div>
-                            
-                                <div id="delivery" class="collapse" aria-labelledby="deliveryheader" data-parent="#informations">
-                                    <div class="card-body">
-                                        Here we write the delivery info
-                                    </div>
-                                </div>
+                            </div>
                         </div>
-
                     </div>
-
                     <div id="buy">
                     <button type="button" class="btn btn-primary">Buy now</button>
                     <button type="button" class="btn btn-primary">Add to cart</button>
                     </div>
                 </div>
-
             </div>
-
             <!-- Reviews -->
             <div id="reviews" class="row">
                 <div class="col-12">
                     <h1>Reviews</h1>
-
-
                     <div class="media container">
                         <img class="d-flex mr-3" data-src="holder.js/64x64?theme=sky" alt="Profile picture" style="width: 64px; height: 64px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16948714b27%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16948714b27%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
                         <div class="media-body row">
@@ -172,7 +172,6 @@
                             <p class="ml-4"> This is a review </p>
                         </div>
                     </div>
-
                     <div class="media container">
                         <img class="d-flex mr-3 " data-src="holder.js/64x64?theme=sky" alt="64x64" style="width: 64px; height: 64px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16948714b27%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16948714b27%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
                         <div class="media-body row">
@@ -187,7 +186,6 @@
                             <p class="ml-4">This is another review</p>
                         </div>
                     </div>
-
                     <div class="media container">
                         <img class="d-flex mr-3" data-src="holder.js/64x64?theme=sky" alt="64x64" style="width: 64px; height: 64px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16948714b27%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16948714b27%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
                         <div class="media-body row">
@@ -206,7 +204,6 @@
                 </div>
             </div>
         </div>
-
         <!--Footer-->
         <footer id="footer">
             <a href="about.html">About us</a>
