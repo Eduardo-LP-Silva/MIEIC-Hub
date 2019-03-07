@@ -64,11 +64,94 @@
 
 
       <div class="settings">
-        <img src="../resources/images/avatar.png" class="avatar">
-        <h1>Settings</h1>
+        <img src="../resources/images/website/settings-icon.png" class="avatar">  <h1>Settings</h1>
+
+        <div class="accordion" id="accordionExample">
+
+          <!--Username-->
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <a>Username: Zecarlos</a>
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Edit 🖋
+                </button>
+              </h5>
+            </div>
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              <input type="text" name="" placeholder="    Enter Username">
+              <input type="submit" name="" value="Submit Change">
+            </div>
+          </div>
+        </div>
+
+        <!--Email-->
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <a>Email: zecalanga@zecas.br</a>
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Edit 🖋
+              </button>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body">
+              <input type="email" name="emailadress" placeholder="   Enter Email">
+              <input type="submit" name="" value="Submit Change">  </div>
+          </div>
+        </div>
+
+      <!--Password -->
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <h5 class="mb-0">
+              <a>Password</a>
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Edit 🖋
+              </button>
+            </div>
+          </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+          <div class="card-body">
+            <input type="password" name="" placeholder="    Enter Password">
+            <input type="password" name="" placeholder="   Confirm Password">
+            <input type="submit" name="" value="Submit Change">
+          </div>
+        </div>
+      </div>
+
+      <!-- Birthday-->
+      <div class="card">
+        <div class="card-header" id="headingFour">
+          <h5 class="mb-0">
+              <a>Birth day: 29/02/1998</a>
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseTwo">
+                Edit 🖋
+              </button>
+          </h5>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+          <div class="card-body">
+              <input type="date" name="bithdaydate">
+              <input type="submit" name="" value="Submit Change">
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+
+      <input type="submit" name="Delete Account" value="Delete Account">
+
+
+    </div>
+
+  </div>
 
         <!-- Username -->
-        <a>
+        <!-- <a>
           Current Username: Zecas
         </a>
           <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -86,7 +169,7 @@
       <br>
 
         <!-- Password -->
-       <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+       <!-- <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
          Edit Password
       </button>
 
@@ -98,10 +181,10 @@
         </div>
       </div>
       <br>
-      <br>
+      <br> -->
 
         <!--Mail-->
-        <a>
+        <!-- <a>
           Current Mail: zecarlos@zecas.com
         </a>
           <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
@@ -119,10 +202,10 @@
       <br>
       <br>
       <br>
-      <br>
+      <br> -->
 
       <!--Birthday-->
-      <a>
+      <!-- <a>
         Current Birthday: 22/07/1999
       </a>
         <button class="btn btn-third" type="button" data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample">
@@ -146,9 +229,15 @@
 
             <input type="submit" name="Delete Account" value="Delete Account">
 
+-->
 
-      </div>
-
+      <footer id="footer">
+          <a href="about.html">About us</a>
+          <span></span>
+          <a href="./faq.html">FAQ</a>
+          <span></span>
+          <p>Contact us at mieichub@gmail.com</p>
+      </footer>
 
     </body>
   </html>
