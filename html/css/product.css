@@ -93,6 +93,16 @@ div#content div#reviews div.rating {
     justify-content: flex-end;
 }
 
+
+@media (max-width: 767px) {
+    div#content div#product div#gallery  {
+        border-right: none;
+    }
+
+    /* Falta também para as estrelas não 
+        ficarem em cima do nome */
+}
+
 /* ---------------------------------------- */
 
 .carousel-control-next-icon {
