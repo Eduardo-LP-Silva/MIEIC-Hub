@@ -6,7 +6,7 @@ div#content {
 }
 
 div#content div#product div#gallery {
-    border-right: solid;
+    /* border-right: solid; */
     margin: 1em 0;
 }
 
@@ -16,7 +16,6 @@ div#content div#product div#info {
 }
 
 div#content div#product div#info h1 {
-    text-align: center;
     font-size: 2em;
     font-weight: bold;
     margin: 1em;
@@ -73,7 +72,6 @@ div#content div#reviews .rating .checked {
 
 div#content div#reviews {
     margin: 1em;
-    border:solid;
 }
 
 div#content div#reviews h1{
@@ -84,7 +82,7 @@ div#content div#reviews h1{
 div#content div#reviews div.media {
     padding: 1em;
     margin: 1em 0;
-    border-top: solid grey;
+    border-top: thin solid grey;
 
 }
 

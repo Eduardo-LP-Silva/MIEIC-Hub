@@ -38,15 +38,22 @@ div#content h1 {
 }
 
 div#content label {
-    margin-bottom: 0;
+    margin-bottom: .5em;
     margin-right: 1em;
-    padding-
-    border-left: solid;
+    padding-left: .5em;
+    border-left: solid #af1c1c;
 }
 
 div#content input[type="text"], div#content textarea{
     border-radius: 1em;
     max-width: 100%;
+    padding: .2em;
+    box-shadow: none;
+}
+
+div#content input:focus, div#content textarea:focus {
+    border-color: rgb(167, 243, 207);
+    border-width: medium;
 }
 
 div#content div#radios div {
