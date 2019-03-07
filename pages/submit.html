@@ -74,7 +74,48 @@
         </nav>
 
         <div id="content">
-            Aqui está o conteúdo
+            <h1>Submit your design</h1>
+
+            <form action="" method="GET">
+                <div id="title" class="row">
+                    <label for="name">Design name: </label>
+                    <input id="name" name="name" type="text" required="true">
+                </div>
+                
+                <div id="types" class="row">
+                    <label for="type">Product type: </label>
+                    <div id="radios">
+                        <div><input type="radio" name="type" required="true"> T-Shirt</div>
+                        <div><input type="radio" name="type"> Hoodie</div>
+                        <div><input type="radio" name="type"> Jacket</div>
+                        <div><input type="radio" name="type"> Mouse pad</div>
+                        <div><input type="radio" name="type"> Phone case</div>
+                    </div>
+                </div>
+
+                <div id="description" class="row">
+                    <label for="desc">Tell us your design's story: </label>
+                    <textarea id="desc" required="true" name="description" rows="3" cols="35"></textarea>
+                </div>
+
+                <div id="files" class="row">
+                    <label for="images">Upload images of your design: </label>
+                    <input id="images" name="images" type="file" accept="image/png, image/jpeg">
+                </div>
+
+                <div id="submission" class="row">
+                    <input type="submit" value="Submit!">
+                </div>
+
+                <!-- <div id="rules">
+                    <h3>Submission rules</h3>
+                    <ol>
+                        <li>All fields are required.</li>
+                        <li>The image uploaded must have a front, back and side (if applicable) perspective of the design.</li>
+                        <li>Don't submit offensive designs.</li>
+                    </ol>
+                </div> -->
+            </form>
         </div>
 
         <!--Footer-->
