@@ -1,0 +1,58 @@
+html, body
+{
+    height: 100%;
+}
+
+.list-item
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+
+    width: 80%;
+    height: 5em;
+
+    margin: auto;
+    margin-top: 2em;
+
+    font-size: 16pt;
+
+    background-color: black;
+    color: white;
+    border: 0.1em solid #af1c1c;
+
+    padding: 0 0.5em;
+    padding-right: 1em;
+
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.list-item:hover
+{
+    color: white;
+    text-decoration: none;
+    transform: scale(1.1);
+}
+
+.list-item > img
+{
+    border-radius: 50%;
+    width: 4em;
+    height: 4em;
+}
+
+.div
+{
+    border: 0.01em solid white;
+    height: 50%;
+}
+
+.list-item > span > p:first-child
+{
+    border-bottom: 0.1em solid #af1c1c;
+}

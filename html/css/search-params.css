@@ -1,0 +1,56 @@
+@media (max-width: 991px)
+{
+    #search_parameters span
+    {
+        font-size: 5vw !important;
+    }
+}
+
+#search_parameters
+{
+    display: flex;
+    justify-content: space-between;
+
+    width: 80%;
+    margin: auto;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    text-align: left;
+}
+
+#search_parameters span
+{
+    font-size: 24pt;
+}
+
+#search_parameters span:nth-child(2)
+{
+    margin-left: 0.5em;
+}
+
+#search_parameters span:first-child
+{
+    border-bottom: 0.1em solid #af1c1c;
+    padding-bottom: 0.1em;
+}
+
+#search_parameters .dropdown-menu
+{
+    background-color: white;
+}
+
+#search_parameters .dropdown-item
+{
+    background-color: white;
+}
+
+#search_parameters button
+{
+    background-color: red;
+    border: none;
+}
+
+#search_parameters button:focus
+{
+    box-shadow: none;
+}
