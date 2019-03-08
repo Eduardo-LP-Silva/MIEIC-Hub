@@ -1,3 +1,17 @@
+@media (max-width: 991px)
+{
+    .list-item
+    {
+        flex-direction: column !important;
+        height: 20em !important;
+    }
+
+    .div
+    {
+        display: none;
+    }
+}
+
 html, body
 {
     height: 100%;
