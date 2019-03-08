@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/navbar.css">
         <link rel="stylesheet" href="../css/footer.css">
         <link rel="stylesheet" href="../css/search.css">
@@ -11,6 +12,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" defer></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
+        <script src="../js/search.js" defer></script>
         <title>MIEICHub</title>
     </head>
     <body>
@@ -75,10 +77,10 @@
             <div id="search_parameters">
                 <div>
                     <span>Search results for:</span>
-                    <span>Shirts</span>
+                    <span>Hoodies</span>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="searchDropDown" data-toggle="dropdown"
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="searchDropDown" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         Filter by
                     </button>
@@ -89,42 +91,67 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
+            <div class="container" id="searchResults">
                 <div class="row">
                     <div class="col">
-                        <div class="design_container">
-                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
-                            <span>17</span>
-                            <img src="../resources/images/apparel/hoodie_1_red.jpg">
-                            <div class="modal">
-                                <img class="modal-content" src="../resources/images/hoodie_example.jpg" alt="Design #1">
+                        <div class="results_container">
+                            <div class="rating">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
                             </div>
+                            <a href="./product.html">
+                                <img src="../resources/images/apparel/hoodie_1_red.jpg">
+                            </a>
                         </div>
-                        <h1>Design #1</h1>
+                        <h1>Hard Code Hoodie</h1>
                     </div>
                     <div class="col offset-md-1">
-                        <div class="design_container">
-                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
-                            <span>5</span>
-                            <img src="../resources/images/apparel/hoodie_2.jpg">
+                        <div class="results_container">
+                            <div class="rating">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
+                            <a href="./product.html">
+                                <img src="../resources/images/apparel/hoodie_2.jpg">
+                            </a>
                         </div>
-                        <h1>Design #2</h1>
+                        <h1>Starbucks Hoodie</h1>
                     </div>
                     <div class="col offset-md-1">
-                        <div class="design_container">
-                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
-                            <span>35</span>
-                            <img src="../resources/images/apparel/hoodie_3.jpg">
+                        <div class="results_container">
+                            <div class="rating">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                            </div>
+                            <a href="./product.html">
+                                <img src="../resources/images/apparel/hoodie_3.jpg">
+                            </a>
                         </div>
-                        <h1>Design #3</h1>
+                        <h1>Mouse Hoodie</h1>
                     </div>
                     <div class="col offset-md-1">
-                        <div class="design_container">
-                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
-                            <span>10</span>
-                            <img src="../resources/images/apparel/hoodie_5.jpg">
+                        <div class="results_container">
+                            <div class="rating">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
+                            <a href="./product.html">
+                                <img src="../resources/images/apparel/hoodie_5.jpg">
+                            </a>
                         </div>
-                        <h1>Design #4</h1>
+                        <h1>Inph Hoodie</h1>
                     </div>
                 </div>
             </div>
