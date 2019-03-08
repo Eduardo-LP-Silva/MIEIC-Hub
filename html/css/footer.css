@@ -6,6 +6,19 @@
         flex-direction: column;
         height: 10em !important;
     }
+
+    #footer > span
+    {
+        display: none;
+    }
+
+    #footer > a
+    {
+        border-bottom: 0.15em solid #af1c1c;
+        width: 50% !important;
+        margin: auto !important;
+        text-align: center;
+    }
 }
 
 #footer
@@ -33,6 +46,6 @@
 
 #footer > span
 {
-    border: 0.1em solid white;
+    border: 0.1em solid #af1c1c;;
     height: 50%;
 }
