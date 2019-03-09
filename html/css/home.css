@@ -17,6 +17,7 @@ body
     max-height: 28em;
 
     margin: auto !important;
+    margin-bottom: 3em !important;
 }
 
 #slideShow img
@@ -49,34 +50,35 @@ body
 {
     width: 75%;
     margin: auto;
-    font-size: 18pt;
-}
 
-#panels h1
-{
-    font-size: 18pt;
     font-family: Poppins;
-    text-align: center;
+    font-size: 18pt;
 }
 
-#panels h1
+section
 {
-    background: white;
+    margin-bottom: 2em;
+}
+
+section > h1
+{
+    font-family: Poppins;
+    font-size: 24pt;
+    border-bottom: 0.1em solid #af1c1c;
+    padding-bottom: 0.1em;
+}
+
+#panels .col h1
+{
+    font-size: 18pt;
+    text-align: center;
 }
 
 #panels .col
 {
-    border: 0.1em solid black;
-    border-radius: 0.5em;
-    height: 13em;
     margin-top: 2em;
-
     margin-left: 1em;
     margin-right: 1em;
-
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
 
     text-decoration: none;
     color: black;
@@ -89,13 +91,29 @@ body
 
     min-width: 8em !important;
     max-width: 25%;
+}
 
-    overflow-y: hidden;
+.grid_container
+{
+    border: 0.1em solid black;
+    border-radius: 0.5em;
 }
 
 #panels img
 {
-    width: 100%;
+    display: block;
+
+    width: 90%;
+    height: auto;
+    max-height: 90%;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#panels a:focus
+{
+    outline: none;
 }
 
 #panels .col:hover
@@ -104,4 +122,26 @@ body
     color: #af1c1c;
     border-color: #af1c1c;
     border-width: 0.2em;
+}
+
+#other .row
+{
+    justify-content: space-evenly;
+}
+
+#other .col
+{
+    max-width: 4em !important
+}
+
+#other .col:first-child .grid_container
+{
+    background-image: url("../resources/images/website/calendar.jpg");
+    background-size: cover;
+}
+
+#other .col:last-child .grid_container
+{
+    background-image: url("../resources/images/apparel/submission_example.jpg");
+    background-size: cover;
 }

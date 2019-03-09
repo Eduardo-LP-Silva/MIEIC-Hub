@@ -10,7 +10,7 @@ window.onresize = function()
 
 function setAspectRatio()
 {
-    let cols = document.querySelectorAll(".col");
+    let cols = document.querySelectorAll(".grid_container");
 
     for(let i = 0; i < cols.length; i++)
     {
