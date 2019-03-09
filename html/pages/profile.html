@@ -11,14 +11,14 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" defer></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
-        <script src="../js/polls.js" defer></script>
+        <script src="../js/profile.js" defer></script>
         <title>MIEICHub</title>
     </head>
     <body>
         <!--Banner-->
         <div id="banner">
-            <span>MIEIC</span>
-            <span>Hub</span>
+            <a href="./home.html">MIEIC</a>
+            <a href="./home.html">Hub</a>
         </div>
         <!--Navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark">
@@ -63,9 +63,9 @@
 
         <!--Profile-->
         <section class="profile">
-            <div class="container">
-                <div class="row">
-                    <div style="border: 1px solid;" class="maininfo col-md-4">
+            <div id="cont" class="container" style="background: rgb(235,235,235);">
+                <div style="margin-top: 3%" class="row">
+                    <div  class="maininfo col-md-4">
                         <div class= "presentation row">
                             <img id="profilepicture" src="../resources/images/about-us/edu.jpg" alt="profile picture">
                             <span id="name"> Eduardo Merdeiros</span>
@@ -74,18 +74,79 @@
                         <span class="separation"></span>
 
                         <div class= "status row">
-                            status
+                            <small style="margin-left: 10%">Sou o edu cheiro mal do cu</small>
                         </div>
 
                         <span class="separation"></span>
                         <div class= "wishlist row">
-                            wishlist
+                            <ul class="list-group">
+                              <li class="list-group-item">▪ Camisola ergerg XL
+                              <img style="display:none" src="../resources/images/apparel/hoodie_3.jpg">
+                              </li>
+                              <li class="list-group-item">▪ T-shirt wefwf S
+                              <img style="display:none" src="../resources/images/apparel/hoodie_3.jpg">
+                              </li>
+                              <li class="list-group-item">▪ PhoneCase awsome  
+                              <img style="display:none" src="../resources/images/apparel/hoodie_3.jpg"> 
+                              </li>
+                            </ul>
                         </div>
 
                     </div>
 
-                    <div style="border: 1px solid;" class="otherinfo col-md-8">
-                        test2
+                    <div style="" class="otherinfo col-md-8">
+                        <span id="separationver"></span>
+                        <div id="buttongroup" class="btn-group btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-secondary active">
+                            <input type="radio" name="options" id="option1" autocomplete="off" checked> Orders
+                          </label>
+                          <label class="btn btn-secondary">
+                            <input type="radio" name="options" id="option2" autocomplete="off"> Reviews
+                          </label>
+                        </div>
+
+                        <img src="../resources/icons/settings_icon.png" style="position: absolute; height:70px; left: 80%; top:10px" class="avatar">
+
+                        <ul class="container" id="orders" style="margin-top:15px;">
+                                <li class="card" style="background: lightgrey;">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-2">
+                                            <img style="height: 100px; width:100px;" src="../resources/images/apparel/hoodie_3.jpg" class="card-img" alt="product">
+                                        </div>
+                                        <div class="col-md-5">
+                                          <div class="card-body">
+                                            <h5 class="card-title">Camisola XL</h5>
+                                            <p class="card-text"><small class="text-muted"> 17 Fevereiro de 2019</small></p>
+                                          </div>
+                                        </div>
+                                        <div class="rating">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="card" style="background: lightgrey;">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-2">
+                                            <img style="height: 100px; width:100px;" src="../resources/images/apparel/hoodie_3.jpg" class="card-img" alt="product">
+                                        </div>
+                                        <div class="col-md-5">
+                                          <div class="card-body">
+                                            <h5 class="card-title">Camisola XL</h5>
+                                            <p class="card-text"><small class="text-muted"> 17 Fevereiro de 2019</small></p>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                          <div class="card-body">
+                                            <h5 class="card-title">Camisola XL</h5>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </li>
+                        </ul>
                     </div>
                 </div>
             </div>
