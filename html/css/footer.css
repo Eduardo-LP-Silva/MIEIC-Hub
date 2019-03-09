@@ -3,6 +3,7 @@
 {
     #footer
     {
+        position: static !important;
         flex-direction: column;
         height: 10em !important;
     }
