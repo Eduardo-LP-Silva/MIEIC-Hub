@@ -92,11 +92,19 @@
     margin-right: auto;
 }
 
-.poll > p
+.poll > .container
 {
-    margin-top: 2em;
-    padding-left: 1.5em;
+    margin-bottom: 2em;
+}
+
+.poll > span
+{
     text-align: left;
+}
+
+.poll > span:last-child
+{
+    color: #af1c1c;
 }
 
 .modal

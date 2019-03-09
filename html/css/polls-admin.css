@@ -1,0 +1,25 @@
+#addPoll
+{
+    width: 75%;
+    margin: auto;
+}
+
+#addPoll > button
+{
+    font-size: 16pt !important;
+
+    border-width: 0.1em !important;
+    border-color: black !important;
+
+    margin-top: 1.5em;
+}
+
+.poll > h1 > a
+{
+    color: #af1c1c;
+}
+
+.poll .col > h1 > a
+{
+    color: #af1c1c;   
+}
