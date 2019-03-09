@@ -35,7 +35,7 @@ html, body
 
     background-color: white;
     color: black;
-    border: 0.1em solid #af1c1c;
+    border: 0.1em solid black;
 
     padding: 0 0.5em;
     padding-right: 1em;
@@ -63,7 +63,7 @@ html, body
 
 .div
 {
-    border: 0.01em solid black;
+    border: 0.01em solid #af1c1c;
     height: 50%;
 }
 
