@@ -140,8 +140,14 @@ section > h1
     background-size: cover;
 }
 
-#other .col:last-child .grid_container
+#other .col:nth-child(2) .grid_container
 {
     background-image: url("../resources/images/apparel/submission_example.jpg");
+    background-size: cover;
+}
+
+#other .col:last-child .grid_container
+{
+    background-image: url("../resources/images/website/workshop.jpg");
     background-size: cover;
 }
