@@ -32,7 +32,6 @@ div#content h1 {
     margin-bottom: 1em;
     padding: .5em;
     border-bottom: medium solid rgb(112, 112, 112);
-    border-radius: 1em;
     background-color: #af1c1c;
     color: white;
 }
@@ -45,10 +44,11 @@ div#content label {
 }
 
 div#content input[type="text"], div#content textarea{
-    border-radius: 1em;
     max-width: 100%;
     padding: .2em;
     box-shadow: none;
+    border: none;
+    border-bottom: thin solid #af1c1c;
 }
 
 div#content input:focus, div#content textarea:focus {

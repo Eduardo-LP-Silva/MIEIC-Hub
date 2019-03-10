@@ -168,6 +168,11 @@ nav
     width: 10em;
 }
 
+#searchBar input {
+    padding-left: 1em;
+    width: 6em;
+}
+
 .nav-item form
 {
     display: inline-flex;
