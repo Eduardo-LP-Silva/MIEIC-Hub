@@ -9,8 +9,8 @@ div#content {
     width: 70%;
     margin: auto;
     background-color: white;
-    border-left: medium solid #af1c1c;
-    border-right: medium solid #af1c1c;
+    border-left: thin solid #af1c1c;
+    border-right: thin solid #af1c1c;
     font-family: Poppins;
     padding: 1em;
 }
@@ -45,7 +45,7 @@ div#content label {
 
 div#content input[type="text"], div#content textarea{
     max-width: 100%;
-    padding: .2em;
+    padding: .5em;
     box-shadow: none;
     border: none;
     border-bottom: thin solid #af1c1c;
