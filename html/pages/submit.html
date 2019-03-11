@@ -20,6 +20,7 @@
             <a href="./home.html">MIEIC</a>
             <a href="./home.html">Hub</a>
         </div>
+
         <!--Navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
@@ -73,6 +74,7 @@
             </div>
         </nav>
 
+        <!--Submit Form-->
         <div id="content">
             <h1>Submit your design</h1>
 
@@ -84,12 +86,27 @@
                 
                 <div id="types" class="form-group">
                     <label for="type">Product type: </label>
-                    <div id="radios" class="form-check-inline">
-                        <div><input type="radio" name="type" required="true"> T-Shirt</div>
-                        <div><input type="radio" name="type"> Hoodie</div>
-                        <div><input type="radio" name="type"> Jacket</div>
-                        <div><input type="radio" name="type"> Mouse pad</div>
-                        <div><input type="radio" name="type"> Phone case</div>
+                    <div id="radios" class = "form-check">
+                        <div class="form-check-inline form-check">
+                            <input id="tshirt" type="radio" class="form-check-input" name="type" required="true"> 
+                            <label for="tshirt" class="form-check-label" >T-Shirt</label>
+                        </div>
+                        <div class="form-check-inline form-check">
+                            <input id="hoodie" type="radio" class="form-check-input" name="type"> 
+                            <label for="hoodie" class="form-check-label">Hoodie</label>
+                        </div>
+                        <div class="form-check-inline form-check">
+                            <input id="jacket" type="radio" class="form-check-input" name="type"> 
+                            <label for="jacket" class="form-check-label">Jacket</label>
+                        </div>
+                        <div class="form-check-inline form-check">
+                            <input id="pad" type="radio" class="form-check-input" name="type"> 
+                            <label for="pad" class="form-check-label">Mouse pad</label> 
+                        </div>
+                        <div class="form-check-inline form-check">
+                            <input id="case" type="radio" class="form-check-input" name="type">
+                            <label for="case" class="form-check-input">Phone case</label>
+                        </div>
                     </div>
                 </div>
 
@@ -118,5 +135,6 @@
             <span></span>
             <p>Contact us @ tomasnovo@gmail.com</p>
         </footer>
+
     </body>
 </html>

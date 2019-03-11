@@ -36,11 +36,15 @@ div#content h1 {
     color: white;
 }
 
-div#content label {
+div#content form > div > label {
     margin-bottom: .5em;
     margin-right: 1em;
     padding-left: .5em;
     border-left: solid #af1c1c;
+}
+
+div#content label {
+    margin-bottom: 0;
 }
 
 div#content input[type="text"], div#content textarea{
