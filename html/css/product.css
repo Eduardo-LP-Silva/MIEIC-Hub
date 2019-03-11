@@ -31,6 +31,7 @@ div#content div#info div#size {
 
 div#content div#info .btn-group button {
     background-color: #af1c1c;
+    border-radius: 0;
 }
 
 div#content div#info .btn-group button:hover {
@@ -58,6 +59,7 @@ div#content div#product div#info .accordion .btn-link:focus {
 div#content div#info div#buy button {
     margin: 0 1em 0 0;
     border-color: rgb(16, 66, 16);
+    border-radius: 0;
     background-color: rgb(63, 148, 63);
 }
 

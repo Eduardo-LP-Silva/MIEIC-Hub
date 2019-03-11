@@ -169,8 +169,7 @@ nav
 }
 
 #searchBar input {
-    padding-left: 1em;
-    width: 6em;
+    padding-left: .8em;
 }
 
 .nav-item form

@@ -69,6 +69,10 @@ div#content input[type="submit"] {
     display: block;
 }
 
+div#content input[type="submit"] {
+    border-radius: 0;
+}
+
 footer#footer {
     margin-top: 0;
 }

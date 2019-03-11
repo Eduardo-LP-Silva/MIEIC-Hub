@@ -112,3 +112,6 @@ html, body
     text-align: right;
 }
 
+button#buy {
+    border-radius: 0;
+}
