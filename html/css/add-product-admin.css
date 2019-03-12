@@ -1,0 +1,4 @@
+div#content div#price input {
+    border: none;
+    border-bottom: thin solid #af1c1c;
+}
