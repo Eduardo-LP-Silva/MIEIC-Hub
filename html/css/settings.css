@@ -127,6 +127,7 @@ overflow-x: hidden;
 {
     font-family: Poppins;
   display: block;
+  
   background:  rgb(175, 28, 28);
   color: white;
   margin-left: auto !important;
@@ -199,7 +200,27 @@ div#content h1 {
 
 }
 
+div#content div#files input[type="file"] {
+    display: none;
+}
 
+div#content div#files label {
+    display: inline-block;
+    background-color: rgb(175, 28, 28);
+    padding: .5em;
+    cursor: pointer;
+    margin-top: 2em;
+    margin-left: 15%;
+    color: white;
+    font-style: Poppins;
+    border-radius: 5%;
+
+}
+
+div#content input[type="submit"] {
+    margin: auto;
+    display: block;
+}
 
 .accordion
 {
