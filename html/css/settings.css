@@ -3,33 +3,11 @@
 
 @media (max-width: 991px)
 {
-  #banner
-  {
-    font-size: 40pt !important;
-  }
 
   .settings
   {
     padding-bottom: 0 !important;
   }
-}
-
-/* Banner */
-#banner
-{
-    font-family: Raleway;
-    font-size: 60pt;
-    text-align: center;
-}
-
-#banner > span:first-child
-{
-    color: rgb(175, 28, 28);
-}
-
-#banner > span:nth-child(2)
-{
-    color: white;
 }
 
 html
@@ -187,7 +165,6 @@ body
 .settings input[type="submit"]
 {
   margin-top: 1em;
-  margin-left: 37.5%;
   background:  rgb(175, 28, 28);
   color: white;
   height: 2em;
