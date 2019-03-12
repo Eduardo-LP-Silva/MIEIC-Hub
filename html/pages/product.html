@@ -21,6 +21,7 @@
             <a href="./home.html">MIEIC</a>
             <a href="./home.html">Hub</a>
         </div>
+
         <!--Navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
@@ -73,6 +74,8 @@
                 </ul>
             </div>
         </nav>
+
+        <!--Product-->
         <div id="content" class="container">
             <div id="product" class="row">
                 <!-- Product photos-->
@@ -105,6 +108,7 @@
                 <!-- Informations -->
                 <div id="info" class="col-md-6">
                     <h1>Sweatshirt</h1>
+                    <button type="button" class="btn btn-link">Add to wishlist</button>
                     <h2>Price: 15.00€</h2>
                     <div id="size">
                         <h2>Size:</h2>
@@ -128,7 +132,12 @@
                             </div>
                             <div id="description" class="collapse" aria-labelledby="descriptionheader" data-parent="#informations">
                                 <div class="card-body">
-                                    Here we write the description
+                                    <ul>
+                                        <li>Standard fit for a relaxed, easy feel</li>
+                                        <li>Front pockets</li>
+                                        <li>Fabric: 66% cotton/34% polyester</li>
+                                        <li>Machine wash</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -143,14 +152,39 @@
                             </div>
                             <div id="delivery" class="collapse" aria-labelledby="deliveryheader" data-parent="#informations">
                                 <div class="card-body">
-                                    Here we write the delivery info
+                                    <table class="table">
+                                        <thead>
+                                          <tr>
+                                            <th>Region</th>
+                                            <th>Price</th>
+                                            <th>Business Days</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <th scope="row">Portugal</th>
+                                            <td>3.99€</td>
+                                            <td>3-7</td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row">Europe</th>
+                                            <td>5.99€</td>
+                                            <td>5-9</td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row">Rest of the world</th>
+                                            <td>8.99€</td>
+                                            <td>10-14</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="buy">
-                    <button type="button" class="btn btn-primary">Buy now</button>
-                    <button type="button" class="btn btn-primary">Add to cart</button>
+                    <button type="button" class="btn btn-success">Buy now</button>
+                    <button type="button" class="btn btn-success">Add to cart</button>
                     </div>
                 </div>
             </div>
