@@ -142,7 +142,7 @@ section > h1
 
 #other .col:nth-child(2) .grid_container
 {
-    background-image: url("../resources/images/apparel/submission_example.jpg");
+    background-image: url("../resources/images/apparel/hoodie_drawing.jpg");
     background-size: cover;
 }
 

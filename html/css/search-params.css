@@ -1,8 +1,24 @@
 @media (max-width: 991px)
 {
+    #search_parameters
+    {
+        flex-direction: column !important;
+    }
+
+    #search_parameters > .dropdown
+    {
+        margin-top: 1em !important;
+        margin-bottom: 5em !important;
+    }
+
     #search_parameters span
     {
-        font-size: 5vw !important;
+        font-size: 14pt !important;
+    }
+
+    #search_parameters button
+    {
+        font-size: 12pt !important;
     }
 }
 
@@ -20,7 +36,7 @@
 
 #search_parameters span
 {
-    font-size: 24pt;
+    font-size: 18pt;
 }
 
 #search_parameters span:nth-child(2)
@@ -48,9 +64,21 @@
 {
     background-color: red;
     border: none;
+
+    font-size: 14pt; 
 }
 
 #search_parameters button:focus
 {
     box-shadow: none;
+}
+
+#search_parameters > .dropdown > span
+{
+    font-size: 17pt;
+    
+    vertical-align: middle;
+
+    margin-bottom: 1em;
+    border-bottom: 0.1em solid #af1c1c;
 }
