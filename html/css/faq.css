@@ -17,7 +17,8 @@ h1
   font-family: Poppins;
   font-size: 300%;
   margin-bottom: 1em;
-  border-bottom: 0.1em solid rgb(175, 28, 28);
+  padding-bottom: 0.2em;
+  border-bottom: 0.01em solid rgb(175, 28, 28);
   color: black;
 }
 
@@ -27,7 +28,7 @@ h1
   margin: auto;
   margin-top: 2em;
   width: 80%;
-  color: white;
+  color: black;
 }
 
 
@@ -40,10 +41,12 @@ h1
 .card
 {
   margin-top: 20px;
-  color: white;
-  background-color: black;
+  color: black;
+  background-color: white;
   font-family: Poppins;
   text-decoration: none;
+
+  border: 0.1em solid #af1c1c !important;
 }
 
 
@@ -51,7 +54,7 @@ h1
 .btn.btn-link
 {
 
-  color: white !important;
+  color: black !important;
   font-family: Poppins;
   font-size: 22px;
 
@@ -61,7 +64,7 @@ h1
 
 .btn.btn-link.collapsed
 {
-  color: white !important;
+  color: black !important;
   font-family: Poppins;
   font-size: 22px;
     cursor: pointer;
@@ -73,7 +76,7 @@ h1
 
   margin: auto !important;
   /* border-bottom: 1px solid white; */
-  background-color: black;
+  background-color: white;
 
 }
 
