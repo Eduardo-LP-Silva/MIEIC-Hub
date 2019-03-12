@@ -87,7 +87,6 @@ div#content div#files label {
 div#content input[type="submit"] {
     margin: auto;
     display: block;
-    border-radius: 0;
 }
 
 footer#footer {

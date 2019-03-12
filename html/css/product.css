@@ -75,8 +75,7 @@ div#content div#product div#info li {
 }
 
 div#content div#info div#buy button {
-    margin: 0 1em 0 0;
-    border-radius: 0;
+    margin: 0 1em 1em 0;
 }
 
 
@@ -105,22 +104,40 @@ div#content div#reviews div.rating {
     justify-content: flex-end;
 }
 
-
-@media (max-width: 767px) {
-    div#content div#product div#gallery  {
-        border-right: none;
-    }
-
-    /* Falta também para as estrelas não 
-        ficarem em cima do nome */
+div#content div#reviews div#add {
+    background-color: lightgrey;
 }
 
-/* ---------------------------------------- */
+div#content div#reviews div#add textarea {
+    width: 80%;
+    padding: .5em;
+}
+
+div#content div#reviews div#add button {
+    display: block;
+    margin: auto;
+}
+
+@media (max-width: 767px) {
+    div#content div#reviews div.media-body.row,div#content div#reviews div.media.container {
+        flex-direction: column;
+
+    }
+
+    div#content div#reviews div.rating {
+        justify-content: flex-start;
+        margin: .5em 0;
+    }
+
+    div#content div#reviews img, div#content div#reviews h5, div#content div#reviews textarea {
+        margin: .5em 0;
+    }
+}
 
 .carousel-control-next-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23af1c1c' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
 }
 
 .carousel-control-prev-icon{
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23af1c1c' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
 }

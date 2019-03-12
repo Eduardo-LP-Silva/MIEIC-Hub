@@ -111,7 +111,3 @@ html, body
     font-size: 16pt;
     text-align: right;
 }
-
-button#buy {
-    border-radius: 0;
-}
