@@ -172,7 +172,7 @@ body
 .settings input[type="text"], input[type="password"], input[type="email"], input[type="date"]
 {
   border: none;
-  /* border-bottom: 0.1em solid rgb(175, 28, 28); */
+  border-bottom: 0.1em solid rgb(175, 28, 28);
   background: transparent;
   outline: none;
   height: 2.7em;
@@ -200,7 +200,6 @@ body
 {
   border: 0.1em solid  white;
 }
-
 
 /*Icon*/
 .avatar
