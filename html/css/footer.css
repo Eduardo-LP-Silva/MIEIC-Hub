@@ -46,6 +46,11 @@
     padding-bottom: 0.8em;
 }
 
+#footer > a:focus
+{
+    outline: none;
+}
+
 #footer > span
 {
     border: 0.1em solid #af1c1c;;
