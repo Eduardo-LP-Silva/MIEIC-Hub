@@ -26,7 +26,7 @@
 {
     text-decoration: none;
     outline: none;
-} 
+}
 
 #banner > a:first-child
 {
@@ -104,7 +104,7 @@ body
   margin-bottom: 1.5em;
 }
 
-.register input[type="text"], input[type="password"], input[type="email"]
+.register input[type="text"], input[type="password"], input[type="email"], input[type="date"]
 {
   border: none;
   border-bottom: 0.1em solid rgb(175, 28, 28);
@@ -114,7 +114,7 @@ body
   color: white;
 }
 
-.register input[type="text"]::placeholder, input[type="password"]::placeholder, input[type="email"]::placeholder
+.register input[type="text"]::placeholder, input[type="password"]::placeholder, input[type="email"]::placeholder, input[type="date"]
 {
   color: white;
 }
