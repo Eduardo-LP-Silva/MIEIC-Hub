@@ -1,13 +1,47 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 @import url('https://fonts.googleapis.com/css?family=Raleway:900');
 
-#cont {
+@media (max-width: 991px)
+{
+	#separationver
+	{
+		display: none !important;
+	}
+	
+	.presentation
+	{
+		flex-direction: column !important;
+	}
+
+	.presentation > img
+	{
+		align-self: center !important;
+		margin-bottom: 1em !important;
+	}
+
+	#profilepicture
+	{
+		display: block;
+	}
+}
+
+.profile
+{
+	min-height: 18.9em; 
+}
+
+#cont 
+{
 	box-shadow: 0px 0px 20px 5px lightgrey;
 }
 
-.presentation {
+.presentation 
+{
 	margin:auto;
 	margin-top: 10px;
+
+	display: flex;
+	justify-content: space-between;
 }
 
 #name {
@@ -18,7 +52,7 @@
 }
 
 #separationver {
-	border: 1px solid grey;
+	border: 1px solid #af1c1c;
 	position: absolute;
 	left:-2px;
 	top:5%;
@@ -32,7 +66,7 @@
 }
 
 li.list-group-item:hover > img {
-	border: 1px solid grey;
+	border: 1px solid #af1c1c;
 	left: 100%;
 	top: -50%;
 	position: absolute;
@@ -42,25 +76,95 @@ li.list-group-item:hover > img {
 	height: 150px;
 }
 
-.otherinfo{
+.status
+{
+	height: 20%;
+}
+
+.status > small
+{
+	font-size: 12pt;
+	
+	overflow: auto;
+}
+
+.wishlist
+{
+	margin-bottom: 2em;
+}
+
+.wishlist > a:first-child > button
+{
+	background-color: #af1c1c;
+	color: white;
+
+	margin-left: 1em;
+
+	width: 5em;
+}
+
+.wishlist > button:hover > button
+{
+	color: white;
+}
+
+.wishlist > button:focus
+{
+	outline: none;
+}
+
+.wishlist > a > img
+{
+	position: absolute;
+	right: 2em;
+
+	width: 2.5em;
+}
+
+#options_buttons
+{
+	display: flex;
+	justify-content: center;
+	margin-top: 1em;
+}
+
+#options_buttons *
+{
+	background-color: #af1c1c;
+	border: none;
+}
+
+#options_buttons *:focus
+{
+	box-shadow: none;
+	background-color: #851818
+}
+
+#options_buttons > :first-child
+{
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+
+	border-right: thin solid #851818;
+}
+
+#options_buttons > :last-child
+{
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
 }
 
 #profilepicture {
 	width:100px;
 	height:100px;
   	border-radius: 50%;
-  	border:2px solid grey;
 }
 
-.separation {
+.separation 
+{
 	margin: 10px auto;
 	display: block;
 	border: 1px solid grey;
 	width:100%;
 	height:2px;
-}
-
-#buttongroup {
-	margin-left: 70px;
-	margin-top: 30px;
 }
