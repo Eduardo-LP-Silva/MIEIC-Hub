@@ -2,3 +2,9 @@ div#content div#price input {
     border: none;
     border-bottom: thin solid #af1c1c;
 }
+
+div#content div#price input:focus {
+    box-shadow: none;
+    border-color: #28a745;
+    border-width: medium;
+}
