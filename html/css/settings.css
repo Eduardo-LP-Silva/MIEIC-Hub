@@ -224,12 +224,7 @@ body
   margin-top: -1em;
 }
 
-.save:hover
-{
-  border: 0.01em solid white;
-}
-
 .save:focus
 {
-  border: 0.01em solid white;
+  outline: 0;
 }
