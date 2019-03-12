@@ -9,6 +9,19 @@
     padding-bottom: 0 !important;
   }
 
+  .save
+  {
+    position: static !important;
+    margin-top: 1em !important;
+    margin-bottom: 0em !important;
+  }
+
+  .btn.btn-link
+  {
+    margin-top: 1em !important;
+    color: black;
+  }
+
 }
 
 
@@ -63,9 +76,9 @@ overflow-x: hidden;
   font-size: 18pt;
 }
 
-.settings a
+.mb-0
 {
-    font-size: 18pt;
+  font-size: 13pt;
 }
 
 /*Edit button*/
@@ -99,7 +112,7 @@ overflow-x: hidden;
   background: transparent;
   outline: none;
   height: 2.7em;
-  color: white;
+  color: black;
   margin-top: 0.2em;
   width: 100%;
   margin-bottom: 1.5em;
@@ -112,15 +125,14 @@ overflow-x: hidden;
 
 #content input[type="button"]
 {
+    font-family: Poppins;
+  display: block;
   background:  rgb(175, 28, 28);
   color: white;
-  margin-top: 1em;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 2em;
 
-}
-
-#content input[type="button"]:hover
-{
-  border: 0.2em solid  black;
 }
 
 /*Icon*/
@@ -139,7 +151,8 @@ overflow-x: hidden;
 /*Save button*/
 .save
 {
-  position: static;
+  display: flex;
+  position: relative;
   background-color: transparent;
   float: right;
   border: none;
