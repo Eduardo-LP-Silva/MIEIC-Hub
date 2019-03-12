@@ -73,161 +73,78 @@
           </div>
       </nav>
 
-
-
-      <div class="settings">
-        <img src="../resources/images/website/settings-icon.png" class="avatar">  <h1>Settings</h1>
-
-        <div class="accordion" id="accordionExample">
-        <!--Email-->
-        <div class="card">
-          <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-              <a>Email: zecalanga@zecas.br</a>
-              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree"
-                aria-expanded="false" aria-controls="collapseThree">
-                Edit 🖋
-              </button>
-              <div id="collapseThree" class="collapse" aria-labelledby="headingThee" data-parent="#accordionExample">
-                <button class="save" type="button">💾</button>
+      <div id="content">
+        <img src="../resources/images/website/settings-icon.png" class="avatar">
+          <h1>Settings</h1>
+          <div class="accordion" id="accordionExample">
+          <!--Email-->
+           <div class="card">
+            <div class="card-header" id="headingThree">
+              <h5 class="mb-0">
+                <a>Email: zecalanga@zecas.br</a>
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree"
+                  aria-expanded="false" aria-controls="collapseThree">
+                  Edit 🖋
+                </button>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                  <button class="save" type="button">💾</button>
+                </div>
+              </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+              <div class="card-body">
+                <input type="email" name="emailadress" placeholder="   Enter Email">
               </div>
+            </div>
+          </div>
+            <!--Pass  -->
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+                <a>Password</a>
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo"
+                  aria-expanded="false" aria-controls="collapseTwo">
+                  Edit 🖋
+                </button>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <button class="save" type="button">💾</button>
+                </div>
+              </h5>
+            </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+              <input type="password" name="" placeholder="    Enter Password"><br>
+              <input type="password" name="" placeholder="   Confirm Password">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card">
+          <div class="card-header" id="headingFour">
+            <h5 class="mb-0">
+                <a>Birth day: 29/02/1998</a>
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseTwo">
+                  Edit 🖋
+                </button>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                <button class="save" type="button">💾</button>
+                </div>
             </h5>
           </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
             <div class="card-body">
-              <input type="email" name="emailadress" placeholder="   Enter Email">
+                <input type="date" name="bithdaydate">
             </div>
           </div>
         </div>
 
-      <!--Password -->
-      
-      <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h5 class="mb-0">
-            <a>Password</a>
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo"
-              aria-expanded="false" aria-controls="collapseTwo">
-              Edit 🖋
-            </button>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-              <button class="save" type="button">💾</button>
-            </div>
-        </div>
-        </h5>
-      </div>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-        <div class="card-body">
-          <input type="password" name="" placeholder="    Enter Password">
-          <input type="password" name="" placeholder="   Confirm Password">
-        </div>
-      </div>
+        <input type="button" name="Delete Account" value="Delete Account">
 
-      <!-- Birthday-->
-      <div class="card">
-        <div class="card-header" id="headingFour">
-          <h5 class="mb-0">
-              <a>Birth day: 29/02/1998</a>
-              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseTwo">
-                Edit 🖋
-              </button>
-              <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-              <button class="save" type="button">💾</button>
-              </div>
-          </h5>
-        </div>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-          <div class="card-body">
-              <input type="date" name="bithdaydate">
-          </div>
-        </div>
+
       </div>
-      <br>
-      <br>
-      <input type="submit" name="Delete Account" value="Delete Account">
     </div>
-  </div>
 
-        <!-- Username -->
-        <!-- <a>
-          Current Username: Zecas
-        </a>
-          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-           Edit Username
-         </button>
-
-
-      <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-          <input type="text" name="" placeholder="🕵🏻    Enter Username">
-          <input type="submit" name="" value="Change Username">
-        </div>
-      </div>
-      <br>
-      <br>
-
-        <!-- Password -->
-       <!-- <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
-         Edit Password
-      </button>
-
-      <div class="collapse" id="collapseExample2">
-        <div class="card card-body">
-          <input type="password" name="" placeholder="🔒    Enter Password">
-          <input type="password" name="" placeholder="🔐   Confirm Password">
-            <input type="submit" name="" value="Change Password">
-        </div>
-      </div>
-      <br>
-      <br> -->
-
-        <!--Mail-->
-        <!-- <a>
-          Current Mail: zecarlos@zecas.com
-        </a>
-          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
-           Edit Mail
-         </button>
-
-
-      <div class="collapse" id="collapseExample3">
-        <div class="card card-body">
-          <input type="email" name="emailadress" placeholder="📧   Enter Email">
-          <input type="submit" name="" value="Change Email">
-
-        </div>
-      </div>
-      <br>
-      <br>
-      <br>
-      <br> -->
-
-      <!--Birthday-->
-      <!-- <a>
-        Current Birthday: 22/07/1999
-      </a>
-        <button class="btn btn-third" type="button" data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample">
-         Edit bithday date
-       </button>
-
-      <div class="collapse" id="collapseExample4">
-        <div class="card card-body">
-          <a>Birthday:</a> <input type="date" name="bithdaydate">
-            <input type="submit" name="" value="Change date">
-        </div>
-      </div>
-      <br>
-      <br>
-
-
-            <br>
-            <br>
-            <input type="submit" name="Edit All" value="Edit All">
-            <br>
-
-            <input type="submit" name="Delete Account" value="Delete Account">
-
--->
 
       <footer id="footer">
           <a href="about.html">About us</a>
