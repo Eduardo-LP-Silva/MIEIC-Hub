@@ -6,7 +6,6 @@ div#content {
 }
 
 div#content div#product div#gallery {
-    /* border-right: solid; */
     margin: 1em 0;
 }
 
@@ -22,17 +21,53 @@ div#content div#product div#info h1 {
     display: inline-block;
 }
 
-div#content div#product div#info > button {
-    color: #218838;
+div#content div#product img.heart {
+    width: 2em;
+    padding-bottom: .6em;
+    margin-left: .5em;
 }
 
-div#content div#product div#info > button:active {
-    text-decoration: none;
+div#content div#product img.heart:hover {
+    cursor: pointer;
 }
 
 div#content div#product div#info h2 {
     font-size: 1.6em;
 }
+
+div#content div#product div#info h2#price {
+    margin-right: 1em;
+}
+
+div#content div#product div#info div.to-flex{
+    display: flex;
+}
+
+.stars-outer {
+    display: inline-block;
+    position: relative;
+    font-family: FontAwesome;
+}
+   
+.stars-outer::before {
+    content: "\f005 \f005 \f005 \f005 \f005";
+}
+
+.stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 67%;
+}
+
+.stars-inner::before {
+    content: "\f005 \f005 \f005 \f005 \f005";
+    color: orange;
+}
+
+/*********************/
 
 div#content div#info div#size {
     margin: 1em 0;
@@ -40,12 +75,15 @@ div#content div#info div#size {
 
 div#content div#info .btn-group button {
     background-color: #af1c1c;
-    border-radius: 0;
 }
 
 div#content div#info .btn-group button:hover {
     background-color: black;
     opacity: 0.8;
+}
+
+div#content div#info div#color .custom-select {
+    width: 25%;
 }
 
 div#content div#product div#info .accordion {
@@ -108,6 +146,10 @@ div#content div#reviews div#add {
     background-color: lightgrey;
 }
 
+div#content div#reviews div#add div.rating span:hover{
+    cursor: pointer;
+}
+
 div#content div#reviews div#add textarea {
     width: 80%;
     padding: .5em;
@@ -131,6 +173,10 @@ div#content div#reviews div#add button {
 
     div#content div#reviews img, div#content div#reviews h5, div#content div#reviews textarea {
         margin: .5em 0;
+    }
+
+    div#content div#info div#color .custom-select {
+        width: 75%;
     }
 }
 
