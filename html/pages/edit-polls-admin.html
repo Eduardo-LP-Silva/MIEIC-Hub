@@ -4,16 +4,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/navbar.css">
         <link rel="stylesheet" href="../css/footer.css">
-        <link rel="stylesheet" href="../css/cart.css">
+        <link rel="stylesheet" href="../css/polls.css">
+        <link rel="stylesheet" href="../css/edit-polls-admin.css">
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" defer></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
-        <script src="../js/cart.js" defer></script>
-        <title>Cart - MIEIC Hub</title>
+
+        <title>Edit polls - MIEIC Hub</title>
     </head>
     <body>
         <!--Banner-->
@@ -21,6 +21,7 @@
             <a href="./home.html">MIEIC</a>
             <a href="./home.html">Hub</a>
         </div>
+
         <!--Navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
@@ -73,29 +74,79 @@
                 </ul>
             </div>
         </nav>
-        <div id="list">
-            <a class="list-item" href="./product.html">
-                <img src="../resources/images/apparel/hoodie_3_single.jpg" alt="Product Picture">
-                <div class="div"></div>
-                <span>Mouse Hoodie</span>
-                <div class="div"></div>
-                <span>24.99€</span>
-                <i class="fa fa-minus"></i>
-            </a>
-            <a class="list-item" href="./product.html">
-                <img src="../resources/images/apparel/hoodie_2_smiley_single.jpg" alt="Product Picture">
-                <div class="div"></div>
-                <span>Smiley Hoodie</span>
-                <div class="div"></div>
-                <span>19.99€</span>
-                <i class="fa fa-minus"></i>
-            </a>
-            <div class="div"></div>
-            <div class="text-right"> 
-                <span></span>
-                <button id="buy" type="button" class="btn btn-success btn-lg"><a href="./checkout.html">Checkout</a></button>
+        
+        <!--Polls-->
+        <section class="poll">
+            <h1>Hoodies 2019</h1>
+            <button class="btn btn-success">Close poll</button>
+            <button class="btn btn-danger">Delete poll</button>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="design_container">
+                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
+                            <span>17</span>
+                            <img src="../resources/images/apparel/hoodie_1_red.jpg">
+                        </div>
+                        <h1>Design #1</h1>
+                    </div>
+                    <div class="col offset-md-1">
+                        <div class="design_container">
+                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
+                            <span>5</span>
+                            <img src="../resources/images/apparel/hoodie_2.jpg">
+                        </div>
+                        <h1>Design #2</h1>
+                    </div>
+                    <div class="col offset-md-1">
+                        <div class="design_container">
+                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
+                            <span>35</span>
+                            <img src="../resources/images/apparel/hoodie_3.jpg">
+                        </div>
+                        <h1>Design #3</h1>
+                    </div>
+                    <div class="col offset-md-1">
+                        <div class="design_container">
+                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
+                            <span>10</span>
+                            <img src="../resources/images/apparel/hoodie_5.jpg">
+                        </div>
+                        <h1>Design #4</h1>
+                    </div>
+                </div>
             </div>
-        </div>
+            <span>Poll expires on: </span>
+            <span>25-04-2019</span>
+        </section>
+        <section class="poll">
+            <h1>Misc January 19</h1>
+            <button class="btn btn-success">Close poll</button>
+            <button class="btn btn-danger">Delete poll</button>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="design_container">
+                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
+                            <span>17</span>
+                            <img src="../resources/images/posters/poster_1.jpg">
+                        </div>
+                        <h1>Item #1</h1>
+                    </div>
+                    <div class="col offset-md-1">
+                        <div class="design_container">
+                            <img src="../resources/icons/heart_empty.svg" alt="Vote" class="heart">
+                            <span>5</span>
+                            <img src="../resources/images/posters/poster_new_year.jpg">
+                        </div>
+                        <h1>Item #2</h1>
+                    </div>
+                </div>
+            </div>
+            <span>Poll expires on: </span>
+            <span>20-03-2019</span>
+        </section>
+        <!--Footer-->
         <footer id="footer">
             <a href="about.html">About us</a>
             <span></span>

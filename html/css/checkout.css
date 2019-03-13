@@ -6,3 +6,7 @@ div#items {
 .icon {
     width: 4em;
 }
+
+html {
+    background-color: white;
+}

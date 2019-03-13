@@ -111,3 +111,8 @@ html, body
     font-size: 16pt;
     text-align: right;
 }
+
+button#buy a, button#buy a:hover, button#buy a:visited {
+    text-decoration: none;
+    color: white;
+}
