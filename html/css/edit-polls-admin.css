@@ -20,7 +20,7 @@
     margin: auto;
 }
 
-#addPoll > button
+#addPoll > a > button
 {
     font-size: 16pt !important;
 
