@@ -14,8 +14,9 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" defer></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
-
+        
         <title>Edit Sweatshirt - MIEIC Hub</title>
+
     </head>
     <body>
         <!--Banner-->
@@ -160,14 +161,21 @@
                         </div>
 
                         <div id="informations" class="accordion">
-                            <div class="card">
-                                <div class="card-header" id="descriptionheader">
-                                    <h2 class="mb-0">
+                            <div id="descriptiondetails" class="card accordion">
+                                <div class="card-header row" id="descriptionheader">
+                                    <h2 class="mb-0 col-8">
                                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#description"
                                             aria-expanded="false" aria-controls="description">
                                             Description and details
                                         </button>
                                     </h2>
+                                    <div class="edit-save col-4">
+                                        <button id="edit-description" class="collapse save" aria-labelledby="price" data-parent="#descriptiondetails" type="button">💾</button>
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#edit-description"
+                                        aria-expanded="false">
+                                        Edit 🖋
+                                        </button>
+                                    </div>
                                 </div>
                                 <div id="description" class="collapse" aria-labelledby="descriptionheader" data-parent="#informations">
                                     <div class="card-body">
@@ -179,15 +187,27 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <div id="edit-description" class="collapse" aria-labelledby="descriptionheader" data-parent="#descriptiondetails">
+                                    <div class="card-body">
+                                        <input type="text" name="description" placeholder="Enter new description">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card">
-                                <div class="card-header" id="deliveryheader">
-                                    <h2 class="mb-0">
+                            <div id="deliveryinfo" class="card accordion">
+                                <div class="card-header row" id="deliveryheader">
+                                    <h2 class="mb-0 col-6">
                                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#delivery"
                                             aria-expanded="false" aria-controls="delivery">
                                             Delivery info
                                         </button>
                                     </h2>
+                                    <div class="edit-save col-6">
+                                        <button id="edit-delivery" class="collapse save" aria-labelledby="price" data-parent="#deliveryinfo" type="button">💾</button>
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#edit-delivery"
+                                        aria-expanded="false">
+                                        Edit 🖋
+                                        </button>
+                                    </div>
                                 </div>
                                 <div id="delivery" class="collapse" aria-labelledby="deliveryheader" data-parent="#informations">
                                     <div class="card-body">
@@ -214,6 +234,48 @@
                                                 <th scope="row">Rest of the world</th>
                                                 <td>8.99€</td>
                                                 <td>10-14</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="edit-delivery" class="collapse" aria-labelledby="deliveryheader" data-parent="#deliveryinfo">
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Region</th>
+                                                <th>Price</th>
+                                                <th>Business Days</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <th scope="row">Portugal</th>
+                                                <td>
+                                                    <input class="deliveryinput" type="number" min="0.01" step="0.01" name="price">
+                                                </td>
+                                                <td>
+                                                    <input class="deliveryinput" type="number" min="0.01" step="0.01" name="price">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Europe</th>
+                                                <td>
+                                                    <input class="deliveryinput" type="number" min="0.01" step="0.01" name="price">
+                                                </td>
+                                                <td>
+                                                    <input class="deliveryinput" type="number" min="0.01" step="0.01" name="price">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Rest of the world</th>
+                                                <td>
+                                                    <input class="deliveryinput" type="number" min="0.01" step="0.01" name="price">
+                                                </td>
+                                                <td>
+                                                    <input class="deliveryinput" type="number" min="0.01" step="0.01" name="price">
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
