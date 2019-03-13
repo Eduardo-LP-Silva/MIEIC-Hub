@@ -60,6 +60,13 @@ div#content input[type="text"], div#content input[type="number"], div#content te
   margin-bottom: 1.5em;
 }
 
+div#content input[type="number"].deliveryinput{
+  width: 40%;
+  margin-bottom:0;
+  margin-top:0;
+  height: 2em;
+}
+
 div.edit-save {
     display: flex;
     justify-content: flex-end;
