@@ -71,6 +71,10 @@ div#content div#description label {
     display: block;
 }
 
+div#content div label.to-block {
+    display: block;
+}
+
 div#content div#files input[type="file"] {
     display: none;
 }
