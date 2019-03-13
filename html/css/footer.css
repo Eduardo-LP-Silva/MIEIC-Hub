@@ -3,7 +3,6 @@
 {
     #footer
     {
-        position: static !important;
         flex-direction: column;
         height: 10em !important;
     }
@@ -22,6 +21,11 @@
     }
 }
 
+html
+{
+    background-color: black;
+}
+
 #footer
 {
     display: flex;
@@ -36,6 +40,8 @@
 
     background: black;
     color: white;
+
+    overflow: hidden;
 }
 
 #footer > a

@@ -9,11 +9,48 @@
     padding-bottom: 0 !important;
   }
 
+  #content
+  {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  #content > h1
+  {
+    font-size: 16pt !important;
+  }
+
   .save
   {
     position: static !important;
     margin-top: 1em !important;
     margin-bottom: 0em !important;
+  }
+
+  h5
+  {
+    flex-direction: column !important;
+  }
+
+  .card
+  {
+    width: 80% !important;
+    padding: 0 !important;
+  }
+
+  .card-header
+  {
+    padding: 0 !important;
+  }
+
+  .card_options
+  {
+    flex-direction: column-reverse !important;
+  }
+
+  .card_options > :first-child
+  {
+    padding-bottom: 1em;
   }
 
   .btn.btn-link
@@ -24,10 +61,36 @@
 
 }
 
-
-body
+h5
 {
-overflow-x: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.current_options > :first-child
+{
+  color: #af1c1c;
+}
+
+
+.current_options
+{
+  margin-bottom: 1em;
+  border-bottom: thin solid #af1c1c;
+}
+
+.card_options .save > i
+{
+  color: #af1c1c;
+  padding-top: 1em;
+}
+
+.card_options
+{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .btn.btn-primary
@@ -71,6 +134,7 @@ overflow-x: hidden;
 .card-header
 {
   border: 0.1em solid rgb(175, 28, 28);
+  border-bottom: 0.15em solid rgb(175, 28, 28);
   color: black;
   border-radius: 2em;
   font-size: 18pt;
@@ -123,18 +187,21 @@ overflow-x: hidden;
   color: black;
 }
 
-#content input[type="button"]
+#delete
 {
-    font-family: Poppins;
   display: block;
-  
+  width: 70%;
+  margin: auto;
+  margin-top: 0.5em;
+}
+
+#delete > input
+{
+  font-family: Poppins;
   background:  rgb(175, 28, 28);
   color: white;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  margin-top: 2em;
-
 }
+
 
 /*Icon*/
 .avatar
@@ -144,7 +211,6 @@ overflow-x: hidden;
   height: 6em;
   border-radius: 50%;
   position: relative;
-  float: left !important:;
   left: 0;
   left: calc(50% - 50px);
 }
@@ -182,7 +248,8 @@ div#content {
     height: 100%;
 }
 
-div#content h1 {
+div#content h1 
+{
     position: relative;
     word-wrap: break-word;
     display: flex;
@@ -193,7 +260,6 @@ div#content h1 {
     color: black;
     margin: auto !important;
     padding: .5em;
-    border-bottom: medium solid rgb(112, 112, 112);
     background-color: #af1c1c;
     color: white;
     width: 70%;
@@ -204,13 +270,19 @@ div#content div#files input[type="file"] {
     display: none;
 }
 
+#files
+{
+  width: 70%;
+  display: block;
+  margin: auto !important;
+}
+
 div#content div#files label {
     display: inline-block;
     background-color: rgb(175, 28, 28);
     padding: .5em;
     cursor: pointer;
     margin-top: 2em;
-    margin-left: 15%;
     color: white;
     font-style: Poppins;
     border-radius: 5%;
@@ -227,7 +299,6 @@ div#content input[type="submit"] {
   position: relative;
   margin-top: 3em;
 }
-
 
 footer#footer {
     margin-top: 0;

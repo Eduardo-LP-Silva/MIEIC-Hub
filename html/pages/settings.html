@@ -1,165 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="../css/settings.css">
-        <link rel="stylesheet" href="../css/navbar.css">
-        <link rel="stylesheet" href="../css/footer.css">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/settings.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/footer.css">
 
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" defer></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
-        <title>Settings - MIEIC Hub</title>
-    </head>
-    <body>
-      <!--Banner-->
-      <div id="banner">
-        <a href="./home.html">MIEIC</a>
-        <a href="./home.html">Hub</a>
-      </div>
-        <!--Navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav nav-fill w-100">
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" id="productsDD" role="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          Products
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="productsDD">
-                          <a class="dropdown-item" href="#">Apparel</a>
-                          <a class="dropdown-item" href="#">Phone Cases</a>
-                          <a class="dropdown-item" href="#">Stickers</a>
-                          <a class="dropdown-item" href="#">Posters</a>
-                          <a class="dropdown-item" href="#">Tickets</a>
-                      </div>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="./submit.html">Submit your design</a>
-                  </li>
-                  <li class="nav-item justify-content-center" id="searchBar">
-                      <form class="form-inline justify-content-center my-1">
-                          <input type="text" name="" placeholder="Search">
-                          <button type="button" class="btn btn-light"></button>
-                      </form>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="./polls.html">Upcoming</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" id="profileDD" role="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          <img src="../resources/icons/baseline-person-24px.svg" alt="Profile">
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="profileDD">
-                          <a class="dropdown-item" href="./profile.html">Profile</a>
-                          <a class="dropdown-item" href="./wishlist.html">Wishlist</a>
-                          <a class="dropdown-item" href="./settings.html">Settings</a>
-                          <a class="dropdown-item" href="./login.html">Sign-out</a>
-                      </div>
-                  </li>
-                  <li class="nav-item">
-                      <a href="./cart.html">
-                          <img src="../resources/icons/cart.svg" alt="Cart">
-                      </a>
-                  </li>
-              </ul>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
+    defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"
+    defer></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"
+    defer></script>
+  <title>Settings - MIEIC Hub</title>
+</head>
+
+<body>
+  <!--Banner-->
+  <div id="banner">
+    <a href="./home.html">MIEIC</a>
+    <a href="./home.html">Hub</a>
+  </div>
+  <!--Navbar-->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav nav-fill w-100">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="productsDD" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Products
+          </a>
+          <div class="dropdown-menu" aria-labelledby="productsDD">
+            <a class="dropdown-item" href="#">Apparel</a>
+            <a class="dropdown-item" href="#">Phone Cases</a>
+            <a class="dropdown-item" href="#">Stickers</a>
+            <a class="dropdown-item" href="#">Posters</a>
+            <a class="dropdown-item" href="#">Tickets</a>
           </div>
-      </nav>
-
-      <div id="content">
-        <img src="../resources/images/website/settings-icon.png" class="avatar">
-          <h1>Settings</h1>
-          <div class="accordion" id="accordionExample">
-          <!--Email-->
-           <div class="card">
-            <div class="card-header" id="headingThree">
-              <h5 class="mb-0">
-                <a>Email: zecalanga@zecas.br</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./submit.html">Submit your design</a>
+        </li>
+        <li class="nav-item justify-content-center" id="searchBar">
+          <form class="form-inline justify-content-center my-1">
+            <input type="text" name="" placeholder="Search">
+            <button type="button" class="btn btn-light"></button>
+          </form>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./polls.html">Upcoming</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="profileDD" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <img src="../resources/icons/baseline-person-24px.svg" alt="Profile">
+          </a>
+          <div class="dropdown-menu" aria-labelledby="profileDD">
+            <a class="dropdown-item" href="./profile.html">Profile</a>
+            <a class="dropdown-item" href="./wishlist.html">Wishlist</a>
+            <a class="dropdown-item" href="./settings.html">Settings</a>
+            <a class="dropdown-item" href="./login.html">Sign-out</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="./cart.html">
+            <img src="../resources/icons/cart.svg" alt="Cart">
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div id="content">
+    <img src="../resources/images/website/settings-icon.png" class="avatar">
+    <h1>Settings</h1>
+    <div class="accordion" id="accordionExample">
+      <!--Email-->
+      <div class="card">
+        <div class="card-header" id="headingThree">
+          <h5 class="mb-0">
+            <span>Email</span>
+            <div class="card_options">
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <button class="save" type="button"><i class="fa fa-save"></i></button>
+                </div>
                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree"
                   aria-expanded="false" aria-controls="collapseThree">
                   Edit 🖋
                 </button>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                  <button class="save" type="button">💾</button>
-                </div>
-              </h5>
             </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-              <div class="card-body">
-                <input type="email" name="emailadress" placeholder="   Enter Email">
-              </div>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+          <div class="card-body">
+            <div class="current_options">
+              <span>Current: </span>
+              <span>edward_s@gmail.com</span>
             </div>
+            <input type="email" name="emailadress" placeholder="   Enter Email">
           </div>
-            <!--Pass  -->
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h5 class="mb-0">
-                <a>Password</a>
+        </div>
+      </div>
+      <!--Pass  -->
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <h5 class="mb-0">
+            <a>Password</a>
+            <div class="card_options">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <button class="save" type="button"><i class="fa fa-save"></i></button>
+                </div>
                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo"
                   aria-expanded="false" aria-controls="collapseTwo">
                   Edit 🖋
                 </button>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                  <button class="save" type="button">💾</button>
-                </div>
-              </h5>
             </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-            <div class="card-body">
-              <input type="password" name="" placeholder="    Enter Password"><br>
-              <input type="password" name="" placeholder="   Confirm Password">
-            </div>
-          </div>
-
+          </h5>
         </div>
-
-        <div class="card">
-          <div class="card-header" id="headingFour">
-            <h5 class="mb-0">
-                <a>Birth day: 29/02/1998</a>
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseTwo">
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+          <div class="card-body">
+            <input type="password" name="" placeholder="    Enter Password"><br>
+            <input type="password" name="" placeholder="   Confirm Password">
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingFour">
+          <h5 class="mb-0">
+            <p>Date of birth</p>
+            <div class="card_options">
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                    <button class="save" type="button"><i class="fa fa-save"></i></button>
+                </div>
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour"
+                  aria-expanded="false" aria-controls="collapseTwo">
                   Edit 🖋
                 </button>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                <button class="save" type="button">💾</button>
-                </div>
-            </h5>
-          </div>
-          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-            <div class="card-body">
-                <input type="date" name="bithdaydate">
             </div>
+          </h5>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+          <div class="card-body">
+            <div class="current_options">
+              <span>Current: </span>
+              <span>22/01/1998</span>
+            </div>
+            <input type="date" name="bithdaydate">
           </div>
         </div>
-
-
-        <div id="files" class="form-group">
-            <label for="images" >Upload new profile picture<picture>
-            </picture> </label>
-            <input id="images" class="form-control-file" name="images" type="file" accept="image/png, image/jpeg" multiple>
-        </div>
-
+      </div>
+      <div id="files" class="form-group">
+        <label for="images">Upload new profile picture<picture>
+          </picture> </label>
+        <input id="images" class="form-control-file" name="images" type="file" accept="image/png, image/jpeg" multiple>
+      </div>
+      <div id="delete">
         <input type="button" name="Delete Account" value="Delete Account" class="btn">
-
-
       </div>
     </div>
-
-
-      <footer id="footer">
-          <a href="about.html">About us</a>
-          <span></span>
-          <a href="./faq.html">FAQ</a>
-          <span></span>
-          <p>Contact us at mieichub@gmail.com</p>
-      </footer>
-
-    </body>
-  </html>
+  </div>
+  <footer id="footer">
+    <a href="about.html">About us</a>
+    <span></span>
+    <a href="./faq.html">FAQ</a>
+    <span></span>
+    <p>Contact us at mieichub@gmail.com</p>
+  </footer>
+</body>
+</html>

@@ -13,7 +13,7 @@
     }
 }
 
-html, body
+body
 {
     height: 100%;
 }
@@ -70,4 +70,10 @@ html, body
 .list-item > span > p:first-child
 {
     border-bottom: 0.1em solid #af1c1c;
+}
+
+.list-item > i
+{
+    font-size: 30pt;
+    color: red;
 }
