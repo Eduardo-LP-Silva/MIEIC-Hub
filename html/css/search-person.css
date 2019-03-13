@@ -11,6 +11,11 @@
     {
         display: none;
     }
+
+    .date
+    {
+        max-height: 4em !important;
+    }
 }
 
 body

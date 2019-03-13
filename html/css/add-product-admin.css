@@ -1,10 +1,21 @@
 div#content div#price input {
     border: none;
     border-bottom: thin solid #af1c1c;
+    width: 5em;
 }
 
 div#content div#price input:focus {
     box-shadow: none;
     border-color: #28a745;
     border-width: medium;
+}
+
+#description > textarea
+{
+    resize: none;
+}
+
+#content > h1
+{
+    border-bottom: none !important;
 }

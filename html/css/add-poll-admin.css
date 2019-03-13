@@ -5,3 +5,8 @@ input[type="date"] {
     border: none;
     border-bottom: thin solid #af1c1c;
 }
+
+#content > h1
+{
+    border-bottom: none !important;
+}

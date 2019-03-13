@@ -3,7 +3,8 @@
     #content > h1
     {
         font-size: 18pt !important;
-
+        width: 100% !important;
+        margin: 0 !important;
     }
 }
 
@@ -19,6 +20,8 @@ div#items {
 #content > h1
 {
     border: none !important;
+    width: 70%;
+    margin: auto !important;
 }
 
 #items > .div

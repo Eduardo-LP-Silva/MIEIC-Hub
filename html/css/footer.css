@@ -21,11 +21,6 @@
     }
 }
 
-html
-{
-    background-color: black;
-}
-
 #footer
 {
     display: flex;

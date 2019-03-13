@@ -142,10 +142,6 @@ div#content div#reviews div.rating {
     justify-content: flex-end;
 }
 
-div#content div#reviews div#add {
-    background-color: lightgrey;
-}
-
 div#content div#reviews div#add div.rating span:hover{
     cursor: pointer;
 }
@@ -153,6 +149,7 @@ div#content div#reviews div#add div.rating span:hover{
 div#content div#reviews div#add textarea {
     width: 80%;
     padding: .5em;
+    resize: none;
 }
 
 div#content div#reviews div#add button {

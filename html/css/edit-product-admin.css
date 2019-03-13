@@ -79,3 +79,13 @@ div#content div#product div#info h2#price {
 h1#title {
     display: block;
 }
+
+#descriptiondetails, #deliveryinfo
+{
+  border: none;
+}
+
+#info > button.btn.btn-danger
+{
+  background-color: rgb(175, 28, 28);
+}
