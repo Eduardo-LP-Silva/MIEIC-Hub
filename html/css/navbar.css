@@ -95,12 +95,6 @@ nav
     transform: scale(1.2);
 }
 
-/* Separators */
-.nav-item:not(:last-child)
-{
-    border-right: 0.15em solid rgb(175, 28, 28);
-}
-
 /* Dropdowns */
 .dropdown-menu
 {

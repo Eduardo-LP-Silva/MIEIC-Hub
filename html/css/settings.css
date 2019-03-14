@@ -15,9 +15,9 @@
     padding: 0 !important;
   }
 
-  #content > h1
+  #content > div:first-child > h1
   {
-    font-size: 16pt !important;
+    font-size: 22pt !important;
   }
 
   .save
@@ -59,6 +59,17 @@
     color: black;
   }
 
+  .avatar
+  {
+    width: 3em !important;
+    height: 3em !important;
+  }
+
+}
+
+body
+{
+  background-color: #f3f3f3;
 }
 
 h5
@@ -72,7 +83,6 @@ h5
 {
   color: #af1c1c;
 }
-
 
 .current_options
 {
@@ -193,6 +203,7 @@ h5
   width: 70%;
   margin: auto;
   margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 #delete > input
@@ -202,17 +213,25 @@ h5
   color: white;
 }
 
+#content > div:first-child
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 70%;
+  margin: auto;
+  margin-top: 1em;
+
+  border-bottom: 0.2em solid #af1c1c;
+}
 
 /*Icon*/
 .avatar
 {
-  margin-bottom: 1em;
-  width: 6em;
-  height: 6em;
-  border-radius: 50%;
-  position: relative;
-  left: 0;
-  left: calc(50% - 50px);
+  width: 5em;
+  height: 5em;
+  margin-bottom: 0.5em;
 }
 
 /*Save button*/
@@ -241,8 +260,6 @@ div#content {
     margin: auto !important;
     background-color: white;
     color: black;
-    border-left: thin solid #af1c1c;
-    border-right: thin solid #af1c1c;
     font-family: Poppins;
     padding: 1em;
     height: 100%;
@@ -250,20 +267,8 @@ div#content {
 
 div#content h1 
 {
-    position: relative;
-    word-wrap: break-word;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.5em;
-    color: black;
-    margin: auto !important;
-    padding: .5em;
-    background-color: #af1c1c;
-    color: white;
-    width: 70%;
-
+  color: black;
+  
 }
 
 div#content div#files input[type="file"] {

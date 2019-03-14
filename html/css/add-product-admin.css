@@ -1,3 +1,8 @@
+body
+{
+    background-color: #f3f3f3;
+}
+
 div#content div#price input {
     border: none;
     border-bottom: thin solid #af1c1c;
@@ -17,5 +22,8 @@ div#content div#price input:focus {
 
 #content > h1
 {
-    border-bottom: none !important;
+    border-bottom: 0.1em solid #af1c1c;
+
+    margin-top: 0.5em;
+    margin-bottom: 1em !important;
 }

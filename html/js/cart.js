@@ -27,5 +27,5 @@ function updateFinalPrice()
 
     let finalPriceElement = document.querySelector("#list > div:last-child > span");
 
-    finalPriceElement.textContent = "Total: " + finalPrice;
+    finalPriceElement.textContent = "Total: " + finalPrice + "€";
 }

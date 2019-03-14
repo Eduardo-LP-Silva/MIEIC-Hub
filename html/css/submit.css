@@ -5,6 +5,7 @@
 
 body {
     overflow-x: hidden;
+    background-color: #f3f3f3;
 }
 
 div#content {
@@ -18,9 +19,6 @@ div#content {
 
 div#content > form {
     font-size: 1.1em;
-}
-
-div#content > form > div{
 }
 
 /*
@@ -37,8 +35,8 @@ div#content h1 {
     font-family: Poppins;
     font-size: 24pt;
     border-bottom: 0.1em solid #af1c1c;
-    padding-bottom: 0.2em;
-    margin-bottom:0.5em;
+    padding-bottom: 0.5em !important;
+    margin-top:0.5em;
     /*
     text-align: center;
     font-weight: bold;

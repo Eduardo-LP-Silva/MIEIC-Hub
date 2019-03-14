@@ -1,12 +1,19 @@
-input[type="date"] {
+body
+{
+    background-color: #f3f3f3;
+}
+#content > h1
+{
+    border-bottom: 0.1em solid #af1c1c !important;
+    margin-top: 0.3em;
+    margin-bottom: 1em !important;
+}
+
+input[type="date"] 
+{
     max-width: 100%;
     padding: .5em;
     box-shadow: none;
     border: none;
     border-bottom: thin solid #af1c1c;
-}
-
-#content > h1
-{
-    border-bottom: none !important;
 }
