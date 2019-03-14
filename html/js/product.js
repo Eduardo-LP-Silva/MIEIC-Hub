@@ -1,6 +1,7 @@
 window.onload = function() {
     addHeartListener();
     addStarsListeners();
+    addSizeListener();
 }
 
 
@@ -8,17 +9,20 @@ function addHeartListener()
 {
     let heart = document.querySelector(".heart");
 
-    heart.addEventListener("click", function() {
+    heart.addEventListener("click", function() 
+    {
         //Change condition to sync with db
 
-        if(heart.getAttribute("src") == "../resources/icons/heart_empty.svg")
+        if(heart.classList.contains("far"))
         {
-            heart.setAttribute("src", "../resources/icons/heart_full.svg");
-        } 
-        else
+            heart.classList.remove("far");
+            heart.classList.add("fa");
+        }
+        else 
         {
-            heart.setAttribute("src", "../resources/icons/heart_empty.svg");
-        } 
+            heart.classList.remove("fa");
+            heart.classList.add("far");
+        }
     });
 }
 
@@ -41,4 +45,20 @@ function addStarsListeners() {
             }
         });
     }
+}
+
+function addSizeListener()
+{
+    let buttons = document.querySelectorAll("div#content div#info .btn-group button");
+
+    for(let i = 0; i < buttons.length; i++)
+        buttons[i].addEventListener("click", function()
+        {
+            for(let j = 0; j < buttons.length; j++)
+                if(buttons[j].style.backgroundColor == "rgb(175, 28, 28)" && buttons[j] != buttons[i])
+                    buttons[j].style.backgroundColor = "black";
+
+
+            buttons[i].style.backgroundColor = "#af1c1c";
+        });
 }

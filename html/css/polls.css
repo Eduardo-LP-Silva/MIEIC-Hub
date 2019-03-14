@@ -75,10 +75,12 @@
     margin-top: 0.5em;
 }
 
-.poll .design_container > img:first-child
+.poll .design_container > i
 {
     width: 1em;
     margin-bottom: 0.25em;
+    margin-left: 0.4em;
+    color: #af1c1c;
 }
 
 .poll .design_container > img:nth-child(3)
