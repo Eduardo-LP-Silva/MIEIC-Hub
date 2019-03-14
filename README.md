@@ -12,9 +12,9 @@
 * User Requirements specification
     * [A1: Project presentation](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/a1)
     * [A2: Actors and User stories](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/a2)
-    * A3: User Interfaces Prototype
+    * [A3: User Interfaces Prototype](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/a3)
 * Database specification
-    * A4: Conceptual Data Model
+    * [A4: Conceptual Data Model](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/a4)
     * A5: Relational schema, validation and schema refinement
     * A6: Integrity constraints. Indexes, triggers, user functions and database populated with data
 * Architecture specification and Prototype
