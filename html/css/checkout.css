@@ -38,6 +38,7 @@ div#items {
     width: 100%;
 }
 
-html {
-    background-color: white;
+html, body
+{
+    background-color: #f3f3f3;
 }
