@@ -29,15 +29,17 @@ function addHeartListeners()
         {
             //Change condition to sync with db
     
-            if(hearts[i].getAttribute("src") == "../resources/icons/heart_empty.svg")
+            if(hearts[i].classList.contains("far"))
             {
-                hearts[i].setAttribute("src", "../resources/icons/heart_full.svg");
+                hearts[i].classList.remove("far");
+                hearts[i].classList.add("fa");
                 hearts[i].nextElementSibling.textContent = parseInt(hearts[i].nextElementSibling.textContent) + 1;
                 hearts[i].parentElement.style.borderColor = "#af1c1c";
             } 
             else
             {
-                hearts[i].setAttribute("src", "../resources/icons/heart_empty.svg");
+                hearts[i].classList.remove("fa");
+                hearts[i].classList.add("far");
                 hearts[i].nextElementSibling.textContent = parseInt(hearts[i].nextElementSibling.textContent) - 1;
                 hearts[i].parentElement.style.borderColor = "black";
             } 

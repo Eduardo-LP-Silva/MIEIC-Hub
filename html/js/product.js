@@ -8,17 +8,20 @@ function addHeartListener()
 {
     let heart = document.querySelector(".heart");
 
-    heart.addEventListener("click", function() {
+    heart.addEventListener("click", function() 
+    {
         //Change condition to sync with db
 
-        if(heart.getAttribute("src") == "../resources/icons/heart_empty.svg")
+        if(heart.classList.contains("far"))
         {
-            heart.setAttribute("src", "../resources/icons/heart_full.svg");
-        } 
-        else
+            heart.classList.remove("far");
+            heart.classList.add("fa");
+        }
+        else 
         {
-            heart.setAttribute("src", "../resources/icons/heart_empty.svg");
-        } 
+            heart.classList.remove("fa");
+            heart.classList.add("far");
+        }
     });
 }
 

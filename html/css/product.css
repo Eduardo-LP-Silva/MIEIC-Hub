@@ -21,13 +21,15 @@ div#content div#product div#info h1 {
     display: inline-block;
 }
 
-div#content div#product img.heart {
-    width: 2em;
+div#content div#product i.heart 
+{
+    font-size: 14pt;
+    color: #af1c1c;
     padding-bottom: .6em;
     margin-left: .5em;
 }
 
-div#content div#product img.heart:hover {
+div#content div#product i.heart:hover {
     cursor: pointer;
 }
 
