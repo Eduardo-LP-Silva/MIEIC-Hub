@@ -5,6 +5,7 @@
 
 body {
     overflow-x: hidden;
+    background: #ededed;
 }
 
 div#content {
@@ -38,7 +39,8 @@ div#content h1 {
     font-size: 24pt;
     border-bottom: 0.1em solid #af1c1c;
     padding-bottom: 0.2em;
-    margin-bottom:0.5em;
+    margin-bottom:1em;
+    margin-top: 0.5em;
     /*
     text-align: center;
     font-weight: bold;
