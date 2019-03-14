@@ -7,18 +7,11 @@ body {
     overflow-x: hidden;
 }
 
-#content > h1
-{
-    border-bottom: none !important;
-}
-
 div#content {
     width: 70%;
     margin: auto;
     background-color: white;
     color: black;
-    border-left: thin solid #af1c1c;
-    border-right: thin solid #af1c1c;
     font-family: Poppins;
     padding: 1em;
 }
@@ -28,10 +21,25 @@ div#content > form {
 }
 
 div#content > form > div{
-    margin: 1em;
 }
 
+/*
+section > h1
+{
+    font-family: Poppins;
+    font-size: 24pt;
+    border-bottom: 0.1em solid #af1c1c;
+    padding-bottom: 0.1em;
+}
+*/
+
 div#content h1 {
+    font-family: Poppins;
+    font-size: 24pt;
+    border-bottom: 0.1em solid #af1c1c;
+    padding-bottom: 0.2em;
+    margin-bottom:0.5em;
+    /*
     text-align: center;
     font-weight: bold;
     font-size: 1.8em;
@@ -41,7 +49,7 @@ div#content h1 {
     padding: .5em;
     border-bottom: medium solid rgb(112, 112, 112);
     background-color: #af1c1c;
-    color: white;
+    color: white;*/
 }
 
 div#content form > div > label {
@@ -95,7 +103,6 @@ div#content div#files label {
 }
 
 div#content input[type="submit"] {
-    margin: auto;
     display: block;
 }
 
