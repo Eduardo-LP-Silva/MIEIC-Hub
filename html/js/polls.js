@@ -41,7 +41,7 @@ function addHeartListeners()
                 hearts[i].classList.remove("fa");
                 hearts[i].classList.add("far");
                 hearts[i].nextElementSibling.textContent = parseInt(hearts[i].nextElementSibling.textContent) - 1;
-                hearts[i].parentElement.style.borderColor = "black";
+                hearts[i].parentElement.style.borderColor = "#969696";
             } 
         });
 }
