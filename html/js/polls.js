@@ -39,7 +39,7 @@ function addHeartListeners()
             {
                 hearts[i].setAttribute("src", "../resources/icons/heart_empty.svg");
                 hearts[i].nextElementSibling.textContent = parseInt(hearts[i].nextElementSibling.textContent) - 1;
-                hearts[i].parentElement.style.borderColor = "black";
+                hearts[i].parentElement.style.borderColor = "#969696";
             } 
         });
 }

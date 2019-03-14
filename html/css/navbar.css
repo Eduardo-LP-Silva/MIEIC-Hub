@@ -72,8 +72,8 @@
 /* Navbar general */
 nav
 {
-    border-top: 0.1em solid gray;
-    border-bottom: 0.1em solid gray;
+    border-top: 0.1em solid #2d2a2a;
+    border-bottom: 0.1em solid #2d2a2a;
 }
 
 /* Items */

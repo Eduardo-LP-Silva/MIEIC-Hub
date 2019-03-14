@@ -107,7 +107,6 @@ html, body
 #list > div:last-child > span
 {
     margin-right: 1.5em;
-
     font-size: 16pt;
     text-align: right;
 }
