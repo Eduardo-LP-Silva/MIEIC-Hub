@@ -75,13 +75,17 @@ div#content div#info div#size {
     margin: 1em 0;
 }
 
+div#content div#info .btn-group button:focus
+{
+    box-shadow: none;
+}
+
 div#content div#info .btn-group button {
-    background-color: #af1c1c;
+    background-color: black;
 }
 
 div#content div#info .btn-group button:hover {
-    background-color: black;
-    opacity: 0.8;
+    background-color: #af1c1c;
 }
 
 div#content div#info div#color .custom-select {

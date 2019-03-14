@@ -1,6 +1,7 @@
 window.onload = function() {
     addHeartListener();
     addStarsListeners();
+    addSizeListener();
 }
 
 
@@ -44,4 +45,20 @@ function addStarsListeners() {
             }
         });
     }
+}
+
+function addSizeListener()
+{
+    let buttons = document.querySelectorAll("div#content div#info .btn-group button");
+
+    for(let i = 0; i < buttons.length; i++)
+        buttons[i].addEventListener("click", function()
+        {
+            for(let j = 0; j < buttons.length; j++)
+                if(buttons[j].style.backgroundColor == "rgb(175, 28, 28)" && buttons[j] != buttons[i])
+                    buttons[j].style.backgroundColor = "black";
+
+
+            buttons[i].style.backgroundColor = "#af1c1c";
+        });
 }
