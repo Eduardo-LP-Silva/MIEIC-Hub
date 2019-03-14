@@ -158,9 +158,13 @@ div#content div#reviews div#add textarea {
     resize: none;
 }
 
-div#content div#reviews div#add button {
+div#content div#reviews div#add button 
+{
     display: block;
     margin: auto;
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 6.5em;
 }
 
 @media (max-width: 767px) {
