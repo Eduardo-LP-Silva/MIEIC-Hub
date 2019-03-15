@@ -1,15 +1,5 @@
 @media (max-width: 991px)
 {
-    #content
-    {
-        width: 100% !important;
-    }
-
-    #list
-    {
-        min-height: 20em !important;
-    }
-    
     .list-item
     {
         flex-direction: column !important;
@@ -23,59 +13,14 @@
     }
 }
 
-html, body
+body
 {
     height: 100%;
 }
 
-body
-{
-    background-color: #f3f3f3;
-}
-
-#content
-{
-    min-height: 58.5% !important;
-}
-
-#content > h1
-{
-    border-bottom: 0.1em solid #af1c1c !important;
-    margin-top: 0.3em;
-    margin-bottom: 1em !important;
-}
-
-#content label
-{
-    font-size: 16pt;
-}
-
-input[type="date"] 
-{
-    max-width: 100%;
-    padding: .5em;
-    box-shadow: none;
-    border: none;
-    border-bottom: thin solid #af1c1c;
-}
-
-#designs > h4
-{
-    display: inline-block;
-
-    font-size: 16pt;
-
-    border-bottom: 0.1em solid #af1c1c;
-    margin-bottom: 1em;
-    margin-top: 1em;
-    padding-bottom: 0.3em;
-}
-
 #list
 {
-    height: 8em !important;
-    overflow-y: auto;
-    margin-bottom: 1em;
+    min-height: 50% !important;
 }
 
 .list-item
@@ -134,8 +79,27 @@ input[type="date"]
     height: 4em;
 }
 
+.list-item > div:last-child > *
+{
+    font-size: 20pt;
+    cursor: pointer;
+}
+
+.list-item > div:last-child > :first-child
+{
+    margin-right: 1em;
+    color: green;
+}
+
+.list-item > div:last-child > :last-child
+{
+    color: red;
+}
+
 .div
 {
     border: 0.01em solid #af1c1c;
     height: 50%;
 }
+  
+ 
