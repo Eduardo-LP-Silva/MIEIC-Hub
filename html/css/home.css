@@ -117,7 +117,7 @@ section > h1
 
 #panels .col:hover
 {
-    transform: scale(1.1);
+    transform: scale(1.05);
     color: #af1c1c;
     border-color: #af1c1c;
     border-width: 0.2em;

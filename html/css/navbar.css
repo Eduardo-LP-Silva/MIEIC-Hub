@@ -92,7 +92,7 @@ nav
 .nav-item > a:hover
 {
     color: red !important;
-    transform: scale(1.2);
+    transform: scale(1.05);
 }
 
 /* Dropdowns */
