@@ -1,3 +1,5 @@
+CREATE TYPE PackageStatus AS ENUM ('AwaitingPayment', 'Processing', 'InTransit', 'Delivered', 'Canceled');
+
 CREATE TABLE Client 
 (
     idUser SERIAL PRIMARY KEY,
@@ -79,12 +81,6 @@ CREATE TABLE DeliveryInfo
     deliveryAddress TEXT NOT NULL
 );
 
-CREATE TABLE DeliveryStatus
-(
-    idStatus SERIAL PRIMARY KEY,
-    statusMessage TEXT NOT NULL
-);
-
 CREATE TABLE ProductPurchase
 (
     idProduct INTEGER NOT NULL REFERENCES Product,
@@ -103,7 +99,7 @@ CREATE TABLE Purchase
     idDeliInfo INTEGER NOT NULL REFERENCES DeliveryInfo,
     purchaseDate DATE NOT NULL,
     total FLOAT NOT NULL CHECK(total >= 0),
-    idStatus INTEGER NOT NULL REFERENCES DeliveryStatus
+    status PackageStatus NOT NULL
 );
 
 CREATE TABLE Review
