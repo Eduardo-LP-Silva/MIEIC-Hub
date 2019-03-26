@@ -43,6 +43,12 @@ CREATE TABLE Size
     size TEXT UNIQUE NOT NULL
 );
 
+CREATE TABLE Photo 
+(
+    imagePath TEXT UNIQUE NOT NULL,
+    idProduct INTEGER NOT NULL REFERENCES Product PRIMARY KEY
+);
+
 CREATE TABLE Product
 (
     idProduct SERIAL PRIMARY KEY,
@@ -81,6 +87,16 @@ CREATE TABLE DeliveryInfo
     deliveryAddress TEXT NOT NULL
 );
 
+CREATE TABLE Purchase
+(
+    idPurchase SERIAL PRIMARY KEY,
+    idUser INTEGER NOT NULL REFERENCES Client,
+    idDeliInfo INTEGER NOT NULL REFERENCES DeliveryInfo,
+    purchaseDate DATE NOT NULL,
+    total FLOAT NOT NULL CHECK(total >= 0),
+    status PackageStatus NOT NULL
+);
+
 CREATE TABLE ProductPurchase
 (
     idProduct INTEGER NOT NULL REFERENCES Product,
@@ -90,16 +106,6 @@ CREATE TABLE ProductPurchase
     idSize INTEGER REFERENCES Size,
     idColor INTEGER REFERENCES Color,
     PRIMARY KEY (idProduct, idPurchase)
-);
-
-CREATE TABLE Purchase
-(
-    idPurchase SERIAL PRIMARY KEY,
-    idUser INTEGER NOT NULL REFERENCES Client,
-    idDeliInfo INTEGER NOT NULL REFERENCES DeliveryInfo,
-    purchaseDate DATE NOT NULL,
-    total FLOAT NOT NULL CHECK(total >= 0),
-    status PackageStatus NOT NULL
 );
 
 CREATE TABLE Review
