@@ -1,6 +1,6 @@
 CREATE TYPE PackageStatus AS ENUM ('AwaitingPayment', 'Processing', 'InTransit', 'Delivered', 'Canceled');
 
-CREATE TABLE Client 
+CREATE TABLE "User" 
 (
     idUser SERIAL PRIMARY KEY,
     username TEXT UNIQUE NOT NULL,
@@ -12,17 +12,17 @@ CREATE TABLE Client
 
 CREATE TABLE StockManager 
 (
-    idUser INTEGER PRIMARY KEY REFERENCES Client
+    idUser INTEGER PRIMARY KEY REFERENCES "User"
 );
 
 CREATE TABLE Moderator
 (
-    idUser INTEGER PRIMARY KEY REFERENCES Client
+    idUser INTEGER PRIMARY KEY REFERENCES "User"
 );
 
 CREATE TABLE SubmissionManager
 (
-    idUser INTEGER PRIMARY KEY REFERENCES Client
+    idUser INTEGER PRIMARY KEY REFERENCES "User"
 );
 
 CREATE TABLE Category
@@ -52,8 +52,9 @@ CREATE TABLE Photo
 CREATE TABLE Product
 (
     idProduct SERIAL PRIMARY KEY,
-    product TEXT NOT NULL,
-    price FLOAT NOT NULL CHECK(price >= 0),
+    productName TEXT NOT NULL,
+    productDescription TEXT NOT NULL,
+    price FLOAT NOT NULL CHECK(price > 0),
     stock INTEGER NOT NULL CHECK(stock >= 0),
     rating FLOAT NOT NULL CHECK(rating >= 0 AND rating <= 5),
     idCategory INTEGER NOT NULL REFERENCES Category
@@ -90,9 +91,9 @@ CREATE TABLE DeliveryInfo
 CREATE TABLE Purchase
 (
     idPurchase SERIAL PRIMARY KEY,
-    idUser INTEGER NOT NULL REFERENCES Client,
+    idUser INTEGER NOT NULL REFERENCES "User",
     idDeliInfo INTEGER NOT NULL REFERENCES DeliveryInfo,
-    purchaseDate DATE NOT NULL,
+    purchaseDate TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     total FLOAT NOT NULL CHECK(total >= 0),
     status PackageStatus NOT NULL
 );
@@ -102,7 +103,7 @@ CREATE TABLE ProductPurchase
     idProduct INTEGER NOT NULL REFERENCES Product,
     idPurchase INTEGER NOT NULL REFERENCES Purchase,
     quantity INTEGER NOT NULL CHECK(quantity > 0),
-    price FLOAT NOT NULL CHECK(price >= 0),
+    price FLOAT NOT NULL CHECK(price > 0),
     idSize INTEGER REFERENCES Size,
     idColor INTEGER REFERENCES Color,
     PRIMARY KEY (idProduct, idPurchase)
@@ -110,17 +111,17 @@ CREATE TABLE ProductPurchase
 
 CREATE TABLE Review
 (
-    idUser INTEGER NOT NULL REFERENCES Client,
+    idUser INTEGER NOT NULL REFERENCES "User",
     idProduct INTEGER NOT NULL REFERENCES Product,
     comment TEXT NOT NULL,
-    reviewDate DATE NOT NULL,
+    reviewDate TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     rating INTEGER NOT NULL CHECK(rating > 0 AND rating <= 5),
     PRIMARY KEY (idUser, idProduct)
 );
 
 CREATE TABLE Cart
 (
-    idUser INTEGER NOT NULL REFERENCES Client,
+    idUser INTEGER NOT NULL REFERENCES "User",
     idProduct INTEGER NOT NULL REFERENCES Product,
     quantity INTEGER NOT NULL CHECK(quantity > 0),
     PRIMARY KEY (idUser, idProduct)
@@ -128,7 +129,7 @@ CREATE TABLE Cart
 
 CREATE TABLE Wishlist
 (
-    idUser INTEGER NOT NULL REFERENCES Client,
+    idUser INTEGER NOT NULL REFERENCES "User",
     idProduct INTEGER NOT NULL REFERENCES Product,
     PRIMARY KEY (idUser, idProduct)
 );
@@ -143,7 +144,7 @@ CREATE TABLE FAQ
 CREATE TABLE Poll
 (
     idPoll SERIAL PRIMARY KEY,
-    poll TEXT UNIQUE NOT NULL,
+    pollName TEXT UNIQUE NOT NULL,
     pollDate DATE NOT NULL,
     expiration DATE NOT NULL,
     active BOOLEAN NOT NULL
@@ -152,21 +153,21 @@ CREATE TABLE Poll
 CREATE TABLE Submission
 (
     idSubmission SERIAL PRIMARY KEY,
-    idUser INTEGER NOT NULL REFERENCES Client,
-    submission TEXT NOT NULL,
+    idUser INTEGER NOT NULL REFERENCES "User",
+    submissionName TEXT NOT NULL,
     idCategory INTEGER NOT NULL REFERENCES Category,
     submissionDescription TEXT NOT NULL,
     picture TEXT NOT NULL,
-    submissionDate DATE NOT NULL,
+    submissionDate TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     accepted BOOLEAN NOT NULL,
-    votes INTEGER NOT NULL CHECK(votes >= 0),
+    votes INTEGER DEFAULT 0 NOT NULL CHECK(votes >= 0),
     winner BOOLEAN NOT NULL,
     idPoll INTEGER NOT NULL REFERENCES Poll
 );
 
-CREATE TABLE ClientSubVote
+CREATE TABLE UserSubVote
 (
-    idUser INTEGER NOT NULL REFERENCES Client,
+    idUser INTEGER NOT NULL REFERENCES "User",
     idSub INTEGER NOT NULL REFERENCES Submission,
     PRIMARY KEY (idUser, idSub)
 );
