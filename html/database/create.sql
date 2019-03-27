@@ -43,13 +43,6 @@ CREATE TABLE Size
     size TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE Photo 
-(
-    idPhoto SERIAL PRIMARY KEY,
-    imagePath TEXT UNIQUE NOT NULL,
-    idProduct INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE
-);
-
 CREATE TABLE Product
 (
     idProduct SERIAL PRIMARY KEY,
@@ -59,6 +52,13 @@ CREATE TABLE Product
     stock INTEGER NOT NULL CHECK(stock >= 0),
     rating FLOAT NOT NULL CHECK(rating >= 0 AND rating <= 5),
     idCategory INTEGER NOT NULL REFERENCES Category ON UPDATE CASCADE
+);
+
+CREATE TABLE Photo 
+(
+    idPhoto SERIAL PRIMARY KEY,
+    imagePath TEXT UNIQUE NOT NULL,
+    idProduct INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE
 );
 
 CREATE TABLE ProductColor
