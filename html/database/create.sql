@@ -25,58 +25,53 @@ DROP TABLE IF EXISTS UserSubVote CASCADE;
 
 CREATE TYPE PackageStatus AS ENUM ('AwaitingPayment', 'Processing', 'InTransit', 'Delivered', 'Canceled');
 
-CREATE TABLE "User" 
+CREATE TABLE Users
 (
-    idUser SERIAL PRIMARY KEY,
+    id_user SERIAL PRIMARY KEY,
     username TEXT UNIQUE NOT NULL,
     email TEXT UNIQUE NOT NULL,
     pw TEXT NOT NULL,
-    birthDate DATE NOT NULL,
+    birth_date DATE NOT NULL,
     active BOOLEAN NOT NULL 
-);
-
-CREATE TABLE StockManager 
-(
-    idUser INTEGER PRIMARY KEY REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-CREATE TABLE Moderator
-(
-    idUser INTEGER PRIMARY KEY REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-CREATE TABLE SubmissionManager
-(
-    idUser INTEGER PRIMARY KEY REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE
+    stock_manager BOOLEAN NOT NULL,
+    moderator BOOLEAN NOT NULL,
+    submission_manager BOOLEAN NOT NULL
 );
 
 CREATE TABLE Category
 (
-    idCategory SERIAL PRIMARY KEY,
+    id_category SERIAL PRIMARY KEY,
     category TEXT UNIQUE NOT NULL
 );
 
 CREATE TABLE Color
 (
-    idColor SERIAL PRIMARY KEY,
+    id_color SERIAL PRIMARY KEY,
     color TEXT UNIQUE NOT NULL
 );
 
 CREATE TABLE Size
 (
-    idSize SERIAL PRIMARY KEY,
+    id_size SERIAL PRIMARY KEY,
     size TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE Photo 
+(
+    id_photo SERIAL PRIMARY KEY,
+    image_path TEXT UNIQUE NOT NULL,
+    id_product INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE
 );
 
 CREATE TABLE Product
 (
-    idProduct SERIAL PRIMARY KEY,
-    productName TEXT NOT NULL,
-    productDescription TEXT NOT NULL,
+    id_product SERIAL PRIMARY KEY,
+    product_name TEXT NOT NULL,
+    product_description TEXT NOT NULL,
     price FLOAT NOT NULL CHECK(price > 0),
     stock INTEGER NOT NULL CHECK(stock >= 0),
     rating FLOAT NOT NULL CHECK(rating >= 0 AND rating <= 5),
-    idCategory INTEGER NOT NULL REFERENCES Category ON UPDATE CASCADE
+    id_category INTEGER NOT NULL REFERENCES Category ON UPDATE CASCADE
 );
 
 CREATE TABLE Photo 
@@ -88,113 +83,122 @@ CREATE TABLE Photo
 
 CREATE TABLE ProductColor
 (
-    idProduct INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE ON DELETE CASCADE,
-    idColor INTEGER NOT NULL REFERENCES Color ON UPDATE CASCADE,
-    PRIMARY KEY (idProduct, idColor) 
+    id_product INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE ON DELETE CASCADE,
+    id_color INTEGER NOT NULL REFERENCES Color ON UPDATE CASCADE,
+    PRIMARY KEY (id_product, id_color) 
 );
 
 CREATE TABLE ProductSize
 (
-    idProduct INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE ON DELETE CASCADE,
-    idSize INTEGER NOT NULL REFERENCES Size ON UPDATE CASCADE ON DELETE CASCADE,
-    PRIMARY KEY (idProduct, idSize)
+    id_product INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE ON DELETE CASCADE,
+    id_size INTEGER NOT NULL REFERENCES Size ON UPDATE CASCADE,
+    PRIMARY KEY (id_product, id_size)
 );
 
 CREATE TABLE City
 (
-    idCity SERIAL PRIMARY KEY,
+    id_city SERIAL PRIMARY KEY,
     city TEXT NOT NULL
 );
 
 CREATE TABLE DeliveryInfo
 (
-    idDeliveryInfo SERIAL PRIMARY KEY,
-    idCity INTEGER NOT NULL REFERENCES City ON UPDATE CASCADE,
+    id_delivery_info SERIAL PRIMARY KEY,
+    id_city INTEGER NOT NULL REFERENCES City ON UPDATE CASCADE,
     contact TEXT NOT NULL,
-    deliveryAddress TEXT NOT NULL
+    delivery_address TEXT NOT NULL
+);
+
+CREATE TABLE UserDeliveryInfo
+(
+    id_delivery_info INTEGER NOT NULL REFERENCES DeliveryInfo ON UPDATE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE,
+    PRIMARY KEY (id_delivery_info, id_user)
 );
 
 CREATE TABLE Purchase
 (
-    idPurchase SERIAL PRIMARY KEY,
-    idUser INTEGER NOT NULL REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE,
-    idDeliInfo INTEGER NOT NULL REFERENCES DeliveryInfo ON UPDATE CASCADE ON DELETE CASCADE,
-    purchaseDate TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
+    id_purchase SERIAL PRIMARY KEY,
+    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE,
+    id_deli_info INTEGER NOT NULL REFERENCES DeliveryInfo ON UPDATE CASCADE,
+    purchase_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     total FLOAT NOT NULL CHECK(total >= 0),
-    status PackageStatus NOT NULL
+    status package_status NOT NULL
 );
 
 CREATE TABLE ProductPurchase
 (
-    idProduct INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE,
-    idPurchase INTEGER NOT NULL REFERENCES Purchase ON UPDATE CASCADE,
+    id_product INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE,
+    id_purchase INTEGER NOT NULL REFERENCES Purchase ON UPDATE CASCADE,
     quantity INTEGER NOT NULL CHECK(quantity > 0),
     price FLOAT NOT NULL CHECK(price > 0),
-    idSize INTEGER REFERENCES Size ON UPDATE CASCADE,
-    idColor INTEGER REFERENCES Color ON UPDATE CASCADE,
-    PRIMARY KEY (idProduct, idPurchase)
+    id_size INTEGER REFERENCES Size ON UPDATE CASCADE,
+    id_color INTEGER REFERENCES Color ON UPDATE CASCADE,
+    PRIMARY KEY (id_product, id_purchase)
 );
 
 CREATE TABLE Review
 (
-    idUser INTEGER NOT NULL REFERENCES "User" ON UPDATE CASCADE,
-    idProduct INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE,
+    id_product INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE,
     comment TEXT NOT NULL,
-    reviewDate TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
+    review_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     rating INTEGER NOT NULL CHECK(rating > 0 AND rating <= 5),
-    PRIMARY KEY (idUser, idProduct)
+    PRIMARY KEY (id_user, id_product)
 );
 
 CREATE TABLE Cart
 (
-    idUser INTEGER NOT NULL REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE,
-    idProduct INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE ON DELETE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE ON DELETE CASCADE,
+    id_product INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE,
     quantity INTEGER NOT NULL CHECK(quantity > 0),
-    PRIMARY KEY (idUser, idProduct)
+    id_color INTEGER NOT NULL REFERENCES Color ON UPDATE CASCADE,
+    id_size INTEGER NOT NULL REFERENCES Size ON UPDATE Cascade,
+    PRIMARY KEY (id_user, id_product)
 );
 
 CREATE TABLE Wishlist
 (
-    idUser INTEGER NOT NULL REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE,
-    idProduct INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE,
-    PRIMARY KEY (idUser, idProduct)
+    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE ON DELETE CASCADE,
+    id_product INTEGER NOT NULL REFERENCES Product ON UPDATE CASCADE,
+    PRIMARY KEY (id_user, id_product)
 );
 
 CREATE TABLE FAQ
 (
-    idQuestion SERIAL PRIMARY KEY,
+    id_question SERIAL PRIMARY KEY,
     question TEXT UNIQUE NOT NULL,
     answer TEXT NOT NULL 
 );
 
 CREATE TABLE Poll
 (
-    idPoll SERIAL PRIMARY KEY,
-    pollName TEXT UNIQUE NOT NULL,
-    pollDate DATE NOT NULL,
+    id_poll SERIAL PRIMARY KEY,
+    poll_name TEXT UNIQUE NOT NULL,
+    poll_date DATE NOT NULL,
     expiration DATE NOT NULL,
     active BOOLEAN NOT NULL
 );
 
 CREATE TABLE Submission
 (
-    idSubmission SERIAL PRIMARY KEY,
-    idUser INTEGER NOT NULL REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE,
-    submissionName TEXT NOT NULL,
-    idCategory INTEGER NOT NULL REFERENCES Category ON UPDATE CASCADE,
-    submissionDescription TEXT NOT NULL,
+    id_submission SERIAL PRIMARY KEY,
+    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE,
+    submission_name TEXT NOT NULL,
+    id_category INTEGER NOT NULL REFERENCES Category ON UPDATE CASCADE,
+    submission_description TEXT NOT NULL,
     picture TEXT NOT NULL,
-    submissionDate TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
+    submission_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     accepted BOOLEAN NOT NULL,
     votes INTEGER DEFAULT 0 NOT NULL CHECK(votes >= 0),
     winner BOOLEAN NOT NULL,
-    idPoll INTEGER NOT NULL REFERENCES Poll ON UPDATE CASCADE
+    id_poll INTEGER NOT NULL REFERENCES Poll ON UPDATE CASCADE
 );
 
 CREATE TABLE UserSubVote
 (
-    idUser INTEGER NOT NULL REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE,
-    idSub INTEGER NOT NULL REFERENCES Submission ON UPDATE CASCADE ON DELETE CASCADE,
-    PRIMARY KEY (idUser, idSub)
+    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE,
+    id_sub INTEGER NOT NULL REFERENCES Submission ON UPDATE CASCADE,
+    PRIMARY KEY (id_user, id_sub)
 );
 CREATE INDEX email ON "User" USING hash (email);
