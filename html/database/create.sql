@@ -197,3 +197,4 @@ CREATE TABLE UserSubVote
     idSub INTEGER NOT NULL REFERENCES Submission ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (idUser, idSub)
 );
+CREATE INDEX email ON "User" USING hash (email);
