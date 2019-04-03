@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS poll CASCADE;
 DROP TABLE IF EXISTS submission CASCADE;
 DROP TABLE IF EXISTS user_sub_vote CASCADE;
 
-CREATE TYPE package_status AS ENUM ('AwaitingPayment', 'Processing', 'InTransit', 'Delivered', 'Canceled');
+CREATE TYPE package_status AS ENUM ('awaiting_payment', 'processing', 'in_transit', 'delivered', 'canceled');
 
 CREATE TABLE users
 (
@@ -29,7 +29,7 @@ CREATE TABLE users
     email TEXT UNIQUE NOT NULL,
     pw TEXT NOT NULL,
     birth_date DATE NOT NULL,
-    active BOOLEAN NOT NULL 
+    active BOOLEAN NOT NULL, 
     stock_manager BOOLEAN NOT NULL,
     moderator BOOLEAN NOT NULL,
     submission_manager BOOLEAN NOT NULL
@@ -39,6 +39,17 @@ CREATE TABLE category
 (
     id_category SERIAL PRIMARY KEY,
     category TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE product
+(
+    id_product SERIAL PRIMARY KEY,
+    product_name TEXT NOT NULL,
+    product_description TEXT NOT NULL,
+    price FLOAT NOT NULL CHECK(price > 0),
+    stock INTEGER NOT NULL CHECK(stock >= 0),
+    rating FLOAT NOT NULL CHECK(rating >= 0 AND rating <= 5),
+    id_category INTEGER NOT NULL REFERENCES category ON UPDATE CASCADE
 );
 
 CREATE TABLE color
@@ -58,24 +69,6 @@ CREATE TABLE photo
     id_photo SERIAL PRIMARY KEY,
     image_path TEXT UNIQUE NOT NULL,
     id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE
-);
-
-CREATE TABLE product
-(
-    id_product SERIAL PRIMARY KEY,
-    product_name TEXT NOT NULL,
-    product_description TEXT NOT NULL,
-    price FLOAT NOT NULL CHECK(price > 0),
-    stock INTEGER NOT NULL CHECK(stock >= 0),
-    rating FLOAT NOT NULL CHECK(rating >= 0 AND rating <= 5),
-    id_category INTEGER NOT NULL REFERENCES category ON UPDATE CASCADE
-);
-
-CREATE TABLE photo 
-(
-    idphoto SERIAL PRIMARY KEY,
-    imagePath TEXT UNIQUE NOT NULL,
-    idproduct INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE
 );
 
 CREATE TABLE product_color
