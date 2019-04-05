@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS product_color CASCADE;
 DROP TABLE IF EXISTS product_size CASCADE;
 DROP TABLE IF EXISTS city CASCADE;
 DROP TABLE IF EXISTS delivery_info CASCADE;
+DROP TABLE IF EXISTS user_delivery_info CASCADE;
 DROP TABLE IF EXISTS purchase CASCADE;
 DROP TABLE IF EXISTS product_purchase CASCADE;
 DROP TABLE IF EXISTS review CASCADE;
@@ -32,7 +33,9 @@ CREATE TABLE users
     active BOOLEAN NOT NULL, 
     stock_manager BOOLEAN NOT NULL,
     moderator BOOLEAN NOT NULL,
-    submission_manager BOOLEAN NOT NULL
+    submission_manager BOOLEAN NOT NULL,
+    id_photo INTEGER NOT NULL REFERENCES photo ON UPDATE CASCADE ON DELETE CASCADE,
+    user_description TEXT NOT NULL
 );
 
 CREATE TABLE category
@@ -47,6 +50,7 @@ CREATE TABLE product
     product_name TEXT NOT NULL,
     product_description TEXT NOT NULL,
     price FLOAT NOT NULL CHECK(price > 0),
+    delivery_cost FLOAT NOT NULL CHECK(delivery_cost > 0),
     stock INTEGER NOT NULL CHECK(stock >= 0),
     rating FLOAT NOT NULL CHECK(rating >= 0 AND rating <= 5),
     id_category INTEGER NOT NULL REFERENCES category ON UPDATE CASCADE
