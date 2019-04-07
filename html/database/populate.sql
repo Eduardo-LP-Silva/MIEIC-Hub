@@ -240,3 +240,10 @@ INSERT INTO size(id_size, size) VALUES (2, "Small");
 INSERT INTO size(id_size, size) VALUES (3, "Medium");
 INSERT INTO size(id_size, size) VALUES (4, "Large");
 INSERT INTO size(id_size, size) VALUES (5, "Extra-Large");
+
+
+-- Table: color
+INSERT INTO color (id_color, color) VALUE (1, "Black");
+INSERT INTO color (id_color, color) VALUE (2, "Grey");
+INSERT INTO color (id_color, color) VALUE (1, "White");
+INSERT INTO color (id_color, color) VALUE (1, "Red");
