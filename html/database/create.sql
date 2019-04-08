@@ -207,6 +207,7 @@ CREATE TABLE user_sub_vote
     PRIMARY KEY (id_user, id_sub)
 );
 
+<<<<<<< HEAD
 CREATE INDEX email ON users USING hash (email);
 
 -- Triggers
@@ -318,3 +319,9 @@ CREATE TRIGGER elect_winner
 AFTER UPDATE ON poll
 FOR EACH ROW
 EXECUTE PROCEDURE select_winner();
+=======
+CREATE INDEX login ON users USING hash(username, pw); 
+CREATE INDEX id_category ON product USING hash(id_category); 
+CREATE INDEX active_poll ON poll USING hash(active); 
+CREATE INDEX sub_id_poll ON submission USING hash(id_poll); 
+>>>>>>> indexes
