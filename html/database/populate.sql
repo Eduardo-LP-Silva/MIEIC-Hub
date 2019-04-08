@@ -317,15 +317,128 @@ button that appears on the product that you put the cursor on. Your vote is regi
 color.");
 
 -- Table: size
-INSERT INTO size(id_size, size) VALUES (1, "Extra-Small");
-INSERT INTO size(id_size, size) VALUES (2, "Small");
-INSERT INTO size(id_size, size) VALUES (3, "Medium");
-INSERT INTO size(id_size, size) VALUES (4, "Large");
-INSERT INTO size(id_size, size) VALUES (5, "Extra-Large");
+INSERT INTO size (id_size, size) VALUES (1, "Extra-Small");
+INSERT INTO size (id_size, size) VALUES (2, "Small");
+INSERT INTO size (id_size, size) VALUES (3, "Medium");
+INSERT INTO size (id_size, size) VALUES (4, "Large");
+INSERT INTO size (id_size, size) VALUES (5, "Extra-Large");
 
 
 -- Table: color
-INSERT INTO color (id_color, color) VALUE (1, "Black");
-INSERT INTO color (id_color, color) VALUE (2, "Grey");
-INSERT INTO color (id_color, color) VALUE (1, "White");
-INSERT INTO color (id_color, color) VALUE (1, "Red");
+INSERT INTO color (id_color, color) VALUES (1, "Black");
+INSERT INTO color (id_color, color) VALUES (2, "Grey");
+INSERT INTO color (id_color, color) VALUES (3, "White");
+INSERT INTO color (id_color, color) VALUES (4, "Red");
+
+-- Table: wishlist
+INSERT INTO wishlist (id_user,  id_product) VALUES (1, 1);
+INSERT INTO wishlist (id_user,  id_product) VALUES (1, 3);
+INSERT INTO wishlist (id_user,  id_product) VALUES (1, 13);
+INSERT INTO wishlist (id_user,  id_product) VALUES (2, 50);
+INSERT INTO wishlist (id_user,  id_product) VALUES (10, 32);
+INSERT INTO wishlist (id_user,  id_product) VALUES (10, 31);
+INSERT INTO wishlist (id_user,  id_product) VALUES (10, 2);
+INSERT INTO wishlist (id_user,  id_product) VALUES (10, 1);
+INSERT INTO wishlist (id_user,  id_product) VALUES (11, 1);
+INSERT INTO wishlist (id_user,  id_product) VALUES (13, 40);
+INSERT INTO wishlist (id_user,  id_product) VALUES (14, 64);
+INSERT INTO wishlist (id_user,  id_product) VALUES (14, 74);
+INSERT INTO wishlist (id_user,  id_product) VALUES (15, 48);
+INSERT INTO wishlist (id_user,  id_product) VALUES (22, 13);
+INSERT INTO wishlist (id_user,  id_product) VALUES (22, 14);
+INSERT INTO wishlist (id_user,  id_product) VALUES (22, 15);
+INSERT INTO wishlist (id_user,  id_product) VALUES (30, 77);
+INSERT INTO wishlist (id_user,  id_product) VALUES (31, 75);
+INSERT INTO wishlist (id_user,  id_product) VALUES (33, 47);
+INSERT INTO wishlist (id_user,  id_product) VALUES (33, 15);
+INSERT INTO wishlist (id_user,  id_product) VALUES (37, 5);
+INSERT INTO wishlist (id_user,  id_product) VALUES (37, 9);
+INSERT INTO wishlist (id_user,  id_product) VALUES (40, 4);
+INSERT INTO wishlist (id_user,  id_product) VALUES (40, 3);
+INSERT INTO wishlist (id_user,  id_product) VALUES (40, 1);
+INSERT INTO wishlist (id_user,  id_product) VALUES (40, 80);
+INSERT INTO wishlist (id_user,  id_product) VALUES (40, 86);
+INSERT INTO wishlist (id_user,  id_product) VALUES (42, 33);
+INSERT INTO wishlist (id_user,  id_product) VALUES (42, 72);
+INSERT INTO wishlist (id_user,  id_product) VALUES (43, 60);
+INSERT INTO wishlist (id_user,  id_product) VALUES (43, 40);
+INSERT INTO wishlist (id_user,  id_product) VALUES (43, 10);
+
+-- Table: cart
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (1, 1, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (1, 2, 2, 2, 2);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (1, 33, 6, 6, 6);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (2, 30, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (4, 40, 4, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 64, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (28, 74, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (26, 48, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (26, 13, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (1, 14, 3, 5, 2);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (40, 15, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (34, 77, 4, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (24, 75, 1, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (28, 47, 2, 2, 2);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (13, 15, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (14, 1, 1, 4, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (15, 13, 2, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (37, 1, 2, 3, 3);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (35, 12, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 1, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (5, 31, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (2, 36, 2, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (4, 42, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (12, 50, 3, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (77, 54, 3, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (33, 55, 4, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (32, 1, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (33, 1, 2, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (14, 22, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (15, 1, 2, 4, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (14, 22, 1, 5, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 1, 1, 1, 2);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 1, 1, 1, 1);
+
+-- Table: city
+INSERT INTO city (id_city, city) VALUES (1, "Viseu");
+INSERT INTO city (id_city, city) VALUES (2, "Porto");
+INSERT INTO city (id_city, city) VALUES (3, "Aveiro");
+INSERT INTO city (id_city, city) VALUES (4, "Lisboa");
+INSERT INTO city (id_city, city) VALUES (5, "Samil");
+INSERT INTO city (id_city, city) VALUES (6, "Santarem");
+INSERT INTO city (id_city, city) VALUES (7, "Braga");
+INSERT INTO city (id_city, city) VALUES (8, "Ranhados");
+INSERT INTO city (id_city, city) VALUES (9, "Faro");
+INSERT INTO city (id_city, city) VALUES (10, "Fatima");
+INSERT INTO city (id_city, city) VALUES (11, "Viana do Castelo");
+
+-- Table: delivery_info
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (1, 1, "967112935", "Rua de Viseu, lote 1");
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (2, 2, "922376127", "Rua de Paranhos, 276");
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (3, 2, "922322271", "Quinta do Jose, 3, 2D");
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (4, 2, "962111127", "Rua dos Santos, 17");
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (5, 4, "965374811", "Rua das Garrafas, 11, 3 direito");
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (6, 4, "966653748", "Rua de Lisboa, 1");
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (7, 3, "922234522", "Rua em Aveiro, lote 77, Aveiro");
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (8, 5, "914646463", "Rua do Tomas, lote 69");
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (9, 7, "911113242", "Rua tres, lote 3");
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (10, 8, "966969696", "Quinta dos tomilhos, lt 12, 2o direto");
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (11, 2, "926969696", "Avenida da Liberdade, lt 150");
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (12, 2, "969696773", "Rua Joao Pedro, 111");
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (13, 1, "962222222", "Urbanizacao Ze Chilo, lote 35, 2 direito");
+
+-- Table: purchase
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (1, 1, 1, "YYYY-MM-DD HH:MI:SS", 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (2, 2, 2, "YYYY-MM-DD HH:MI:SS", 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (3, 10, 3, "YYYY-MM-DD HH:MI:SS", 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (4, 22, 4, "YYYY-MM-DD HH:MI:SS", 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (5, 22, 4, 1, 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (6, 33, 6, 1, 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (7, 36, 7, 1, 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (8, 37, 8, 1, 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (9, 5, 9, 1, 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (10, 6, 10, 1, 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (11, 8, 11, 1, 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (12, 10, 3, 1, 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (13, 31, 12, 1, 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (13, 1, 1, 1, 1, 1);
