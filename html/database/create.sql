@@ -1,5 +1,4 @@
 DROP TYPE IF EXISTS package_status CASCADE;
-
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS category CASCADE;
 DROP TABLE IF EXISTS color CASCADE;
@@ -20,23 +19,20 @@ DROP TABLE IF EXISTS faq CASCADE;
 DROP TABLE IF EXISTS poll CASCADE;
 DROP TABLE IF EXISTS submission CASCADE;
 DROP TABLE IF EXISTS user_sub_vote CASCADE;
+DROP TRIGGER IF EXISTS vote_on_design ON user_sub_vote;
+DROP TRIGGER IF EXISTS unvote_on_design ON user_sub_vote;
+DROP TRIGGER IF EXISTS review_delete ON review;
+DROP TRIGGER IF EXISTS review_insert ON review;
+DROP TRIGGER IF EXISTS elect_winner ON poll;
+DROP TRIGGER IF EXISTS control_submission_vote ON user_sub_vote;
+DROP FUNCTION IF EXISTS update_product_review_delete();
+DROP FUNCTION IF EXISTS update_product_review_insert();
+DROP FUNCTION IF EXISTS add_submission_vote();
+DROP FUNCTION IF EXISTS remove_submission_vote();
+DROP FUNCTION IF EXISTS select_winner();
+DROP FUNCTION IF EXISTS check_submission_vote();
 
 CREATE TYPE package_status AS ENUM ('awaiting_payment', 'processing', 'in_transit', 'delivered', 'canceled');
-
-CREATE TABLE users
-(
-    id_user SERIAL PRIMARY KEY,
-    username TEXT UNIQUE NOT NULL,
-    email TEXT UNIQUE NOT NULL,
-    pw TEXT NOT NULL,
-    birth_date DATE NOT NULL,
-    active BOOLEAN NOT NULL, 
-    stock_manager BOOLEAN NOT NULL,
-    moderator BOOLEAN NOT NULL,
-    submission_manager BOOLEAN NOT NULL,
-    id_photo INTEGER NOT NULL REFERENCES photo ON UPDATE CASCADE ON DELETE CASCADE,
-    user_description TEXT NOT NULL
-);
 
 CREATE TABLE category
 (
@@ -56,6 +52,28 @@ CREATE TABLE product
     id_category INTEGER NOT NULL REFERENCES category ON UPDATE CASCADE
 );
 
+CREATE TABLE photo 
+(
+    id_photo SERIAL PRIMARY KEY,
+    image_path TEXT UNIQUE NOT NULL,
+    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE
+);
+
+CREATE TABLE users
+(
+    id_user SERIAL PRIMARY KEY,
+    username TEXT UNIQUE NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    pw TEXT NOT NULL,
+    birth_date DATE NOT NULL,
+    active BOOLEAN NOT NULL, 
+    stock_manager BOOLEAN NOT NULL,
+    moderator BOOLEAN NOT NULL,
+    submission_manager BOOLEAN NOT NULL,
+    id_photo INTEGER NOT NULL REFERENCES photo ON UPDATE CASCADE ON DELETE CASCADE,
+    user_description TEXT NOT NULL
+);
+
 CREATE TABLE color
 (
     id_color SERIAL PRIMARY KEY,
@@ -66,13 +84,6 @@ CREATE TABLE size
 (
     id_size SERIAL PRIMARY KEY,
     size TEXT UNIQUE NOT NULL
-);
-
-CREATE TABLE photo 
-(
-    id_photo SERIAL PRIMARY KEY,
-    image_path TEXT UNIQUE NOT NULL,
-    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE
 );
 
 CREATE TABLE product_color
@@ -106,7 +117,7 @@ CREATE TABLE delivery_info
 CREATE TABLE user_delivery_info
 (
     id_delivery_info INTEGER NOT NULL REFERENCES delivery_info ON UPDATE CASCADE,
-    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE,
     PRIMARY KEY (id_delivery_info, id_user)
 );
 
@@ -133,7 +144,7 @@ CREATE TABLE product_purchase
 
 CREATE TABLE review
 (
-    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE,
     id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
     comment TEXT NOT NULL,
     review_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
@@ -143,7 +154,7 @@ CREATE TABLE review
 
 CREATE TABLE cart
 (
-    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE ON DELETE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE CASCADE,
     id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
     quantity INTEGER NOT NULL CHECK(quantity > 0),
     id_color INTEGER NOT NULL REFERENCES color ON UPDATE CASCADE,
@@ -153,7 +164,7 @@ CREATE TABLE cart
 
 CREATE TABLE wishlist
 (
-    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE ON DELETE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE CASCADE,
     id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
     PRIMARY KEY (id_user, id_product)
 );
@@ -177,7 +188,7 @@ CREATE TABLE poll
 CREATE TABLE submission
 (
     id_submission SERIAL PRIMARY KEY,
-    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE,
     submission_name TEXT NOT NULL,
     id_category INTEGER NOT NULL REFERENCES category ON UPDATE CASCADE,
     submission_description TEXT NOT NULL,
@@ -186,14 +197,124 @@ CREATE TABLE submission
     accepted BOOLEAN NOT NULL,
     votes INTEGER DEFAULT 0 NOT NULL CHECK(votes >= 0),
     winner BOOLEAN NOT NULL,
-    id_poll INTEGER NOT NULL REFERENCES poll ON UPDATE CASCADE
+    id_poll INTEGER REFERENCES poll ON UPDATE CASCADE
 );
 
 CREATE TABLE user_sub_vote
 (
-    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE,
-    id_sub INTEGER NOT NULL REFERENCES submission ON UPDATE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE CASCADE,
+    id_sub INTEGER NOT NULL REFERENCES submission ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (id_user, id_sub)
 );
 
 CREATE INDEX email ON users USING hash (email);
+
+-- Triggers
+
+CREATE FUNCTION add_submission_vote() RETURNS TRIGGER AS $BODY$
+BEGIN
+    UPDATE submission
+    SET votes = votes + 1
+    WHERE submission.id_submission = NEW.id_sub;
+    RETURN NEW;
+END; 
+$BODY$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER vote_on_design
+AFTER INSERT ON user_sub_vote
+FOR EACH ROW
+EXECUTE PROCEDURE add_submission_vote();
+
+CREATE FUNCTION remove_submission_vote() RETURNS TRIGGER AS $BODY$
+BEGIN
+    UPDATE submission
+    SET votes = votes - 1
+    WHERE submission.id_submission = OLD.id_sub;
+    RETURN OLD;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER unvote_on_design
+AFTER DELETE ON user_sub_vote
+FOR EACH ROW
+EXECUTE PROCEDURE remove_submission_vote();
+
+CREATE FUNCTION update_product_review_insert() RETURNS TRIGGER AS $BODY$
+BEGIN
+    UPDATE product
+    SET product.rating = 
+    (
+        SELECT AVG(review.rating)
+        FROM review, product
+        WHERE review.id_product = product.id_product AND review.id_product = NEW.id_product
+    )
+    WHERE NEW.id_product = product.id_product;
+    RETURN NEW;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER review_insert
+AFTER INSERT ON review
+FOR EACH ROW
+EXECUTE PROCEDURE update_product_review_insert();
+
+CREATE FUNCTION update_product_review_delete() RETURNS TRIGGER AS $BODY$
+BEGIN
+    UPDATE product
+    SET product.rating = 
+    (
+        SELECT AVG(review.rating)
+        FROM review, product
+        WHERE review.id_product = product.id_product AND review.id_product = NEW.id_product
+    )
+    WHERE NEW.id_product = product.id_product;
+    RETURN OLD;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER review_delete
+AFTER DELETE ON review
+FOR EACH ROW
+EXECUTE PROCEDURE update_product_review_delete(); 
+
+CREATE FUNCTION check_submission_vote() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF EXISTS 
+    (
+        SELECT poll.id_poll
+        FROM poll, submission, user_sub_vote
+        WHERE NEW.id_sub = submission.id_submission AND submission.id_poll = poll.id_poll 
+        AND poll.active IS FALSE
+    )
+    THEN RAISE EXCEPTION  'Users can no longer vote on an inactive/expired poll';
+    END IF;
+    RETURN NEW;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER control_submission_vote
+BEFORE INSERT ON user_sub_vote
+FOR EACH ROW
+EXECUTE PROCEDURE check_submission_vote();
+
+CREATE FUNCTION select_winner() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF NEW.active IS FALSE AND OLD.active IS TRUE THEN
+        UPDATE submission
+        SET winner = TRUE
+        WHERE submission.id_poll = NEW.id_poll AND submission.votes = 
+        (
+            SELECT MAX(submission.votes)
+            FROM submission, poll
+            WHERE poll.id_poll = NEW.id_poll AND poll.id_poll = subission.id_poll
+        );
+    END IF;
+    RETURN NEW;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER elect_winner
+AFTER UPDATE ON poll
+FOR EACH ROW
+EXECUTE PROCEDURE select_winner();
