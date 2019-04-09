@@ -163,7 +163,7 @@ INSERT INTO photo (id_photo, image_path, id_product) VALUES (44, '~/html/resourc
 
     --Stickers
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (45, '~/html/resources/images/stickers/feup.jpg', 39);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (46, '~/html/resources/images/stickers/feup.jpg', 40);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (46, '~/html/resources/images/stickers/feup2.jpg', 40);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (47, '~/html/resources/images/stickers/coffee.jpg', 41);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (48, '~/html/resources/images/stickers/home.png', 42);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (49, '~/html/resources/images/stickers/html.jpg', 43);
@@ -188,7 +188,7 @@ INSERT INTO photo (id_photo, image_path, id_product) VALUES (65, '~/html/resourc
     
     --Mouse Pads
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (66, '~/html/resources/images/mousepads/feup.jpg', 60);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (67, '~/html/resources/images/mousepads/feup.jpg', 61);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (67, '~/html/resources/images/mousepads/feup2.jpg', 61);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (68, '~/html/resources/images/mousepads/goAway.png', 62);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (69, '~/html/resources/images/mousepads/more.jpg', 63);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (70, '~/html/resources/images/mousepads/breaking.jpg', 64);
@@ -200,8 +200,8 @@ INSERT INTO photo (id_photo, image_path, id_product) VALUES (75, '~/html/resourc
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (76, '~/html/resources/images/mousepads/bestever.jpg', 70);
 
     --Mugs
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (77, '~/html/resources/images/mugs/feup.jpg', 71);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (78, '~/html/resources/images/mugs/feup.jpg', 72);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (77, '~/html/resources/images/mugs/feup3.jpg', 71);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (78, '~/html/resources/images/mugs/feup4.jpg', 72);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (79, '~/html/resources/images/mugs/programmer.jpg', 73);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (80, '~/html/resources/images/mugs/css.jpg', 74);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (81, '~/html/resources/images/mugs/debug.jpg', 75);
@@ -276,25 +276,25 @@ INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manag
 INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (50, 'User50', 'user50@fe.up.pt', '123456789', '1999-03-05', TRUE, FALSE, FALSE, FALSE, 90, 'The 50th best !');
 
     --Stock Manager
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (31, 'StockManager1', 'sm1@fe.up.pt', 'stockmanager123456789', 1998-03-30, TRUE, TRUE, FALSE, FALSE, 90, 'I am StockManager1 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (32, 'StockManager2', 'sm2@fe.up.pt', 'stockmanager123456789', 1996-04-21, TRUE, TRUE, FALSE, FALSE, 90, 'I am StockManager2 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (33, 'StockManager3', 'sm3@fe.up.pt', 'stockmanager123456789', 1999-06-12, TRUE, TRUE, FALSE, FALSE, 90, 'I am StockManager3 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (51, 'StockManager1', 'sm1@fe.up.pt', 'stockmanager123456789', '1998-03-30', TRUE, TRUE, FALSE, FALSE, 90, 'I am StockManager1 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (52, 'StockManager2', 'sm2@fe.up.pt', 'stockmanager123456789', '1996-04-21', TRUE, TRUE, FALSE, FALSE, 90, 'I am StockManager2 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (53, 'StockManager3', 'sm3@fe.up.pt', 'stockmanager123456789', '1999-06-12', TRUE, TRUE, FALSE, FALSE, 90, 'I am StockManager3 !');
 
     --Moderator
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (34, 'Moderator1', 'm1@fe.up.pt', 'moderator123456789', 1995-07-30, TRUE, FALSE, TRUE, FALSE, 90, 'I am Moderator1 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (35, 'Moderator2', 'm2@fe.up.pt', 'moderator123456789', 1997-08-21, TRUE, FALSE, TRUE, FALSE, 90, 'I am Moderator2 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (36, 'Moderator3', 'm3@fe.up.pt', 'moderator123456789', 1993-05-12, TRUE, FALSE, TRUE, FALSE, 90, 'I am Moderator3 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (54, 'Moderator1', 'm1@fe.up.pt', 'moderator123456789', '1995-07-30', TRUE, FALSE, TRUE, FALSE, 90, 'I am Moderator1 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (55, 'Moderator2', 'm2@fe.up.pt', 'moderator123456789', '1997-08-21', TRUE, FALSE, TRUE, FALSE, 90, 'I am Moderator2 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (56, 'Moderator3', 'm3@fe.up.pt', 'moderator123456789', '1993-05-12', TRUE, FALSE, TRUE, FALSE, 90, 'I am Moderator3 !');
 
     --Submission Manager
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (37, 'SubmissionManager1', 'subm1@fe.up.pt', 'subm123456789', 1998-04-02, TRUE, FALSE, FALSE, TRUE, 90, 'I am SubmissionManager1 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (38, 'SubmissionManager2', 'subm2@fe.up.pt', 'subm123456789', 1996-08-22, TRUE, FALSE, FALSE, TRUE, 90, 'I am SubmissionManager2 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (39, 'SubmissionManager3', 'subm3@fe.up.pt', 'subm123456789', 1997-01-02, TRUE, FALSE, FALSE, TRUE, 90, 'I am SubmissionManager3 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (57, 'SubmissionManager1', 'subm1@fe.up.pt', 'subm123456789', '1998-04-02', TRUE, FALSE, FALSE, TRUE, 90, 'I am SubmissionManager1 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (58, 'SubmissionManager2', 'subm2@fe.up.pt', 'subm123456789', '1996-08-22', TRUE, FALSE, FALSE, TRUE, 90, 'I am SubmissionManager2 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (59, 'SubmissionManager3', 'subm3@fe.up.pt', 'subm123456789', '1997-01-02', TRUE, FALSE, FALSE, TRUE, 90, 'I am SubmissionManager3 !');
 
     --Admins
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (40, 'Admin1', 'admin1@fe.up.pt', 'admin123456789', 1998-02-02, TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin1 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (41, 'Admin2', 'admin2@fe.up.pt', 'admin123456789', 1994-05-12, TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin2 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (42, 'Admin3', 'admin3@fe.up.pt', 'admin123456789', 1997-11-22, TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin3 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (43, 'Admin4', 'admin4@fe.up.pt', 'admin123456789', 1998-10-30, TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin4 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (60, 'Admin1', 'admin1@fe.up.pt', 'admin123456789', '1998-02-02', TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin1 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (61, 'Admin2', 'admin2@fe.up.pt', 'admin123456789', '1994-05-12', TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin2 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (62, 'Admin3', 'admin3@fe.up.pt', 'admin123456789', '1997-11-22', TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin3 !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (63, 'Admin4', 'admin4@fe.up.pt', 'admin123456789', '1998-10-30', TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin4 !');
 
 
 -- Table: faq
@@ -355,12 +355,12 @@ INSERT INTO wishlist (id_user,  id_product) VALUES (31, 75);
 INSERT INTO wishlist (id_user,  id_product) VALUES (33, 47);
 INSERT INTO wishlist (id_user,  id_product) VALUES (33, 15);
 INSERT INTO wishlist (id_user,  id_product) VALUES (37, 5);
-INSERT INTO wishlist (id_user,  id_product) VALUES (37, 9);
-INSERT INTO wishlist (id_user,  id_product) VALUES (40, 4);
-INSERT INTO wishlist (id_user,  id_product) VALUES (40, 3);
-INSERT INTO wishlist (id_user,  id_product) VALUES (40, 1);
-INSERT INTO wishlist (id_user,  id_product) VALUES (40, 80);
-INSERT INTO wishlist (id_user,  id_product) VALUES (40, 86);
+INSERT INTO wishlist (id_user,  id_product) VALUES (35, 9);
+INSERT INTO wishlist (id_user,  id_product) VALUES (30, 4);
+INSERT INTO wishlist (id_user,  id_product) VALUES (32, 3);
+INSERT INTO wishlist (id_user,  id_product) VALUES (35, 1);
+INSERT INTO wishlist (id_user,  id_product) VALUES (41, 80);
+INSERT INTO wishlist (id_user,  id_product) VALUES (40, 56);
 INSERT INTO wishlist (id_user,  id_product) VALUES (42, 33);
 INSERT INTO wishlist (id_user,  id_product) VALUES (42, 72);
 INSERT INTO wishlist (id_user,  id_product) VALUES (43, 60);
@@ -370,16 +370,16 @@ INSERT INTO wishlist (id_user,  id_product) VALUES (43, 10);
 -- Table: cart
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (1, 1, 1, 1, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (1, 2, 2, 2, 2);
-INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (1, 33, 6, 6, 6);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (2, 33, 3, 4, 3);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (2, 30, 1, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (4, 40, 4, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 64, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (4, 40, 4, 2, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 64, 1, 4, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (28, 74, 1, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (26, 48, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (26, 48, 3, 1, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (26, 13, 1, 1, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (1, 14, 3, 5, 2);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (40, 15, 1, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (34, 77, 4, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (34, 77, 4, 3, 4);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (24, 75, 1, 3, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (28, 47, 2, 2, 2);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (13, 15, 1, 1, 1);
@@ -392,15 +392,15 @@ INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (5, 3
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (2, 36, 2, 1, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (4, 42, 1, 1, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (12, 50, 3, 3, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (77, 54, 3, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (27, 54, 3, 1, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (33, 55, 4, 3, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (32, 1, 1, 1, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (33, 1, 2, 1, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (14, 22, 1, 1, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (15, 1, 2, 4, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (14, 22, 1, 5, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 1, 1, 1, 2);
-INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 1, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (14, 23, 1, 5, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 33, 1, 1, 2);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 1, 3, 2, 1);
 
 -- Table: city
 INSERT INTO city (id_city, city) VALUES (1, 'Viseu');
@@ -416,32 +416,32 @@ INSERT INTO city (id_city, city) VALUES (10, 'Fatima');
 INSERT INTO city (id_city, city) VALUES (11, 'Viana do Castelo');
 
 -- Table: delivery_info
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (1, 1, '967112935', 'Rua de Viseu, lote 1');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (2, 2, '922376127', 'Rua de Paranhos, 276');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (3, 2, '922322271', 'Quinta do Jose, 3, 2D');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (4, 2, '962111127', 'Rua dos Santos, 17');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (5, 4, '965374811', 'Rua das Garrafas, 11, 3 direito');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (6, 4, '966653748', 'Rua de Lisboa, 1');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (7, 3, '922234522', 'Rua em Aveiro, lote 77, Aveiro');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (8, 5, '914646463', 'Rua do Tomas, lote 69');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (9, 7, '911113242', 'Rua tres, lote 3');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (10, 8, '966969696', 'Quinta dos tomilhos, lt 12, 2o direto');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (11, 2, '926969696', 'Avenida da Liberdade, lt 150');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (12, 2, '969696773', 'Rua Joao Pedro, 111');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, address) VALUES (13, 1, '962222222', 'Urbanizacao Ze Chilo, lote 35, 2 direito');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (1, 1, '967112935', 'Rua de Viseu, lote 1');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (2, 2, '922376127', 'Rua de Paranhos, 276');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (3, 2, '922322271', 'Quinta do Jose, 3, 2D');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (4, 2, '962111127', 'Rua dos Santos, 17');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (5, 4, '965374811', 'Rua das Garrafas, 11, 3 direito');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (6, 4, '966653748', 'Rua de Lisboa, 1');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (7, 3, '922234522', 'Rua em Aveiro, lote 77, Aveiro');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (8, 5, '914646463', 'Rua do Tomas, lote 69');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (9, 7, '911113242', 'Rua tres, lote 3');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (10, 8, '966969696', 'Quinta dos tomilhos, lt 12, 2o direto');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (11, 2, '926969696', 'Avenida da Liberdade, lt 150');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (12, 2, '969696773', 'Rua Joao Pedro, 111');
+INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (13, 1, '962222222', 'Urbanizacao Ze Chilo, lote 35, 2 direito');
 
 -- Table: purchase
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (1, 1, 1, 'YYYY-MM-DD HH:MI:SS', 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (2, 2, 2, 'YYYY-MM-DD HH:MI:SS', 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (3, 10, 3, 'YYYY-MM-DD HH:MI:SS', 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (4, 22, 4, 'YYYY-MM-DD HH:MI:SS', 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (5, 22, 4, 1, 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (6, 33, 6, 1, 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (7, 36, 7, 1, 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (8, 37, 8, 1, 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (9, 5, 9, 1, 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (10, 6, 10, 1, 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (11, 8, 11, 1, 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (12, 10, 3, 1, 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (13, 31, 12, 1, 1, 1);
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (13, 1, 1, 1, 1, 1);
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (1, 1, 1, '2019-02-03 12:40:24', 1, 'processing');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (2, 2, 2, '2019-01-05 03:22:05', 1, 'awaiting_payment');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (3, 10, 3, '2019-03-30 15:10:10', 1, 'in_transit');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (4, 22, 4, '2019-02-01 19:34:22', 1, 'delivered');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (5, 22, 4, '2019-01-02 20:56:12', 1, 'canceled');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (6, 33, 6, '2019-02-09 07:32:43', 1, 'delivered');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (7, 36, 7, '2019-03-14 12:41:56', 1, 'awaiting_payment');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (8, 37, 8, '2019-01-29 11:12:31', 1, 'processing');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (9, 5, 9, '2019-02-13 10:06:33', 1, 'awaiting_payment');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (10, 6, 10, '2019-01-05 14:54:45', 1, 'in_transit');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (11, 8, 11, '2019-03-06 17:44:55', 1, 'in_transit');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (12, 10, 3, '2019-02-12 18:33:43', 1, 'processing');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (13, 31, 12, '2019-01-10 14:12:36', 1, 'delivered');
+INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (14, 1, 1, '2019-02-20 12:06:30', 1, 'processing');
