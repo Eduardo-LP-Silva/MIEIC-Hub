@@ -19,6 +19,13 @@ DROP TABLE IF EXISTS faq CASCADE;
 DROP TABLE IF EXISTS poll CASCADE;
 DROP TABLE IF EXISTS submission CASCADE;
 DROP TABLE IF EXISTS user_sub_vote CASCADE;
+DROP INDEX IF EXISTS authenticate;
+DROP INDEX IF EXISTS id_category;
+DROP INDEX IF EXISTS active_poll;
+DROP INDEX IF EXISTS sub_id_poll;
+DROP INDEX IF EXISTS by_price;
+DROP INDEX IF EXISTS search_users;
+DROP INDEX IF EXISTS search_products;
 DROP TRIGGER IF EXISTS vote_on_design ON user_sub_vote;
 DROP TRIGGER IF EXISTS unvote_on_design ON user_sub_vote;
 DROP TRIGGER IF EXISTS review_delete ON review;
@@ -56,7 +63,7 @@ CREATE TABLE photo
 (
     id_photo SERIAL PRIMARY KEY,
     image_path TEXT UNIQUE NOT NULL,
-    id_product INTEGER REFERENCES product ON UPDATE CASCADE
+    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE
 );
 
 CREATE TABLE users
@@ -207,7 +214,15 @@ CREATE TABLE user_sub_vote
     PRIMARY KEY (id_user, id_sub)
 );
 
-CREATE INDEX email ON users USING hash (email);
+-- Indexes
+
+CREATE INDEX authenticate ON users(username, pw); 
+CREATE INDEX id_category ON product USING hash(id_category); 
+CREATE INDEX active_poll ON poll USING hash(active); 
+CREATE INDEX sub_id_poll ON submission USING hash(id_poll); 
+CREATE INDEX by_price ON product(price); 
+CREATE INDEX search_users ON users USING GIST (to_tsvector('english', username || ' '));
+CREATE INDEX search_products ON product USING GIST (to_tsvector('english', product_name || ' ' || product_description));
 
 -- Triggers
 
@@ -318,8 +333,3 @@ CREATE TRIGGER elect_winner
 AFTER UPDATE ON poll
 FOR EACH ROW
 EXECUTE PROCEDURE select_winner();
-
-CREATE INDEX login ON users USING hash(username, pw); 
-CREATE INDEX id_category ON product USING hash(id_category); 
-CREATE INDEX active_poll ON poll USING hash(active); 
-CREATE INDEX sub_id_poll ON submission USING hash(id_poll); 
