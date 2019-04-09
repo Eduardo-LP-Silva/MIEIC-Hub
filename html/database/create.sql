@@ -319,7 +319,7 @@ AFTER UPDATE ON poll
 FOR EACH ROW
 EXECUTE PROCEDURE select_winner();
 
-CREATE INDEX login ON users USING hash(username, pw); 
+CREATE INDEX login ON users (username, pw);
 CREATE INDEX id_category ON product USING hash(id_category); 
 CREATE INDEX active_poll ON poll USING hash(active); 
 CREATE INDEX sub_id_poll ON submission USING hash(id_poll); 
