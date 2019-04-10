@@ -16,7 +16,7 @@
 * Database specification
     * [A4: Conceptual Data Model](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/a4)
     * [A5: Relational schema, validation and schema refinement](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/a5)
-    * A6: Integrity constraints. Indexes, triggers, user functions and database populated with data
+    * [A6: Integrity constraints. Indexes, triggers, user functions and database populated with data](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/A6)
 * Architecture specification and Prototype
     * A7: High-level architecture. Privileges. Web resources specification
     * A8: Vertical Prototype
