@@ -447,7 +447,7 @@ INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size,
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (15, 1, 2, 21.97 , 4, 2);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (70, 3, 1, 11.98 , 3, 1);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (52, 14, 1, 5.98 , 1, 2);
-INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (11, 13, 1, 17,98 , 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (11, 13, 1, 17.98 , 1, 1);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (11, 12, 2, 32.97 , 2, 2);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (15, 10, 1, 11.98 , 2, 1);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (26, 5, 1, 12.98 , 2, 1);
