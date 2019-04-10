@@ -63,7 +63,7 @@ CREATE TABLE photo
 (
     id_photo SERIAL PRIMARY KEY,
     image_path TEXT UNIQUE NOT NULL,
-    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE
+    id_product INTEGER REFERENCES product ON UPDATE CASCADE
 );
 
 CREATE TABLE users
@@ -234,7 +234,6 @@ BEGIN
     RETURN NEW;
 END; 
 $BODY$ LANGUAGE plpgsql;
-
 
 CREATE TRIGGER vote_on_design
 AFTER INSERT ON user_sub_vote

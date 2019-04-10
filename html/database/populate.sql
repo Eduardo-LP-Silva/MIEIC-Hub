@@ -146,20 +146,20 @@ INSERT INTO photo (id_photo, image_path, id_product) VALUES (29, '~/html/resourc
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (30, '~/html/resources/images/cases/case_example10.jpg', 24);
 
     --Posters
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (31, "~/html/resources/images/posters/today.jpg", 25);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (32, "~/html/resources/images/posters/anonymous1.jpg", 26;
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (33, "~/html/resources/images/posters/anonymous2.jpg", 27);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (34, "~/html/resources/images/posters/hackerman.jpg", 28);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (35, "~/html/resources/images/posters/release.jpg", 29);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (36, "~/html/resources/images/posters/in code.jpg", 30);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (37, "~/html/resources/images/posters/keep calm.jpg", 31);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (38, "~/html/resources/images/posters/lovecoding.jpg", 32);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (39, "~/html/resources/images/posters/SETUP.jpg", 33);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (40, "~/html/resources/images/posters/eat.jpg", 34);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (41, "~/html/resources/images/posters/semi.jpg", 35);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (42, "~/html/resources/images/posters/super.jpg", 36);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (43, "~/html/resources/images/posters/world.jpg", 37);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (44, "~/html/resources/images/posters/war_poster.jpg", 38);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (31, '~/html/resources/images/posters/today.jpg', 25);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (32, '~/html/resources/images/posters/anonymous1.jpg', 26);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (33, '~/html/resources/images/posters/anonymous2.jpg', 27);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (34, '~/html/resources/images/posters/hackerman.jpg', 28);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (35, '~/html/resources/images/posters/release.jpg', 29);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (36, '~/html/resources/images/posters/in code.jpg', 30);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (37, '~/html/resources/images/posters/keep calm.jpg', 31);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (38, '~/html/resources/images/posters/lovecoding.jpg', 32);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (39, '~/html/resources/images/posters/SETUP.jpg', 33);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (40, '~/html/resources/images/posters/eat.jpg', 34);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (41, '~/html/resources/images/posters/semi.jpg', 35);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (42, '~/html/resources/images/posters/super.jpg', 36);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (43, '~/html/resources/images/posters/world.jpg', 37);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (44, '~/html/resources/images/posters/war_poster.jpg', 38);
 
     --Stickers
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (45, '~/html/resources/images/stickers/feup.jpg', 39);
@@ -311,7 +311,7 @@ INSERT INTO faq (id_question, question, answer) VALUES (3, 'Question 3: How can 
 INSERT INTO faq (id_question, question, answer) VALUES (4, 'Question 4: How can I create a design ?', 'If you want to submit your own design, you have to be logged int and then press the "Submit your design"
 button on the navigation bar. There you have to fill the various fields regarding your desing and then submit it.');
 
-INSERT INTO faq (id_question, question, answer) VALUES (5, 'Question 5: How can I vote on a desing ?','To vote on a design, you have to log in and then click on the "Upcomig" button on the navigation bar.
+INSERT INTO faq (id_question, question, answer) VALUES (5, 'Question 5: How can I vote on a desing ?','To vote on a design, you have to log in and then click on the "Upcomig"button on the navigation bar.
 There you have several polls of designs made by other users. To vote on a design, you should press the heart
 button that appears on the product that you put the cursor on. Your vote is registed when that button gains
 color.');
