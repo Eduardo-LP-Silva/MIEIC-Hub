@@ -441,6 +441,30 @@ INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, 
 INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (13, 31, 12, '2019-01-10 14:12:36', 1, 'delivered');
 INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (14, 1, 1, '2019-02-20 12:06:30', 1, 'processing');
 
+-- Table: product_purchase
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (1, 4, 1, 17.98 , 1, 2);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (4, 6, 1, 17.98 , 2, 3);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (15, 1, 2, 21.97 , 4, 2);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (70, 3, 1, 11.98 , 3, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (52, 14, 1, 5.98 , 1, 2);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (11, 13, 1, 17,98 , 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (11, 12, 2, 32.97 , 2, 2);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (15, 10, 1, 11.98 , 2, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (26, 5, 1, 12.98 , 2, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (30, 2, 1, 12.98 , 3, 2);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (66, 8, 3, 31.96 , 3, 4);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (69, 9, 1, 12.98 , 1, 3);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (7, 7, 1, 17.98 , 4, 3);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (9, 11, 1, 22.98 , 1, 1);
+
+    --id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
+    --id_purchase INTEGER NOT NULL REFERENCES purchase ON UPDATE CASCADE,
+    --quantity INTEGER NOT NULL CHECK(quantity > 0),
+    --price FLOAT NOT NULL CHECK(price > 0),
+    --id_size INTEGER REFERENCES size ON UPDATE CASCADE,
+    --id_color INTEGER REFERENCES color ON UPDATE CASCADE,
+    --PRIMARY KEY (id_product, id_purchase)
+
 -- Table: review
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (35,34,'auctor mus imperdiet tristique Phasellus taciti nisi Suspendisse vestibulum eros laoreet sociis Nunc inceptos','2019-01-10 21:23:03',5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (2,32,'erat nisi dapibus ullamcorper aliquet porta lobortis Morbi mauris ornare purus','2019-03-14 11:54:04',5);
@@ -602,3 +626,55 @@ INSERT INTO submission(id_submission, id_user, submission_name, id_category, sub
 INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (18, 2, 'Submission18', 1, 'Funny submission18', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-13', TRUE, 0, FALSE, 3);
 INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (19, 32, 'Submission19', 1, 'Funny submissio19', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-25', TRUE, 0, FALSE, 3);
 INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (20, 32, 'Submission20', 1, 'Funny submissio20', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-25', FALSE, 0, FALSE, NULL);
+
+-- Table: user_sub_vote
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (10, 2);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (15, 3);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (20, 4);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (23, 7);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (45, 15);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (11, 12);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (7, 7);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (3, 15);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (12, 13);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (2, 20);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (17, 1);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (29, 6);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (41, 7);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (20, 13);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (37, 9);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (29, 8);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (25, 7);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (36, 18);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (41, 19);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (39, 12);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (19, 2);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (5, 2);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (2, 3);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (1, 4);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (11, 7);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (9, 17);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (15, 16);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (23, 6);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (47, 5);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (36, 15);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (33, 8);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (28, 11);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (15, 1);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (44, 3);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (22, 2);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (33, 2);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (31, 5);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (47, 8);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (45, 9);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (30, 19);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (20, 17);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (10, 3);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (16, 1);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (43, 13);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (49, 20);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (45, 14);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (33, 1);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (38, 5);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (28, 6);
+INSERT INTO user_sub_vote (id_user, id_sub) VALUES (18, 7);
