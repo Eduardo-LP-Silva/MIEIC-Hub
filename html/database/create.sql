@@ -243,7 +243,7 @@ EXECUTE PROCEDURE remove_submission_vote();
 CREATE FUNCTION update_product_review_insert() RETURNS TRIGGER AS $BODY$
 BEGIN
     UPDATE product
-    SET product.rating = 
+    SET rating = 
     (
         SELECT AVG(review.rating)
         FROM review, product
@@ -262,7 +262,7 @@ EXECUTE PROCEDURE update_product_review_insert();
 CREATE FUNCTION update_product_review_delete() RETURNS TRIGGER AS $BODY$
 BEGIN
     UPDATE product
-    SET product.rating = 
+    SET rating = 
     (
         SELECT AVG(review.rating)
         FROM review, product
