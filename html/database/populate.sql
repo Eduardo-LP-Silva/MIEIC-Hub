@@ -185,7 +185,7 @@ INSERT INTO photo (id_photo, image_path, id_product) VALUES (62, '~/html/resourc
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (63, '~/html/resources/images/tickets/ticket8.jpg', 57);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (64, '~/html/resources/images/tickets/ticket9.png', 58);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (65, '~/html/resources/images/tickets/ticket10.jpg', 59);
-    
+
     --Mouse Pads
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (66, '~/html/resources/images/mousepads/feup.jpg', 60);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (67, '~/html/resources/images/mousepads/feup2.jpg', 61);
@@ -224,16 +224,16 @@ INSERT INTO photo (id_photo, image_path, id_product) VALUES (90, '~/html/resourc
 -- Table: user
 
     -- Regular Users
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (1, 'User1', 'User1@fe.up.pt','123456789', '1998-07-31', TRUE, FALSE, FALSE, FALSE, 90, 'The best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (2, 'User2', 'user2@fe.up.pt', '123456789', '1994-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'The 2nd best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (3, 'User3', 'user3@fe.up.pt', '123456789', '1997-04-15', TRUE, FALSE, FALSE, FALSE, 90, 'The 3rd best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (4, 'User4', 'user4@fe.up.pt', '123456789', '1998-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'The 4th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (5, 'User5', 'user5@fe.up.pt', '123456789', '1994-03-21', TRUE, FALSE, FALSE, FALSE, 90, 'The 5th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (6, 'User6', 'user6@fe.up.pt', '123456789', '1993-12-13', TRUE, FALSE, FALSE, FALSE, 90, 'The 6th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (7, 'User7', 'user7@fe.up.pt', '123456789', '1996-02-10', TRUE, FALSE, FALSE, FALSE, 90, 'The 7th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (8, 'User8', 'user8@fe.up.pt', '123456789', '1999-03-31', TRUE, FALSE, FALSE, FALSE, 90, 'The 8th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (9, 'User9', 'user9@fe.up.pt', '123456789', '1995-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'The 9th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (10, 'User10', 'user10@fe.up.pt', '123456789', '1996-03-09', TRUE, FALSE, FALSE, FALSE, 90, 'The 10th best !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (1, 'Tomás Novo', 'up201604503@fe.up.pt','123456789', '1998-07-31', TRUE, FALSE, FALSE, FALSE, 90, 'The best !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (2, 'Zé Luís', 'up201287644@fe.up.pt', '123456789', '1994-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'MEEEC student at 2nd grade. Love music !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (3, 'Susana Castro', 'up201503453@fe.up.pt', '123456789', '1997-04-15', TRUE, FALSE, FALSE, FALSE, 90, ' Quemistry student, the one who knocks !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (4, 'José António', 'up201703443@fe.up.pt', '123456789', '1998-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'I love computers !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (5, 'Rolando Escada Abaixo', 'up201304453@fe.up.pt', '123456789', '1994-03-21', TRUE, FALSE, FALSE, FALSE, 90, 'CIVIL < INFORMATICA !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (6, 'Andreia Ramalho', 'up201603853@fe.up.pt', '123456789', '1993-12-13', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC Student !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (7, 'João Saraiva', 'up201703453@fe.up.pt', '123456789', '1996-02-10', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC Student AT 1ST grade !');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (8, 'Luísa Josefa', 'up201406753@fe.up.pt', '123456789', '1999-03-31', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC Student');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (9, 'Alfredo Granjão', 'up201706173@fe.up.pt', '123456789', '1995-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC Student 5th grade! SOU FINALISTAAAA');
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (10, 'Ada Beliza', 'up201302123@fe.up.pt', '123456789', '1996-03-09', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC student at 3rd grade !');
 INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (11, 'User11', 'user11@fe.up.pt', '123456789', '1998-11-07', TRUE, FALSE, FALSE, FALSE, 90, 'The 11th best !');
 INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (12, 'User12', 'user12@fe.up.pt', '123456789', '1997-10-01', TRUE, FALSE, FALSE, FALSE, 90, 'The 12th best !');
 INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (13, 'User13', 'user13@fe.up.pt', '123456789', '1997-07-03', TRUE, FALSE, FALSE, FALSE, 90, 'The 13th best !');
