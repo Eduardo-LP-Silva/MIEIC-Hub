@@ -1,5 +1,81 @@
 --PRAGMA foreign_keys = ON;
 
+-- Table: user
+
+    -- Regular Users
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (1, "User1", "User1@fe.up.pt", "123456789", 1998-07-31, TRUE, FALSE, FALSE, FALSE, 83, "I'm the best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (2, "User2", "user2@fe.up.pt", "123456789", 1994-02-11, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 2nd best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (3, "User3", "user3@fe.up.pt", "123456789", 1997-04-15, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 3rd best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (4, "User4", "user4@fe.up.pt", "123456789", 1998-02-11, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 4th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (5, "User5", "user5@fe.up.pt", "123456789", 1994-03-21, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 5th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (6, "User6", "user6@fe.up.pt", "123456789", 1993-12-13, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 6th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (7, "User7", "user7@fe.up.pt", "123456789", 1996-02-10, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 7th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (8, "User8", "user8@fe.up.pt", "123456789", 1999-03-31, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 8th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (9, "User9", "user9@fe.up.pt", "123456789", 1995-02-11, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 9th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (10, "User10", "user10@fe.up.pt", "123456789", 1996-03-09, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 10th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (11, "User11", "user11@fe.up.pt", "123456789", 1998-11-07, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 11th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (12, "User12", "user12@fe.up.pt", "123456789", 1997-10-01, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 12th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (13, "User13", "user13@fe.up.pt", "123456789", 1997-07-03, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 13th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (14, "User14", "user14@fe.up.pt", "123456789", 1993-08-11, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 14th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (15, "User15", "user15@fe.up.pt", "123456789", 1992-04-16, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 15th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (16, "User16", "user16@fe.up.pt", "123456789", 1998-03-22, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 16th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (17, "User17", "user17@fe.up.pt", "123456789", 1999-01-30, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 17th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (18, "User18", "user18@fe.up.pt", "123456789", 1994-09-27, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 18th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (19, "User19", "user19@fe.up.pt", "123456789", 1996-10-23, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 19th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (20, "User20", "user20@fe.up.pt", "123456789", 1994-11-22, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 20th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (21, "User21", "user21@fe.up.pt", "123456789", 1993-12-21, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 21st best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (22, "User22", "user22@fe.up.pt", "123456789", 1997-01-26, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 22nd best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (23, "User23", "user23@fe.up.pt", "123456789", 1998-02-16, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 23rd best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (24, "User24", "user24@fe.up.pt", "123456789", 1997-03-15, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 24th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (25, "User25", "user25@fe.up.pt", "123456789", 1995-04-25, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 25th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (26, "User26", "user26@fe.up.pt", "123456789", 1998-05-22, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 26th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (27, "User27", "user27@fe.up.pt", "123456789", 1998-06-26, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 27th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (28, "User28", "user28@fe.up.pt", "123456789", 1998-07-30, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 28th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (29, "User29", "user29@fe.up.pt", "123456789", 1996-08-21, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 29th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (30, "User30", "user30@fe.up.pt", "123456789", 1999-04-12, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 30th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (31, "User31", "user31@fe.up.pt", "123456789", 1993-12-21, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 31st best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (32, "User32", "user32@fe.up.pt", "123456789", 1993-01-26, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 32nd best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (33, "User33", "user33@fe.up.pt", "123456789", 1992-02-16, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 33rd best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (34, "User34", "user34@fe.up.pt", "123456789", 1993-03-15, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 34th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (35, "User35", "user35@fe.up.pt", "123456789", 1990-04-25, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 35th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (36, "User36", "user36@fe.up.pt", "123456789", 1991-05-22, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 36th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (37, "User37", "user37@fe.up.pt", "123456789", 1992-06-26, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 37th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (38, "User38", "user38@fe.up.pt", "123456789", 1993-07-30, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 38th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (39, "User39", "user39@fe.up.pt", "123456789", 1994-08-21, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 39th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (40, "User40", "user40@fe.up.pt", "123456789", 1995-04-12, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 40th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (41, "User41", "user41@fe.up.pt", "123456789", 1992-11-21, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 41st best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (42, "User42", "user42@fe.up.pt", "123456789", 1993-11-26, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 42nd best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (43, "User43", "user43@fe.up.pt", "123456789", 1995-03-16, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 43rd best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (44, "User44", "user44@fe.up.pt", "123456789", 1994-02-15, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 44th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (45, "User45", "user45@fe.up.pt", "123456789", 1990-04-28, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 45th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (46, "User46", "user46@fe.up.pt", "123456789", 1991-05-12, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 46th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (47, "User47", "user47@fe.up.pt", "123456789", 1992-12-16, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 47th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (48, "User48", "user48@fe.up.pt", "123456789", 1995-07-31, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 48th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (49, "User49", "user49@fe.up.pt", "123456789", 1997-02-22, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 49th best !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (50, "User50", "user50@fe.up.pt", "123456789", 1999-03-05, TRUE, FALSE, FALSE, FALSE, 83, "I'm the 50th best !");
+
+    --Stock Manager
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (31, "StockManager1", "sm1@fe.up.pt", "stockmanager123456789", 1998-03-30, TRUE, TRUE, FALSE, FALSE, 83, "I'm StockManager1 !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (32, "StockManager2", "sm2@fe.up.pt", "stockmanager123456789", 1996-04-21, TRUE, TRUE, FALSE, FALSE, 83, "I'm StockManager2 !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (33, "StockManager3", "sm3@fe.up.pt", "stockmanager123456789", 1999-06-12, TRUE, TRUE, FALSE, FALSE, 83, "I'm StockManager3 !");
+
+    --Moderator
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (34, "Moderator1", "m1@fe.up.pt", "moderator123456789", 1995-07-30, TRUE, FALSE, TRUE, FALSE, 83, "I'm Moderator1 !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (35, "Moderator2", "m2@fe.up.pt", "moderator123456789", 1997-08-21, TRUE, FALSE, TRUE, FALSE, 83, "I'm Moderator2 !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (36, "Moderator3", "m3@fe.up.pt", "moderator123456789", 1993-05-12, TRUE, FALSE, TRUE, FALSE, 83, "I'm Moderator3 !");
+
+    --Submission Manager
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (37, "SubmissionManager1", "subm1@fe.up.pt", "subm123456789", 1998-04-02, TRUE, FALSE, FALSE, TRUE, 83, "I'm SubmissionManager1 !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (38, "SubmissionManager2", "subm2@fe.up.pt", "subm123456789", 1996-08-22, TRUE, FALSE, FALSE, TRUE, 83, "I'm SubmissionManager2 !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (39, "SubmissionManager3", "subm3@fe.up.pt", "subm123456789", 1997-01-02, TRUE, FALSE, FALSE, TRUE, 83, "I'm SubmissionManager3 !");
+
+    --Admins
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (40, "Admin1", "admin1@fe.up.pt", "admin123456789", 1998-02-02, TRUE, TRUE, TRUE, TRUE, 83, "I'm Admin1 !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (41, "Admin2", "admin2@fe.up.pt", "admin123456789", 1994-05-12, TRUE, TRUE, TRUE, TRUE, 83, "I'm Admin2 !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (42, "Admin3", "admin3@fe.up.pt", "admin123456789", 1997-11-22, TRUE, TRUE, TRUE, TRUE, 83, "I'm Admin3 !");
+INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (43, "Admin4", "admin4@fe.up.pt", "admin123456789", 1998-10-30, TRUE, TRUE, TRUE, TRUE, 83, "I'm Admin4 !");
+
+
 -- Table: category
 INSERT INTO category (id_category, category) VALUES (1, 'Apparel');
 INSERT INTO category (id_category, category) VALUES (2, 'Phone Cases');
@@ -146,20 +222,20 @@ INSERT INTO photo (id_photo, image_path, id_product) VALUES (29, '~/html/resourc
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (30, '~/html/resources/images/cases/case_example10.jpg', 24);
 
     --Posters
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (31, '~/html/resources/images/posters/today.jpg', 25);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (32, '~/html/resources/images/posters/anonymous1.jpg', 26);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (33, '~/html/resources/images/posters/anonymous2.jpg', 27);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (34, '~/html/resources/images/posters/hackerman.jpg', 28);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (35, '~/html/resources/images/posters/release.jpg', 29);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (36, '~/html/resources/images/posters/in code.jpg', 30);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (37, '~/html/resources/images/posters/keep calm.jpg', 31);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (38, '~/html/resources/images/posters/lovecoding.jpg', 32);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (39, '~/html/resources/images/posters/SETUP.jpg', 33);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (40, '~/html/resources/images/posters/eat.jpg', 34);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (41, '~/html/resources/images/posters/semi.jpg', 35);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (42, '~/html/resources/images/posters/super.jpg', 36);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (43, '~/html/resources/images/posters/world.jpg', 37);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (44, '~/html/resources/images/posters/war_poster.jpg', 38);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (31, "~/html/resources/images/posters/today.jpg", 25);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (32, "~/html/resources/images/posters/anonymous1.jpg", 26;
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (33, "~/html/resources/images/posters/anonymous2.jpg", 27);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (34, "~/html/resources/images/posters/hackerman.jpg", 28);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (35, "~/html/resources/images/posters/release.jpg", 29);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (36, "~/html/resources/images/posters/in code.jpg", 30);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (37, "~/html/resources/images/posters/keep calm.jpg", 31);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (38, "~/html/resources/images/posters/lovecoding.jpg", 32);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (39, "~/html/resources/images/posters/SETUP.jpg", 33);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (40, "~/html/resources/images/posters/eat.jpg", 34);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (41, "~/html/resources/images/posters/semi.jpg", 35);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (42, "~/html/resources/images/posters/super.jpg", 36);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (43, "~/html/resources/images/posters/world.jpg", 37);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (44, "~/html/resources/images/posters/war_poster.jpg", 38);
 
     --Stickers
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (45, '~/html/resources/images/stickers/feup.jpg', 39);
