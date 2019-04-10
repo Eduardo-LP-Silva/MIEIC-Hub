@@ -1,5 +1,3 @@
---PRAGMA foreign_keys = ON;
-
 -- Table: category
 INSERT INTO category (id_category, category) VALUES (1, 'Apparel');
 INSERT INTO category (id_category, category) VALUES (2, 'Phone Cases');

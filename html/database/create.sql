@@ -32,12 +32,14 @@ DROP TRIGGER IF EXISTS review_delete ON review;
 DROP TRIGGER IF EXISTS review_insert ON review;
 DROP TRIGGER IF EXISTS elect_winner ON poll;
 DROP TRIGGER IF EXISTS control_submission_vote ON user_sub_vote;
+DROP TRIGGER IF EXISTS update_purchase_price ON product_purchase;
 DROP FUNCTION IF EXISTS update_product_review_delete();
 DROP FUNCTION IF EXISTS update_product_review_insert();
 DROP FUNCTION IF EXISTS add_submission_vote();
 DROP FUNCTION IF EXISTS remove_submission_vote();
 DROP FUNCTION IF EXISTS select_winner();
 DROP FUNCTION IF EXISTS check_submission_vote();
+DROP FUNCTION IF EXISTS update_purchase_total();
 
 CREATE TYPE package_status AS ENUM ('awaiting_payment', 'processing', 'in_transit', 'delivered', 'canceled');
 
@@ -269,7 +271,7 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER review_insert
-AFTER INSERT ON review
+AFTER INSERT OR UPDATE ON review
 FOR EACH ROW
 EXECUTE PROCEDURE update_product_review_insert();
 
@@ -332,3 +334,26 @@ CREATE TRIGGER elect_winner
 AFTER UPDATE ON poll
 FOR EACH ROW
 EXECUTE PROCEDURE select_winner();
+
+CREATE FUNCTION update_purchase_total() RETURNS TRIGGER AS $BODY$
+BEGIN
+    UPDATE purchase
+    SET total = 
+    (
+        SELECT sum(products_price)
+        FROM
+        (
+            SELECT product_purchase.quantity * product_purchase.price AS products_price
+            FROM product, purchase
+            WHERE NEW.id_purchase = purchase.id_purchase AND purchase.id_product = product.id_product
+        ) AS products_actual_price
+    )
+    WHERE NEW.id_purchase = purchase.id_purchase;
+    RETURN NEW;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_purchase_price
+AFTER INSERT OR UPDATE ON product_purchase
+FOR EACH ROW
+EXECUTE PROCEDURE update_purchase_total();
