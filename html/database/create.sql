@@ -345,7 +345,8 @@ BEGIN
         (
             SELECT product_purchase.quantity * product_purchase.price AS products_price
             FROM product, purchase, product_purchase
-            WHERE NEW.id_purchase = purchase.id_purchase AND NEW.id_product = product.id_product
+            WHERE NEW.id_purchase = purchase.id_purchase AND NEW.id_product = product.id_product 
+            AND product_purchase.id_purchase = NEW.id_purchase AND product_purchase.id_product = NEW.id_product
         ) AS products_actual_price
     )
     WHERE NEW.id_purchase = purchase.id_purchase;
