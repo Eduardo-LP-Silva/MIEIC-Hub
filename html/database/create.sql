@@ -32,14 +32,20 @@ DROP TRIGGER IF EXISTS review_delete ON review;
 DROP TRIGGER IF EXISTS review_insert ON review;
 DROP TRIGGER IF EXISTS elect_winner ON poll;
 DROP TRIGGER IF EXISTS control_submission_vote ON user_sub_vote;
-DROP TRIGGER IF EXISTS update_purchase_price ON product_purchase;
+DROP TRIGGER IF EXISTS update_purchase_price_insert ON product_purchase;
+DROP TRIGGER IF EXISTS update_purchase_price_delete ON product_purchase;
+DROP TRIGGER IF EXISTS calculate_product_purchase_price ON product_purchase;
+DROP TRIGGER IF EXISTS update_product_purchase_price ON product;
 DROP FUNCTION IF EXISTS update_product_review_delete();
 DROP FUNCTION IF EXISTS update_product_review_insert();
 DROP FUNCTION IF EXISTS add_submission_vote();
 DROP FUNCTION IF EXISTS remove_submission_vote();
 DROP FUNCTION IF EXISTS select_winner();
 DROP FUNCTION IF EXISTS check_submission_vote();
-DROP FUNCTION IF EXISTS update_purchase_total();
+DROP FUNCTION IF EXISTS update_purchase_total_insert();
+DROP FUNCTION IF EXISTS update_purchase_total_delete();
+DROP FUNCTION IF EXISTS calculate_new_product_purchase_price();
+DROP FUNCTION IF EXISTS recalculate_product_purchase_price();
 
 CREATE TYPE package_status AS ENUM ('awaiting_payment', 'processing', 'in_transit', 'delivered', 'canceled');
 
@@ -55,7 +61,7 @@ CREATE TABLE product
     product_name TEXT NOT NULL,
     product_description TEXT NOT NULL,
     price FLOAT NOT NULL CHECK(price > 0),
-    delivery_cost FLOAT NOT NULL CHECK(delivery_cost > 0),
+    delivery_cost FLOAT NOT NULL CHECK(delivery_cost >= 0),
     stock INTEGER NOT NULL CHECK(stock >= 0),
     rating FLOAT NOT NULL CHECK(rating >= 0 AND rating <= 5),
     id_category INTEGER NOT NULL REFERENCES category ON UPDATE CASCADE
@@ -142,7 +148,7 @@ CREATE TABLE purchase
 
 CREATE TABLE product_purchase
 (
-    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
+    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE ON DELETE CASCADE,
     id_purchase INTEGER NOT NULL REFERENCES purchase ON UPDATE CASCADE,
     quantity INTEGER NOT NULL CHECK(quantity > 0),
     price FLOAT NOT NULL CHECK(price > 0),
@@ -282,9 +288,9 @@ BEGIN
     (
         SELECT AVG(review.rating)
         FROM review, product
-        WHERE review.id_product = product.id_product AND review.id_product = NEW.id_product
+        WHERE review.id_product = product.id_product AND review.id_product = OLD.id_product
     )
-    WHERE NEW.id_product = product.id_product;
+    WHERE OLD.id_product = product.id_product;
     RETURN OLD;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -335,7 +341,7 @@ AFTER UPDATE ON poll
 FOR EACH ROW
 EXECUTE PROCEDURE select_winner();
 
-CREATE FUNCTION update_purchase_total() RETURNS TRIGGER AS $BODY$
+CREATE FUNCTION update_purchase_total_insert() RETURNS TRIGGER AS $BODY$
 BEGIN
     UPDATE purchase
     SET total = 
@@ -354,7 +360,74 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER update_purchase_price
+CREATE TRIGGER update_purchase_price_insert
 AFTER INSERT OR UPDATE ON product_purchase
 FOR EACH ROW
 EXECUTE PROCEDURE update_purchase_total();
+
+CREATE FUNCTION update_purchase_total_delete() RETURNS TRIGGER AS $BODY$
+BEGIN
+    UPDATE purchase
+    SET total = 
+    (
+        SELECT sum(products_price)
+        FROM
+        (
+            SELECT product_purchase.quantity * product_purchase.price AS products_price
+            FROM product, purchase, product_purchase
+            WHERE OLD.id_purchase = purchase.id_purchase AND OLD.id_product = product.id_product 
+            AND product_purchase.id_purchase = OLD.id_purchase AND product_purchase.id_product = OLD.id_product
+        ) AS products_actual_price
+    )
+    WHERE OLD.id_purchase = purchase.id_purchase;
+    RETURN OLD;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_purchase_price_delete
+AFTER DELETE ON product_purchase
+FOR EACH ROW
+EXECUTE PROCEDURE update_purchase_total_delete();
+
+CREATE FUNCTION calculate_new_product_purchase_price() RETURNS TRIGGER AS $BODY$
+BEGIN  
+    UPDATE product_purchase
+    SET price = 
+    (
+        SELECT product.price + product.delivery_cost as total_product_price
+        FROM product, product_purchase
+        WHERE product.id_product = product_purchase.id_product 
+        AND product_purchase.id_product = NEW.id_product
+        AND product_purchase.id_purchase = NEW.id_purchase
+    )
+    WHERE product_purchase.id_product = NEW.id_product
+    AND product_purchase.id_purchase = NEW.id_purchase;
+    RETURN NEW;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER new_product_purchase_price
+AFTER INSERT ON product_purchase
+FOR EACH ROW
+EXECUTE PROCEDURE calculate_new_product_purchase_price();
+
+CREATE FUNCTION recalculate_product_purchase_price() RETURNS TRIGGER AS $BODY$
+BEGIN
+    UPDATE product_purchase
+    SET price = 
+    (
+        SELECT product.price + product.delivery_cost as total_product_price
+        FROM product, product_purchase
+        WHERE product.id_product = product_purchase.id_product
+        AND product.id_product = NEW.id_product
+        LIMIT 1
+    )
+    WHERE product_purchase.id_product = NEW.id_product;
+    RETURN NEW;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_product_purchase_price
+AFTER INSERT OR UPDATE ON product
+FOR EACH ROW
+EXECUTE PROCEDURE recalculate_product_purchase_price();
