@@ -36,16 +36,15 @@ DROP TRIGGER IF EXISTS update_purchase_price_insert ON product_purchase;
 DROP TRIGGER IF EXISTS update_purchase_price_delete ON product_purchase;
 DROP TRIGGER IF EXISTS calculate_product_purchase_price ON product_purchase;
 DROP TRIGGER IF EXISTS update_product_purchase_price ON product;
-DROP FUNCTION IF EXISTS update_product_review_delete();
-DROP FUNCTION IF EXISTS update_product_review_insert();
-DROP FUNCTION IF EXISTS add_submission_vote();
-DROP FUNCTION IF EXISTS remove_submission_vote();
+DROP TRIGGER IF EXISTS delete_user ON users;
+DROP FUNCTION IF EXISTS update_product_review();
+DROP FUNCTION IF EXISTS update_submission_vote();
 DROP FUNCTION IF EXISTS select_winner();
 DROP FUNCTION IF EXISTS check_submission_vote();
-DROP FUNCTION IF EXISTS update_purchase_total_insert();
-DROP FUNCTION IF EXISTS update_purchase_total_delete();
+DROP FUNCTION IF EXISTS update_purchase_total();
 DROP FUNCTION IF EXISTS calculate_new_product_purchase_price();
 DROP FUNCTION IF EXISTS recalculate_product_purchase_price();
+DROP FUNCTION IF EXISTS erase_user();
 
 CREATE TYPE package_status AS ENUM ('awaiting_payment', 'processing', 'in_transit', 'delivered', 'canceled');
 
@@ -85,7 +84,7 @@ CREATE TABLE users
     stock_manager BOOLEAN NOT NULL,
     moderator BOOLEAN NOT NULL,
     submission_manager BOOLEAN NOT NULL,
-    id_photo INTEGER NOT NULL REFERENCES photo ON UPDATE CASCADE ON DELETE CASCADE,
+    id_photo INTEGER NOT NULL REFERENCES photo ON UPDATE CASCADE,
     user_description TEXT NOT NULL
 );
 
@@ -132,7 +131,7 @@ CREATE TABLE delivery_info
 CREATE TABLE user_delivery_info
 (
     id_delivery_info INTEGER NOT NULL REFERENCES delivery_info ON UPDATE CASCADE,
-    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (id_delivery_info, id_user)
 );
 
@@ -159,7 +158,7 @@ CREATE TABLE product_purchase
 
 CREATE TABLE review
 (
-    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE CASCADE,
     id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
     comment TEXT NOT NULL,
     review_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
@@ -217,7 +216,7 @@ CREATE TABLE submission
 
 CREATE TABLE user_sub_vote
 (
-    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE,
     id_sub INTEGER NOT NULL REFERENCES submission ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (id_user, id_sub)
 );
@@ -234,71 +233,67 @@ CREATE INDEX search_products ON product USING GIST (to_tsvector('english', produ
 
 -- Triggers
 
-CREATE FUNCTION add_submission_vote() RETURNS TRIGGER AS $BODY$
+CREATE FUNCTION update_submission_vote() RETURNS TRIGGER AS $BODY$
 BEGIN
-    UPDATE submission
-    SET votes = votes + 1
-    WHERE submission.id_submission = NEW.id_sub;
-    RETURN NEW;
+    IF TG_OP = 'INSERT' THEN
+        UPDATE submission
+        SET votes = votes + 1
+        WHERE submission.id_submission = NEW.id_sub;
+        RETURN NEW;
+    ELSEIF TG_OP = 'DELETE' THEN
+        UPDATE submission
+        SET votes = votes - 1
+        WHERE submission.id_submission = OLD.id_sub;
+        RETURN OLD;
+    END IF;
 END; 
 $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER vote_on_design
 AFTER INSERT ON user_sub_vote
 FOR EACH ROW
-EXECUTE PROCEDURE add_submission_vote();
-
-CREATE FUNCTION remove_submission_vote() RETURNS TRIGGER AS $BODY$
-BEGIN
-    UPDATE submission
-    SET votes = votes - 1
-    WHERE submission.id_submission = OLD.id_sub;
-    RETURN OLD;
-END;
-$BODY$ LANGUAGE plpgsql;
+EXECUTE PROCEDURE update_submission_vote();
 
 CREATE TRIGGER unvote_on_design
 AFTER DELETE ON user_sub_vote
 FOR EACH ROW
-EXECUTE PROCEDURE remove_submission_vote();
+EXECUTE PROCEDURE update_submission_vote();
 
-CREATE FUNCTION update_product_review_insert() RETURNS TRIGGER AS $BODY$
+CREATE FUNCTION update_product_review() RETURNS TRIGGER AS $BODY$
 BEGIN
-    UPDATE product
-    SET rating = 
-    (
-        SELECT AVG(review.rating)
-        FROM review, product
-        WHERE review.id_product = product.id_product AND review.id_product = NEW.id_product
-    )
-    WHERE NEW.id_product = product.id_product;
-    RETURN NEW;
+    IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
+        UPDATE product
+        SET rating = 
+        (
+            SELECT AVG(review.rating)
+            FROM review, product
+            WHERE review.id_product = product.id_product AND review.id_product = NEW.id_product
+        )
+        WHERE NEW.id_product = product.id_product;
+        RETURN NEW;
+    ELSEIF TG_OP = 'DELETE' THEN
+        UPDATE product
+        SET rating = 
+        (
+            SELECT AVG(review.rating)
+            FROM review, product
+            WHERE review.id_product = product.id_product AND review.id_product = OLD.id_product
+        )
+        WHERE OLD.id_product = product.id_product;
+        RETURN OLD;
+    END IF;
 END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER review_insert
 AFTER INSERT OR UPDATE ON review
 FOR EACH ROW
-EXECUTE PROCEDURE update_product_review_insert();
-
-CREATE FUNCTION update_product_review_delete() RETURNS TRIGGER AS $BODY$
-BEGIN
-    UPDATE product
-    SET rating = 
-    (
-        SELECT AVG(review.rating)
-        FROM review, product
-        WHERE review.id_product = product.id_product AND review.id_product = OLD.id_product
-    )
-    WHERE OLD.id_product = product.id_product;
-    RETURN OLD;
-END;
-$BODY$ LANGUAGE plpgsql;
+EXECUTE PROCEDURE update_product_review();
 
 CREATE TRIGGER review_delete
 AFTER DELETE ON review
 FOR EACH ROW
-EXECUTE PROCEDURE update_product_review_delete(); 
+EXECUTE PROCEDURE update_product_review(); 
 
 CREATE FUNCTION check_submission_vote() RETURNS TRIGGER AS $BODY$
 BEGIN
@@ -341,22 +336,39 @@ AFTER UPDATE ON poll
 FOR EACH ROW
 EXECUTE PROCEDURE select_winner();
 
-CREATE FUNCTION update_purchase_total_insert() RETURNS TRIGGER AS $BODY$
+CREATE FUNCTION update_purchase_total() RETURNS TRIGGER AS $BODY$
 BEGIN
-    UPDATE purchase
-    SET total = 
-    (
-        SELECT sum(products_price)
-        FROM
+    IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
+        UPDATE purchase
+        SET total = 
         (
-            SELECT product_purchase.quantity * product_purchase.price AS products_price
-            FROM product, purchase, product_purchase
-            WHERE NEW.id_purchase = purchase.id_purchase AND NEW.id_product = product.id_product 
-            AND product_purchase.id_purchase = NEW.id_purchase AND product_purchase.id_product = NEW.id_product
-        ) AS products_actual_price
-    )
-    WHERE NEW.id_purchase = purchase.id_purchase;
-    RETURN NEW;
+            SELECT sum(products_price)
+            FROM
+            (
+                SELECT product_purchase.quantity * product_purchase.price AS products_price
+                FROM product, purchase, product_purchase
+                WHERE NEW.id_purchase = purchase.id_purchase AND NEW.id_product = product.id_product 
+                AND product_purchase.id_purchase = NEW.id_purchase AND product_purchase.id_product = NEW.id_product
+            ) AS products_actual_price
+        )
+        WHERE NEW.id_purchase = purchase.id_purchase;
+        RETURN NEW;
+    ELSEIF TG_OP = 'DELETE' THEN
+        UPDATE purchase
+        SET total = 
+        (
+            SELECT sum(products_price)
+            FROM
+            (
+                SELECT product_purchase.quantity * product_purchase.price AS products_price
+                FROM product, purchase, product_purchase
+                WHERE OLD.id_purchase = purchase.id_purchase AND OLD.id_product = product.id_product 
+                AND product_purchase.id_purchase = OLD.id_purchase AND product_purchase.id_product = OLD.id_product
+            ) AS products_actual_price
+        )
+        WHERE OLD.id_purchase = purchase.id_purchase;
+        RETURN OLD;
+    END IF;
 END;
 $BODY$ LANGUAGE plpgsql;
 
@@ -365,29 +377,10 @@ AFTER INSERT OR UPDATE ON product_purchase
 FOR EACH ROW
 EXECUTE PROCEDURE update_purchase_total();
 
-CREATE FUNCTION update_purchase_total_delete() RETURNS TRIGGER AS $BODY$
-BEGIN
-    UPDATE purchase
-    SET total = 
-    (
-        SELECT sum(products_price)
-        FROM
-        (
-            SELECT product_purchase.quantity * product_purchase.price AS products_price
-            FROM product, purchase, product_purchase
-            WHERE OLD.id_purchase = purchase.id_purchase AND OLD.id_product = product.id_product 
-            AND product_purchase.id_purchase = OLD.id_purchase AND product_purchase.id_product = OLD.id_product
-        ) AS products_actual_price
-    )
-    WHERE OLD.id_purchase = purchase.id_purchase;
-    RETURN OLD;
-END;
-$BODY$ LANGUAGE plpgsql;
-
 CREATE TRIGGER update_purchase_price_delete
 AFTER DELETE ON product_purchase
 FOR EACH ROW
-EXECUTE PROCEDURE update_purchase_total_delete();
+EXECUTE PROCEDURE update_purchase_total();
 
 CREATE FUNCTION calculate_new_product_purchase_price() RETURNS TRIGGER AS $BODY$
 BEGIN  
@@ -431,3 +424,26 @@ CREATE TRIGGER update_product_purchase_price
 AFTER INSERT OR UPDATE ON product
 FOR EACH ROW
 EXECUTE PROCEDURE recalculate_product_purchase_price();
+
+CREATE FUNCTION erase_user() RETURNS TRIGGER AS $BODY$
+BEGIN
+    UPDATE submission
+    SET id_user = 1 -- Default User
+    WHERE submission.id_user = OLD.id_user;
+
+    UPDATE user_sub_vote
+    SET id_user = 1 -- Default User
+    WHERE submission.id_user = OLD.id_user;
+
+    UPDATE purchase
+    SET id_user = 1 -- Default User
+    WHERE submission.id_user = OLD.id_user;
+
+    RETURN OLD;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_user
+AFTER DELETE ON users
+FOR EACH ROW
+EXECUTE PROCEDURE erase_user();
