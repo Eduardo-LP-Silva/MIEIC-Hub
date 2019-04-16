@@ -223,12 +223,13 @@ CREATE TABLE user_sub_vote
 
 -- Indexes
 
-CREATE INDEX authenticate ON users(username, pw); 
+CREATE INDEX authenticate ON users USING hash(username); 
 CREATE INDEX id_category ON product USING hash(id_category); 
-CREATE INDEX active_poll ON poll USING hash(active); 
+--CREATE INDEX active_poll ON poll USING hash(active); 
 CREATE INDEX sub_id_poll ON submission USING hash(id_poll); 
+CLUSTER submission USING sub_id_poll;
 CREATE INDEX by_price ON product(price); 
-CREATE INDEX search_users ON users USING GIST (to_tsvector('english', username || ' '));
+CLUSTER product USING by_price;
 CREATE INDEX search_products ON product USING GIST (to_tsvector('english', product_name || ' ' || product_description));
 
 -- Triggers
