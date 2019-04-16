@@ -226,7 +226,7 @@ CREATE TABLE user_sub_vote
 CREATE INDEX authenticate ON users USING hash(username); 
 CREATE INDEX id_category ON product USING hash(id_category); 
 --CREATE INDEX active_poll ON poll USING hash(active); 
-CREATE INDEX sub_id_poll ON submission USING hash(id_poll); 
+CREATE INDEX sub_id_poll ON submission(id_poll); 
 CLUSTER submission USING sub_id_poll;
 CREATE INDEX by_price ON product(price); 
 CLUSTER product USING by_price;
