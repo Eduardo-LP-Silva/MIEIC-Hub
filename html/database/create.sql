@@ -77,7 +77,7 @@ CREATE TABLE users
 (
     id_user SERIAL PRIMARY KEY,
     username TEXT UNIQUE NOT NULL,
-    email TEXT UNIQUE NOT NULL,
+    email TEXT NOT NULL,
     pw TEXT NOT NULL,
     birth_date DATE NOT NULL,
     active BOOLEAN NOT NULL, 
@@ -147,7 +147,7 @@ CREATE TABLE purchase
 
 CREATE TABLE product_purchase
 (
-    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE ON DELETE CASCADE,
+    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
     id_purchase INTEGER NOT NULL REFERENCES purchase ON UPDATE CASCADE,
     quantity INTEGER NOT NULL CHECK(quantity > 0),
     price FLOAT NOT NULL CHECK(price > 0),
@@ -158,7 +158,7 @@ CREATE TABLE product_purchase
 
 CREATE TABLE review
 (
-    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE,
     id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
     comment TEXT NOT NULL,
     review_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
@@ -426,17 +426,29 @@ FOR EACH ROW
 EXECUTE PROCEDURE recalculate_product_purchase_price();
 
 CREATE FUNCTION erase_user() RETURNS TRIGGER AS $BODY$
+DECLARE
+    next_id INTEGER := pg_get_serial_sequence('users', 'id_user');
+    new_username TEXT := 'John Doe' || MD5(OLD.username);
 BEGIN
+    INSERT INTO users (username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, 
+    id_photo, user_description) 
+    VALUES (new_username , 'mieichubsupport@gmail.com','123masfiasfnakslfmas', '1994-01-01', FALSE, FALSE, FALSE, 
+    FALSE, 1, 'Just a regular user, nothing to see here...');
+
+    UPDATE review
+    SET id_user = next_id
+    WHERE review.id_user = OLD.id_user;
+
     UPDATE submission
-    SET id_user = 1 -- Default User
+    SET id_user = next_id
     WHERE submission.id_user = OLD.id_user;
 
     UPDATE user_sub_vote
-    SET id_user = 1 -- Default User
+    SET id_user = next_id
     WHERE submission.id_user = OLD.id_user;
 
     UPDATE purchase
-    SET id_user = 1 -- Default User
+    SET id_user = next_id
     WHERE submission.id_user = OLD.id_user;
 
     RETURN OLD;
