@@ -421,7 +421,7 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER update_product_purchase_price
-AFTER INSERT OR UPDATE ON product
+AFTER UPDATE ON product
 FOR EACH ROW
 EXECUTE PROCEDURE recalculate_product_purchase_price();
 
