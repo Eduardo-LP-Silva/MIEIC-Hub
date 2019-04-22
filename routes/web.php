@@ -13,19 +13,14 @@
 
 Route::get('/', function()
 {
-    return redirect('home');
+    return redirect('login');
 });
 
 Route::get('home', 'GeneralPageController@home');
 
-
-
+Route::get('login', 'GeneralPageController@login');
 
 /*
-Route::get('/', function () {
-    return redirect('login');
-});
-
 // Cards
 Route::get('cards', 'CardController@list');
 Route::get('cards/{id}', 'CardController@show');
