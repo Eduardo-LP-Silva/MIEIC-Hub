@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <!--Slideshow-->
+    <!--Slideshow (Mudar links dos produtos e categorias) -->
     <div id="slideShow" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#slideShow" data-slide-to="0" class="active"></li>
@@ -22,18 +22,18 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active img-fluid">
-                <a href="./product.html">
-                    <img class="d-block w-100" src="../resources/images/apparel/hoodie_2_smiley.jpg" alt="First slide">
+                <a href="{{ url('/products/{product_id}') }}">
+                    <img class="d-block w-100" src="{{asset('img/images/apparel/hoodie_2_smiley.jpg')}}" alt="First slide">
                 </a>
             </div>
             <div class="carousel-item">
-                <a href="./product.html">
-                    <img class="d-block w-100 img-fluid" src="../resources/images/posters/poster_code_sleep_repeat.jpg" alt="Second slide">
+                <a href="{{ url('/products/{product_id}') }}">
+                    <img class="d-block w-100 img-fluid" src="{{asset('img/images/posters/semi.jpg')}}" alt="Second slide">
                 </a>
             </div>
             <div class="carousel-item img-fluid">
-                <a href="./product.html">
-                    <img class="d-block w-100" src="../resources/images/apparel/hoddie_sudo_rm.jpg" alt="Third slide">
+                <a href="{{ url('/products/{product_id}') }}">
+                    <img class="d-block w-100" src="{{asset('img/images/apparel/hoddie_sudo_rm.jpg')}}" alt="Third slide">
                 </a>
             </div>
         </div>
@@ -53,32 +53,32 @@
                 <div class="row">
                     <div class="col">
                         <div class="grid_container">
-                            <a href="./search.html">
-                                <img src="../resources/images/apparel/hoodie_example.jpg">
+                            <a href="{{ url('/search/category') }}">
+                                <img src="{{asset('img/images/apparel/hoodie_example.jpg')}}">
                             </a>
                         </div>
                         <h1>Apparel</h1>
                     </div>
                     <div class="col offset-md-1">
                         <div class="grid_container">
-                            <a href="./search.html">
-                                <img src="../resources/images/stickers/sticker_github.png">
+                            <a href="{{ url('/search/category') }}">
+                                <img src="{{asset('img/images/stickers/stickers.jpg')}}">
                             </a>
                         </div>
                         <h1>Stickers</h1>
                     </div>
                     <div class="col offset-md-1">
                         <div class="grid_container">
-                            <a href="./search.html">
-                                <img src="../resources/images/cases/case_example.jpg">
+                            <a href="{{ url('/search/category') }}">
+                                <img src="{{asset('img/images/cases/case_example.jpg')}}">
                             </a>
                         </div>
                         <h1>Cases</h1>
                     </div>
                     <div class="col offset-md-1">
                         <div class="grid_container">
-                            <a href="./search.html">
-                                <img src="../resources/images/posters/poster_gabi.jpg">
+                            <a href="{{ url('/search/category') }}">
+                                <img src="{{asset('img/images/posters/super.jpg')}}">
                             </a>
                         </div>
                         <h1>Posters</h1>
@@ -91,20 +91,26 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <a href="./polls.html">
-                            <div class="grid_container"></div>
+                        <a href="{{ url('/upcoming') }}">
+                            <div class="grid_container" 
+                            style="background-image: url('{{asset('img/images/website/calendar.jpg')}}');">
+                            </div>
                         </a>
                         <h1>Vote on upcoming products!</h1>
                     </div>
                     <div class="col offset-md-1">
-                        <a href="./submit.html">
-                            <div class="grid_container"></div>
+                        <a href="{{ url('/submit') }}">
+                            <div class="grid_container"
+                            style="background-image: url('{{asset('img/images/apparel/hoodie_drawing.jpg')}}');">
+                            </div>
                         </a>
                         <h1>Submit your designs!</h1>
                     </div>
                     <div class="col offset-md-1">
-                        <a href="./product.html">
-                            <div class="grid_container"></div>
+                        <a href="{{ url('/search/category') }}">
+                            <div class="grid_container" 
+                            style="background-image: url('{{asset('img/images/website/workshop.jpg')}}');">
+                            </div>
                         </a>
                         <h1>Workshops!</h1>
                     </div>

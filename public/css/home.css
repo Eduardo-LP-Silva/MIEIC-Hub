@@ -135,18 +135,15 @@ section > h1
 
 #other .col:first-child .grid_container
 {
-    background-image: url("../resources/images/website/calendar.jpg");
     background-size: cover;
 }
 
 #other .col:nth-child(2) .grid_container
 {
-    background-image: url("../resources/images/apparel/hoodie_drawing.jpg");
     background-size: cover;
 }
 
 #other .col:last-child .grid_container
 {
-    background-image: url("../resources/images/website/workshop.jpg");
     background-size: cover;
 }
