@@ -10,7 +10,7 @@
 
 @section('content')
   <div class="login">
-    {{-- <img src="../resources/images/website/avatar.png" class="avatar"> --}}
+    <img src="{{asset('img/images/website/avatar.png')}}" class="avatar">
     <h1>Sign In</h1>
     <form>
       <input type="text" name="" placeholder="🕵🏻    Username" required>
