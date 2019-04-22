@@ -49,7 +49,8 @@
                     <li class="nav-item justify-content-center" id="searchBar">
                         <form class="form-inline justify-content-center my-1">
                             <input type="text" name="" placeholder="Search">
-                            <button type="submit" class="btn btn-light"></button>
+                            <button type="submit" class="btn btn-light" style="
+                            background-image: url('{{asset('img/icons/search.svg')}}');"></button>
                         </form>
                     </li>
                     <li class="nav-item">
