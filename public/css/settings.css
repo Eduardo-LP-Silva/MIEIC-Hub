@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Raleway:900');
+
+@media (max-width: 991px)
+{
+
+  .settings
+  {
+    padding-bottom: 0 !important;
+  }
+
+  #content
+  {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  #content > div:first-child > h1
+  {
+    font-size: 22pt !important;
+  }
+
+  .save
+  {
+    position: static !important;
+    margin-top: 1em !important;
+    margin-bottom: 0em !important;
+  }
+
+  h5
+  {
+    flex-direction: column !important;
+  }
+
+  .card
+  {
+    width: 80% !important;
+    padding: 0 !important;
+  }
+
+  .card-header
+  {
+    padding: 0 !important;
+  }
+
+  .card_options
+  {
+    flex-direction: column-reverse !important;
+  }
+
+  .card_options > :first-child
+  {
+    padding-bottom: 1em;
+  }
+
+  .btn.btn-link
+  {
+    margin-top: 1em !important;
+    color: black;
+  }
+
+  .avatar
+  {
+    width: 3em !important;
+    height: 3em !important;
+  }
+
+}
+
+body
+{
+  background-color: #f3f3f3;
+}
+
+h5
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.current_options > :first-child
+{
+  color: #af1c1c;
+}
+
+.current_options
+{
+  margin-bottom: 1em;
+  border-bottom: thin solid #af1c1c;
+}
+
+.card_options .save > i
+{
+  color: #af1c1c;
+  padding-top: 1em;
+}
+
+.card_options
+{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.btn.btn-primary
+{
+  position: static;
+  float: right;
+  margin-bottom: 4em;
+  background-color:  rgb(175, 28, 28);
+  border-color: none !important;
+  border-style: none !important;
+}
+
+.btn.btn-primary:hover
+{
+  background-color:  rgb(125, 28, 28);
+  border-color: none !important;
+  border-style: none !important;
+}
+
+.btn.btn-primary:active
+{
+  background-color:  rgb(125, 28, 28);
+  border-color: none !important;
+  border-style: none !important;
+}
+
+/*Each setting*/
+.card
+{
+  width: 70%;
+  /* margin: auto !important; */
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  color: black;
+  background-color: white;
+
+}
+
+.card-header
+{
+  border: 0.1em solid rgb(175, 28, 28);
+  border-bottom: 0.15em solid rgb(175, 28, 28);
+  color: black;
+  border-radius: 2em;
+  font-size: 18pt;
+}
+
+.mb-0
+{
+  font-size: 13pt;
+}
+
+/*Edit button*/
+.btn.btn-link
+{
+  float: right;
+  color: black;
+}
+
+
+.btn.btn-link.collapse
+{
+  float: right;
+  text-decoration: none;
+  color: black;
+}
+/*Settings change*/
+.card-body
+{
+  color: black;
+  background-color: white;
+  border: 0.1em solid rgb(175, 28, 28);
+  /* border-radius: 2em; */
+}
+
+
+#content input[type="text"], input[type="password"], input[type="email"], input[type="date"]
+{
+  border: none;
+  border-bottom: 0.1em solid rgb(175, 28, 28);
+  background: transparent;
+  outline: none;
+  height: 2.7em;
+  color: black;
+  margin-top: 0.2em;
+  width: 100%;
+  margin-bottom: 1.5em;
+}
+
+#content input[type="text"]::placeholder, input[type="password"]::placeholder, input[type="email"]::placeholder, input[type="date"]
+{
+  color: black;
+}
+
+#delete
+{
+  display: block;
+  width: 70%;
+  margin: auto;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+#delete > input
+{
+  font-family: Poppins;
+  background:  rgb(175, 28, 28);
+  color: white;
+}
+
+#content > div:first-child
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 70%;
+  margin: auto;
+  margin-top: 1em;
+
+  border-bottom: 0.2em solid #af1c1c;
+}
+
+/*Icon*/
+.avatar
+{
+  width: 5em;
+  height: 5em;
+  margin-bottom: 0.5em;
+}
+
+/*Save button*/
+.save
+{
+  display: flex;
+  position: relative;
+  background-color: transparent;
+  float: right;
+  border: none;
+  color: white;
+  font-size: 22px;
+  margin-top: -1em;
+}
+
+.save:focus
+{
+  outline: 0;
+}
+
+
+/*WAIT FOR IT*/
+
+div#content {
+    width: 70%;
+    margin: auto !important;
+    background-color: white;
+    color: black;
+    font-family: Poppins;
+    padding: 1em;
+    height: 100%;
+}
+
+div#content h1 
+{
+  color: black;
+  
+}
+
+div#content div#files input[type="file"] {
+    display: none;
+}
+
+#files
+{
+  width: 70%;
+  display: block;
+  margin: auto !important;
+}
+
+div#content div#files label {
+    display: inline-block;
+    background-color: rgb(175, 28, 28);
+    padding: .5em;
+    cursor: pointer;
+    margin-top: 2em;
+    color: white;
+    font-style: Poppins;
+    border-radius: 5%;
+
+}
+
+div#content input[type="submit"] {
+    margin: auto;
+    display: block;
+}
+
+.accordion
+{
+  position: relative;
+  margin-top: 3em;
+}
+
+footer#footer {
+    margin-top: 0;
+}

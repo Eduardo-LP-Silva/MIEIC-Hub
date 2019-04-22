@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Raleway:900');
+
+/* General */
+body
+{
+    background: white;
+}
+
+/* Slideshow */
+#slideShow
+{
+    background-color: black;
+    
+    width: 75%;
+    min-height: 11em;
+    max-height: 28em;
+
+    margin: auto !important;
+    margin-bottom: 3em !important;
+}
+
+#slideShow img
+{
+    width: 100%;
+    max-height: 28em;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-size: 100%, 100%;
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  color: red;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: red;
+}
+
+/*Panels*/
+#panels
+{
+    width: 75%;
+    margin: auto;
+
+    font-family: Poppins;
+    font-size: 18pt;
+}
+
+section
+{
+    margin-bottom: 2em;
+}
+
+section > h1
+{
+    font-family: Poppins;
+    font-size: 24pt;
+    border-bottom: 0.1em solid #af1c1c;
+    padding-bottom: 0.1em;
+}
+
+#panels .col h1
+{
+    font-size: 18pt;
+    text-align: center;
+}
+
+#panels .col
+{
+    margin-top: 2em;
+    margin-left: 1em;
+    margin-right: 1em;
+
+    text-decoration: none;
+    color: black;
+
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+
+    min-width: 8em !important;
+    max-width: 25%;
+}
+
+.grid_container
+{
+    border-radius: 0.5em;
+}
+
+#panels img
+{
+    display: block;
+
+    width: 90%;
+    height: auto;
+    max-height: 90%;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#panels a:focus
+{
+    outline: none;
+}
+
+#panels .col:hover
+{
+    transform: scale(1.05);
+    color: #af1c1c;
+    border-color: #af1c1c;
+    border-width: 0.2em;
+}
+
+#other .row
+{
+    justify-content: space-evenly;
+}
+
+#other .col
+{
+    max-width: 4em !important
+}
+
+#other .col:first-child .grid_container
+{
+    background-image: url("../resources/images/website/calendar.jpg");
+    background-size: cover;
+}
+
+#other .col:nth-child(2) .grid_container
+{
+    background-image: url("../resources/images/apparel/hoodie_drawing.jpg");
+    background-size: cover;
+}
+
+#other .col:last-child .grid_container
+{
+    background-image: url("../resources/images/website/workshop.jpg");
+    background-size: cover;
+}

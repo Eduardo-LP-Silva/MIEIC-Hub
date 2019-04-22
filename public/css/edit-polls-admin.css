@@ -1,0 +1,32 @@
+.poll .btn {
+    margin: 1em 1em 0 0;
+}
+
+.poll > button:nth-child(2)
+{
+    background-color: black;
+    color: white;
+}
+
+.poll > button:nth-child(3)
+{
+    background-color: rgb(175, 28, 28);
+    color: white;
+}
+
+#addPoll
+{
+    width: 75%;
+    margin: auto;
+}
+
+#addPoll > a > button
+{
+    font-size: 16pt !important;
+
+    border-width: 0.1em !important;
+    border-color: black !important;
+
+    margin-top: 1.5em;
+}
+

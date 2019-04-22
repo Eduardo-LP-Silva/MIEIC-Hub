@@ -1,0 +1,91 @@
+:not(div#informations) .card{
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.card-header{
+  border: 0.1em solid rgb(175, 28, 28);
+  margin: 1em 0 0 0;
+}
+
+div#content div#product div#info div#edit .card-header h1 {
+    margin: 0;
+}
+
+.btn.btn-link.collapse {
+  float: right;
+  text-decoration: none;
+  color: black;
+}
+
+:not(div#informations) .card-body {
+  color: black;
+  background-color: white;
+  border: 0.1em solid rgb(175, 28, 28);
+  margin-bottom: 1em;
+}
+
+/*Edit button*/
+.btn.btn-link {
+    display: inline-block;
+    color: black;
+}
+
+/*Save button*/
+.save {
+    display: inline-block;
+    position: relative;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 22px;
+    /* margin-top: -1em; */
+}
+
+.save:focus {
+  outline: 0;
+}
+
+div#content input[type="text"], div#content input[type="number"], div#content textarea{
+  border: none;
+  border-bottom: 0.1em solid rgb(175, 28, 28);
+  background: transparent;
+  outline: none;
+  height: 2.7em;
+  color: black;
+  margin-top: 0.2em;
+  width: 100%;
+  margin-bottom: 1.5em;
+}
+
+div#content input[type="number"].deliveryinput{
+  width: 40%;
+  margin-bottom:0;
+  margin-top:0;
+  height: 2em;
+}
+
+div.edit-save {
+    display: flex;
+    justify-content: flex-end;
+}
+
+div#content div#product div#info h2#price {
+    margin: 0;
+}
+
+h1#title {
+    display: block;
+}
+
+#descriptiondetails, #deliveryinfo
+{
+  border: none;
+}
+
+#info > button.btn.btn-danger
+{
+  background-color: rgb(175, 28, 28);
+}

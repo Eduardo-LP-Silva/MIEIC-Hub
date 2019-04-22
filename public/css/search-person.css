@@ -1,0 +1,84 @@
+@media (max-width: 991px)
+{
+    .list-item
+    {
+        flex-direction: column !important;
+        height: 20em !important;
+        padding: 0.5em 1em !important;
+    }
+
+    .div
+    {
+        display: none;
+    }
+
+    .date
+    {
+        max-height: 4em !important;
+    }
+}
+
+body
+{
+    height: 100%;
+}
+
+.list-item
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+
+    width: 80%;
+    height: 5em;
+
+    margin: auto;
+    margin-top: 2em;
+
+    font-size: 16pt;
+
+    background-color: white;
+    color: black;
+    border: 0.1em solid #acacac;
+
+    padding: 0 0.5em;
+    padding-right: 1em;
+
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.list-item:hover
+{
+    color: black;
+    text-decoration: none;
+    transform: scale(1.02);
+}
+
+.list-item > img
+{
+    border-radius: 50%;
+    width: 4em;
+    height: 4em;
+}
+
+.div
+{
+    border: 0.01em solid #af1c1c;
+    height: 50%;
+}
+
+.list-item > span > p:first-child
+{
+    border-bottom: 0.1em solid #af1c1c;
+}
+
+.list-item > i
+{
+    font-size: 30pt;
+    color: red;
+}

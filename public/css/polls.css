@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Raleway:900');
+
+/* Mobile */
+@media (max-width: 991px)
+{
+    .modal-content
+    {
+        max-width: 90% !important;
+    }
+
+    .poll > p
+    {
+        font-size: 16pt;
+    }
+}
+
+.poll
+{
+    width: 75%;
+    margin: auto;
+    margin-top: 2em;
+
+    font-size: 18pt;
+    font-family: Poppins;
+    text-align: left;
+}
+
+.poll > h1
+{
+    font-size: 24pt;
+    border-bottom: 0.1em solid #af1c1c;
+    padding-bottom: 0.1em;
+}
+
+.poll .col
+{
+    margin-top: 2em;
+    margin-left: 1em;
+    margin-right: 1em;
+
+    text-decoration: none;
+    color: black;
+
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+
+    min-width: 8em !important;
+    max-width: 25%;
+}
+
+.design_container
+{
+    border: 0.1em solid #acacac;
+    border-radius: 0.5em;
+
+    overflow-y: hidden;
+}
+
+.poll .col:hover
+{
+    transform: scale(1.05);
+
+    cursor: pointer;
+}
+
+.poll .col > h1
+{
+    font-size: 18pt;
+    text-align: center;
+
+    margin-top: 0.5em;
+}
+
+.poll .design_container > i
+{
+    width: 1em;
+    margin-bottom: 0.25em;
+    margin-left: 0.4em;
+    color: #af1c1c;
+}
+
+.poll .design_container > img:nth-child(3)
+{
+    display: block;
+
+    width: 90%;
+    height: 90%;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.poll > .container
+{
+    margin-bottom: 2em;
+}
+
+.poll > span
+{
+    text-align: left;
+}
+
+.poll > span:last-child
+{
+    color: #af1c1c;
+}
+
+.modal
+{
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+.modal:hover
+{
+    cursor: pointer;
+}
+
+.modal-content 
+{
+    margin: auto;
+    margin-top: 3em;
+
+    display: block;
+
+    max-width: 40%;
+}
+
+.modal-content:hover
+{
+    cursor: pointer;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content
+{
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+  
+@keyframes zoom 
+{
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
