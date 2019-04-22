@@ -20,6 +20,8 @@ Route::get('home', 'GeneralPageController@home');
 
 Route::get('login', 'GeneralPageController@login');
 
+Route::get('about', 'GeneralPageController@about');
+
 /*
 // Cards
 Route::get('cards', 'CardController@list');
