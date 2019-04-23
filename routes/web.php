@@ -21,6 +21,7 @@ Route::get('home', 'GeneralPageController@home');
 // Route::get('login', 'GeneralPageController@login');
 
 Route::get('about', 'GeneralPageController@about');
+Route::get('faq', 'GeneralPageController@faq');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');

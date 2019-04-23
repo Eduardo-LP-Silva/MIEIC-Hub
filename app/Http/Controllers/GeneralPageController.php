@@ -17,4 +17,9 @@ class GeneralPageController extends Controller {
     {
         return view('pages.about');
     }
+
+    public function faq()
+    {
+        return view('pages.faq');
+    }
 }
