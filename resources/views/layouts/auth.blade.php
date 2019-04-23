@@ -18,8 +18,8 @@
     <body>
       <!--Banner-->
       <div id="banner">
-        <a href="">MIEIC</a>
-        <a href="">Hub</a>
+        <a>MIEIC</a>
+        <a>Hub</a>
       </div>
       
       @yield('content')

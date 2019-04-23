@@ -1,4 +1,8 @@
+DROP TABLE IF EXISTS cards CASCADE;
+DROP TABLE IF EXISTS items CASCADE;
+
 DROP TYPE IF EXISTS package_status CASCADE;
+
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS category CASCADE;
 DROP TABLE IF EXISTS color CASCADE;
@@ -75,17 +79,18 @@ CREATE TABLE photo
 
 CREATE TABLE users
 (
-    id_user SERIAL PRIMARY KEY,
-    username TEXT UNIQUE NOT NULL,
+    id SERIAL PRIMARY KEY,
+    name TEXT UNIQUE NOT NULL,
     email TEXT NOT NULL,
-    pw TEXT NOT NULL,
-    birth_date DATE NOT NULL,
-    active BOOLEAN NOT NULL, 
-    stock_manager BOOLEAN NOT NULL,
-    moderator BOOLEAN NOT NULL,
-    submission_manager BOOLEAN NOT NULL,
-    id_photo INTEGER NOT NULL REFERENCES photo ON UPDATE CASCADE,
-    user_description TEXT NOT NULL
+    password TEXT NOT NULL,
+    birth_date DATE,
+    active BOOLEAN NOT NULL DEFAULT TRUE, 
+    stock_manager BOOLEAN NOT NULL DEFAULT FALSE,
+    moderator BOOLEAN NOT NULL DEFAULT FALSE,
+    submission_manager BOOLEAN NOT NULL DEFAULT FALSE,
+    id_photo INTEGER REFERENCES photo ON UPDATE CASCADE,
+    user_description TEXT NOT NULL DEFAULT '',
+    remember_token VARCHAR
 );
 
 CREATE TABLE color
@@ -223,7 +228,7 @@ CREATE TABLE user_sub_vote
 
 -- Indexes
 
-CREATE INDEX authenticate ON users USING hash(username); 
+CREATE INDEX authenticate ON users USING hash(name); 
 CREATE INDEX id_category ON product USING hash(id_category);
 CREATE INDEX sub_id_poll ON submission(id_poll); 
 CLUSTER submission USING sub_id_poll;
@@ -428,11 +433,11 @@ EXECUTE PROCEDURE recalculate_product_purchase_price();
 CREATE FUNCTION erase_user() RETURNS TRIGGER AS $BODY$
 DECLARE
     next_id INTEGER := pg_get_serial_sequence('users', 'id_user');
-    new_username TEXT := 'John Doe' || MD5(OLD.username);
+    new_name TEXT := 'John Doe' || MD5(OLD.name);
 BEGIN
-    INSERT INTO users (username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, 
+    INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, 
     id_photo, user_description) 
-    VALUES (new_username , 'mieichubsupport@gmail.com','123masfiasfnakslfmas', '1994-01-01', FALSE, FALSE, FALSE, 
+    VALUES (new_name , 'mieichubsupport@gmail.com','123masfiasfnakslfmas', '1994-01-01', FALSE, FALSE, FALSE, 
     FALSE, 1, 'Just a regular user, nothing to see here...');
 
     UPDATE review
@@ -680,78 +685,88 @@ INSERT INTO photo (id_photo, image_path, id_product) VALUES (90, '~/html/resourc
 
 -- Table: user
 
-    -- Regular Users
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (1, 'Tomás Novo', 'up201604503@fe.up.pt','A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1998-07-31', TRUE, FALSE, FALSE, FALSE, 90, 'The best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (2, 'Zé Luís', 'up201287644@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1994-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'MEEEC student at 2nd grade. Love music !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (3, 'Susana Castro', 'up201503453@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1997-04-15', TRUE, FALSE, FALSE, FALSE, 90, ' Quemistry student, the one who knocks !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (4, 'José António', 'up201703443@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1998-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'I love computers !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (5, 'Rolando Escada Abaixo', 'up201304453@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1994-03-21', TRUE, FALSE, FALSE, FALSE, 90, 'CIVIL < INFORMATICA !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (6, 'Andreia Ramalho', 'up201603853@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1993-12-13', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC Student !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (7, 'João Saraiva', 'up201703453@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1996-02-10', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC Student AT 1ST grade !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (8, 'Luísa Josefa', 'up201406753@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1999-03-31', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC Student');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (9, 'Alfredo Granjão', 'up201706173@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1995-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC Student 5th grade! SOU FINALISTAAAA');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (10, 'Ada Beliza', 'up201302123@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1996-03-09', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC student at 3rd grade !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (11, 'User11', 'user11@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1998-11-07', TRUE, FALSE, FALSE, FALSE, 90, 'The 11th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (12, 'User12', 'user12@fe.up.pt', 'HB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1997-10-01', TRUE, FALSE, FALSE, FALSE, 90, 'The 12th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (13, 'User13', 'user13@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1997-07-03', TRUE, FALSE, FALSE, FALSE, 90, 'The 13th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (14, 'User14', 'user14@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1993-08-11', TRUE, FALSE, FALSE, FALSE, 90, 'The 14th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (15, 'User15', 'user15@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1992-04-16', TRUE, FALSE, FALSE, FALSE, 90, 'The 15th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (16, 'User16', 'user16@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1998-03-22', TRUE, FALSE, FALSE, FALSE, 90, 'The 16th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (17, 'User17', 'user17@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1999-01-30', TRUE, FALSE, FALSE, FALSE, 90, 'The 17th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (18, 'User18', 'user18@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1994-09-27', TRUE, FALSE, FALSE, FALSE, 90, 'The 18th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (19, 'User19', 'user19@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1996-10-23', TRUE, FALSE, FALSE, FALSE, 90, 'The 19th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (20, 'User20', 'user20@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1994-11-22', TRUE, FALSE, FALSE, FALSE, 90, 'The 20th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (21, 'User21', 'user21@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1993-12-21', TRUE, FALSE, FALSE, FALSE, 90, 'The 21st best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (22, 'User22', 'user22@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1997-01-26', TRUE, FALSE, FALSE, FALSE, 90, 'The 22nd best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (23, 'User23', 'user23@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1998-02-16', TRUE, FALSE, FALSE, FALSE, 90, 'The 23rd best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (24, 'User24', 'user24@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1997-03-15', TRUE, FALSE, FALSE, FALSE, 90, 'The 24th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (25, 'User25', 'user25@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1995-04-25', TRUE, FALSE, FALSE, FALSE, 90, 'The 25th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (26, 'User26', 'user26@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1998-05-22', TRUE, FALSE, FALSE, FALSE, 90, 'The 26th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (27, 'User27', 'user27@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1998-06-26', TRUE, FALSE, FALSE, FALSE, 90, 'The 27th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (28, 'User28', 'user28@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1998-07-30', TRUE, FALSE, FALSE, FALSE, 90, 'The 28th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (29, 'User29', 'user29@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1996-08-21', TRUE, FALSE, FALSE, FALSE, 90, 'The 29th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (30, 'User30', 'user30@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1999-04-12', TRUE, FALSE, FALSE, FALSE, 90, 'The 30th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (31, 'User31', 'user31@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1993-12-21', TRUE, FALSE, FALSE, FALSE, 90, 'The 31st best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (32, 'User32', 'user32@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1993-01-26', TRUE, FALSE, FALSE, FALSE, 90, 'The 32nd best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (33, 'User33', 'user33@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1992-02-16', TRUE, FALSE, FALSE, FALSE, 90, 'The 33rd best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (34, 'User34', 'user34@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1993-03-15', TRUE, FALSE, FALSE, FALSE, 90, 'The 34th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (35, 'User35', 'user35@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1990-04-25', TRUE, FALSE, FALSE, FALSE, 90, 'The 35th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (36, 'User36', 'user36@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1991-05-22', TRUE, FALSE, FALSE, FALSE, 90, 'The 36th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (37, 'User37', 'user37@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1992-06-26', TRUE, FALSE, FALSE, FALSE, 90, 'The 37th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (38, 'User38', 'user38@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1993-07-30', TRUE, FALSE, FALSE, FALSE, 90, 'The 38th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (39, 'User39', 'user39@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1994-08-21', TRUE, FALSE, FALSE, FALSE, 90, 'The 39th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (40, 'User40', 'user40@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1995-04-12', TRUE, FALSE, FALSE, FALSE, 90, 'The 40th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (41, 'User41', 'user41@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1992-11-21', TRUE, FALSE, FALSE, FALSE, 90, 'The 41st best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (42, 'User42', 'user42@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1993-11-26', TRUE, FALSE, FALSE, FALSE, 90, 'The 42nd best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (43, 'User43', 'user43@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1995-03-16', TRUE, FALSE, FALSE, FALSE, 90, 'The 43rd best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (44, 'User44', 'user44@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1994-02-15', TRUE, FALSE, FALSE, FALSE, 90, 'The 44th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (45, 'User45', 'user45@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1990-04-28', TRUE, FALSE, FALSE, FALSE, 90, 'The 45th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (46, 'User46', 'user46@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1991-05-12', TRUE, FALSE, FALSE, FALSE, 90, 'The 46th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (47, 'User47', 'user47@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1992-12-16', TRUE, FALSE, FALSE, FALSE, 90, 'The 47th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (48, 'User48', 'user48@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1995-07-31', TRUE, FALSE, FALSE, FALSE, 90, 'The 48th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (49, 'User49', 'user49@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1997-02-22', TRUE, FALSE, FALSE, FALSE, 90, 'The 49th best !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (50, 'User50', 'user50@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1999-03-05', TRUE, FALSE, FALSE, FALSE, 90, 'The 50th best !');
+-- Regular users
+
+INSERT INTO users VALUES (
+  DEFAULT,
+  'John Doe',
+  'john@example.com',
+  '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W'
+); -- Password is 1234. Generated using Hash::make('1234')
+
+INSERT INTO users (name, email, password) VALUES('lbaw1825', 'lbaw1825@gmail.com', '$2y$10$kOQHd3CIu4.UQRQ6OzcjouJQTF7GLUdd9g.sGRVDghn6kvDOEcjcW');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Tomás Novo', 'up201604503@fe.up.pt','A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1998-07-31', TRUE, FALSE, FALSE, FALSE, 90, 'The best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Zé Luís', 'up201287644@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1994-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'MEEEC student at 2nd grade. Love music !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Susana Castro', 'up201503453@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1997-04-15', TRUE, FALSE, FALSE, FALSE, 90, ' Quemistry student, the one who knocks !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('José António', 'up201703443@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1998-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'I love computers !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Rolando Escada Abaixo', 'up201304453@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1994-03-21', TRUE, FALSE, FALSE, FALSE, 90, 'CIVIL < INFORMATICA !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Andreia Ramalho', 'up201603853@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1993-12-13', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC Student !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('João Saraiva', 'up201703453@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1996-02-10', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC Student AT 1ST grade !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Luísa Josefa', 'up201406753@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1999-03-31', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC Student');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Alfredo Granjão', 'up201706173@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1995-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC Student 5th grade! SOU FINALISTAAAA');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Ada Beliza', 'up201302123@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1996-03-09', TRUE, FALSE, FALSE, FALSE, 90, 'MIEIC student at 3rd grade !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User11', 'user11@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1998-11-07', TRUE, FALSE, FALSE, FALSE, 90, 'The 11th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User12', 'user12@fe.up.pt', 'HB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1997-10-01', TRUE, FALSE, FALSE, FALSE, 90, 'The 12th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User13', 'user13@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1997-07-03', TRUE, FALSE, FALSE, FALSE, 90, 'The 13th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User14', 'user14@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1993-08-11', TRUE, FALSE, FALSE, FALSE, 90, 'The 14th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User15', 'user15@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1992-04-16', TRUE, FALSE, FALSE, FALSE, 90, 'The 15th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User16', 'user16@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1998-03-22', TRUE, FALSE, FALSE, FALSE, 90, 'The 16th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User17', 'user17@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1999-01-30', TRUE, FALSE, FALSE, FALSE, 90, 'The 17th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User18', 'user18@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1994-09-27', TRUE, FALSE, FALSE, FALSE, 90, 'The 18th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User19', 'user19@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1996-10-23', TRUE, FALSE, FALSE, FALSE, 90, 'The 19th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User20', 'user20@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1994-11-22', TRUE, FALSE, FALSE, FALSE, 90, 'The 20th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User21', 'user21@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1993-12-21', TRUE, FALSE, FALSE, FALSE, 90, 'The 21st best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User22', 'user22@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1997-01-26', TRUE, FALSE, FALSE, FALSE, 90, 'The 22nd best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User23', 'user23@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1998-02-16', TRUE, FALSE, FALSE, FALSE, 90, 'The 23rd best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User24', 'user24@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1997-03-15', TRUE, FALSE, FALSE, FALSE, 90, 'The 24th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User25', 'user25@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1995-04-25', TRUE, FALSE, FALSE, FALSE, 90, 'The 25th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User26', 'user26@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1998-05-22', TRUE, FALSE, FALSE, FALSE, 90, 'The 26th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User27', 'user27@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1998-06-26', TRUE, FALSE, FALSE, FALSE, 90, 'The 27th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User28', 'user28@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1998-07-30', TRUE, FALSE, FALSE, FALSE, 90, 'The 28th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User29', 'user29@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1996-08-21', TRUE, FALSE, FALSE, FALSE, 90, 'The 29th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User30', 'user30@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1999-04-12', TRUE, FALSE, FALSE, FALSE, 90, 'The 30th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User31', 'user31@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1993-12-21', TRUE, FALSE, FALSE, FALSE, 90, 'The 31st best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User32', 'user32@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1993-01-26', TRUE, FALSE, FALSE, FALSE, 90, 'The 32nd best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User33', 'user33@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1992-02-16', TRUE, FALSE, FALSE, FALSE, 90, 'The 33rd best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User34', 'user34@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1993-03-15', TRUE, FALSE, FALSE, FALSE, 90, 'The 34th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User35', 'user35@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1990-04-25', TRUE, FALSE, FALSE, FALSE, 90, 'The 35th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User36', 'user36@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1991-05-22', TRUE, FALSE, FALSE, FALSE, 90, 'The 36th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User37', 'user37@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1992-06-26', TRUE, FALSE, FALSE, FALSE, 90, 'The 37th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User38', 'user38@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1993-07-30', TRUE, FALSE, FALSE, FALSE, 90, 'The 38th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User39', 'user39@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1994-08-21', TRUE, FALSE, FALSE, FALSE, 90, 'The 39th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User40', 'user40@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1995-04-12', TRUE, FALSE, FALSE, FALSE, 90, 'The 40th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User41', 'user41@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1992-11-21', TRUE, FALSE, FALSE, FALSE, 90, 'The 41st best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User42', 'user42@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1993-11-26', TRUE, FALSE, FALSE, FALSE, 90, 'The 42nd best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User43', 'user43@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1995-03-16', TRUE, FALSE, FALSE, FALSE, 90, 'The 43rd best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User44', 'user44@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1994-02-15', TRUE, FALSE, FALSE, FALSE, 90, 'The 44th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User45', 'user45@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1990-04-28', TRUE, FALSE, FALSE, FALSE, 90, 'The 45th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User46', 'user46@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1991-05-12', TRUE, FALSE, FALSE, FALSE, 90, 'The 46th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User47', 'user47@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1992-12-16', TRUE, FALSE, FALSE, FALSE, 90, 'The 47th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User48', 'user48@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1995-07-31', TRUE, FALSE, FALSE, FALSE, 90, 'The 48th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User49', 'user49@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1997-02-22', TRUE, FALSE, FALSE, FALSE, 90, 'The 49th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('User50', 'user50@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1999-03-05', TRUE, FALSE, FALSE, FALSE, 90, 'The 50th best !');
+
 
     --Stock Manager
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (51, 'StockManager1', 'sm1@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1998-03-30', TRUE, TRUE, FALSE, FALSE, 90, 'I am StockManager1 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (52, 'StockManager2', 'sm2@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1996-04-21', TRUE, TRUE, FALSE, FALSE, 90, 'I am StockManager2 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (53, 'StockManager3', 'sm3@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1999-06-12', TRUE, TRUE, FALSE, FALSE, 90, 'I am StockManager3 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('StockManager1', 'sm1@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1998-03-30', TRUE, TRUE, FALSE, FALSE, 90, 'I am StockManager1 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('StockManager2', 'sm2@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1996-04-21', TRUE, TRUE, FALSE, FALSE, 90, 'I am StockManager2 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('StockManager3', 'sm3@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1999-06-12', TRUE, TRUE, FALSE, FALSE, 90, 'I am StockManager3 !');
 
     --Moderator
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (54, 'Moderator1', 'm1@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1995-07-30', TRUE, FALSE, TRUE, FALSE, 90, 'I am Moderator1 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (55, 'Moderator2', 'm2@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1997-08-21', TRUE, FALSE, TRUE, FALSE, 90, 'I am Moderator2 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (56, 'Moderator3', 'm3@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1993-05-12', TRUE, FALSE, TRUE, FALSE, 90, 'I am Moderator3 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Moderator1', 'm1@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1995-07-30', TRUE, FALSE, TRUE, FALSE, 90, 'I am Moderator1 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Moderator2', 'm2@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1997-08-21', TRUE, FALSE, TRUE, FALSE, 90, 'I am Moderator2 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Moderator3', 'm3@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1993-05-12', TRUE, FALSE, TRUE, FALSE, 90, 'I am Moderator3 !');
 
     --Submission Manager
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (57, 'SubmissionManager1', 'subm1@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1998-04-02', TRUE, FALSE, FALSE, TRUE, 90, 'I am SubmissionManager1 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (58, 'SubmissionManager2', 'subm2@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1996-08-22', TRUE, FALSE, FALSE, TRUE, 90, 'I am SubmissionManager2 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (59, 'SubmissionManager3', 'subm3@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1997-01-02', TRUE, FALSE, FALSE, TRUE, 90, 'I am SubmissionManager3 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('SubmissionManager1', 'subm1@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1998-04-02', TRUE, FALSE, FALSE, TRUE, 90, 'I am SubmissionManager1 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('SubmissionManager2', 'subm2@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1996-08-22', TRUE, FALSE, FALSE, TRUE, 90, 'I am SubmissionManager2 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('SubmissionManager3', 'subm3@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1997-01-02', TRUE, FALSE, FALSE, TRUE, 90, 'I am SubmissionManager3 !');
 
     --Admins
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (60, 'Admin1', 'admin1@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1998-02-02', TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin1 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (61, 'Admin2', 'admin2@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1994-05-12', TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin2 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (62, 'Admin3', 'admin3@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1997-11-22', TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin3 !');
-INSERT INTO users (id_user, username, email, pw, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES (63, 'Admin4', 'admin4@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1998-10-30', TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin4 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Admin1', 'admin1@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1998-02-02', TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin1 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Admin2', 'admin2@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1994-05-12', TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin2 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Admin3', 'admin3@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1997-11-22', TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin3 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Admin4', 'admin4@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1998-10-30', TRUE, TRUE, TRUE, TRUE, 90, 'I am Admin4 !');
 
 
 -- Table: faq

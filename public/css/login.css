@@ -103,7 +103,7 @@ body
   margin-bottom: 1.5em;
 }
 
-.login input[type="text"], input[type="password"]
+.login input[type="text"], input[type="password"], input[type="email"]
 {
   border: none;
   border-bottom: 0.1em solid rgb(175, 28, 28);
@@ -113,7 +113,7 @@ body
   color: white;
 }
 
-.login input[type="text"]::placeholder, input[type="password"]::placeholder
+.login input[type="text"]::placeholder, input[type="password"]::placeholder, input[type="email"]::placeholder
 {
   color: white;
 }

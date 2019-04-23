@@ -9,9 +9,9 @@ class GeneralPageController extends Controller {
         return view('pages.home');
     }
 
-    public function login() {
-        return view('pages.login');
-    }
+    // public function login() {
+    //     return view('pages.login');
+    // }
 
     public function about()
     {

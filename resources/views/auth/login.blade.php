@@ -1,32 +1,40 @@
-@extends('layouts.app')
+@extends('layouts.auth')
+
+@section('stylesheets')
+        <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+@endsection
+
+@section('title')
+    <title>Login - MIEIC Hub</title>
+@endsection
 
 @section('content')
-<form method="POST" action="{{ route('login') }}">
-    {{ csrf_field() }}
+    <div class="login">
+        <img src="{{asset('img/images/website/avatar.png')}}" class="avatar">
+        <h1>Sign In</h1>
+        <form method="POST" action="{{ route('login') }}">
+            {{ csrf_field() }}
 
-    <label for="email">E-mail</label>
-    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
-    @if ($errors->has('email'))
-        <span class="error">
-          {{ $errors->first('email') }}
-        </span>
-    @endif
+            <input id="email" type="email" name="email" placeholder="🕵🏻    Email" required>
+            @if ($errors->has('email'))
+                <span class="error">
+                {{ $errors->first('email') }}
+                </span>
+            @endif
 
-    <label for="password" >Password</label>
-    <input id="password" type="password" name="password" required>
-    @if ($errors->has('password'))
-        <span class="error">
-            {{ $errors->first('password') }}
-        </span>
-    @endif
+            <input id="password" type="password" name="password" placeholder="🔒    Password" required>
+            @if ($errors->has('password'))
+                <span class="error">
+                    {{ $errors->first('password') }}
+                </span>
+            @endif
 
-    <label>
-        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-    </label>
-
-    <button type="submit">
-        Login
-    </button>
-    <a class="button button-outline" href="{{ route('register') }}">Register</a>
-</form>
+            <a><input type="submit" value="Login"></a> 
+            <br>
+            <br>
+            <a href="{{ route('register') }}">Don't have an account?
+            <p>Register here<p>
+            </a>
+        </form>
+    </div>
 @endsection
