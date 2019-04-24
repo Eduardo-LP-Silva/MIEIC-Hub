@@ -62,18 +62,23 @@
                             <img src="{{asset('img/icons/baseline-person-24px.svg')}}"  alt="Profile">
                         </a>
                         <div class="dropdown-menu" aria-labelledby="profileDD">
-                            <!-- Fazer if se ta logged in e se sim substituir id, se não so mostrar log-in-->
+                            @if (Auth::check())
                             <a class="dropdown-item" href="{{url('/users/{id}')}}">Profile</a>
                             <a class="dropdown-item" href="{{url('/users/{id}/wishlist')}}">Wishlist</a>
                             <a class="dropdown-item" href="{{url('/users/{id}/settings')}}">Settings</a>
                             <a class="dropdown-item" href="{{url('/logout')}}">Sign-out</a>
+                            @else
+                            <a class="dropdown-item" href="{{url('/login')}}">Login</a>
+                            @endif
                         </div>
                     </li>
+                    @if (Auth::check())
                     <li class="nav-item">
                         <a href="{{url('/users/{id}/cart')}}">
                             <img src="{{asset('img/icons/cart.svg')}}" alt="Cart">
                         </a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </nav>
