@@ -22,4 +22,9 @@ class GeneralPageController extends Controller {
     {
         return view('pages.faq');
     }
+
+    public function product()
+    {
+        return view('pages.product');
+    }
 }
