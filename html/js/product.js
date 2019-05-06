@@ -62,3 +62,17 @@ function addSizeListener()
             buttons[i].style.backgroundColor = "#af1c1c";
         });
 }
+
+jQuery(document).ready(function(){
+    jQuery('#ajaxSubmit').click(function(e){
+       e.preventDefault();
+       $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+          }
+      });
+       jQuery.ajax({
+          url: "{{ url('/product/{id}/addwl') }}",
+          method: 'post'});
+       });
+    });
