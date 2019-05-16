@@ -27,4 +27,10 @@ class GeneralPageController extends Controller {
     {
         return view('pages.product');
     }
+
+    public function submit()
+    {
+        return view('pages.submit');
+    }
+
 }

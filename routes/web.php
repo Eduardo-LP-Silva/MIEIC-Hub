@@ -16,10 +16,13 @@ Route::get('/', function()
     return redirect('login');
 });
 
+//	Fazer um controller por modulo ???
+
 Route::get('home', 'GeneralPageController@home');
 Route::get('product', 'GeneralPageController@product');
 
-// Route::get('login', 'GeneralPageController@login');
+Route::get('submit', 'SubmissionController@submit');
+//Route::put('submitDesign', 'SubmissionController@submitDesign');
 
 Route::get('about', 'GeneralPageController@about');
 Route::get('faq', 'GeneralPageController@faq');
