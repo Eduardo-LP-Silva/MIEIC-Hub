@@ -1,0 +1,105 @@
+@media (max-width: 991px)
+{
+    .list-item
+    {
+        flex-direction: column !important;
+        height: 20em !important;
+        padding: 0.5em 1em !important;
+    }
+
+    .div
+    {
+        display: none;
+    }
+}
+
+body
+{
+    height: 100%;
+}
+
+#list
+{
+    min-height: 50% !important;
+}
+
+.list-item
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+
+    width: 80%;
+    height: 5em;
+
+    margin: auto;
+    margin-top: 1.5em;
+
+    font-size: 16pt;
+
+    background-color: white;
+    color: black;
+    border: 0.1em solid #acacac;
+
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.list-item > a:not(:first-child)
+{
+    text-decoration: none;
+    color: black;
+    font-size: 16pt;
+}
+
+.list-item > a:focus
+{
+    outline: none;
+}
+
+.list-item:hover
+{
+    color: black;
+    text-decoration: none;
+    transform: scale(1.02);
+}
+
+.list-item:focus
+{
+    outline: none;
+}
+
+.list-item img
+{
+    width: 4em;
+    height: 4em;
+}
+
+.list-item > div:last-child > *
+{
+    font-size: 20pt;
+    cursor: pointer;
+}
+
+.list-item > div:last-child > :first-child
+{
+    margin-right: 1em;
+    color: green;
+}
+
+.list-item > div:last-child > :last-child
+{
+    color: red;
+}
+
+.div
+{
+    border: 0.01em solid #af1c1c;
+    height: 50%;
+}
+  
+ 

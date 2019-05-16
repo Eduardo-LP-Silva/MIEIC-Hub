@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Raleway:900');
+
+@media (max-width: 991px)
+{
+  #banner
+  {
+    font-size: 40pt !important;
+  }
+
+  .login
+  {
+    padding-bottom: 0 !important;
+  }
+}
+
+/* Banner */
+#banner
+{
+    font-family: Raleway;
+    font-size: 60pt;
+    text-align: center;
+}
+
+#banner > *
+{
+  text-decoration: none !important;
+  outline: none !important;
+} 
+
+#banner > a:first-child
+{
+    color: rgb(175, 28, 28);
+}
+
+#banner > a:nth-child(2)
+{
+    color: white;
+}
+
+html
+{
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+body
+{
+  background-image: url("../img/images/website/feup.png");
+  margin: 0;
+  height: 100%;
+  width: 100%;
+
+  overflow: auto;
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+
+.login
+{
+  position: relative;
+  top: 1em;
+
+  width: 20em;
+  max-width: 90%;
+
+  box-sizing: border-box;
+  color: black;
+  background: #000;
+  padding: 5em 3em;
+  padding-bottom: 0.5em;
+
+  margin: auto;
+}
+
+.login h1
+{
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+    font-family: Poppins;
+}
+
+.avatar
+{
+  width: 6em;
+  height: 6em;
+  border-radius: 50%;
+  position: absolute;
+  top: -2em;
+  left: calc(50% - 50px);
+}
+
+.login input
+{
+  width: 100%;
+  margin-bottom: 1.5em;
+}
+
+.login input[type="text"], input[type="password"], input[type="email"]
+{
+  border: none;
+  border-bottom: 0.1em solid rgb(175, 28, 28);
+  background: transparent;
+  outline: none;
+  height: 2.7em;
+  color: white;
+}
+
+.login input[type="text"]::placeholder, input[type="password"]::placeholder, input[type="email"]::placeholder
+{
+  color: white;
+}
+
+.login input[type="submit"]
+{
+  background:  rgb(175, 28, 28);
+  color: white;
+  outline: none;
+  border: none;
+}
+
+.login a
+{
+  color: white;
+  width: 100%;
+}
+
+.login a:focus
+{
+  outline: none;
+}
+
+.login p
+{
+  text-decoration: underline;
+}

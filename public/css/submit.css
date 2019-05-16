@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Raleway:900');
+
+/* rgb(167, 243, 207) */
+
+body {
+    overflow-x: hidden;
+    background-color: #f3f3f3;
+}
+
+div#content {
+    width: 70%;
+    margin: auto;
+    background-color: white;
+    color: black;
+    font-family: Poppins;
+    padding: 1em;
+}
+
+div#content > form {
+    font-size: 1.1em;
+}
+
+/*
+section > h1
+{
+    font-family: Poppins;
+    font-size: 24pt;
+    border-bottom: 0.1em solid #af1c1c;
+    padding-bottom: 0.1em;
+}
+*/
+
+div#content h1 {
+    font-family: Poppins;
+    font-size: 24pt;
+    border-bottom: 0.1em solid #af1c1c;
+    padding-bottom: 0.5em !important;
+    margin-top:0.5em;
+    /*
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.8em;
+    color: black;
+    margin: .5em;
+    margin-bottom: 1em;
+    padding: .5em;
+    border-bottom: medium solid rgb(112, 112, 112);
+    background-color: #af1c1c;
+    color: white;*/
+}
+
+div#content form > div > label {
+    margin-bottom: .5em;
+    margin-right: 1em;
+    padding-left: .5em;
+    border-left: solid #af1c1c;
+}
+
+div#content label {
+    margin-bottom: 0;
+}
+
+div#content input[type="text"], div#content textarea{
+    max-width: 100%;
+    padding: .5em;
+    box-shadow: none;
+    border: none;
+    border-bottom: thin solid #af1c1c;
+    resize: none;
+}
+
+div#content input:focus, div#content textarea:focus {
+    border-color: #28a745;
+    border-width: medium;
+}
+
+div#content div#radios div {
+    margin: 1em;
+}
+
+div#content div#description label {
+    display: block;
+}
+
+div#content div label.to-block {
+    display: block;
+}
+
+div#content div#files input[type="file"] {
+    display: none;
+}
+
+div#content div#files label {
+    border-right: thin solid #ccc; 
+    border-top: thin solid #ccc; 
+    border-bottom: thin solid #ccc; 
+    display: inline-block;
+    padding: .5em;
+    cursor: pointer;
+}
+
+div#content input[type="submit"] {
+    display: block;
+}
+
+footer#footer {
+    margin-top: 0;
+}

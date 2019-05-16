@@ -1,0 +1,44 @@
+@media (max-width: 991px)
+{
+    #content > h1
+    {
+        font-size: 18pt !important;
+        width: 100% !important;
+        margin: 0 !important;
+    }
+}
+
+div#items {
+    margin: 1em auto 1em auto;
+    width: 100%;
+}
+
+.icon {
+    width: 4em;
+}
+
+#content > h1
+{
+    border-bottom: 0.1em solid #af1c1c;
+    width: 100%;
+    margin-top: 0.5em;
+    margin-bottom: 1em !important;
+}
+
+#items > .div
+{
+    margin-top: 1em;
+}
+
+#total
+{
+    font-size: 14pt;
+    margin-top: 1em;
+
+    width: 100%;
+}
+
+html, body
+{
+    background-color: #f3f3f3;
+}
