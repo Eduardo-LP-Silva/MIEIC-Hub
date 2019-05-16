@@ -466,13 +466,13 @@ FOR EACH ROW
 EXECUTE PROCEDURE erase_user();
 
 -- Table: category
-INSERT INTO category (id_category, category) VALUES (1, 'Apparel');
-INSERT INTO category (id_category, category) VALUES (2, 'Phone Cases');
-INSERT INTO category (id_category, category) VALUES (3, 'Stickers');
-INSERT INTO category (id_category, category) VALUES (4, 'Posters');
-INSERT INTO category (id_category, category) VALUES (5, 'Tickets');
-INSERT INTO category (id_category, category) VALUES (6, 'Mouse Pads');
-INSERT INTO category (id_category, category) VALUES (7, 'Mugs');
+INSERT INTO category (category) VALUES ('Apparel');
+INSERT INTO category (category) VALUES ('Phone Cases');
+INSERT INTO category (category) VALUES ('Stickers');
+INSERT INTO category (category) VALUES ('Posters');
+INSERT INTO category (category) VALUES ('Tickets');
+INSERT INTO category (category) VALUES ('Mouse Pads');
+INSERT INTO category (category) VALUES ('Mugs');
 
 -- Table: product
 
@@ -493,194 +493,194 @@ INSERT INTO product (product_name, product_description, price, delivery_cost, st
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Author Jacket', 'Jacket for MIEIC students. 100% poliester.', 19.99, 2.99, 50, 0, 1);
 
     --Phone Cases
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (15, 'MIEIC Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (16, 'FEUP Case', 'Case for FEUP students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (17, 'Eat Sleep Code Repeat Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (18, 'Bill Gates Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (19, 'E HTML Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (20, 'MIEIC Army Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (21, 'MIEIC Army 2 Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (22, 'MIEIC Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (23, 'Coding Case', 'Case for MIEIC students. Water resistant.', 9.99, 2.99, 50, 0, 2);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (24, 'The HTML to my CSS Case', 'Case for MIEIC students. Water resistant.', 9.99, 2.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Case', 'Case for FEUP students. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Eat Sleep Code Repeat Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Bill Gates Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('E HTML Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Army Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Army 2 Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Coding Case', 'Case for MIEIC students. Water resistant.', 9.99, 2.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('The HTML to my CSS Case', 'Case for MIEIC students. Water resistant.', 9.99, 2.99, 50, 0, 2);
 
     --Posters
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (25, 'Today Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (26, 'Anonymous1 Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (27, 'Anonymous2 Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (28, 'Hackerman Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (29, 'TensionRelease Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (30, 'In Code We Trust Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (31, 'Keep Calm Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (32, 'I Love Coding Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (33, 'SETUP Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (34, 'Eat Sleep Code Repeat Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (35, 'Semi Colon Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (36, 'Super Bock Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (37, 'World Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (38, 'MIEIC Army Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Today Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Anonymous1 Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Anonymous2 Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Hackerman Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('TensionRelease Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('In Code We Trust Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Keep Calm Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('I Love Coding Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('SETUP Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Eat Sleep Code Repeat Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Semi Colon Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Super Bock Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('World Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Army Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
 
     --Stickers
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (39, 'MIEIC Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (40, 'FEUP Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (41, 'Coffee Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (42, 'Home Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (43, 'HTML Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (44, 'Blackbelt Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (45, 'Nike Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (46, 'Titanic Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (47, 'False Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (48, 'Java Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (49, 'Combo Stickers', 'Laptop stickers.', 14.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Coffee Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Home Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('HTML Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Blackbelt Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Nike Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Titanic Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('False Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Java Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Combo Stickers', 'Laptop stickers.', 14.99, 0.99, 50, 0, 3);
 
 
     --Tickets
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (50, 'HTML Ticket', 'Ticket for workshop to learn to code in HTML.', 1.99, 0.99, 50, 0, 5);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (51, 'CSS Ticket', 'Ticket for workshop to learn to code in  CSS.', 0.99, 0.99, 50, 0, 5);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (52, 'Java Ticket', 'Ticket for workshop to learn to code in JAVA.', 4.99, 0.99, 50, 0, 5);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (53, 'C/C++ Ticket', 'Ticket for workshop to learn to code in C/C++.', 4.99, 0.99, 50, 0, 5);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (54, 'Python Ticket', 'Ticket for workshop to learn to code in Python.', 1.99, 0.99, 50, 0, 5);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (55, 'SQL Ticket', 'Ticket for workshop to learn to code in SQL.', 1.99, 0.99, 50, 0, 5);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (56, 'Dr.Scheme Ticket', 'Ticket for workshop to learn to code in Dr.Scheme.', 0.99, 0.99, 50, 0, 5);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (57, 'Google Talks', 'Ticket for lecture with Google engineer.', 9.99, 0.99, 50, 0, 5);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (58, 'PPIN Talks', 'Ticket for lecture to learn about personal and interpersonal proficiency.', 0.99, 0.99, 50, 0, 5);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (59, 'PHP Ticket', 'Ticket for workshop to learn to code in PHP', 1.99, 0.99, 50, 0, 5);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('HTML Ticket', 'Ticket for workshop to learn to code in HTML.', 1.99, 0.99, 50, 0, 5);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('CSS Ticket', 'Ticket for workshop to learn to code in  CSS.', 0.99, 0.99, 50, 0, 5);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Java Ticket', 'Ticket for workshop to learn to code in JAVA.', 4.99, 0.99, 50, 0, 5);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('C/C++ Ticket', 'Ticket for workshop to learn to code in C/C++.', 4.99, 0.99, 50, 0, 5);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Python Ticket', 'Ticket for workshop to learn to code in Python.', 1.99, 0.99, 50, 0, 5);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('SQL Ticket', 'Ticket for workshop to learn to code in SQL.', 1.99, 0.99, 50, 0, 5);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Dr.Scheme Ticket', 'Ticket for workshop to learn to code in Dr.Scheme.', 0.99, 0.99, 50, 0, 5);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Google Talks', 'Ticket for lecture with Google engineer.', 9.99, 0.99, 50, 0, 5);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('PPIN Talks', 'Ticket for lecture to learn about personal and interpersonal proficiency.', 0.99, 0.99, 50, 0, 5);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('PHP Ticket', 'Ticket for workshop to learn to code in PHP', 1.99, 0.99, 50, 0, 5);
     --Mouse Pads
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (60, 'MIEIC Mouse Pad', 'Mouse pad for MIEIC students.', 9.99, 1.99, 50, 0, 6);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (61, 'FEUP Mouse Pad', 'Mouse pad for FEUP students', 9.99, 1.99, 50, 0, 6);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (62, 'Go Away I am Coding Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (63, 'Errors Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (64, 'Breaking Bad Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (65, 'Eat Sleep Code Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (66, 'Not A Bug Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (67, 'Not A Robot Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (68, 'Ninja Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (69, 'Trust Me Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (70, 'Best Programmer Ever Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Mouse Pad', 'Mouse pad for MIEIC students.', 9.99, 1.99, 50, 0, 6);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Mouse Pad', 'Mouse pad for FEUP students', 9.99, 1.99, 50, 0, 6);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Go Away I am Coding Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Errors Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Breaking Bad Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Eat Sleep Code Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Not A Bug Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Not A Robot Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Ninja Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Trust Me Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Best Programmer Ever Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
 
     --Mugs
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (71, 'MIEIC Mug', 'Mug for MIEIC students.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (72, 'FEUP Mug', 'Mug for FEUP students.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (73, 'I am A Programmer Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (74, 'CSS Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (75, 'Debug Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (76, 'Why Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (77, 'Gamer Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (78, 'Offline Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (79, 'Break Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (80, 'Coffee Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (81, 'Errors Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (82, 'Sleep Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (83, 'Go Away Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Mug', 'Mug for MIEIC students.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Mug', 'Mug for FEUP students.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('I am A Programmer Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('CSS Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Debug Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Why Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Gamer Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Offline Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Break Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Coffee Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Errors Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Sleep Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Go Away Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
 
 
 
 -- Table: photo
     --Apparel
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (1, 'img/images/apparel/notfound.jpg', 1);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (2, '~/html/resources/images/apparel/hoodie_sudo_rm_single.jpg', 1);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (3, 'img/images/apparel/hoddie_sudo_rm.jpg', 2);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (4, 'img/images/apparel/hoddie_sudo_rm_single.jpg', 2);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (5, '~/html/resources/images/apparel/hoodie_1_red.jpg', 3);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (6, '~/html/resources/images/apparel/hoodie_1_red_single.jpg', 3);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (7, '~/html/resources/images/apparel/hoodie_2.jpg', 4);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (8, '~/html/resources/images/apparel/hoodie_2_single.jpg', 4);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (9, '~/html/resources/images/apparel/hoodie_2_smiley.jpg', 5);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (10, '~/html/resources/images/apparel/hoodie_2_smiley_single.jpg', 5);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (11, '~/html/resources/images/apparel/hoodie_3.jpg', 6);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (12, '~/html/resources/images/apparel/hoodie_3_single.jpg', 6);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (13, '~/html/resources/images/apparel/hoodie_5.jpg', 7);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (14, '~/html/resources/images/apparel/hoodie_6.jpg', 8);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (15, '~/html/resources/images/apparel/hoodie_10.jpg', 9);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (16, '~/html/resources/images/apparel/hoodie_example.jpg', 10);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (17, '~/html/resources/images/apparel/nando.jpg', 11);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (18, '~/html/resources/images/apparel/programmer.jpg', 12);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (19, '~/html/resources/images/apparel/programmer2.jpg', 13);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (20, '~/html/resources/images/apparel/author_jacket.jpg', 14);
+INSERT INTO photo (image_path, id_product) VALUES ('img/images/apparel/notfound.jpg', 1);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_sudo_rm_single.jpg', 1);
+INSERT INTO photo (image_path, id_product) VALUES ('img/images/apparel/hoddie_sudo_rm.jpg', 2);
+INSERT INTO photo (image_path, id_product) VALUES ('img/images/apparel/hoddie_sudo_rm_single.jpg', 2);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_1_red.jpg', 3);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_1_red_single.jpg', 3);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_2.jpg', 4);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_2_single.jpg', 4);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_2_smiley.jpg', 5);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_2_smiley_single.jpg', 5);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_3.jpg', 6);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_3_single.jpg', 6);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_5.jpg', 7);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_6.jpg', 8);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_10.jpg', 9);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_example.jpg', 10);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/nando.jpg', 11);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/programmer.jpg', 12);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/programmer2.jpg', 13);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/author_jacket.jpg', 14);
 
     --Cases
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (21, '~/html/resources/images/cases/case_example1.jpg', 15);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (22, '~/html/resources/images/cases/case_example2.jpg', 16);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (23, '~/html/resources/images/cases/case_example3.jpg', 17);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (24, '~/html/resources/images/cases/case_example4.jpg', 18);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (25, '~/html/resources/images/cases/case_example5.jpg', 19);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (26, '~/html/resources/images/cases/case_example6.jpg', 20);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (27, '~/html/resources/images/cases/case_example7.jpg', 21);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (28, '~/html/resources/images/cases/case_example8.jpg', 22);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (29, '~/html/resources/images/cases/case_example9.jpg', 23);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (30, '~/html/resources/images/cases/case_example10.jpg', 24);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/cases/case_example1.jpg', 15);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/cases/case_example2.jpg', 16);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/cases/case_example3.jpg', 17);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/cases/case_example4.jpg', 18);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/cases/case_example5.jpg', 19);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/cases/case_example6.jpg', 20);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/cases/case_example7.jpg', 21);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/cases/case_example8.jpg', 22);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/cases/case_example9.jpg', 23);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/cases/case_example10.jpg', 24);
 
     --Posters
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (31, '~/html/resources/images/posters/today.jpg', 25);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (32, '~/html/resources/images/posters/anonymous1.jpg', 26);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (33, '~/html/resources/images/posters/anonymous2.jpg', 27);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (34, '~/html/resources/images/posters/hackerman.jpg', 28);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (35, '~/html/resources/images/posters/release.jpg', 29);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (36, '~/html/resources/images/posters/in code.jpg', 30);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (37, '~/html/resources/images/posters/keep calm.jpg', 31);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (38, '~/html/resources/images/posters/lovecoding.jpg', 32);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (39, '~/html/resources/images/posters/SETUP.jpg', 33);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (40, '~/html/resources/images/posters/eat.jpg', 34);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (41, '~/html/resources/images/posters/semi.jpg', 35);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (42, '~/html/resources/images/posters/super.jpg', 36);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (43, '~/html/resources/images/posters/world.jpg', 37);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (44, '~/html/resources/images/posters/war_poster.jpg', 38);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/today.jpg', 25);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/anonymous1.jpg', 26);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/anonymous2.jpg', 27);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/hackerman.jpg', 28);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/release.jpg', 29);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/in code.jpg', 30);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/keep calm.jpg', 31);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/lovecoding.jpg', 32);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/SETUP.jpg', 33);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/eat.jpg', 34);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/semi.jpg', 35);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/super.jpg', 36);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/world.jpg', 37);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/posters/war_poster.jpg', 38);
 
     --Stickers
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (45, '~/html/resources/images/stickers/feup.jpg', 39);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (46, '~/html/resources/images/stickers/feup2.jpg', 40);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (47, '~/html/resources/images/stickers/coffee.jpg', 41);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (48, '~/html/resources/images/stickers/home.png', 42);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (49, '~/html/resources/images/stickers/html.jpg', 43);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (50, '~/html/resources/images/stickers/blackbelt.jpg', 44);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (51, '~/html/resources/images/stickers/nike.jpg', 45);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (52, '~/html/resources/images/stickers/titanic.jpg', 46);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (53, '~/html/resources/images/stickers/true.jpg', 47);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (54, '~/html/resources/images/stickers/java.png', 48);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (55, '~/html/resources/images/stickers/stickers.jpg', 49);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/stickers/feup.jpg', 39);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/stickers/feup2.jpg', 40);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/stickers/coffee.jpg', 41);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/stickers/home.png', 42);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/stickers/html.jpg', 43);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/stickers/blackbelt.jpg', 44);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/stickers/nike.jpg', 45);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/stickers/titanic.jpg', 46);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/stickers/true.jpg', 47);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/stickers/java.png', 48);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/stickers/stickers.jpg', 49);
 
     --Tickets
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (56, '~/html/resources/images/tickets/ticket1.jpg', 50);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (57, '~/html/resources/images/tickets/ticket2.jpg', 51);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (58, '~/html/resources/images/tickets/ticket3.jpg', 52);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (59, '~/html/resources/images/tickets/ticket4.png', 53);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (60, '~/html/resources/images/tickets/ticket5.jpg', 54);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (61, '~/html/resources/images/tickets/ticket6.jpg', 55);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (62, '~/html/resources/images/tickets/ticket7.jpg', 56);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (63, '~/html/resources/images/tickets/ticket8.jpg', 57);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (64, '~/html/resources/images/tickets/ticket9.png', 58);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (65, '~/html/resources/images/tickets/ticket10.jpg', 59);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/tickets/ticket1.jpg', 50);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/tickets/ticket2.jpg', 51);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/tickets/ticket3.jpg', 52);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/tickets/ticket4.png', 53);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/tickets/ticket5.jpg', 54);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/tickets/ticket6.jpg', 55);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/tickets/ticket7.jpg', 56);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/tickets/ticket8.jpg', 57);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/tickets/ticket9.png', 58);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/tickets/ticket10.jpg', 59);
 
     --Mouse Pads
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (66, '~/html/resources/images/mousepads/feup.jpg', 60);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (67, '~/html/resources/images/mousepads/feup2.jpg', 61);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (68, '~/html/resources/images/mousepads/goAway.png', 62);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (69, '~/html/resources/images/mousepads/more.jpg', 63);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (70, '~/html/resources/images/mousepads/breaking.jpg', 64);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (71, '~/html/resources/images/mousepads/eat.jpg', 65);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (72, '~/html/resources/images/mousepads/feature.jpg', 66);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (73, '~/html/resources/images/mousepads/robot.jpg', 67);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (74, '~/html/resources/images/mousepads/ninja.jpg', 68);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (75, '~/html/resources/images/mousepads/trust me.jpeg', 69);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (76, '~/html/resources/images/mousepads/bestever.jpg', 70);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mousepads/feup.jpg', 60);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mousepads/feup2.jpg', 61);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mousepads/goAway.png', 62);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mousepads/more.jpg', 63);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mousepads/breaking.jpg', 64);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mousepads/eat.jpg', 65);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mousepads/feature.jpg', 66);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mousepads/robot.jpg', 67);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mousepads/ninja.jpg', 68);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mousepads/trust me.jpeg', 69);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mousepads/bestever.jpg', 70);
 
     --Mugs
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (77, '~/html/resources/images/mugs/feup3.jpg', 71);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (78, '~/html/resources/images/mugs/feup4.jpg', 72);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (79, '~/html/resources/images/mugs/programmer.jpg', 73);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (80, '~/html/resources/images/mugs/css.jpg', 74);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (81, '~/html/resources/images/mugs/debug.jpg', 75);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (82, '~/html/resources/images/mugs/why.jpg', 76);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (83, '~/html/resources/images/mugs/gamer.jpg', 77);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (84, '~/html/resources/images/mugs/offline.jpg', 78);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (85, '~/html/resources/images/mugs/break.jpg', 79);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (86, '~/html/resources/images/mugs/coffee.jpg', 80);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (87, '~/html/resources/images/mugs/errors.jpg', 81);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (88, '~/html/resources/images/mugs/sleep.jpg', 82);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (89, '~/html/resources/images/mugs/goaway.png', 83);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/feup3.jpg', 71);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/feup4.jpg', 72);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/programmer.jpg', 73);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/css.jpg', 74);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/debug.jpg', 75);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/why.jpg', 76);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/gamer.jpg', 77);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/offline.jpg', 78);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/break.jpg', 79);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/coffee.jpg', 80);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/errors.jpg', 81);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/sleep.jpg', 82);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/goaway.png', 83);
 
     --Users
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (90, '~/html/resources/images/users/random-profile.jpg', NULL);
+INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/users/random-profile.jpg', NULL);
 
 
 -- Table: user
@@ -770,40 +770,40 @@ INSERT INTO users (name, email, password, birth_date, active, stock_manager, mod
 
 
 -- Table: faq
-INSERT INTO faq (id_question, question, answer) VALUES (1, 'Question 1: How can I buy a product ?', '  To buy a product, you need to click "Products" in the navigation bar to show the products dropdown.
+INSERT INTO faq (question, answer) VALUES ('Question 1: How can I buy a product ?', '  To buy a product, you need to click "Products" in the navigation bar to show the products dropdown.
   There, you can choose the type of the product that you want. You can also search for a product in the
   search bar of the navigation bar. When you get to one of this pages, you can choose one of the products.
   In that specific product page, you can buy the item immediately or you can add it to your cart and buy
   it later. Both of these actions can be accomplished through two buttons present on that page.');
 
-INSERT INTO faq (id_question, question, answer) VALUES (2, 'Question 2: How can I create an account ?', 'To create an account, you need to press the User icon in the navigation bar, followed by the option Sign-up
+INSERT INTO faq (question, answer) VALUES ('Question 2: How can I create an account ?', 'To create an account, you need to press the User icon in the navigation bar, followed by the option Sign-up
 in the dropdown that appeared.');
 
 
-INSERT INTO faq (id_question, question, answer) VALUES (3, 'Question 3: How can I add a product to my wishlist ?', 'To add a product to your wishlist, you have to be logged in. In the products page you should press the button
+INSERT INTO faq (question, answer) VALUES ('Question 3: How can I add a product to my wishlist ?', 'To add a product to your wishlist, you have to be logged in. In the products page you should press the button
 "Add to wishlist."');
 
-INSERT INTO faq (id_question, question, answer) VALUES (4, 'Question 4: How can I create a design ?', 'If you want to submit your own design, you have to be logged int and then press the "Submit your design"
+INSERT INTO faq (question, answer) VALUES ('Question 4: How can I create a design ?', 'If you want to submit your own design, you have to be logged int and then press the "Submit your design"
 button on the navigation bar. There you have to fill the various fields regarding your desing and then submit it.');
 
-INSERT INTO faq (id_question, question, answer) VALUES (5, 'Question 5: How can I vote on a desing ?','To vote on a design, you have to log in and then click on the "Upcomig"button on the navigation bar.
+INSERT INTO faq (question, answer) VALUES ('Question 5: How can I vote on a desing ?','To vote on a design, you have to log in and then click on the "Upcomig"button on the navigation bar.
 There you have several polls of designs made by other users. To vote on a design, you should press the heart
 button that appears on the product that you put the cursor on. Your vote is registed when that button gains
 color.');
 
 -- Table: size
-INSERT INTO size (id_size, size) VALUES (1, 'Extra-Small');
-INSERT INTO size (id_size, size) VALUES (2, 'Small');
-INSERT INTO size (id_size, size) VALUES (3, 'Medium');
-INSERT INTO size (id_size, size) VALUES (4, 'Large');
-INSERT INTO size (id_size, size) VALUES (5, 'Extra-Large');
+INSERT INTO size (size) VALUES ('Extra-Small');
+INSERT INTO size (size) VALUES ('Small');
+INSERT INTO size (size) VALUES ('Medium');
+INSERT INTO size (size) VALUES ('Large');
+INSERT INTO size (size) VALUES ('Extra-Large');
 
 
 -- Table: color
-INSERT INTO color (id_color, color) VALUES (1, 'Black');
-INSERT INTO color (id_color, color) VALUES (2, 'Grey');
-INSERT INTO color (id_color, color) VALUES (3, 'White');
-INSERT INTO color (id_color, color) VALUES (4, 'Red');
+INSERT INTO color (color) VALUES ('Black');
+INSERT INTO color (color) VALUES ('Grey');
+INSERT INTO color (color) VALUES ('White');
+INSERT INTO color (color) VALUES ('Red');
 
 -- Table: wishlist
 INSERT INTO wishlist (id_user,  id_product) VALUES (1, 1);
@@ -875,32 +875,32 @@ INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 3
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 1, 3, 2, 1);
 
 -- Table: city
-INSERT INTO city (id_city, city) VALUES (1, 'Viseu');
-INSERT INTO city (id_city, city) VALUES (2, 'Porto');
-INSERT INTO city (id_city, city) VALUES (3, 'Aveiro');
-INSERT INTO city (id_city, city) VALUES (4, 'Lisboa');
-INSERT INTO city (id_city, city) VALUES (5, 'Samil');
-INSERT INTO city (id_city, city) VALUES (6, 'Santarem');
-INSERT INTO city (id_city, city) VALUES (7, 'Braga');
-INSERT INTO city (id_city, city) VALUES (8, 'Ranhados');
-INSERT INTO city (id_city, city) VALUES (9, 'Faro');
-INSERT INTO city (id_city, city) VALUES (10, 'Fatima');
-INSERT INTO city (id_city, city) VALUES (11, 'Viana do Castelo');
+INSERT INTO city (city) VALUES ('Viseu');
+INSERT INTO city (city) VALUES ('Porto');
+INSERT INTO city (city) VALUES ('Aveiro');
+INSERT INTO city (city) VALUES ('Lisboa');
+INSERT INTO city (city) VALUES ('Samil');
+INSERT INTO city (city) VALUES ('Santarem');
+INSERT INTO city (city) VALUES ('Braga');
+INSERT INTO city (city) VALUES ('Ranhados');
+INSERT INTO city (city) VALUES ('Faro');
+INSERT INTO city (city) VALUES ('Fatima');
+INSERT INTO city (city) VALUES ('Viana do Castelo');
 
 -- Table: delivery_info
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (1, 1, '967112935', 'Rua de Viseu, lote 1');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (2, 2, '922376127', 'Rua de Paranhos, 276');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (3, 2, '922322271', 'Quinta do Jose, 3, 2D');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (4, 2, '962111127', 'Rua dos Santos, 17');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (5, 4, '965374811', 'Rua das Garrafas, 11, 3 direito');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (6, 4, '966653748', 'Rua de Lisboa, 1');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (7, 3, '922234522', 'Rua em Aveiro, lote 77, Aveiro');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (8, 5, '914646463', 'Rua do Tomas, lote 69');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (9, 7, '911113242', 'Rua tres, lote 3');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (10, 8, '966969696', 'Quinta dos tomilhos, lt 12, 2o direto');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (11, 2, '926969696', 'Avenida da Liberdade, lt 150');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (12, 2, '969696773', 'Rua Joao Pedro, 111');
-INSERT INTO delivery_info (id_delivery_info, id_city, contact, delivery_address) VALUES (13, 1, '962222222', 'Urbanizacao Ze Chilo, lote 35, 2 direito');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (1, '967112935', 'Rua de Viseu, lote 1');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (2, '922376127', 'Rua de Paranhos, 276');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (2, '922322271', 'Quinta do Jose, 3, 2D');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (2, '962111127', 'Rua dos Santos, 17');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (4, '965374811', 'Rua das Garrafas, 11, 3 direito');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (4, '966653748', 'Rua de Lisboa, 1');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (3, '922234522', 'Rua em Aveiro, lote 77, Aveiro');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (5, '914646463', 'Rua do Tomas, lote 69');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (7, '911113242', 'Rua tres, lote 3');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (8, '966969696', 'Quinta dos tomilhos, lt 12, 2o direto');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (2, '926969696', 'Avenida da Liberdade, lt 150');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (2, '969696773', 'Rua Joao Pedro, 111');
+INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (1, '962222222', 'Urbanizacao Ze Chilo, lote 35, 2 direito');
 
 -- Table: purchase
 INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (1, 1, 1, '2019-02-03 12:40:24', 1, 'processing');

@@ -22,17 +22,17 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active img-fluid">
-                <a href="{{ url('/products/{product_id}') }}">
+                <a href="{{ url('/products/5') }}">
                     <img class="d-block w-100" src="{{asset('img/images/apparel/hoodie_2_smiley.jpg')}}" alt="First slide">
                 </a>
             </div>
             <div class="carousel-item">
-                <a href="{{ url('/products/{product_id}') }}">
+                <a href="{{ url('/products/35') }}">
                     <img class="d-block w-100 img-fluid" src="{{asset('img/images/posters/semi.jpg')}}" alt="Second slide">
                 </a>
             </div>
             <div class="carousel-item img-fluid">
-                <a href="{{ url('/products/{product_id}') }}">
+                <a href="{{ url('/products/2') }}">
                     <img class="d-block w-100" src="{{asset('img/images/apparel/hoddie_sudo_rm.jpg')}}" alt="Third slide">
                 </a>
             </div>
