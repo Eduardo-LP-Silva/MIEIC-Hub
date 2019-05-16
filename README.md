@@ -19,8 +19,8 @@
     * [A6: Integrity constraints. Indexes, triggers, user functions and database populated with data](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/A6)
 * Architecture specification and Prototype
     * [A7: High-level architecture. Privileges. Web resources specification](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/A7)
-    * A8: Vertical Prototype
-    * A9: Main Accesses to the database and transactions
+    * [A8: Vertical Prototype](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/a8)
+    * [A9: Main Accesses to the database and transactions](https://git.fe.up.pt/lbaw/lbaw18/lbaw1825/wikis/A9)
 * Product and Presentation
     * A10: Product
     * A11: Presentation and discussion
