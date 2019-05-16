@@ -903,20 +903,20 @@ INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (2, '96969
 INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (1, '962222222', 'Urbanizacao Ze Chilo, lote 35, 2 direito');
 
 -- Table: purchase
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (1, 1, 1, '2019-02-03 12:40:24', 1, 'processing');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (2, 2, 2, '2019-01-05 03:22:05', 1, 'awaiting_payment');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (3, 10, 3, '2019-03-30 15:10:10', 1, 'in_transit');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (4, 22, 4, '2019-02-01 19:34:22', 1, 'delivered');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (5, 22, 4, '2019-01-02 20:56:12', 1, 'canceled');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (6, 33, 6, '2019-02-09 07:32:43', 1, 'delivered');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (7, 36, 7, '2019-03-14 12:41:56', 1, 'awaiting_payment');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (8, 37, 8, '2019-01-29 11:12:31', 1, 'processing');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (9, 5, 9, '2019-02-13 10:06:33', 1, 'awaiting_payment');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (10, 6, 10, '2019-01-05 14:54:45', 1, 'in_transit');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (11, 8, 11, '2019-03-06 17:44:55', 1, 'in_transit');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (12, 10, 3, '2019-02-12 18:33:43', 1, 'processing');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (13, 31, 12, '2019-01-10 14:12:36', 1, 'delivered');
-INSERT INTO purchase (id_purchase, id_user, id_deli_info, purchase_date, total, status) VALUES (14, 1, 1, '2019-02-20 12:06:30', 1, 'processing');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (1, 1, '2019-02-03 12:40:24', 1, 'processing');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (2, 2, '2019-01-05 03:22:05', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (10, 3, '2019-03-30 15:10:10', 1, 'in_transit');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (22, 4, '2019-02-01 19:34:22', 1, 'delivered');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (22, 4, '2019-01-02 20:56:12', 1, 'canceled');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (33, 6, '2019-02-09 07:32:43', 1, 'delivered');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (36, 7, '2019-03-14 12:41:56', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-01-29 11:12:31', 1, 'processing');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (5, 9, '2019-02-13 10:06:33', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (6, 10, '2019-01-05 14:54:45', 1, 'in_transit');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (8, 11, '2019-03-06 17:44:55', 1, 'in_transit');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (10, 3, '2019-02-12 18:33:43', 1, 'processing');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (31, 12, '2019-01-10 14:12:36', 1, 'delivered');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (1, 1, '2019-02-20 12:06:30', 1, 'processing');
 
 -- Table: product_purchase
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (1, 4, 1, 1, 1, 2);
@@ -933,14 +933,6 @@ INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size,
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (69, 9, 1, 1, 1, 3);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (7, 7, 1, 1, 4, 3);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (9, 11, 1, 1, 1, 1);
-
-    --id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
-    --id_purchase INTEGER NOT NULL REFERENCES purchase ON UPDATE CASCADE,
-    --quantity INTEGER NOT NULL CHECK(quantity > 0),
-    --price FLOAT NOT NULL CHECK(price > 0),
-    --id_size INTEGER REFERENCES size ON UPDATE CASCADE,
-    --id_color INTEGER REFERENCES color ON UPDATE CASCADE,
-    --PRIMARY KEY (id_product, id_purchase)
 
 -- Table: review
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (35,34,'auctor mus imperdiet tristique Phasellus taciti nisi Suspendisse vestibulum eros laoreet sociis Nunc inceptos','2019-01-10 21:23:03',5);
@@ -1075,34 +1067,34 @@ INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (4
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (18,68,'leo Sed Fusce Suspendisse volutpat dignissim pulvinar eleifend amet Lorem dictum commodo commodo Phasellus blandit','2019-01-08 16:32:47',4);
 
 -- Table: poll
-INSERT INTO poll(id_poll, poll_name, poll_date, expiration, active) VALUES (1, 'Hoodies 2019 Poll', '2019-03-01', '2019-07-15', TRUE);
-INSERT INTO poll(id_poll, poll_name, poll_date, expiration, active) VALUES (2, 'Jackets 2019 Poll', '2019-03-02', '2019-07-16', TRUE);
-INSERT INTO poll(id_poll, poll_name, poll_date, expiration, active) VALUES (3, 'Posters 2019 Poll', '2019-05-03', '2019-09-17', TRUE);
-INSERT INTO poll(id_poll, poll_name, poll_date, expiration, active) VALUES (4, 'Posters 2018 Poll', '2018-03-03', '2018-07-17', FALSE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Hoodies 2019 Poll', '2019-03-01', '2019-07-15', TRUE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Jackets 2019 Poll', '2019-03-02', '2019-07-16', TRUE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Posters 2019 Poll', '2019-05-03', '2019-09-17', TRUE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Posters 2018 Poll', '2018-03-03', '2018-07-17', FALSE);
 
 -- Table: submission
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (1, 3, 'Submission1', 1, 'Funny submission1', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-08', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 12, 'Submissio2', 1, 'Funny submissio2', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-08', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (3, 27, 'Submission3', 1, 'Funny submissio3', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-06', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (4, 7, 'Submission4', 1, 'Funny submissio4', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-01', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (5, 14, 'Submission5', 1, 'Funny submissio5', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-04', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (6, 16, 'Submission7', 1, 'Funny submissio7', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-11', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (7, 9, 'Submission8', 1, 'Funny submission8', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-12', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (8, 32, 'Submission6', 1, 'Funny submissio6', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-02', FALSE, 0, FALSE, NULL);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (3, 'Submission1', 1, 'Funny submission1', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-08', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (12, 'Submissio2', 1, 'Funny submissio2', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-08', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (27, 'Submission3', 1, 'Funny submissio3', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-06', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (7, 'Submission4', 1, 'Funny submissio4', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-01', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (14, 'Submission5', 1, 'Funny submissio5', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-04', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (16, 'Submission7', 1, 'Funny submissio7', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-11', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (9, 'Submission8', 1, 'Funny submission8', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-12', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Submission6', 1, 'Funny submissio6', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-02', FALSE, 0, FALSE, NULL);
 
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (9, 10, 'Submission9', 1, 'Funny submissio9', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-04', TRUE, 0, FALSE, 2);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 2, 'Submission10', 1, 'Funny submission10', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-13', TRUE, 0, FALSE, 2);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (11, 10, 'Submission11', 1, 'Funny submissio11', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-07', TRUE, 0, FALSE, 2);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (12, 2, 'Submission12', 1, 'Funny submission12', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-13', TRUE, 0, FALSE, 2);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (13, 32, 'Submission13', 1, 'Funny submissio13', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-22', FALSE, 0, FALSE, NULL);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (14, 33, 'Submission14', 1, 'Funny submissio14', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-12', FALSE, 0, FALSE, NULL);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Submission9', 1, 'Funny submissio9', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-04', TRUE, 0, FALSE, 2);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Submission10', 1, 'Funny submission10', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-13', TRUE, 0, FALSE, 2);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Submission11', 1, 'Funny submissio11', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-07', TRUE, 0, FALSE, 2);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Submission12', 1, 'Funny submission12', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-13', TRUE, 0, FALSE, 2);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Submission13', 1, 'Funny submissio13', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-22', FALSE, 0, FALSE, NULL);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (33, 'Submission14', 1, 'Funny submissio14', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-12', FALSE, 0, FALSE, NULL);
 
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (15, 10, 'Submission15', 1, 'Funny submissio15', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-06', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (16, 2, 'Submission16', 1, 'Funny submission16', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-17', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (17, 10, 'Submission17', 1, 'Funny submissio17', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-17', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (18, 2, 'Submission18', 1, 'Funny submission18', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-13', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (19, 32, 'Submission19', 1, 'Funny submissio19', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-25', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_submission, id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (20, 32, 'Submission20', 1, 'Funny submissio20', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-25', FALSE, 0, FALSE, NULL);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Submission15', 1, 'Funny submissio15', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-06', TRUE, 0, FALSE, 3);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Submission16', 1, 'Funny submission16', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-17', TRUE, 0, FALSE, 3);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Submission17', 1, 'Funny submissio17', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-17', TRUE, 0, FALSE, 3);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Submission18', 1, 'Funny submission18', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-13', TRUE, 0, FALSE, 3);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Submission19', 1, 'Funny submissio19', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-25', TRUE, 0, FALSE, 3);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Submission20', 1, 'Funny submissio20', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-25', FALSE, 0, FALSE, NULL);
 
 -- Table: user_sub_vote
 INSERT INTO user_sub_vote (id_user, id_sub) VALUES (10, 2);
