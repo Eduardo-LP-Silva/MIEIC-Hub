@@ -45,7 +45,7 @@
         </span>
       @endif
 
-      <a><input type="submit" value="Register"></a> 
+      <a><input type="submit" value="Register"></a>
       <a class="button button-outline" href="{{ route('login') }}">Login instead</a>
     </form>
   </div>

@@ -24,6 +24,8 @@ Route::get('product', 'GeneralPageController@product');
 Route::get('submit', 'SubmissionController@submit');
 //Route::put('submitDesign', 'SubmissionController@submitDesign');
 
+Route::get('/users/{name}/cart', 'PurchaseController@cart');
+
 Route::get('about', 'GeneralPageController@about');
 Route::get('faq', 'GeneralPageController@faq');
 

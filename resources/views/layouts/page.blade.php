@@ -74,8 +74,8 @@
                     </li>
                     @if (Auth::check())
                     <li class="nav-item">
-                        <a href="{{url('/users/{id}/cart')}}">
-                            <img src="{{asset('img/icons/cart.svg')}}" alt="Cart">
+                        <a href="{{ url('/users/{id}/cart') }}">
+                            <img src="{{ asset('img/icons/cart.svg') }}" alt="Cart">
                         </a>
                     </li>
                     @endif
