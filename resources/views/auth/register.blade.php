@@ -10,6 +10,16 @@
 
 @section('content')
   <div class="register">
+      @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+      @endif
+
     <img src="{{asset('img/images/website/avatar.png')}}" class="avatar">
     <h1>Sign Up</h1>
     <form method="POST" action="{{ route('register') }}">
@@ -47,6 +57,7 @@
 
       <a><input type="submit" value="Register"></a>
       <a class="button button-outline" href="{{ route('login') }}">Login instead</a>
+
     </form>
   </div>
 @endsection

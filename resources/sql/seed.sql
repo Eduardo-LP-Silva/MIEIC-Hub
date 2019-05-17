@@ -66,7 +66,7 @@ CREATE TABLE product
     price FLOAT NOT NULL CHECK(price > 0),
     delivery_cost FLOAT NOT NULL CHECK(delivery_cost >= 0),
     stock INTEGER NOT NULL CHECK(stock >= 0),
-    rating FLOAT NOT NULL CHECK(rating >= 0 AND rating <= 5),
+    rating FLOAT NOT NULL CHECK(rating >= 0 AND rating <= 5) DEFAULT 0,
     id_category INTEGER NOT NULL REFERENCES category ON UPDATE CASCADE
 );
 
@@ -477,20 +477,20 @@ INSERT INTO category (id_category, category) VALUES (7, 'Mugs');
 -- Table: product
 
     -- Apparel
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (1, 'Sudo Rm Hoodie', 'Funny hoodie allusive to LINUX commands. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (2, 'FEUP Hoodie', 'Black hoodie for FEUP students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (3, 'Hard Code Hoodie', 'Funny hoodie allusive to Hard Rock Caffe. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (4, 'StarCode Hoodie', 'Funny hoodie allusive to Starbucks Caffe. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (5, 'MIEIC Jacket', 'Black jacket for MIEIC students. 100% poliester.', 19.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (6, 'Mouse Hoodie', 'Hoodie with a mouse for MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (7, 'Loading Hoodie', 'Funny hoodie with loading bar. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (8, 'Floppy Disk Hoodie', 'Hoodie with a floppy disk. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (9, 'E HTML Jacket', 'Jacket with loading and E instead the classic 5 on HTML logo. For MIEIC students. 100% poliester.', 19.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (10, 'FEUP Hoodie 2', 'Hoodie for FEUP students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (11, 'Fernando Pessoa Hoodie', 'Hoodie for MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (12, 'Programmer Hoodie', 'Grey hoodie for MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (13, 'Semi Colon Hoodie', 'Hoodie for MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
-INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (14, 'Author Jacket', 'Jacket for MIEIC students. 100% poliester.', 19.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Hoodie', 'Black hoodie for FEUP students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Sudo Rm Hoodie', 'Funny hoodie allusive to LINUX commands. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Hard Code Hoodie', 'Funny hoodie allusive to Hard Rock Caffe. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('StarCode Hoodie', 'Funny hoodie allusive to Starbucks Caffe. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Jacket', 'Black jacket for MIEIC students. 100% poliester.', 19.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Mouse Hoodie', 'Hoodie with a mouse for MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Loading Hoodie', 'Funny hoodie with loading bar. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Floppy Disk Hoodie', 'Hoodie with a floppy disk. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('E HTML Jacket', 'Jacket with loading and E instead the classic 5 on HTML logo. For MIEIC students. 100% poliester.', 19.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Hoodie 2', 'Hoodie for FEUP students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Fernando Pessoa Hoodie', 'Hoodie for MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Programmer Hoodie', 'Grey hoodie for MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Semi Colon Hoodie', 'Hoodie for MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Author Jacket', 'Jacket for MIEIC students. 100% poliester.', 19.99, 2.99, 50, 0, 1);
 
     --Phone Cases
 INSERT INTO product (id_product, product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES (15, 'MIEIC Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
@@ -577,10 +577,10 @@ INSERT INTO product (id_product, product_name, product_description, price, deliv
 
 -- Table: photo
     --Apparel
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (1, '~/html/resources/images/apparel/hoodie_sudo_rm.jpg', 1);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (1, 'img/images/apparel/notfound.jpg', 1);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (2, '~/html/resources/images/apparel/hoodie_sudo_rm_single.jpg', 1);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (3, '~/html/resources/images/apparel/hoodie_1.jpg', 2);
-INSERT INTO photo (id_photo, image_path, id_product) VALUES (4, '~/html/resources/images/apparel/hoodie_1_single.jpg', 2);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (3, 'img/images/apparel/hoddie_sudo_rm.jpg', 2);
+INSERT INTO photo (id_photo, image_path, id_product) VALUES (4, 'img/images/apparel/hoddie_sudo_rm_single.jpg', 2);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (5, '~/html/resources/images/apparel/hoodie_1_red.jpg', 3);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (6, '~/html/resources/images/apparel/hoodie_1_red_single.jpg', 3);
 INSERT INTO photo (id_photo, image_path, id_product) VALUES (7, '~/html/resources/images/apparel/hoodie_2.jpg', 4);

@@ -19,7 +19,8 @@ Route::get('/', function()
 //	Fazer um controller por modulo ???
 
 Route::get('home', 'GeneralPageController@home');
-Route::get('product', 'GeneralPageController@product');
+Route::get('products/{id}', 'ProductsController@show');
+Route::get('users/{id}/settings', 'UsersController@settings');
 
 Route::get('submit', 'SubmissionController@submit');
 //Route::put('submitDesign', 'SubmissionController@submitDesign');

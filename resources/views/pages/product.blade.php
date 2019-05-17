@@ -1,7 +1,13 @@
 @extends('layouts.page')
 
 @section('stylesheets')
-        <link rel="stylesheet" href="{{ asset('css/product.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/product.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/product.js')}}" defer></script>
 @endsection
 
 @section('title')
@@ -14,16 +20,26 @@
                 <!-- Product photos-->
                 <div id="gallery" class="carousel slide col-md-6" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        <li data-target="#gallery" data-slide-to="0" class="active"></li>
-                        <li data-target="#gallery" data-slide-to="1"></li>
+                        @php
+                        $i = 1
+                        @endphp
+                        @foreach ($photos as $photo)
+                            <li data-target="#gallery" data-slide-to="{{$i}}"></li>
+                            @php
+                            $i++;    
+                            @endphp
+                        @endforeach
+                        {{-- <li data-target="#gallery" data-slide-to="0" class="active"></li> --}}
                     </ol>
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img class="d-block w-100" src="{{asset('img/images/apparel/hoodie_1.jpg')}}">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src="{{asset('img/images/apparel/hoodie_2.jpg')}}">
-                        </div>
+                        {{-- <div class="carousel-item active">
+                            <img class="d-block w-100" src="{{asset('img/images/apparel/hoddie_sudo_rm_single.jpg')}}">
+                        </div> --}}
+                        @foreach ($photos as $photo)
+                            <div class="carousel-item active">
+                                <img class="d-block w-100" src="{{asset($photo->image_path)}}">
+                            </div>
+                        @endforeach
                     </div>
                     <a class="carousel-control-prev" href="#gallery" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -36,11 +52,11 @@
                 </div>
                 <!-- Informations -->
                 <div id="info" class="col-md-6">
-                    <h1>Sweatshirt</h1>
+                    <h1>{{ $product->product_name }}</h1>
                     <i class="far fa-heart heart"></i>
 
                     <div class="to-flex">
-                        <h2 id="price">Price: 15.00€</h2>
+                        <h2 id="price">Price: {{ $product->price }}€</h2>
                         <div id="product-rating" class="stars-outer">
                             <div class="stars-inner"></div>
                         </div>
@@ -77,15 +93,10 @@
                             </div>
                             <div id="description" class="collapse" aria-labelledby="descriptionheader" data-parent="#informations">
                                 <div class="card-body">
-                                    <ul>
-                                        <li>Standard fit for a relaxed, easy feel</li>
-                                        <li>Front pockets</li>
-                                        <li>Fabric: 66% cotton/34% polyester</li>
-                                        <li>Machine wash</li>
-                                    </ul>
+                                    <p> {{ $product->product_description }} </p>
                                 </div>
                             </div>
-                        </div><!--
+                        </div>
                         <div class="card">
                             <div class="card-header" id="deliveryheader">
                                 <h2 class="mb-0">
@@ -97,35 +108,10 @@
                             </div>
                             <div id="delivery" class="collapse" aria-labelledby="deliveryheader" data-parent="#informations">
                                 <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                          <tr>
-                                            <th>Region</th>
-                                            <th>Price</th>
-                                            <th>Business Days</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr>
-                                            <th scope="row">Portugal</th>
-                                            <td>3.99€</td>
-                                            <td>3-7</td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row">Europe</th>
-                                            <td>5.99€</td>
-                                            <td>5-9</td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row">Rest of the world</th>
-                                            <td>8.99€</td>
-                                            <td>10-14</td>
-                                          </tr>
-                                        </tbody>
-                                      </table>
+                                    <p> To Portugal: {{$product->delivery_cost}}€ </p>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
 
                     <div id="buy">
