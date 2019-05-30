@@ -6,13 +6,13 @@
                     <img id="profilepicture" src="../resources/images/about-us/edu.jpg" alt="profile picture">
                 <span id="name"> {{$user->name}} </span>
                 </div>
-                <span class="separation"></span>
+                <!-- <span class="separation"></span> -->
                 <div class="status row">
                     <small style="margin-left: 10%">{{$user->user_description}}</small>
                 </div>
-                <span class="separation"></span>
+               <!-- <span class="separation"></span> -->
                 <div class="wishlist row">
-                    <a href="./wishlist.html">
+                    <a href={{'/users/' . $user->name . '/wishlist'}}>
                         <button class="btn">Wishlist</button>
                     </a>
 
@@ -27,7 +27,7 @@
                     <a href="./profile-orders.html"><button type="button" class="btn btn-danger">Orders</button></a> 
                     <a href="./profile-reviews.html"><button type="button" class="btn btn-danger" autofocus>Reviews</button></a> 
                 </div>
-                @yield('profile');
+                @yield('profile')
             </div>
         </div>
     </div>

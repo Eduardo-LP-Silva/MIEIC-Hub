@@ -11,7 +11,7 @@
 @section('content')
 <div id="content">
     <div id="header">
-        <h1>{{$submission->submission_name}}</h1>
+        <h1>Name: {{$submission->submission_name}}</h1>
         <div id="actions">
             <i class="fas fa-check-circle"></i>
             <i class="fas fa-times-circle"></i>
@@ -21,7 +21,7 @@
     <br>
     <div id="author">
         <span>Author: </span>
-        <a href="./profile-orders.html">{{$user->username}}</a>
+        <a href="./profile-orders.html">{{$user->name}}</a>
     </div>
     <div id="category">
         <span>Category: </span>

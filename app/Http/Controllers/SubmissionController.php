@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Product;
 use App\Photo;
+use App\Submission;
+use App\User;
+use App\Category;
 
 class SubmissionController extends Controller
 {

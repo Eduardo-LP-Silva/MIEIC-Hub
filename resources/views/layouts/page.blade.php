@@ -64,8 +64,8 @@
                         <div class="dropdown-menu" aria-labelledby="profileDD">
                             @if (Auth::check())
                             <a class="dropdown-item" href="{{url('/users/' . Auth::user()->name)}}">Profile</a>
-                            <a class="dropdown-item" href="{{url('/users/{id}/wishlist')}}">Wishlist</a>
-                            <a class="dropdown-item" href="{{url('/users/{id}/settings')}}">Settings</a>
+                            <a class="dropdown-item" href="{{url('/users/' .  Auth::user()->name .'/wishlist')}}">Wishlist</a>
+                            <a class="dropdown-item" href="{{url('/users/'  . Auth::user()->name . '/settings')}}">Settings</a>
                             <a class="dropdown-item" href="{{url('/logout')}}">Sign-out</a>
                             @else
                             <a class="dropdown-item" href="{{url('/login')}}">Login</a>
