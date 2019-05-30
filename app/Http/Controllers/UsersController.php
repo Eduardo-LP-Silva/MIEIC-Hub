@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class UsersController extends Controller
 {
@@ -46,6 +47,25 @@ class UsersController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function profile($name)
+    {
+        return redirect('users/' . $name . '/reviews');
+    }
+
+    public function profileReviews($name)
+    {
+        $user = User::where('name', $name)->get();
+
+        return view('pages.profile-reviews', ['user' => $user[0]]);
+    }
+
+    public function profileOrders($id)
+    {
+        //check if same user or admin
+
+        return view('pages.profile-orders', ['user_profile' => $id]);
     }
 
     public function settings($id) {

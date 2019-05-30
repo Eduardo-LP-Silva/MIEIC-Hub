@@ -63,7 +63,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="profileDD">
                             @if (Auth::check())
-                            <a class="dropdown-item" href="{{url('/users/{id}')}}">Profile</a>
+                            <a class="dropdown-item" href="{{url('/users/' . Auth::user()->name)}}">Profile</a>
                             <a class="dropdown-item" href="{{url('/users/{id}/wishlist')}}">Wishlist</a>
                             <a class="dropdown-item" href="{{url('/users/{id}/settings')}}">Settings</a>
                             <a class="dropdown-item" href="{{url('/logout')}}">Sign-out</a>
@@ -74,7 +74,7 @@
                     </li>
                     @if (Auth::check())
                     <li class="nav-item">
-                        <a href="{{url('/users/{id}/cart')}}">
+                        <a href="{{url('/users/a/cart')}}">
                             <img src="{{asset('img/icons/cart.svg')}}" alt="Cart">
                         </a>
                     </li>

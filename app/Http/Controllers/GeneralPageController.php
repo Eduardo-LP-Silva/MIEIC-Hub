@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GeneralPageController extends Controller {
-    public function home() {
+    public function home() 
+    {
         return view('pages.home');
     }
-
-    // public function login() {
-    //     return view('pages.login');
-    // }
 
     public function about()
     {

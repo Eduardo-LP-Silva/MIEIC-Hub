@@ -18,7 +18,9 @@ Route::get('/', function()
 
 Route::get('home', 'GeneralPageController@home');
 Route::get('products/{id}', 'ProductsController@show');
-Route::get('users/{id}/settings', 'UsersController@settings');
+Route::get('users/{name}', 'UsersController@profile');
+Route::get('users/{name}/reviews', 'UsersController@profileReviews');
+Route::get('users/{name}/settings', 'UsersController@settings');
 
 // Route::get('login', 'GeneralPageController@login');
 
