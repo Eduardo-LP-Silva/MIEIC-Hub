@@ -5,13 +5,13 @@
 @endsection
 
 @section('title')
-    <title>Submission {ID} - MIEIC Hub</title>
+    <title>Submission {{$submission->submission_name}} - MIEIC Hub</title>
 @endsection
 
 @section('content')
 <div id="content">
     <div id="header">
-        <h1>Mouse Hoodie V2</h1>
+        <h1>{{$submission->submission_name}}</h1>
         <div id="actions">
             <i class="fas fa-check-circle"></i>
             <i class="fas fa-times-circle"></i>
@@ -21,14 +21,14 @@
     <br>
     <div id="author">
         <span>Author: </span>
-        <a href="./profile-orders.html">edwardS</a>
+        <a href="./profile-orders.html">{{$user->username}}</a>
     </div>
     <div id="category">
         <span>Category: </span>
-        <span>Hoodie</span>
+        <span>{{$category->category}}</span>
     </div>
     <p id="description">
-        This design is an improvement to the original Mouse Hoodie. It features new drawings as well as new materials.
+        {{$submission->submission_description}}
     </p>
 </div>
 @endsection
