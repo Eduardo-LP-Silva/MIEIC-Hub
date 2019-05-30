@@ -34,4 +34,4 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('upcoming', 'Auth\PollsController@upcoming');
-Route::get('submission/{id_submission}, SubmissionController@show');
+Route::get('submission/{id_submission}', 'SubmissionController@show');

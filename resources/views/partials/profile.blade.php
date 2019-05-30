@@ -4,11 +4,11 @@
             <div class="maininfo col-md-4">
                 <div class="presentation row">
                     <img id="profilepicture" src="../resources/images/about-us/edu.jpg" alt="profile picture">
-                    <span id="name"> Eduardo Silva</span>
+                <span id="name"> {{$user->name}} </span>
                 </div>
                 <span class="separation"></span>
                 <div class="status row">
-                    <small style="margin-left: 10%">Just a regular MIEIC student.</small>
+                    <small style="margin-left: 10%">{{$user->user_description}}</small>
                 </div>
                 <span class="separation"></span>
                 <div class="wishlist row">
