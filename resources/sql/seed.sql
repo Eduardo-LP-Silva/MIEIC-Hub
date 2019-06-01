@@ -88,8 +88,8 @@ CREATE TABLE users
     stock_manager BOOLEAN NOT NULL DEFAULT FALSE,
     moderator BOOLEAN NOT NULL DEFAULT FALSE,
     submission_manager BOOLEAN NOT NULL DEFAULT FALSE,
-    id_photo INTEGER REFERENCES photo ON UPDATE CASCADE,
-    user_description TEXT NOT NULL DEFAULT '',
+    id_photo INTEGER REFERENCES photo ON UPDATE CASCADE DEFAULT 1,
+    user_description TEXT NOT NULL DEFAULT 'Hello! Proud MIEIC Hub member here!',
     remember_token VARCHAR
 );
 
@@ -576,6 +576,10 @@ INSERT INTO product (product_name, product_description, price, delivery_cost, st
 
 
 -- Table: photo
+
+--Users
+INSERT INTO photo (image_path, id_product) VALUES ('~/public/img/users/default.png', NULL);
+
     --Apparel
 INSERT INTO photo (image_path, id_product) VALUES ('img/images/apparel/notfound.jpg', 1);
 INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/apparel/hoodie_sudo_rm_single.jpg', 1);
@@ -678,11 +682,6 @@ INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs
 INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/errors.jpg', 81);
 INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/sleep.jpg', 82);
 INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/mugs/goaway.png', 83);
-
-    --Users
-INSERT INTO photo (image_path, id_product) VALUES ('~/html/resources/images/users/random-profile.jpg', NULL);
-
-
 -- Table: user
 
 -- Regular users

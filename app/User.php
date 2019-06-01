@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
+use Photo;
 
 class User extends Authenticatable
 {
@@ -32,5 +34,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isAuthenticatedUser()
+    {
+        return $this->id == Auth::id();
+    }
+
+    public function getPhotoPath()
+    {
+        return Photo::find($this->id_photo)->image_path;
+    }
 
 }
