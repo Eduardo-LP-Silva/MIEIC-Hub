@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Utils;
 
 class UsersController extends Controller
 {
@@ -58,14 +59,35 @@ class UsersController extends Controller
     {
         $user = User::where('name', $name)->get();
 
-        return view('pages.profile-reviews', ['user' => $user[0]]);
+        if(count($user) == 0)
+        {
+            $user = User::where('name', Utils::reverse_slug($name))->get();
+
+            if(count($user) == 0)
+                abort(404);
+        }
+
+        $reviews = $user[0]->getReviews();
+
+        return view('pages.profile-reviews', ['user' => $user[0], 'reviews' => $reviews]);
     }
 
     public function profileOrders($id)
     {
-        //check if same user or admin
+        $user = User::where('name', $name)->get();
 
-        return view('pages.profile-orders', ['user_profile' => $id]);
+        if(count($user) == 0)
+        {
+            $user = User::where('name', Utils::reverse_slug($name))->get();
+
+            if(count($user) == 0)
+                abort(404);
+        }
+
+        if($user->isAuthenticatedUser() || $user->isMod())
+            return view('pages.profile-orders', ['user_profile' => $id]);
+        else
+            abort(403);
     }
 
     public function settings($id) {

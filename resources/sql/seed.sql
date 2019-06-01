@@ -578,7 +578,7 @@ INSERT INTO product (product_name, product_description, price, delivery_cost, st
 -- Table: photo
 
 --Users
-INSERT INTO photo (image_path, id_product) VALUES ('~/public/img/users/default.png', NULL);
+INSERT INTO photo (image_path, id_product) VALUES ('img/users/default.png', NULL);
 
     --Apparel
 INSERT INTO photo (image_path, id_product) VALUES ('img/images/apparel/notfound.jpg', 1);

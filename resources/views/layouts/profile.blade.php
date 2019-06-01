@@ -1,3 +1,5 @@
+<?php use App\Utils; ?>
+
 @extends('layouts.page')
 
 @section('stylesheets')
@@ -15,7 +17,7 @@
     <div style="margin-top: 3%" class="row">
         <div id="info_left" class="maininfo col-md-4">
             <div class="presentation row">
-                <img id="profilepicture" src={{asset('img/users/default.png')}} alt="profile picture">
+                <img id="profilepicture" src={{asset($user->getPhotoPath())}} alt="profile picture">
             <span id="name"> {{$user->name}} </span>
             </div>
             <!-- <span class="separation"></span> -->
@@ -24,11 +26,11 @@
             </div>
             <!-- <span class="separation"></span> -->
             <div class="wishlist row">
-                <a href={{'/users/' . $user->name . '/wishlist'}}>
+                <a href={{url("/users/" . Utils::slug($user->name) . "/wishlist")}}>
                     <button class="btn">Wishlist</button>
                 </a>
                 @if ($user->isAuthenticatedUser())
-                <a href={{'/users/' . $user->name . '/settings'}}>
+                <a href={{url('/users/' . Utils::slug($user->name) . '/settings')}}>
                     <img src={{asset('img/icons/settings.png')}} alt="Settings">
                 </a>
                 @endif
@@ -37,8 +39,8 @@
         <div id="info_right" class="otherinfo col-md-8">
             <span id="separationver"></span>
             <div id="options_buttons">
-                <a href={{url('/users/' . $user->name . '/orders')}}><button type="button" class="btn btn-danger">Orders</button></a> 
-                <a href={{url('/users/' . $user->name . '/reviews')}}><button type="button" class="btn btn-danger" autofocus>Reviews</button></a> 
+                <a href={{url('/users/' . Utils::slug($user->name) . '/orders')}}><button type="button" class="btn btn-danger">Orders</button></a> 
+                <a href={{url('/users/' . Utils::slug($user->name) . '/reviews')}}><button type="button" class="btn btn-danger" autofocus>Reviews</button></a> 
             </div>
             @yield('details')
         </div>

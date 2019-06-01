@@ -1,3 +1,5 @@
+<?php use App\Utils; ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -63,9 +65,9 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="profileDD">
                             @if (Auth::check())
-                            <a class="dropdown-item" href="{{url('/users/' . Auth::user()->name)}}">Profile</a>
-                            <a class="dropdown-item" href="{{url('/users/' .  Auth::user()->name .'/wishlist')}}">Wishlist</a>
-                            <a class="dropdown-item" href="{{url('/users/'  . Auth::user()->name . '/settings')}}">Settings</a>
+                            <a class="dropdown-item" href="{{url('/users/' . Utils::slug(Auth::user()->name))}}">Profile</a>
+                            <a class="dropdown-item" href="{{url('/users/' .  Utils::slug(Auth::user()->name) .'/wishlist')}}">Wishlist</a>
+                            <a class="dropdown-item" href="{{url('/users/'  . Utils::slug(Auth::user()->name . '/settings'))}}">Settings</a>
                             <a class="dropdown-item" href="{{url('/logout')}}">Sign-out</a>
                             @else
                             <a class="dropdown-item" href="{{url('/login')}}">Login</a>

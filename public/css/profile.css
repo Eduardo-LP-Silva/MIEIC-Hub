@@ -53,6 +53,7 @@
 
 #info_left > .status
 {
+	margin-top: 2em;
 	height: 12em;
 }
 
