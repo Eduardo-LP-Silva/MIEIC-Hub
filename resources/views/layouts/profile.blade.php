@@ -3,6 +3,7 @@
 @extends('layouts.page')
 
 @section('stylesheets')
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
         <link rel="stylesheet" href="{{ asset('css/profile-reviews.css') }}">
         <link rel="stylesheet" href="{{ asset('css/profile-orders.css') }}">
@@ -38,10 +39,14 @@
         </div>
         <div id="info_right" class="otherinfo col-md-8">
             <span id="separationver"></span>
-            <div id="options_buttons">
-                <a href={{url('/users/' . Utils::slug($user->name) . '/orders')}}><button type="button" class="btn btn-danger">Orders</button></a> 
-                <a href={{url('/users/' . Utils::slug($user->name) . '/reviews')}}><button type="button" class="btn btn-danger" autofocus>Reviews</button></a> 
-            </div>
+            @if($user->isAuthenticatedUser() || $user->isMod())
+            {
+                <div id="options_buttons">
+                    <a href={{url('/users/' . Utils::slug($user->name) . '/orders')}}><button type="button" class="btn btn-danger">Orders</button></a> 
+                    <a href={{url('/users/' . Utils::slug($user->name) . '/reviews')}}><button type="button" class="btn btn-danger" autofocus>Reviews</button></a> 
+                </div>
+            }
+            @endif
             @yield('details')
         </div>
     </div>

@@ -25,4 +25,9 @@ class Utils
     {
         return str_replace('-', ' ', $title);
     }
+
+    public static function replaceWhiteSpace($path)
+    {
+        return str_replace(' ', '%20', $path);
+    }
 }

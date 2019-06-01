@@ -1,4 +1,8 @@
-<?php use App\Product; ?>
+<?php 
+    use App\Product;
+    use App\Utils;
+?>
+
 @extends('layouts.profile')
 @section('details')
     <div id="reviews">
@@ -7,9 +11,9 @@
         <div class="media container review">
             <img class="d-flex mr-3" data-src="holder.js/64x64?theme=sky" alt="Product picture"
                 style="width: 64px; height: 64px;"
-                src={{asset($product_photo)}} alt="Product"
+                src={{asset(Utils::replaceWhiteSpace($product_photo))}} alt="Product"
                 data-holder-rendered="true">
-            <a class="media-body row" href={{url('/product/' . $review->id_product)}}>
+            <a class="media-body row" href={{url('/products/' . $review->id_product)}}>
                 <h5 class="mt-0 col-6"><?=$review->product_name?></h5>
                 <div class="rating col-6">
                     @for($i = 0; $i < $review->rating; $i++)
