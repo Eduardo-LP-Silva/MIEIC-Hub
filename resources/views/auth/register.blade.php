@@ -20,7 +20,7 @@
         </div>
       @endif
 
-    <img src="{{asset('img/images/website/avatar.png')}}" class="avatar">
+    <img src="{{asset('img/website/avatar.png')}}" class="avatar">
     <h1>Sign Up</h1>
     <form method="POST" action="{{ route('register') }}">
         {{ csrf_field() }}

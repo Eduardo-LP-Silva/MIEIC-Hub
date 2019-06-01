@@ -18,7 +18,7 @@
     <div style="margin-top: 3%" class="row">
         <div id="info_left" class="maininfo col-md-4">
             <div class="presentation row">
-                <img id="profilepicture" src={{asset($user->getPhotoPath())}} alt="profile picture">
+                <img id="profilepicture" src={{asset(Utils::replaceWhiteSpace($user->getPhotoPath()))}} alt="profile picture">
             <span id="name"> {{$user->name}} </span>
             </div>
             <!-- <span class="separation"></span> -->
@@ -40,12 +40,10 @@
         <div id="info_right" class="otherinfo col-md-8">
             <span id="separationver"></span>
             @if($user->isAuthenticatedUser() || $user->isMod())
-            {
                 <div id="options_buttons">
                     <a href={{url('/users/' . Utils::slug($user->name) . '/orders')}}><button type="button" class="btn btn-danger">Orders</button></a> 
                     <a href={{url('/users/' . Utils::slug($user->name) . '/reviews')}}><button type="button" class="btn btn-danger" autofocus>Reviews</button></a> 
                 </div>
-            }
             @endif
             @yield('details')
         </div>

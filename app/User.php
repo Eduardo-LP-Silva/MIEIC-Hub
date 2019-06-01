@@ -63,4 +63,17 @@ class User extends Authenticatable
         ));
     }
 
+    public function getOrders()
+    {
+        return DB::select(DB::raw
+        (
+            "SELECT DISTINCT product.id_product, product.product_name, product_purchase.price, purchase.purchase_date, purchase.status
+            FROM users, purchase, product_purchase, product
+            WHERE users.id = " . $this->id .
+            " AND users.id = purchase.id_user 
+            AND product_purchase.id_purchase = purchase.id_purchase 
+            AND product_purchase.id_product = product.id_product"
+        ));
+    }
+
 }

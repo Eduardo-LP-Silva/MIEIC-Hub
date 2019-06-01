@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Utils;
 
@@ -72,7 +73,7 @@ class UsersController extends Controller
         return view('pages.profile-reviews', ['user' => $user[0], 'reviews' => $reviews]);
     }
 
-    public function profileOrders($id)
+    public function profileOrders($name)
     {
         $user = User::where('name', $name)->get();
 
@@ -84,8 +85,12 @@ class UsersController extends Controller
                 abort(404);
         }
 
-        if($user->isAuthenticatedUser() || $user->isMod())
-            return view('pages.profile-orders', ['user_profile' => $id]);
+        $user = $user[0];
+        $orders = $user->getOrders();
+        $current_user = Auth::user();
+
+        if($current_user->isAuthenticatedUser() || $current_user->isMod())
+            return view('pages.profile-orders', ['user' => $user, 'orders' => $orders]);
         else
             abort(403);
     }
