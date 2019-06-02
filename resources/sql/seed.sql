@@ -143,7 +143,7 @@ CREATE TABLE user_delivery_info
 CREATE TABLE purchase
 (
     id_purchase SERIAL PRIMARY KEY,
-    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES Users ON UPDATE CASCADE ON DELETE NO ACTION,
     id_deli_info INTEGER NOT NULL REFERENCES delivery_info ON UPDATE CASCADE,
     purchase_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     total FLOAT NOT NULL CHECK(total >= 0),
@@ -163,7 +163,7 @@ CREATE TABLE product_purchase
 
 CREATE TABLE review
 (
-    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE NO ACTION,
     id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
     comment TEXT NOT NULL,
     review_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
@@ -207,7 +207,7 @@ CREATE TABLE poll
 CREATE TABLE submission
 (
     id_submission SERIAL PRIMARY KEY,
-    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE NO ACTION,
     submission_name TEXT NOT NULL,
     id_category INTEGER NOT NULL REFERENCES category ON UPDATE CASCADE,
     submission_description TEXT NOT NULL,
@@ -221,7 +221,7 @@ CREATE TABLE submission
 
 CREATE TABLE user_sub_vote
 (
-    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE,
+    id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE NO ACTION,
     id_sub INTEGER NOT NULL REFERENCES submission ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (id_user, id_sub)
 );
@@ -432,36 +432,36 @@ EXECUTE PROCEDURE recalculate_product_purchase_price();
 
 CREATE FUNCTION erase_user() RETURNS TRIGGER AS $BODY$
 DECLARE
-    next_id INTEGER := pg_get_serial_sequence('users', 'id_user');
+    next_id INTEGER := nextval(pg_get_serial_sequence('users', 'id'));
     new_name TEXT := 'John Doe' || MD5(OLD.name);
 BEGIN
-    INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, 
+    INSERT INTO users (id, name, email, password, birth_date, active, stock_manager, moderator, submission_manager, 
     id_photo, user_description) 
-    VALUES (new_name , 'mieichubsupport@gmail.com','123masfiasfnakslfmas', '1994-01-01', FALSE, FALSE, FALSE, 
+    VALUES (next_id, new_name , 'mieichubsupport@gmail.com','123masfiasfnakslfmas', '1994-01-01', FALSE, FALSE, FALSE, 
     FALSE, 1, 'Just a regular user, nothing to see here...');
 
     UPDATE review
     SET id_user = next_id
-    WHERE review.id_user = OLD.id_user;
+    WHERE review.id_user = OLD.id;
 
     UPDATE submission
     SET id_user = next_id
-    WHERE submission.id_user = OLD.id_user;
+    WHERE submission.id_user = OLD.id;
 
     UPDATE user_sub_vote
     SET id_user = next_id
-    WHERE submission.id_user = OLD.id_user;
+    WHERE user_sub_vote.id_user = OLD.id;
 
     UPDATE purchase
     SET id_user = next_id
-    WHERE submission.id_user = OLD.id_user;
+    WHERE purchase.id_user = OLD.id;
 
     RETURN OLD;
 END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER delete_user
-AFTER DELETE ON users
+BEFORE DELETE ON users
 FOR EACH ROW
 EXECUTE PROCEDURE erase_user();
 
