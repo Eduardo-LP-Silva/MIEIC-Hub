@@ -76,4 +76,11 @@ class User extends Authenticatable
         ));
     }
 
+    public function updateSetting($setting, $value)
+    {
+        DB::table('users')
+            ->where('id', $this->id)
+            ->update([$setting => $value]);
+    }
+
 }

@@ -18,12 +18,13 @@ Route::get('/', function()
 
 Route::get('home', 'GeneralPageController@home');
 Route::get('products/{id}', 'ProductsController@show');
-Route::get('users/{name}', 'UsersController@profile');
+
+Route::get('users/{name}', 'UsersController@show');
 Route::get('users/{name}/reviews', 'UsersController@profileReviews');
 Route::get('users/{name}/orders', 'UsersController@profileOrders');
-Route::get('users/{name}/settings', 'UsersController@settings');
-
-// Route::get('login', 'GeneralPageController@login');
+Route::get('users/{name}/settings', 'UsersController@edit');
+Route::post('users/{name}/settings/edit', 'UsersController@update');
+Route::delete('users/{name}/delete', 'UsersController@destroy');
 
 Route::get('about', 'GeneralPageController@about');
 Route::get('faq', 'GeneralPageController@faq');

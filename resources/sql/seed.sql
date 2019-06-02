@@ -83,7 +83,7 @@ CREATE TABLE users
     name TEXT UNIQUE NOT NULL,
     email TEXT NOT NULL,
     password TEXT NOT NULL,
-    birth_date DATE,
+    birth_date DATE CHECK(birth_date < now()),
     active BOOLEAN NOT NULL DEFAULT TRUE, 
     stock_manager BOOLEAN NOT NULL DEFAULT FALSE,
     moderator BOOLEAN NOT NULL DEFAULT FALSE,
