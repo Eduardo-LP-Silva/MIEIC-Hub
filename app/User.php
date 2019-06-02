@@ -76,4 +76,17 @@ class User extends Authenticatable
         ));
     }
 
+    public function getCartItems()
+    {
+        return DB::select(DB::raw
+        (
+            "SELECT product.id_product, product_name, price, image_path, quantity
+            FROM users, product, cart, photo
+            WHERE users.id = " . $this->id . "AND users.id = cart.id_user AND 
+            cart.id_product = product.id_product AND photo.id_product = product.id_product
+            ;"
+
+        ));
+    }
+
 }
