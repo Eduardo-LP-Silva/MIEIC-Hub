@@ -8,7 +8,7 @@
 <div id="list">
     @foreach($orders as $order)
     <?php $product_photo = Product::find($order->id_product)->getPhotos(true);?>
-    <a class="list-item" href={{url('/products/' . $order->id_product)}}>
+    <a class="list-item" href="{{url('/products/' . $order->id_product)}}">
         <img src={{asset(Utils::replaceWhiteSpace($product_photo))}} alt="Product Picture">
         <div class="div"></div>
         <span><?=$order->product_name?></span>

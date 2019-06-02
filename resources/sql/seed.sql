@@ -697,7 +697,10 @@ INSERT INTO users VALUES (
   '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W'
 ); -- Password is 1234. Generated using Hash::make('1234')
 
+
+
 INSERT INTO users (name, email, password) VALUES('lbaw1825', 'lbaw1825@gmail.com', '$2y$10$kOQHd3CIu4.UQRQ6OzcjouJQTF7GLUdd9g.sGRVDghn6kvDOEcjcW');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Miguel Carvalho', 'up201605757@fe.up.pt','$2y$12$7M1rWpEnZg/qj6AfT2JXue1BfDG/IixigKNs7WUkMcA.VNKp20NAi', '1998-12-25', TRUE, TRUE, TRUE, TRUE, 5, 'Owner of MIEIC Hub');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Eduardo Silva', 'up201603135@fe.up.pt','$2y$12$L1d1H1PllySA.y43Dks4depIIEk4fGMQDRzZOP01dJ8VsErmyx.0a', '1998-01-22', TRUE, TRUE, TRUE, TRUE, 2, 'Co-Founder of MIEIC Hub');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Tomás Novo', 'up201604503@fe.up.pt','A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1998-07-31', TRUE, TRUE, TRUE, TRUE, 3, 'The best !');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Zé Luís', 'up201287644@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1994-02-11', TRUE, FALSE, FALSE, FALSE, 90, 'MEEEC student at 2nd grade. Love music !');
