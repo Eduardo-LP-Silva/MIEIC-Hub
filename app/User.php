@@ -80,11 +80,10 @@ class User extends Authenticatable
     {
         return DB::select(DB::raw
         (
-            "SELECT product.id_product, product_name, price, image_path, quantity
-            FROM users, product, cart, photo
+            "SELECT product.id_product, product_name, price, quantity
+            FROM users, product, cart
             WHERE users.id = " . $this->id . "AND users.id = cart.id_user AND 
-            cart.id_product = product.id_product AND photo.id_product = product.id_product
-            ;"
+            cart.id_product = product.id_product;"
 
         ));
     }
