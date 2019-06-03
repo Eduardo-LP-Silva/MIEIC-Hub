@@ -20,9 +20,9 @@
                 {{ csrf_field() }}-->
                 <i class="fas fa-check-circle"></i>
             <!--</form>-->
-            <form id="delete" action="{{url('/submission/' . $submission->id_submission)}}" method="POST">
+            <form id="delete" action="{{url('/submission/' . $submission->id_submission . '/remove') }}" method="POST">
                 {{ csrf_field() }}
-                <i class="fas fa-times-circle"></i>
+                <button type="submit"><i class="fas fa-times-circle"></i></button> 
             </form>
         </div>
     </div>

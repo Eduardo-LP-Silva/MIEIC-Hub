@@ -16,29 +16,30 @@
 
 @section('content')
 <div id="content" class="container">
+            <!-- Product -->
             <div id="product" class="row">
                 <!-- Product photos-->
                 <div id="gallery" class="carousel slide col-md-6" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        @php
-                        $i = 1
-                        @endphp
                         @foreach ($photos as $photo)
-                            <li data-target="#gallery" data-slide-to="{{$i}}"></li>
-                            @php
-                            $i++;    
-                            @endphp
+                            @if($loop->first)
+                            <li data-target="#gallery" data-slide-to="{{$loop->index}}" class="active"></li>
+                            @else
+                            <li data-target="#gallery" data-slide-to="{{$loop->index}}"></li>
+                            @endif
                         @endforeach
-                        {{-- <li data-target="#gallery" data-slide-to="0" class="active"></li> --}}
                     </ol>
                     <div class="carousel-inner">
-                        {{-- <div class="carousel-item active">
-                            <img class="d-block w-100" src="{{asset('img/images/apparel/hoddie_sudo_rm_single.jpg')}}">
-                        </div> --}}
                         @foreach ($photos as $photo)
+                            @if ($loop->first)
                             <div class="carousel-item active">
                                 <img class="d-block w-100" src="{{asset($photo->image_path)}}">
                             </div>
+                            @else 
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="{{asset($photo->image_path)}}">
+                            </div>
+                            @endif
                         @endforeach
                     </div>
                     <a class="carousel-control-prev" href="#gallery" role="button" data-slide="prev">
@@ -50,6 +51,7 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
+
                 <!-- Informations -->
                 <div id="info" class="col-md-6">
                     <h1>{{ $product->product_name }}</h1>
@@ -120,10 +122,12 @@
                     </div>
                 </div>
             </div>
+
             <!-- Reviews -->
             <div id="reviews" class="row">
                 <div class="col-12">
                     <h1>Reviews</h1>
+                    {{-- TO DO: auth e se comprou e não fez review ainda --}}
                     <div id="add" class="media container">
                         <img class="d-flex mr-3" data-src="holder.js/64x64?theme=sky" alt="64x64" style="width: 64px; height: 64px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16948714b27%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16948714b27%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
                         <div class="media-body row">
@@ -139,48 +143,8 @@
                             <button class="btn btn-success">Submit</button>
                         </div>
                     </div>
-                    <div class="media container">
-                        <img class="d-flex mr-3" data-src="holder.js/64x64?theme=sky" alt="Profile picture" style="width: 64px; height: 64px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16948714b27%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16948714b27%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
-                        <div class="media-body row">
-                            <h5 class="mt-0 col-6">Zé Carlos</h5>
-                            <div class="rating col-6">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                            </div>    
-                            <p class="ml-3">I love this hoodie! Looks really cool and is very comfortable.</p>
-                        </div>
-                    </div>
-                    <div class="media container">
-                        <img class="d-flex mr-3 " data-src="holder.js/64x64?theme=sky" alt="64x64" style="width: 64px; height: 64px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16948714b27%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16948714b27%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
-                        <div class="media-body row">
-                            <h5 class="mt-0 col-6">Mariana Luís</h5>
-                            <div class="rating col-6">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                            </div>    
-                            <p class="ml-3">The shipping took a little bit but I like the sweatshirt.</p>
-                        </div>
-                    </div>
-                    <div class="media container">
-                        <img class="d-flex mr-3" data-src="holder.js/64x64?theme=sky" alt="64x64" style="width: 64px; height: 64px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16948714b27%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16948714b27%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
-                        <div class="media-body row">
-                            <h5 class="mt-0 col-6">Catarina Ramos</h5>
-                            <div class="rating col-6">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </div>    
-                            <p class="ml-3">I don't know why I bought this. I study chemistry at FCUP.</p>
-                        </div>
-                    </div>
+
+                    @each('partials.review', $reviews, 'review')
                           
                 </div>
             </div>

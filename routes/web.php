@@ -17,6 +17,7 @@ Route::get('/', function()
 });
 
 Route::get('home', 'GeneralPageController@home');
+
 Route::get('products/{id}', 'ProductsController@show');
 
 Route::get('users/{name}', 'UsersController@show');
@@ -28,6 +29,8 @@ Route::delete('users/{name}/delete', 'UsersController@destroy');
 
 Route::get('about', 'GeneralPageController@about');
 Route::get('faq', 'GeneralPageController@faq');
+Route::get('faq/{id}/remove', 'GeneralPageController@removeFaq');
+Route::put('faq/add', 'GeneralPageController@addFaq');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
@@ -38,7 +41,7 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::get('upcoming', 'Auth\PollsController@upcoming');
 Route::get('submission/{id_submission}', 'SubmissionController@show');
 //Route::get('submission/{id_submission}', 'SubmissionController@udpateAccepted');
-Route::get('submission/{id_submission}', 'SubmissionController@destroy');
+Route::post('submission/{id_submission}/remove', 'SubmissionController@destroy');
 Route::get('submit', 'SubmissionController@submit');
 //Route::put('submit', 'SubmissionController@registerForm');
 
