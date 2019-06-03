@@ -37,6 +37,9 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('upcoming', 'Auth\PollsController@upcoming');
 Route::get('submission/{id_submission}', 'SubmissionController@show');
-
+//Route::get('submission/{id_submission}', 'SubmissionController@udpateAccepted');
+Route::get('submission/{id_submission}', 'SubmissionController@destroy');
+Route::get('submit', 'SubmissionController@submit');
+//Route::put('submit', 'SubmissionController@registerForm');
 
 Route::get('users/{name}/cart', 'PurchasesController@showCart');

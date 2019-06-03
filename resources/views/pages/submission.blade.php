@@ -1,7 +1,10 @@
+<?php use App\Utils; ?>
+
 @extends('layouts.page')
 
 @section('stylesheets')
         <link rel="stylesheet" href="{{ asset('css/submission.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @endsection
 
 @section('title')
@@ -13,15 +16,21 @@
     <div id="header">
         <h1>Name: {{$submission->submission_name}}</h1>
         <div id="actions">
-            <i class="fas fa-check-circle"></i>
-            <i class="fas fa-times-circle"></i>
+            <!--<form id="accept" action="{{url('/submission/' . $submission->id_submission)}}" method="POST">
+                {{ csrf_field() }}-->
+                <i class="fas fa-check-circle"></i>
+            <!--</form>-->
+            <form id="delete" action="{{url('/submission/' . $submission->id_submission)}}" method="POST">
+                {{ csrf_field() }}
+                <i class="fas fa-times-circle"></i>
+            </form>
         </div>
     </div>
     <img src="../resources/images/apparel/hoodie_3.jpg">
     <br>
     <div id="author">
         <span>Author: </span>
-        <a href="./profile-orders.html">{{$user->name}}</a>
+        <a href="{{url('/users/' . Utils::slug($user->name))}}">{{$user->name}}</a>
     </div>
     <div id="category">
         <span>Category: </span>
