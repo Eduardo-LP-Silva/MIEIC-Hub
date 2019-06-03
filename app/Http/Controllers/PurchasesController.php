@@ -13,20 +13,16 @@ class PurchasesController extends Controller
     //
     public function showCart($name) {
 
-        $user = User::where('name', $name)->get();
+        $user = User::getURLUser($name);
 
-        if(count($user) == 0)
-        {
-            $user = User::where('name', Utils::reverse_slug($name))->get();
-
-            if(count($user) == 0)
-                abort(404);
-        }
-
-        $user = $user[0];
         $items = $user->getCartItems();
-        $current_user = Auth::user();
 
-    	return view('pages.cart', ['user' => $user, 'items' => $items]);
+        dump($user);
+        dump($items);
+
+        if($user->isAuthenticatedUser() || Auth::user()->isMod())                      // Mod pode ver o cart?
+            return view('pages.cart', ['user' => $user, 'items' => $items]);
+        else
+            abort(403);
     }
 }

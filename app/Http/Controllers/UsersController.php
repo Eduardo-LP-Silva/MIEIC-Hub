@@ -55,7 +55,7 @@ class UsersController extends Controller
 
     public function profileReviews($name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
         $reviews = $user->getReviews();
 
         return view('pages.profile-reviews', ['user' => $user, 'reviews' => $reviews]);
@@ -63,7 +63,7 @@ class UsersController extends Controller
 
     public function profileOrders($name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
         $orders = $user->getOrders();
         $current_user = Auth::user();
 
@@ -81,27 +81,12 @@ class UsersController extends Controller
      */
     public function edit($name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
 
         if($user->isAuthenticatedUser() || Auth::user()->isMod())
             return view('pages.settings', ['user' => $user]);
         else
             abort(403, 'Permission denied');  
-    }
-
-    public function getURLUser($name)
-    {
-        $user = User::where('name', $name)->get();
-
-        if(count($user) == 0)
-        {
-            $user = User::where('name', Utils::reverse_slug($name))->get();
-
-            if(count($user) == 0)
-                abort(404, 'User ' . $name . ' does not exist');
-        }
-
-        return $user[0];
     }
 
     /**
@@ -113,7 +98,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
 
         if(!$user->isAuthenticatedUser() && !Auth::user()->isMod())
             abort(403, 'Permission denied');
@@ -183,7 +168,7 @@ class UsersController extends Controller
      */
     public function destroy($name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
 
         if($user->isAuthenticatedUser() || Auth::user()->isMod())
         {

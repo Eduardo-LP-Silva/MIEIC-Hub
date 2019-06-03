@@ -46,6 +46,21 @@ class User extends Authenticatable
         return $this->moderator;
     }
 
+    public static function getURLUser($name)
+    {
+        $user = User::where('name', $name)->get();
+
+        if(count($user) == 0)
+        {
+            $user = User::where('name', Utils::reverse_slug($name))->get();
+
+            if(count($user) == 0)
+                abort(404, 'User ' . $name . ' does not exist');
+        }
+
+        return $user[0];
+    }
+
     public function getPhoto($path)
     {
         $photo = Photo::find($this->id_photo);
