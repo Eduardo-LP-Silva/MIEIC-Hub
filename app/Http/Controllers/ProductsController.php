@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Product;
 use App\Photo;
+use App\Review;
 
 class ProductsController extends Controller
 {
@@ -49,8 +50,9 @@ class ProductsController extends Controller
     public function show($id) {
         $product = Product::find($id);
         $photos = Photo::where('id_product', $id)->get();
+        $reviews = Review::where('id_product', $id)->get();
 
-        return view('pages.product', ['product' => $product, 'photos' => $photos]);
+        return view('pages.product', ['product' => $product, 'photos' => $photos, 'reviews' => $reviews]);
     }
 
     /**
