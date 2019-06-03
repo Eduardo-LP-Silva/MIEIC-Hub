@@ -1,6 +1,29 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 @import url('https://fonts.googleapis.com/css?family=Raleway:900');
 
+@media (max-width: 991px)
+{
+    #accordionExample i
+    {
+        position: static !important;
+    }
+
+    .card-body textarea
+    {
+        width: 75% !important;
+    }
+
+    .card-body input
+    {
+        width: 75% !important;
+    }
+
+    .card-body button
+    {
+        width: 75% !important;
+    }
+}
+
 /* General */
 body
 {
@@ -90,65 +113,55 @@ h1
   border-width: 0.2em;
   border-top: 1px solid #af1c1c;
 }
-/*
-.container
+
+#collapseZero form
 {
-  max-width: 60%;
-  margin: 0 auto;
-  padding: 10px 0 20px;
-  width: 100%;
+    font-size: 16pt;
 }
 
-div
+.card-body input[type="text"]
 {
-  display: block;
+    border: none;
+    border-bottom: thin solid #af1c1c;
+    box-shadow: none;
+
+    width: 50%;
+    
+    margin: auto;
+
+    font-size: 12pt;
 }
 
-h3
+.card-body textarea
 {
-  margin-top: 1em;
-  display: block;
-  font-weight: bold;
-  max-width: 100%;
-  font-family: Poppins;
-  letter-spacing: 2px;
+    margin: auto;
+    margin-top: 1em;
+    width: 50%;
+    resize: none;
+
+    font-size: 12pt;
+    box-shadow: none;
 }
 
-.question h3
+.card-body button
 {
-  text-align: left;
-  font-size: 2em;
-  padding: 15px;
-  background-color: rgb(175, 28, 28);
-  margin: 0;
-  cursor: pointer;
-  position: relative;
+    width: 50%;
+    margin-top: 1em;
+
+    background-color: #af1c1c;
 }
 
-.question
+#accordionExample i
 {
-  border-bottom: 1px solid white;
+    position: absolute;
+    right: 4em;
+    top: 1.2em;
+    vertical-align: middle;
+    
+    cursor: pointer;
 }
 
-.question h3:after
-{
-  content: "+";
-  position: absolute;
-  right: 3px;
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn:active:focus, .btn:focus {
+  outline: none;
+  box-shadow: none;
 }
-
-.answer
-{
-  background-color: grey;
-  display: none;
-}
-
-.answer *
-{
-  margin-top: 0;
-}
-
-.answertext
-{
-  padding: 15px;
-} */

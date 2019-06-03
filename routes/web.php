@@ -28,6 +28,8 @@ Route::delete('users/{name}/delete', 'UsersController@destroy');
 
 Route::get('about', 'GeneralPageController@about');
 Route::get('faq', 'GeneralPageController@faq');
+Route::get('faq/{id}/remove', 'GeneralPageController@removeFaq');
+Route::put('faq/add', 'GeneralPageController@addFaq');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
