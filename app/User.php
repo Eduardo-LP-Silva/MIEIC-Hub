@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'birth_date'
+        'name', 'email', 'password', 'birth_date', 'id_photo'
     ];
 
     /**
@@ -46,9 +46,14 @@ class User extends Authenticatable
         return $this->moderator;
     }
 
-    public function getPhotoPath()
+    public function getPhoto($path)
     {
-        return Photo::find($this->id_photo)->image_path;
+        $photo = Photo::find($this->id_photo);
+
+        if($path)
+            return $photo->image_path;
+        else
+            return $photo;
     }
 
     public function getReviews()
@@ -74,6 +79,13 @@ class User extends Authenticatable
             AND product_purchase.id_purchase = purchase.id_purchase 
             AND product_purchase.id_product = product.id_product"
         ));
+    }
+
+    public function updateSetting($setting, $value)
+    {
+        DB::table('users')
+            ->where('id', $this->id)
+            ->update([$setting => $value]);
     }
 
     public function getCartItems()

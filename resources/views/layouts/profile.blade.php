@@ -18,7 +18,7 @@
     <div style="margin-top: 3%" class="row">
         <div id="info_left" class="maininfo col-md-4">
             <div class="presentation row">
-                <img id="profilepicture" src={{asset(Utils::replaceWhiteSpace($user->getPhotoPath()))}} alt="profile picture">
+                <img id="profilepicture" src={{asset(Utils::replaceWhiteSpace($user->getPhoto(true)))}} alt="profile picture">
             <span id="name"> {{$user->name}} </span>
             </div>
             <!-- <span class="separation"></span> -->
