@@ -88,7 +88,7 @@ CREATE TABLE users
     stock_manager BOOLEAN NOT NULL DEFAULT FALSE,
     moderator BOOLEAN NOT NULL DEFAULT FALSE,
     submission_manager BOOLEAN NOT NULL DEFAULT FALSE,
-    id_photo INTEGER REFERENCES photo ON UPDATE CASCADE DEFAULT 1,
+    id_photo INTEGER REFERENCES photo ON DELETE SET DEFAULT ON UPDATE CASCADE DEFAULT 1,
     user_description TEXT NOT NULL DEFAULT 'Hello! Proud MIEIC Hub member here!',
     remember_token VARCHAR
 );

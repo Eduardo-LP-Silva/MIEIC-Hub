@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Utils;
+use App\Photo;
 
 class UsersController extends Controller
 {
@@ -118,16 +119,56 @@ class UsersController extends Controller
             abort(403, 'Permission denied');
 
         $setting = $request->setting;
-
-        if($setting != "email" && $setting != "password" && $setting != "birth_date")
-            abort(404, 'User setting ' . $setting . " does not exist");
-
         $value = null;
 
-        if($setting == "password")
-            $value = Hash::make($request->$setting);
-        else
-            $value = $request->$setting;
+        switch($setting)
+        {
+            case "photo": 
+
+                if(!$request->has('photo'))
+                    abort(400, 'No file');
+
+                $request->validate
+                (
+                    ['photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]
+                );
+
+                $setting = "id_photo";
+                $old_photo = $user->getPhoto(false);
+
+                if($old_photo->id_photo != 1)
+                {
+                    $old_photo->delete();
+                    Utils::deleteImage("/" . Utils::replaceWhiteSpace($old_photo->image_path), "public");
+                }
+                 
+                $new_image = $request->file('photo');
+
+                if($new_image == null)
+                    abort(400, 'Null file');
+                
+                $new_photo_name =  Utils::slug($user->name);
+                $value = Photo::create
+                (
+                    "img/users/" . $new_photo_name . '.' . $new_image->getClientOriginalExtension(), 
+                    null
+                );
+
+                Utils::saveImage($new_image, "/img/users/", "public", $new_photo_name);
+                break;
+
+            case "password":
+                $value = Hash::make($request->$setting);
+                break;
+
+            case "email":
+            case "birth_date":
+                $value = $request->$setting;
+                break;
+
+            default:
+                abort(404, 'User setting ' . $setting . " does not exist");
+        }
 
         $user->updateSetting($setting, $value);
 

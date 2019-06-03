@@ -271,23 +271,36 @@ div#content h1
   
 }
 
-div#content div#files input[type="file"] {
+div#content form#files input[type="file"] {
     display: none;
 }
 
 #files
 {
   width: 70%;
-  display: block;
+  display: flex;
   margin: auto !important;
+  height: 8em;
+  align-items: center;
 }
 
-div#content div#files label {
+#files [type = "submit"]
+{
+  margin-left: 1em;
+  margin-bottom: 1em;
+}
+
+#files > .form-group
+{
+  margin-top: 1.2em !important;
+}
+
+div#content form#files label {
     display: inline-block;
     background-color: rgb(175, 28, 28);
     padding: .5em;
     cursor: pointer;
-    margin-top: 2em;
+    margin-top: 1em;
     color: white;
     font-style: Poppins;
     border-radius: 5%;

@@ -102,11 +102,18 @@
             </div>
           </form>
           <!--Profile Pic-->
-          <div id="files" class="form-group">
-            <label for="images">Upload new profile picture<picture>
+          <form id="files" class="form-group" action="settings/edit" method="POST" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <label for="photo">Upload new profile picture<picture>
               </picture> </label>
-            <input id="images" class="form-control-file" name="images" type="file" accept="image/png, image/jpeg" multiple>
-          </div>
+            <input id="photo" class="form-control-file" name="photo" type="file" accept="image/png, image/jpeg" multiple required>
+            <div class="form-group row mb-0 mt-5">
+                <div class="col-md-8 offset-md-4">
+                    <input type="hidden" name="setting" value="photo"/>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+          </form>
           <!--Delete-->
           <form id="delete" action="delete" method="POST">
             {{ csrf_field() }}
