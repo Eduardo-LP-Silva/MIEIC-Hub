@@ -585,7 +585,6 @@ INSERT INTO photo (image_path, id_product) VALUES ('img/users/Joana Ramos.png', 
 INSERT INTO photo (image_path, id_product) VALUES ('img/users/Miguel Carvalho.png', NULL);
 
     --Apparel
-INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/notfound.jpg', 1);
 INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/hoodie_sudo_rm_single.jpg', 1);
 INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/hoddie_sudo_rm.jpg', 2);
 INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/hoddie_sudo_rm_single.jpg', 2);
