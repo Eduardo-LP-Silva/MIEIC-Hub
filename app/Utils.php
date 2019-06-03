@@ -2,8 +2,25 @@
 
 namespace App;
 
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+
 class Utils
 {
+    public static function saveImage(UploadedFile $uploadedFile, $folder = null, $disk = 'public', $filename = null)
+    {
+        $name = !is_null($filename) ? $filename : str_random(25);
+
+        $file = $uploadedFile->storeAs($folder, $name.'.'.$uploadedFile->getClientOriginalExtension(), $disk);
+
+        return $file;
+    }
+
+    public static function deleteImage($path, $disk = 'public')
+    {
+        Storage::disk($disk)->delete($path);
+    }
+
     public static function slug($title, $separator = '-')
     {
         // Convert all dashes/underscores into separator
