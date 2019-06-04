@@ -41,7 +41,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
-Route::get('upcoming', 'Auth\PollsController@upcoming');
+Route::get('upcoming', 'PollsController@upcoming');
+
 Route::get('submission/{id_submission}', 'SubmissionController@show');
 Route::post('submission/{id_submission}/accept', 'SubmissionController@udpateAccepted');
 Route::post('submission/{id_submission}/remove', 'SubmissionController@destroy');
