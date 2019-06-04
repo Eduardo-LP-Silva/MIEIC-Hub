@@ -21,19 +21,31 @@
 @endsection
 
 @section('content')
-<div id="list">
-    @foreach($items as $item)
-    <?php $product_photo = Product::find($item->id_product)->getPhotos(true);?>
-            <a class="list-item" href="{{url('/products/' . $item->id_product)}}">
-                <img src={{asset(Utils::replaceWhiteSpace($product_photo))}} alt="Product Picture">
-                <div class="div"></div>
-                <span><?=$item->product_name?></span>
-                <div class="div"></div>
-                <span><?=$item->price?>€</span>
-                <i class="fa fa-minus"></i>
-            </a>
-    @endforeach
-            <div class="div"></div>
+
+<div id="list" token="{{ csrf_field() }}">
+
+    @forelse ( $items as $item )
+
+        @for ( $i = 0 ; $i < $item->quantity ; $i++ )
+
+        <?php $product_photo = Product::find($item->id_product)->getPhotos(true);?>
+                <a class="list-item" href="{{url('/products/' . $item->id_product)}}">
+                    <img src={{asset(Utils::replaceWhiteSpace($product_photo))}} alt="Product Picture">
+                    <div class="div"></div>
+                    <span><?=$item->product_name?></span>
+                    <div class="div"></div>
+                    <span><?=$item->price?>€</span>
+                    <i class="fa fa-minus"></i>
+                </a>
+
+        @endfor
+
+    @empty
+
+            <div class="div" style="text-align: center;">No items added to cart</div> <!-- Tá um bocado feio -->
+
+    @endforelse
+            <div class="div"></div> <!-- Que div é este? -->
             <div class="text-right"> 
                 <span></span>
                 <button id="buy" type="button" class="btn btn-success btn-lg"><a href="{{url('/users/' . Utils::slug(Auth::user()->name) . '/checkout')}}">Checkout</a></button>

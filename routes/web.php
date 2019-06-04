@@ -43,3 +43,4 @@ Route::get('submission/{id_submission}', 'SubmissionController@show');
 
 
 Route::get('users/{name}/cart', 'PurchasesController@showCart');
+Route::delete('users/{name}/cart/remove', 'PurchasesController@deleteCartEntry');
