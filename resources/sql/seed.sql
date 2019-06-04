@@ -467,12 +467,12 @@ EXECUTE PROCEDURE erase_user();
 
 -- Table: category
 INSERT INTO category (category) VALUES ('Apparel');
-INSERT INTO category (category) VALUES ('Phone Cases');
-INSERT INTO category (category) VALUES ('Stickers');
-INSERT INTO category (category) VALUES ('Posters');
-INSERT INTO category (category) VALUES ('Tickets');
-INSERT INTO category (category) VALUES ('Mouse Pads');
-INSERT INTO category (category) VALUES ('Mugs');
+INSERT INTO category (category) VALUES ('Phone Case');
+INSERT INTO category (category) VALUES ('Sticker');
+INSERT INTO category (category) VALUES ('Poster');
+INSERT INTO category (category) VALUES ('Ticket');
+INSERT INTO category (category) VALUES ('Mouse Pad');
+INSERT INTO category (category) VALUES ('Mug');
 
 -- Table: product
 

@@ -12,7 +12,8 @@
 
 <div id="content">
     <h1>Submit your design</h1>
-    <form id="f" action="{{url('/submit')}}" method="POST">
+    <form id="f" action="{{url('/submit')}}" method="POST" enctype="multipart/form-data">
+        {{ csrf_field() }}
         <div id="title" class="form-group">
             <label for="name">Design name: </label>
             <input id="name" name="name" type="text" required="true">
@@ -21,23 +22,27 @@
             <label for="type">Product type: </label>
             <div id="radios" class = "form-check">
                 <div class="form-check-inline form-check custom-radio">
-                    <input id="tshirt" value="tshirt" type="radio" class="form-check-input custom-control-input" name="type" required="true">
-                    <label for="tshirt" class="form-check-label custom-control-label" >T-Shirt</label>
+                    <input id="apparel" value="Apparel" type="radio" class="form-check-input custom-control-input" name="type" required="true">
+                    <label for="apparel" class="form-check-label custom-control-label" >Apparel</label>
                 </div>
                 <div class="form-check-inline form-check custom-radio">
-                    <input id="hoodie" value="hoodie" type="radio" class="form-check-input custom-control-input" name="type">
-                    <label for="hoodie" class="form-check-label custom-control-label">Hoodie</label>
+                    <input id="sticker" value="Sticker" type="radio" class="form-check-input custom-control-input" name="type" required="true">
+                    <label for="sticker" class="form-check-label custom-control-label" >Sticker</label>
                 </div>
                 <div class="form-check-inline form-check custom-radio">
-                    <input id="jacket" value="jacket" type="radio" class="form-check-input custom-control-input" name="type">
-                    <label for="jacket" class="form-check-label custom-control-label">Jacket</label>
+                    <input id="poster" value="Poster" type="radio" class="form-check-input custom-control-input" name="type" required="true">
+                    <label for="poster" class="form-check-label custom-control-label" >Poster</label>
                 </div>
                 <div class="form-check-inline form-check custom-radio">
-                    <input id="pad" value="pad" type="radio" class="form-check-input custom-control-input" name="type">
-                    <label for="pad" class="form-check-label custom-control-label">Mouse pad</label>
+                    <input id="mug" value="Mug" type="radio" class="form-check-input custom-control-input" name="type" required="true">
+                    <label for="mug" class="form-check-label custom-control-label" >Mug</label>
                 </div>
                 <div class="form-check-inline form-check custom-radio">
-                    <input id="case" value="case" type="radio" class="form-check-input custom-control-input" name="type">
+                    <input id="m_pad" value="Mouse Pad" type="radio" class="form-check-input custom-control-input" name="type">
+                    <label for="m_pad" class="form-check-label custom-control-label">Mouse pad</label>
+                </div>
+                <div class="form-check-inline form-check custom-radio">
+                    <input id="case" value="Phone Case" type="radio" class="form-check-input custom-control-input" name="type">
                     <label for="case" class="form-check-label custom-control-label">Phone case</label>
                 </div>
             </div>
@@ -48,13 +53,9 @@
         </div>
         <div id="files" class="form-group">
             <label for="images" >Upload images of your design </label>
-            <input id="images" class="form-control-file" value="photo" name="photo" type="file" accept="image/png, image/jpeg" multiple>
+            <input id="images" class="form-control-file" name="photo" type="file" accept="image/png, image/jpeg" multiple>
         </div>
-      {{ csrf_field() }}
+        <input type="submit" value="Submit!" class="btn btn-success btn-lg">
     </form>
-    <div id="submission" class="form-group">
-        <input form="f" type="submit" value="Submit!" class="btn btn-success btn-lg">
-    </div>
 </div>
-
 @endsection

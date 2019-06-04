@@ -67,12 +67,11 @@ class SubmissionController extends Controller
         $submission_name = $request->name;
         $type = $request->type;
 
-        $category = Category::where('category', $type);
-
-        dump($category);
+        $category = Category::where('category', $type)->get()[0];
 
         $description = $request->description;
-        $submission_date = date("Y/m/d");
+
+        $submission_date = date("Y-m-d");
         $accepted = false;
         $votes = 0;
         $winner = false;
@@ -80,42 +79,37 @@ class SubmissionController extends Controller
 
         //photo
         $picture = null;
+
         if(!$request->has('photo'))
             abort(404, 'No file');
 
-        /*$request->validate
+        $request->validate
         (
-            ['photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]
-        );*/
+            ['photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']
+        );
 
         $new_image = $request->file('photo');
 
         if($new_image == null)
             abort(400, 'Null file');
 
-        $new_photo_name = $user->name . $submission_name . $submission_date;
-
-        $value = Photo::create
-        (
-            "img/submissions/" . $new_photo_name . '.' . $new_image->getClientOriginalExtension(),
-            null
-        );
+        $new_photo_name = $user->name . "-" . $submission_name . "-" . date("Y-m-d H:i:s");;
 
         Utils::saveImage($new_image, "/img/submissions/", "public", $new_photo_name);
 
-        DB::table('submission')->insert([
+        $path = "public/img/submissions/" . $new_photo_name;
+
+        DB::table('submission')->insert(
             ['id_user' => $id_user,
              'submission_name' => $submission_name,
              'id_category' => $category->id_category,
              'submission_description' => $description,
-             'picture' => $value,
-             'submission_date' => $submission_date,
+             'picture' => $path,
              'accepted' => $accepted,
              'votes' => $votes,
              'winner' => $winner,
-             'id_poll' => $id_poll
-              ],
-        ]);
+             'id_poll' => $id_poll]);
+
         return redirect("/home");
     }
 
