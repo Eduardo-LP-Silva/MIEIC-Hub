@@ -1,4 +1,7 @@
-<?php use App\Utils; ?>
+<?php 
+    use App\Utils; 
+    use App\User;
+?>
 
 @extends('layouts.page')
 
@@ -30,7 +33,7 @@
                 <a href={{url("/users/" . Utils::slug($user->name) . "/wishlist")}}>
                     <button class="btn">Wishlist</button>
                 </a>
-                @if ($user->isAuthenticatedUser())
+                @if ($user->isAuthenticatedUser() || User::isAuthMod())
                 <a href={{url('/users/' . Utils::slug($user->name) . '/settings')}}>
                     <img src={{asset('img/icons/settings.png')}} alt="Settings">
                 </a>
@@ -39,7 +42,7 @@
         </div>
         <div id="info_right" class="otherinfo col-md-8">
             <span id="separationver"></span>
-            @if($user->isAuthenticatedUser() || $user->isMod())
+            @if($user->isAuthenticatedUser() || User::isAuthMod())
                 <div id="options_buttons">
                     <a href={{url('/users/' . Utils::slug($user->name) . '/orders')}}><button type="button" class="btn btn-danger">Orders</button></a> 
                     <a href={{url('/users/' . Utils::slug($user->name) . '/reviews')}}><button type="button" class="btn btn-danger" autofocus>Reviews</button></a> 

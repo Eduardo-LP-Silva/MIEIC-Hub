@@ -18,8 +18,8 @@
     <body>
       <!--Banner-->
       <div id="banner">
-        <a>MIEIC</a>
-        <a>Hub</a>
+          <a href="{{url('/home')}}">MIEIC</a>
+          <a href="{{url('/home')}}">Hub</a>
       </div>
       
       @yield('content')
