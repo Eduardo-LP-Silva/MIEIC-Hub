@@ -73,7 +73,7 @@ class UsersController extends Controller
         else
             $privilege = $role;
 
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
         $user->setPrivilege($privilege, !$remove);
 
         return redirect('users/' . $name);

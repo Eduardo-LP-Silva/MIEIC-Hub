@@ -13,7 +13,6 @@
 @endsection
 
 @section('content')
-    <!--Slideshow (Mudar links dos produtos e categorias) -->
     <div id="slideShow" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#slideShow" data-slide-to="0" class="active"></li>
@@ -53,7 +52,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="grid_container">
-                            <a href="{{ url('/search/category') }}">
+                            <a href="{{ url('/search/categories?query=apparel') }}">
                                 <img src="{{asset('img/apparel/hoodie_example.jpg')}}">
                             </a>
                         </div>
@@ -61,7 +60,7 @@
                     </div>
                     <div class="col offset-md-1">
                         <div class="grid_container">
-                            <a href="{{ url('/search/category') }}">
+                            <a href="{{ url('/search/categories?query=sticker') }}">
                                 <img src="{{asset('img/stickers/stickers.jpg')}}">
                             </a>
                         </div>
@@ -69,7 +68,7 @@
                     </div>
                     <div class="col offset-md-1">
                         <div class="grid_container">
-                            <a href="{{ url('/search/category') }}">
+                            <a href="{{ url('/search/categories?query=case') }}">
                                 <img src="{{asset('img/cases/case_example.jpg')}}">
                             </a>
                         </div>
@@ -77,7 +76,7 @@
                     </div>
                     <div class="col offset-md-1">
                         <div class="grid_container">
-                            <a href="{{ url('/search/category') }}">
+                            <a href="{{ url('/search/categories?query=poster') }}">
                                 <img src="{{asset('img/posters/super.jpg')}}">
                             </a>
                         </div>
@@ -107,7 +106,7 @@
                         <h1>Submit your designs!</h1>
                     </div>
                     <div class="col offset-md-1">
-                        <a href="{{ url('/search/category') }}">
+                        <a href="{{ url('/search/categories?query=ticket') }}">
                             <div class="grid_container" 
                             style="background-image: url('{{asset('img/website/workshop.jpg')}}');">
                             </div>

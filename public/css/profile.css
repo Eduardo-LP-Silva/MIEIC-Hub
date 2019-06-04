@@ -201,6 +201,12 @@ li.list-group-item:hover > img {
 #privileges > button
 {
 	margin-top: 0.2em;
+
+	-webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
 }
 
 #privileges > button[super = '1']
@@ -209,8 +215,22 @@ li.list-group-item:hover > img {
 	color: white;
 }
 
+#privileges > button[super = '1']:hover
+{
+	background: white;
+	color: black;
+	border: 0.1em solid black;
+}
+
 #privileges > button[super = '0']
 {
 	background: white;
 	border: 0.1em solid black;
+}
+
+#privileges > button[super = '0']:hover
+{
+	background: #af1c1c;
+	color: white;
+	border: none;
 }
