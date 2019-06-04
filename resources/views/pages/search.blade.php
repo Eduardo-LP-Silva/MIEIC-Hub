@@ -1,16 +1,19 @@
-<?php use App\Utils; ?>
+<?php 
+    use App\Utils; 
+    use App\Product;
+?>
 
 @extends('layouts.page')
 
 @section('stylesheets')
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{{ asset('css/search-params.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('css/search-params.css') }}">
 
-        @if($filter == 'users')
-            <link rel="stylesheet" href="{{ asset('css/search-person.css') }}">
-        @else
-            <link rel="stylesheet" href="{{ asset('css/search.css') }}">
-        @endif
+    @if($filter == 'users')
+        <link rel="stylesheet" href="{{ asset('css/search-person.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+    @endif
 @endsection
 
 @section('scripts')
@@ -66,20 +69,22 @@
         @endforeach
     @else
         @foreach($results as $result)
-        <a class="list-item" href="./product.html">
-            <img src="../resources/images/apparel/hoodie_1_red_single.jpg" alt="Product Picture">
+        <a class="list-item" href=<?="/products/" . $result->id_product?>>
+            <img src={{asset(Utils::replaceWhiteSpace(Product::find($result->id_product)->getPhotos(true)))}} alt="Product Picture">
             <div class="div"></div>
-            <span>Simple Hoodie Red V1</span>
+            <span><?=$result->product_name?></span>
             <div class="div"></div>
             <div class="rating">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
+                @for($i = 0; $i < $result->rating; $i++)
+                    <span class="fa fa-star checked"></span>
+                @endfor
+
+                @for($i = 0; $i < 5 - $result->rating; $i++)
+                    <span class="fa fa-star"></span>
+                @endfor
             </div>
             <div class="div"></div>
-            <span>14.99€</span>
+            <span><?=$result->price?></span>
         </a>
         @endforeach
     @endif
