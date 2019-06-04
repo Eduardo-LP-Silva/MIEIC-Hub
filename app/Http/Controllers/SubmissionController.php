@@ -64,49 +64,62 @@ class SubmissionController extends Controller
             abort(403, 'Permission denied');
 
         $id_user = $user->id;
+        $submission_name = $request->name;
+        $type = $request->type;
 
-        $field = $request->field;
+        $category = Category::where('category', $type);
 
-        $value = null;
+        dump($category);
 
-        switch($field)
-        {
-            case "name":
-                $value = $request->$field;
-                break;
+        $description = $request->description;
+        $submission_date = date("Y/m/d");
+        $accepted = false;
+        $votes = 0;
+        $winner = false;
+        $id_poll = null;
 
-            case "description":
-                $value = $request->$field;
-                break;
+        //photo
+        $picture = null;
+        if(!$request->has('photo'))
+            abort(404, 'No file');
 
-            case "type":
-                $value = $request->$field;
-                break;
+        /*$request->validate
+        (
+            ['photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]
+        );*/
 
-            case "images":
-                if(!$request->has('images'))
-                    abort(400, 'No files');
+        $new_image = $request->file('photo');
 
-                $request->validate
-                (
-                    ['images' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]
-                );
+        if($new_image == null)
+            abort(400, 'Null file');
 
-            default:
-                //abort(404, 'User setting ' . $setting . " does not exist");
-        }
+        $new_photo_name = $user->name . $submission_name . $submission_date;
 
+        $value = Photo::create
+        (
+            "img/submissions/" . $new_photo_name . '.' . $new_image->getClientOriginalExtension(),
+            null
+        );
 
-        return reditect($redirectTo);
+        Utils::saveImage($new_image, "/img/submissions/", "public", $new_photo_name);
 
-    }
-
-    public function submitFields($fields, $id_user)
-    {
         DB::table('submission')->insert([
-            ['id_user' => $id_user, 'votes' => 0],
+            ['id_user' => $id_user,
+             'submission_name' => $submission_name,
+             'id_category' => $category->id_category,
+             'submission_description' => $description,
+             'picture' => $value,
+             'submission_date' => $submission_date,
+             'accepted' => $accepted,
+             'votes' => $votes,
+             'winner' => $winner,
+             'id_poll' => $id_poll
+              ],
         ]);
+        return redirect("/home");
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -199,8 +212,6 @@ class SubmissionController extends Controller
     {
       $submission = Submission::find($id_submission);
 
-      dump($submission);
-
       $user = Auth::user();
 
       if($user->isMod())
@@ -211,9 +222,7 @@ class SubmissionController extends Controller
             ->where('id_submission', $submission->id_submission)
             ->update(['accepted' => $value]);
 
-            dump($submission);
-
-          //return redirect("/home");
+          return redirect("/home");
       }
       else
           abort(403, 'Permission denied');

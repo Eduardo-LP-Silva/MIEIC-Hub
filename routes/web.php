@@ -45,6 +45,6 @@ Route::get('submission/{id_submission}', 'SubmissionController@show');
 Route::post('submission/{id_submission}/accept', 'SubmissionController@udpateAccepted');
 Route::post('submission/{id_submission}/remove', 'SubmissionController@destroy');
 Route::get('submit', 'SubmissionController@submit');
-//Route::put('submit', 'SubmissionController@registerForm');
+Route::post('submit', 'SubmissionController@submitForm');
 
 Route::get('users/{name}/cart', 'PurchasesController@showCart');
