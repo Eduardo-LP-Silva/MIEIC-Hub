@@ -12,7 +12,7 @@
 
 <div id="content">
     <h1>Submit your design</h1>
-    <form action="" method="GET">
+    <form action="" method="POST">
         <div id="title" class="form-group">
             <label for="name">Design name: </label>
             <input id="name" name="name" type="text" required="true">

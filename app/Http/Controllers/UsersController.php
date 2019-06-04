@@ -103,7 +103,7 @@ class UsersController extends Controller
 
         return $user[0];
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
