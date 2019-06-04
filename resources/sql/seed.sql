@@ -242,12 +242,22 @@ CREATE FUNCTION update_submission_vote() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' THEN
         UPDATE submission
-        SET votes = votes + 1
+        SET votes = 
+        (
+            SELECT count(*)
+            FROM user_sub_vote
+            WHERE NEW.id_sub = user_sub_vote.id_sub
+        )
         WHERE submission.id_submission = NEW.id_sub;
         RETURN NEW;
     ELSEIF TG_OP = 'DELETE' THEN
         UPDATE submission
-        SET votes = votes - 1
+        SET votes = 
+        (
+            SELECT count(*)
+            FROM user_sub_vote
+            WHERE NEW.id_sub = user_sub_vote.id_sub
+        )
         WHERE submission.id_submission = OLD.id_sub;
         RETURN OLD;
     END IF;

@@ -56,23 +56,5 @@ function setBanListeners()
             });
 
             request.send(JSON.stringify(data));
-            
-            /*
-            $.ajax(
-            {
-                url: "users/" + banBtn[i].getAttribute("name") + "/delete",
-                type: "DELETE",
-                dataType: "JSON",
-                data:
-                {
-                    "name": banBtn[i].getAttribute("name"),
-                    "_method": 'DELETE',
-                    "_token":  banBtn[i].getAttribute("token")
-                },
-                success: function()
-                {
-                    
-                }
-            }); */
         });
 }

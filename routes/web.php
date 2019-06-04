@@ -42,6 +42,8 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('upcoming', 'PollsController@upcoming');
+Route::put('users/{name}/vote/{id}', 'PollsController@vote');
+Route::delete('users/{name}/vote/{id}', 'PollsController@unvote');
 
 Route::get('submission/{id_submission}', 'SubmissionController@show');
 Route::post('submission/{id_submission}/accept', 'SubmissionController@udpateAccepted');

@@ -18,6 +18,7 @@ class Poll extends Model
 
     public function getDesigns()
     {
-        return Submission::select('picture', 'votes', 'submission_name')->where('id_poll', $this->id_poll)->get();
+        return Submission::select('id_submission', 'picture', 'votes', 'submission_name')
+            ->where('id_poll', $this->id_poll)->get();
     }
 }
