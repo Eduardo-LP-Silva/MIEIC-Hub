@@ -44,14 +44,14 @@
     }
 }
 
-body 
+body
 {
     overflow-x: hidden;
     background-color: #f3f3f3;
     overflow-x: auto;
 }
 
-div#content 
+div#content
 {
     width: 70%;
     margin: auto;
@@ -152,4 +152,44 @@ div#content
 #actions > i:last-child
 {
     color: #af1c1c;
+    background-color: white;
+}
+
+i:last-child
+{
+  color: #af1c1c;
+  background-color: white;
+}
+
+#but2 > i:last-child
+{
+  color: #af1c1c;
+  background-color: white;
+}
+
+#but2 > i
+{
+  color: #af1c1c;
+  background-color: white;
+  border: none;
+}
+
+#but2
+{
+  background-color: white;
+  border: none;
+}
+
+#but1
+{
+  background-color: white;
+  border: none;
+}
+
+#but1 > i
+{
+  background-color: white;
+  border: none;
+  color: green;
+  margin-right: 0.05em;
 }

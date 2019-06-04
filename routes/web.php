@@ -40,7 +40,7 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('upcoming', 'Auth\PollsController@upcoming');
 Route::get('submission/{id_submission}', 'SubmissionController@show');
-//Route::get('submission/{id_submission}', 'SubmissionController@udpateAccepted');
+Route::post('submission/{id_submission}/accept', 'SubmissionController@udpateAccepted');
 Route::post('submission/{id_submission}/remove', 'SubmissionController@destroy');
 Route::get('submit', 'SubmissionController@submit');
 //Route::put('submit', 'SubmissionController@registerForm');

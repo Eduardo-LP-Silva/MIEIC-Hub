@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Product;
 use App\Photo;
 use App\Submission;
@@ -40,9 +41,9 @@ class SubmissionController extends Controller
     public function submit()
     {
         $user = Auth::user();
-        
+
         if($user == null)
-            abort(403, 'Permission denied');  
+            abort(403, 'Permission denied');
 
         if($user->isAuthenticatedUser())
             return view('pages.submit', ['user' => $user]);
@@ -134,10 +135,10 @@ class SubmissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id_submission) 
+    public function show($id_submission)
     {
         $submission = Submission::find($id_submission);
-        
+
         $user = User::where('id', $submission->id_user)->get()[0];
 
         $category = Category::where('id_category', $submission->id_category)->get()[0];
@@ -177,8 +178,6 @@ class SubmissionController extends Controller
      */
     public function destroy($id_submission)
     {
-
-        dump($id_submission);
         $submission = Submission::find($id_submission);
 
         dump($submission);
@@ -188,10 +187,35 @@ class SubmissionController extends Controller
         if($user->isMod())
         {
             $submission->delete();
-            
+
             return redirect("/home");
         }
         else
             abort(403, 'Permission denied');
+    }
+
+
+    public function udpateAccepted($id_submission)
+    {
+      $submission = Submission::find($id_submission);
+
+      dump($submission);
+
+      $user = Auth::user();
+
+      if($user->isMod())
+      {
+        $value = true;
+
+        DB::table('submission')
+            ->where('id_submission', $submission->id_submission)
+            ->update(['accepted' => $value]);
+
+            dump($submission);
+
+          //return redirect("/home");
+      }
+      else
+          abort(403, 'Permission denied');
     }
 }
