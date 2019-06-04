@@ -42,6 +42,34 @@
         </div>
         <div id="info_right" class="otherinfo col-md-8">
             <span id="separationver"></span>
+            @if(User::isAuthMod())
+            <form id="privileges" action=<?="/users/" . Utils::slug($user->name) . "/privilege"?> method="GET">
+                <p> Manage privileges</p>
+                @if($user->isStockManager())
+                    <button id="stock" super="1" class="btn" type="submit" name="role" 
+                    value="rm_stock_manager">Stock Manager</button>
+                @else
+                    <button id="stock" super="0" class="btn" type="submit" name="role" 
+                    value="stock_manager">Stock Manager</button>
+                @endif
+
+                @if($user->isMod())
+                    <button id="mod" super="1" class="btn" type="submit" name="role" 
+                    value="rm_moderator">Moderator</button>
+                @else
+                    <button id="mod" super="0" class="btn" type="submit" name="role" 
+                    value="moderator">Moderator</button>
+                @endif
+
+                @if($user->isSubManager())
+                    <button id="sub" super="1" class="btn" name="role" type="submit" 
+                    value="rm_submission_manager">Submission Manager</button>
+                @else
+                    <button id="sub" super="0" class="btn" name="role" type="submit" 
+                    value="submission_manager">Submission Manager</button>
+                @endif
+            </form>
+            @endif
             @if($user->isAuthenticatedUser() || User::isAuthMod())
                 <div id="options_buttons">
                     <a href={{url('/users/' . Utils::slug($user->name) . '/orders')}}><button type="button" class="btn btn-danger">Orders</button></a> 

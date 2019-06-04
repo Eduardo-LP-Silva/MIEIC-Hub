@@ -43,7 +43,7 @@ function setBanListeners()
             let request = new XMLHttpRequest();
 
             request.open("DELETE", "/users/" + banBtn[i].getAttribute("name") + "/delete", true);
-            request.setRequestHeader('X-CSRF-TOKEN', banBtn[i].getAttribute("token"));
+            request.setRequestHeader('X-CSRF-TOKEN', document.getElementById("search").getAttribute("token"));
             request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
             request.addEventListener('load', function()

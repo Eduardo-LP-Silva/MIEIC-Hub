@@ -26,6 +26,7 @@ Route::get('users/{name}/orders', 'UsersController@profileOrders');
 Route::get('users/{name}/settings', 'UsersController@edit');
 Route::post('users/{name}/settings/edit', 'UsersController@update');
 Route::delete('users/{name}/delete', 'UsersController@destroy');
+Route::get('users/{name}/privilege', 'UsersController@privilege');
 
 Route::get('about', 'GeneralPageController@about');
 Route::get('faq', 'GeneralPageController@faq');
