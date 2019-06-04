@@ -579,7 +579,7 @@ INSERT INTO product (product_name, product_description, price, delivery_cost, st
 
 --Users
 INSERT INTO photo (image_path, id_product) VALUES ('img/users/default.png', NULL);
-INSERT INTO photo (image_path, id_product) VALUES ('img/users/Eduardo Silva.png', NULL);
+INSERT INTO photo (image_path, id_product) VALUES ('img/users/Eduardo-Silva.jpg', NULL);
 INSERT INTO photo (image_path, id_product) VALUES ('img/users/Tomás Novo.png', NULL);
 INSERT INTO photo (image_path, id_product) VALUES ('img/users/Joana Ramos.png', NULL);
 INSERT INTO photo (image_path, id_product) VALUES ('img/users/Miguel Carvalho.png', NULL);

@@ -44,6 +44,27 @@ class GeneralPageController extends Controller {
         return redirect('/faq');
     }
 
+    public function search($filter, $query)
+    {
+        switch($filter)
+        {
+            case "user":
+
+                break;
+
+            case "product":
+
+                break;
+
+            case "category":
+
+                break;
+
+            default:
+                abort(404, 'Invalid filter');
+        }
+    }
+
     public function product()
     {
         return view('pages.product');
