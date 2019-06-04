@@ -37,18 +37,22 @@ function updateFinalPrice()
 function ajaxDeleteCartEntry()
 {
 
-    let list = document.querySelector("#list");
+    let item = document.querySelector("#item");
 
-    let token = list.getAttribute("token");
+    let id_user = item.getAttribute("id_user");
+
+    let id_product = item.getAttribute("id_product");
 
     let request = new XMLHttpRequest();
-    request.open("DELETE", "cart/remove", true);
+    request.open("DELETE", "/users/" + id_user + "/cart/" + id_product + "/remove", true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    console.log("token : " + item.getAttribute("token"));
+    request.setRequestHeader('X-CSRF-TOKEN', item.getAttribute("token"));
 
     //request.addEventListener("load", function () {
     //    refresh();
     //})  
     
-    request.send();
+    request.send(JSON.stringify({"id_user": id_user, "id_product": id_product}));
 
 }

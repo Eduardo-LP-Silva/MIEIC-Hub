@@ -29,4 +29,29 @@ class Product extends Model
         else 
             return $results;
     }
+
+    public static function search($query, $in_category)
+    {
+        if($in_category)
+            return DB::select(DB::raw
+            (
+                "SELECT product.id_product, product_name, price, rating, 
+                ts_rank_cd(text_search, query) AS rank
+                FROM product, category, plainto_tsquery('" . $query . "') AS query, 
+                to_tsvector(category.category) AS text_search
+                WHERE product.id_category = category.id_category 
+                AND text_search @@ query
+                ORDER BY rank DESC"
+            ));
+        else
+            return DB::select(DB::raw
+            (
+                "SELECT product.id_product, product.product_name, product.price, product.rating, 
+                    ts_rank_cd(text_search, query) AS rank
+                FROM product, plainto_tsquery('" . $query . "') AS query, 
+                    to_tsvector(product.product_name || ' ' || product_description) AS text_search
+                WHERE text_search @@ query
+                ORDER BY rank DESC"
+            ));
+    }
 }

@@ -49,8 +49,16 @@
                         <a class="nav-link" href="{{url('/submit')}}">Submit your design</a>
                     </li>
                     <li class="nav-item justify-content-center" id="searchBar">
-                        <form class="form-inline justify-content-center my-1">
-                            <input type="text" name="" placeholder="Search">
+                        <?php 
+                            $search_filter = null;
+
+                            if(isset($filter)) 
+                                $search_filter = $filter;
+                            else
+                                $search_filter = "products";
+                        ?>
+                        <form class="form-inline justify-content-center my-1" method="GET" action=<?="/search/" . $search_filter?>>
+                            <input type="text" name="query" placeholder="Search" value={{request()->input('query')}}>
                             <button type="submit" class="btn btn-light" style="
                             background-image: url('{{asset('img/icons/search.svg')}}');"></button>
                         </form>

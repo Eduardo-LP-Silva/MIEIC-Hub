@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use App\User;
 use App\Utils;
 use App\Photo;
@@ -87,6 +88,21 @@ class UsersController extends Controller
             return view('pages.settings', ['user' => $user]);
         else
             abort(403, 'Permission denied');  
+    }
+
+    public function getURLUser($name)
+    {
+        $user = User::where('name', $name)->get();
+
+        if(count($user) == 0)
+        {
+            $user = User::where('name', Utils::reverse_slug($name))->get();
+
+            if(count($user) == 0)
+                abort(404, 'User ' . $name . ' does not exist');
+        }
+
+        return $user[0];
     }
 
     /**
@@ -172,10 +188,13 @@ class UsersController extends Controller
 
         if($user->isAuthenticatedUser() || Auth::user()->isMod())
         {
-            Auth::logout();
+            if(Auth::user()->name == $user->name)
+                Auth::logout();
+                  
             $user->delete();
             
-            return redirect("/home");
+            if(substr(URL::previous(), -9) == "/settings")
+                return redirect("/home");
         }
         else
             abort(403, 'Permission denied');

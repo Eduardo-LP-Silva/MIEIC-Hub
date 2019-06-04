@@ -22,14 +22,14 @@
 
 @section('content')
 
-<div id="list" token="{{ csrf_field() }}">
+<div id="list">
 
     @forelse ( $items as $item )
 
         @for ( $i = 0 ; $i < $item->quantity ; $i++ )
 
         <?php $product_photo = Product::find($item->id_product)->getPhotos(true);?>
-                <a class="list-item" href="{{url('/products/' . $item->id_product)}}">
+                <a id=item token={{csrf_token()}} id_user=<?=$user->id?> id_product=<?=$item->id_product?> class="list-item" href="{{url('/products/' . $item->id_product)}}">
                     <img src={{asset(Utils::replaceWhiteSpace($product_photo))}} alt="Product Picture">
                     <div class="div"></div>
                     <span><?=$item->product_name?></span>

@@ -28,7 +28,15 @@ class PurchasesController extends Controller
             abort(403);
     }
 
-    public function deleteCartEntry() {
+    public function deleteCartEntry($id_user, $id_product) {
         \Log::info("etwrgweg");
+
+        info("test");
+
+        $user = User::getURLUser($name);
+
+        $items = $user->getCartItems();
+
+        return $items;
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\FAQ;
+use App\User;
+use App\Product;
 
 class GeneralPageController extends Controller {
     public function home() 
@@ -42,6 +44,38 @@ class GeneralPageController extends Controller {
         FAQ::create($request->question, $request->answer);
 
         return redirect('/faq');
+    }
+
+    public function search($filter)
+    {   
+        $query = request()->input('query');
+
+        $results = null;
+        $category = false;
+
+        switch($filter)
+        {
+            case "users":
+                $user = Auth::user();
+
+                if($user == null || !$user->isMod())
+                    abort(403, 'Permission denied');
+
+                $results = User::search($query);
+                break;
+
+            case "categories":
+                $category = true;
+
+            case "products":
+                $results = Product::search($query, $category);
+                break;
+
+            default:
+                abort(404, 'Invalid filter');
+        }
+
+        return view('pages.search', ['query' => $query, 'filter' => $filter, 'results' => $results]);
     }
 
     public function product()

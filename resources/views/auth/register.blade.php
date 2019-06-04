@@ -2,6 +2,7 @@
 
 @section('stylesheets')
         <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+        <script src="{{ asset('js/register.js')}}" defer></script>
 @endsection
 
 @section('title')

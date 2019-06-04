@@ -32,6 +32,8 @@ Route::get('faq', 'GeneralPageController@faq');
 Route::get('faq/{id}/remove', 'GeneralPageController@removeFaq');
 Route::put('faq/add', 'GeneralPageController@addFaq');
 
+Route::get('search/{filter}', 'GeneralPageController@search');
+
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
@@ -40,7 +42,10 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('upcoming', 'Auth\PollsController@upcoming');
 Route::get('submission/{id_submission}', 'SubmissionController@show');
-
+Route::post('submission/{id_submission}/accept', 'SubmissionController@udpateAccepted');
+Route::post('submission/{id_submission}/remove', 'SubmissionController@destroy');
+Route::get('submit', 'SubmissionController@submit');
+//Route::put('submit', 'SubmissionController@registerForm');
 
 Route::get('users/{name}/cart', 'PurchasesController@showCart');
-Route::delete('users/{name}/cart/remove', 'PurchasesController@deleteCartEntry');
+Route::delete('users/{id_user}/cart/{id_product}/remove', 'PurchasesController@deleteCartEntry');

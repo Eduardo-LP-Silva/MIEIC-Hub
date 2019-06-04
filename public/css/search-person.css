@@ -77,7 +77,7 @@ body
     border-bottom: 0.1em solid #af1c1c;
 }
 
-.list-item > i
+.list-item > button > i
 {
     font-size: 30pt;
     color: red;
