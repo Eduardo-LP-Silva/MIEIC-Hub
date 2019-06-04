@@ -25,7 +25,7 @@
 @endsection
 
 @section('content')
-<div id="search">
+<div id="search" token={{csrf_token()}}>
     <div id="search_parameters">
         <div>
             <span>Search results for:</span>
@@ -64,7 +64,7 @@
                 <p><?=$result->email?></p>
             </span>
             <div class="div"></div>
-            <button type="submit" name=<?=Utils::slug($result->name)?> token={{csrf_token()}} class="btn"> <i class="fa fa-ban"></i> </button>
+            <button type="submit" name=<?=Utils::slug($result->name)?> class="btn"> <i class="fa fa-ban"></i> </button>
         </a>
         @endforeach
     @else

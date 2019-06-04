@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Input;
 use App\User;
 use App\Utils;
 use App\Photo;
@@ -54,9 +55,33 @@ class UsersController extends Controller
         return redirect('users/' . $name . '/reviews');
     }
 
+    public function privilege($name)
+    {
+        if(!User::isAuthMod())
+            abort(403, 'Permission denied');
+
+        $role = Input::get('role');
+
+        if(strlen($role) < 3)
+            abort(404, 'Unknown role ' . $role);
+
+        $remove = substr($role, 0, 3) == "rm_";
+        $privilege = null;
+
+        if($remove)
+            $privilege = substr($role, 3);
+        else
+            $privilege = $role;
+
+        $user = User::getURLUser($name);
+        $user->setPrivilege($privilege, !$remove);
+
+        return redirect('users/' . $name);
+    }
+
     public function profileReviews($name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
         $reviews = $user->getReviews();
 
         return view('pages.profile-reviews', ['user' => $user, 'reviews' => $reviews]);
@@ -64,7 +89,7 @@ class UsersController extends Controller
 
     public function profileOrders($name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
         $orders = $user->getOrders();
         $current_user = Auth::user();
 
@@ -82,7 +107,7 @@ class UsersController extends Controller
      */
     public function edit($name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
 
         if($user->isAuthenticatedUser() || Auth::user()->isMod())
             return view('pages.settings', ['user' => $user]);
@@ -104,7 +129,7 @@ class UsersController extends Controller
 
         return $user[0];
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -114,7 +139,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
 
         if(!$user->isAuthenticatedUser() && !Auth::user()->isMod())
             abort(403, 'Permission denied');
@@ -184,9 +209,9 @@ class UsersController extends Controller
      */
     public function destroy($name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
 
-        if($user->isAuthenticatedUser() || Auth::user()->isMod())
+        if($user->isAuthenticatedUser() || User::isAuthMod())
         {
             if(Auth::user()->name == $user->name)
                 Auth::logout();
