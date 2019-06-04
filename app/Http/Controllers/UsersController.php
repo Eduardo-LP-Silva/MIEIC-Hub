@@ -81,7 +81,7 @@ class UsersController extends Controller
 
     public function profileReviews($name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
         $reviews = $user->getReviews();
 
         return view('pages.profile-reviews', ['user' => $user, 'reviews' => $reviews]);
@@ -89,7 +89,7 @@ class UsersController extends Controller
 
     public function profileOrders($name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
         $orders = $user->getOrders();
         $current_user = Auth::user();
 
@@ -107,7 +107,7 @@ class UsersController extends Controller
      */
     public function edit($name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
 
         if($user->isAuthenticatedUser() || Auth::user()->isMod())
             return view('pages.settings', ['user' => $user]);
@@ -129,7 +129,7 @@ class UsersController extends Controller
 
         return $user[0];
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -139,7 +139,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
 
         if(!$user->isAuthenticatedUser() && !Auth::user()->isMod())
             abort(403, 'Permission denied');
@@ -209,7 +209,7 @@ class UsersController extends Controller
      */
     public function destroy($name)
     {
-        $user = $this->getURLUser($name);
+        $user = User::getURLUser($name);
 
         if($user->isAuthenticatedUser() || User::isAuthMod())
         {

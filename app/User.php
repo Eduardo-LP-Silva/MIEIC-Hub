@@ -64,6 +64,21 @@ class User extends Authenticatable
         return $this->submission_manager;
     }
 
+    public static function getURLUser($name)
+    {
+        $user = User::where('name', $name)->get();
+
+        if(count($user) == 0)
+        {
+            $user = User::where('name', Utils::reverse_slug($name))->get();
+
+            if(count($user) == 0)
+                abort(404, 'User ' . $name . ' does not exist');
+        }
+
+        return $user[0];
+    }
+
     public function getPhoto($path)
     {
         $photo = Photo::find($this->id_photo);
@@ -110,11 +125,10 @@ class User extends Authenticatable
     {
         return DB::select(DB::raw
         (
-            "SELECT product.id_product, product_name, price, image_path, quantity
-            FROM users, product, cart, photo
+            "SELECT product.id_product, product_name, price, quantity
+            FROM users, product, cart
             WHERE users.id = " . $this->id . "AND users.id = cart.id_user AND 
-            cart.id_product = product.id_product AND photo.id_product = product.id_product
-            ;"
+            cart.id_product = product.id_product;"
 
         ));
     }

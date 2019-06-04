@@ -694,7 +694,7 @@ INSERT INTO users VALUES (
   'John Doe',
   'john@example.com',
   '$2y$10$HfzIhGCCaxqyaIdGgjARSuOKAcm1Uy82YfLuNaajn6JrjLWy9Sj/W'
-); -- Password is 1234. Generated using Hash::make('1234')
+); -- Password is 1234. Generated using (Bcrypt) Hash::make('1234')
 
 
 
@@ -878,7 +878,9 @@ INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (14, 
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (15, 1, 2, 4, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (14, 23, 1, 5, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 33, 1, 1, 2);
-INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 1, 3, 2, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 1, 1, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 2, 2, 2, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 3, 3, 1, 2);
 
 -- Table: city
 INSERT INTO city (city) VALUES ('Viseu');

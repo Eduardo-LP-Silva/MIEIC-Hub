@@ -49,3 +49,4 @@ Route::get('submit', 'SubmissionController@submit');
 //Route::put('submit', 'SubmissionController@registerForm');
 
 Route::get('users/{name}/cart', 'PurchasesController@showCart');
+Route::delete('users/{id_user}/cart/{id_product}/remove', 'PurchasesController@deleteCartEntry');
