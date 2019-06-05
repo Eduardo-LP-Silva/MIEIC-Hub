@@ -29,7 +29,6 @@ class UserSubVote extends Model
             ->where('id_sub', $id_sub)->get()[0];
 
         $vote->delete();
-        
     }
 
     protected function setKeysForSaveQuery(\Illuminate\Database\Eloquent\Builder $query) {
