@@ -74,6 +74,9 @@
                         <div class="dropdown-menu" aria-labelledby="profileDD">
                             @if (Auth::check())
                             <a class="dropdown-item" href="{{url('/users/' . Utils::slug(Auth::user()->name))}}">Profile</a>
+                                @if(Auth::user()->isSubManager())
+                                <a class="dropdown-item" href="/submissions">Submissions</a>
+                                @endif
                             <a class="dropdown-item" href="{{url('/users/' .  Utils::slug(Auth::user()->name) .'/wishlist')}}">Wishlist</a>
                             <a class="dropdown-item" href="{{url('/users/'  . Utils::slug(Auth::user()->name) . '/settings')}}">Settings</a>
                             <a class="dropdown-item" href="{{url('/logout')}}">Sign-out</a>
