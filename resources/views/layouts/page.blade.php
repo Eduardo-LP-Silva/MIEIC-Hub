@@ -38,11 +38,11 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="productsDD">
                             <!-- Mudar os links para terem já a pesquisa correspondente da categoria -->
-                            <a class="dropdown-item" href="{{url('/search')}}">Apparel</a>
-                            <a class="dropdown-item" href="{{url('/search')}}">Phone Cases</a>
-                            <a class="dropdown-item" href="{{url('/search')}}">Stickers</a>
-                            <a class="dropdown-item" href="{{url('/search')}}">Posters</a>
-                            <a class="dropdown-item" href="{{url('/search')}}">Tickets</a>
+                            <a class="dropdown-item" href="{{url('/search/categories?query=apparel')}}">Apparel</a>
+                            <a class="dropdown-item" href="{{url('/search/categories?query=case')}}">Phone Cases</a>
+                            <a class="dropdown-item" href="{{url('/search/categories?query=sticker')}}">Stickers</a>
+                            <a class="dropdown-item" href="{{url('/search/categories?query=poster')}}">Posters</a>
+                            <a class="dropdown-item" href="{{url('/search/categories?query=ticket')}}">Tickets</a>
                         </div>
                     </li>
                     <li class="nav-item">

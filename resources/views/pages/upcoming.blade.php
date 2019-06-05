@@ -1,7 +1,17 @@
+<?php 
+    use App\Utils; 
+    use App\UserSubVote;
+?>
+
 @extends('layouts.page')
 
 @section('stylesheets')
-        <link rel="stylesheet" href="{{ asset('css/polls.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/polls.css') }}">
+@endsection
+
+@section('scripts')
+    <script src="{{asset('js/polls.js')}}" defer></script>
 @endsection
 
 @section('title')
@@ -9,70 +19,33 @@
 @endsection
 
 @section('content')
+<input id="user" type="hidden" name=<?php if(Auth::check()) echo Auth::user()->name; else echo "null";?>>
+@foreach($polls as $poll)
+<?php $designs = $poll->getDesigns(); ?>
 <section class="poll">
-    <h1>Hoodies 2019</h1>
+    <h1><?=$poll->poll_name?></h1>
         <div class="container">
             <div class="row">
+                @foreach($designs as $design)
                 <div class="col">
-                    <div class="design_container">
-                    <i class="far fa-heart heart"></i>
-                    <span>17</span>
-                    <img src="../resources/images/apparel/hoodie_1_red.jpg">
+                    <div class="design_container" poll=<?=$poll->id_poll?>>
+                        @if(($user = Auth::user()) != null)
+                            @if(UserSubVote::hasUserVoted($user->id, $design->id_submission))
+                                <i class="far fa-heart heart"></i>
+                            @else
+                                <i class="fa fa-heart heart"></i>
+                            @endif
+                        @endif
+                        <span><?=$design->votes?></span>
+                        <img src={{Utils::replaceWhiteSpace(asset($design->picture))}}>
                     </div>
-                    <h1>Design #1</h1>
+                    <h1><?=$design->submission_name?></h1>
                 </div>
-                <div class="col offset-md-1">
-                    <div class="design_container">
-                        <i class="far fa-heart heart"></i>
-                        <span>5</span>
-                        <img src="../resources/images/apparel/hoodie_2.jpg">
-                    </div>
-                    <h1>Design #2</h1>
-                </div>
-                <div class="col offset-md-1">
-                    <div class="design_container">
-                        <i class="far fa-heart heart"></i>
-                        <span>35</span>
-                        <img src="../resources/images/apparel/hoodie_3.jpg">
-                    </div>
-                    <h1>Design #3</h1>
-                </div>
-                <div class="col offset-md-1">
-                    <div class="design_container">
-                        <i class="far fa-heart heart"></i>
-                        <span>10</span>
-                        <img src="../resources/images/apparel/hoodie_5.jpg">
-                    </div>
-                    <h1>Design #4</h1>
-                </div>
+                @endforeach
             </div>
         </div>
     <span>Poll expires on: </span>
-    <span>25-04-2019</span>
+    <span><?=$poll->expiration?></span>
 </section>
-<section class="poll">
-    <h1>Misc January 19</h1>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="design_container">
-                    <i class="far fa-heart heart"></i>
-                    <span>17</span>
-                    <img src="../resources/images/posters/poster_1.jpg">
-                </div>
-                <h1>Item #1</h1>
-            </div>
-            <div class="col offset-md-1">
-                <div class="design_container">
-                    <i class="far fa-heart heart"></i>
-                    <span>5</span>
-                    <img src="../resources/images/posters/poster_new_year.jpg">
-                </div>
-                <h1>Item #2</h1>
-            </div>
-        </div>
-    </div>
-    <span>Poll expires on: </span>
-    <span>20-03-2019</span>
-</section>
+@endforeach
 @endsection

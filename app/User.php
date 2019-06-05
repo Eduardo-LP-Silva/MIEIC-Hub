@@ -54,6 +54,16 @@ class User extends Authenticatable
         return $this->moderator;
     }
 
+    public function isStockManager()
+    {
+        return $this->stock_manager;
+    }
+
+    public function isSubManager()
+    {
+        return $this->submission_manager;
+    }
+
     public static function getURLUser($name)
     {
         $user = User::where('name', $name)->get();
@@ -133,6 +143,12 @@ class User extends Authenticatable
             AND text_search @@ query
             ORDER BY rank DESC"
         ));
+    }
+
+    public function setPrivilege($role, $value)
+    {
+        $this->$role = $value;
+        $this->save();
     }
 
 }

@@ -64,49 +64,56 @@ class SubmissionController extends Controller
             abort(403, 'Permission denied');
 
         $id_user = $user->id;
+        $submission_name = $request->name;
+        $type = $request->type;
 
-        $field = $request->field;
+        $category = Category::where('category', $type)->get()[0];
 
-        $value = null;
+        $description = $request->description;
 
-        switch($field)
-        {
-            case "name":
-                $value = $request->$field;
-                break;
+        $submission_date = date("Y-m-d");
+        $accepted = false;
+        $votes = 0;
+        $winner = false;
+        $id_poll = null;
 
-            case "description":
-                $value = $request->$field;
-                break;
+        //photo
+        $picture = null;
 
-            case "type":
-                $value = $request->$field;
-                break;
+        if(!$request->has('photo'))
+            abort(404, 'No file');
 
-            case "images":
-                if(!$request->has('images'))
-                    abort(400, 'No files');
+        $request->validate
+        (
+            ['photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']
+        );
 
-                $request->validate
-                (
-                    ['images' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]
-                );
+        $new_image = $request->file('photo');
 
-            default:
-                //abort(404, 'User setting ' . $setting . " does not exist");
-        }
+        if($new_image == null)
+            abort(400, 'Null file');
 
+        $new_photo_name = $user->name . "-" . $submission_name . "-" . date("Y-m-d H:i:s");;
 
-        return reditect($redirectTo);
+        Utils::saveImage($new_image, "/img/submissions/", "public", $new_photo_name);
 
+        $path = "public/img/submissions/" . $new_photo_name;
+
+        DB::table('submission')->insert(
+            ['id_user' => $id_user,
+             'submission_name' => $submission_name,
+             'id_category' => $category->id_category,
+             'submission_description' => $description,
+             'picture' => $path,
+             'accepted' => $accepted,
+             'votes' => $votes,
+             'winner' => $winner,
+             'id_poll' => $id_poll]);
+
+        return redirect("/home");
     }
 
-    public function submitFields($fields, $id_user)
-    {
-        DB::table('submission')->insert([
-            ['id_user' => $id_user, 'votes' => 0],
-        ]);
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -180,26 +187,56 @@ class SubmissionController extends Controller
     {
         $submission = Submission::find($id_submission);
 
-        dump($submission);
-
         $user = Auth::user();
 
         if($user->isMod())
         {
             $submission->delete();
 
-            return redirect("/home");
+            return redirect("/submissions");
         }
         else
             abort(403, 'Permission denied');
     }
 
+    public function showAllSubmissions()
+    {
+      $submissions = $this->getSubmissions();
+
+      $names = array();
+
+      foreach ($submissions as $submission)
+      {
+        $username = $this->getUsername($submission->id_submission);
+        $names[] = $username[0];
+      }
+
+      return view('pages.submissions', ['submissions' => $submissions, 'names' => $names]);
+    }
+
+    public function getUsername($id)
+    {
+      return DB::select(DB::raw
+      (
+          "SELECT name
+          FROM users
+          WHERE users.id = ". $id ."
+          "
+      ));
+    }
+
+    public function getSubmissions()
+    {
+      return DB::select(DB::raw
+      (
+          "SELECT *
+          FROM submission"
+      ));
+    }
 
     public function udpateAccepted($id_submission)
     {
       $submission = Submission::find($id_submission);
-
-      dump($submission);
 
       $user = Auth::user();
 
@@ -211,9 +248,7 @@ class SubmissionController extends Controller
             ->where('id_submission', $submission->id_submission)
             ->update(['accepted' => $value]);
 
-            dump($submission);
-
-          //return redirect("/home");
+          return redirect("/submissions");
       }
       else
           abort(403, 'Permission denied');

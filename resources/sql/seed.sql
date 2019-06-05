@@ -242,12 +242,22 @@ CREATE FUNCTION update_submission_vote() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' THEN
         UPDATE submission
-        SET votes = votes + 1
+        SET votes = 
+        (
+            SELECT count(*)
+            FROM user_sub_vote
+            WHERE NEW.id_sub = user_sub_vote.id_sub
+        )
         WHERE submission.id_submission = NEW.id_sub;
         RETURN NEW;
     ELSEIF TG_OP = 'DELETE' THEN
         UPDATE submission
-        SET votes = votes - 1
+        SET votes = 
+        (
+            SELECT count(*)
+            FROM user_sub_vote
+            WHERE NEW.id_sub = user_sub_vote.id_sub
+        )
         WHERE submission.id_submission = OLD.id_sub;
         RETURN OLD;
     END IF;
@@ -467,12 +477,12 @@ EXECUTE PROCEDURE erase_user();
 
 -- Table: category
 INSERT INTO category (category) VALUES ('Apparel');
-INSERT INTO category (category) VALUES ('Phone Cases');
-INSERT INTO category (category) VALUES ('Stickers');
-INSERT INTO category (category) VALUES ('Posters');
-INSERT INTO category (category) VALUES ('Tickets');
-INSERT INTO category (category) VALUES ('Mouse Pads');
-INSERT INTO category (category) VALUES ('Mugs');
+INSERT INTO category (category) VALUES ('Phone Case');
+INSERT INTO category (category) VALUES ('Sticker');
+INSERT INTO category (category) VALUES ('Poster');
+INSERT INTO category (category) VALUES ('Ticket');
+INSERT INTO category (category) VALUES ('Mouse Pad');
+INSERT INTO category (category) VALUES ('Mug');
 
 -- Table: product
 
@@ -1075,10 +1085,10 @@ INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (4
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (18,68,'leo Sed Fusce Suspendisse volutpat dignissim pulvinar eleifend amet Lorem dictum commodo commodo Phasellus blandit','2019-01-08 16:32:47',4);
 
 -- Table: poll
-INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Hoodies 2019 Poll', '2019-03-01', '2019-07-15', TRUE);
-INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Jackets 2019 Poll', '2019-03-02', '2019-07-16', TRUE);
-INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Posters 2019 Poll', '2019-05-03', '2019-09-17', TRUE);
-INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Posters 2018 Poll', '2018-03-03', '2018-07-17', FALSE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Hoodies 2019', '2019-03-01', '2019-07-15', TRUE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Jackets 2019', '2019-03-02', '2019-07-16', TRUE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Posters 2019', '2019-05-03', '2019-09-17', TRUE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Posters 2018', '2018-03-03', '2018-07-17', FALSE);
 
 -- Table: submission
 INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (3, 'Submission1', 1, 'Funny submission1', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-08', TRUE, 0, FALSE, 1);

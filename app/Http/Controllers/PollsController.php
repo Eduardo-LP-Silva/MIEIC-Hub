@@ -3,21 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Poll;
 
 class PollsController extends Controller 
 {
     public function upcoming()
     {
-        return view('pages.upcoming');
+        $polls = Poll::getActivePolls();
+
+        return view('pages.upcoming', ['polls' => $polls]);
     }
-
-    //admins
-    public function submission()
-    {
-        return view('pages.submit');
-    }
-
-    
-
-
 }

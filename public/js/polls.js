@@ -27,20 +27,28 @@ function addHeartListeners()
     for(let i = 0; i < hearts.length; i++)
         hearts[i].addEventListener("click", function()
         {
-            //Change condition to sync with db
-    
+            let newVotesNo;
+            let request = new XMLHttpRequest();
+            let url = "/users/" + document.getElementById("user").getAttribute("name") + "/vote/"
+                + hearts[i].parentElement.getAttribute("poll");
+
             if(hearts[i].classList.contains("far"))
             {
+                request.open("PUT", "/users/" + banBtn[i].getAttribute("name") + "/delete", true);
                 hearts[i].classList.remove("far");
                 hearts[i].classList.add("fa");
-                hearts[i].nextElementSibling.textContent = parseInt(hearts[i].nextElementSibling.textContent) + 1;
+
+                newVotesNo = parseInt(hearts[i].nextElementSibling.textContent) + 1;
+                hearts[i].nextElementSibling.textContent = newVotesNo;
                 hearts[i].parentElement.style.borderColor = "#af1c1c";
             } 
             else
             {
                 hearts[i].classList.remove("fa");
                 hearts[i].classList.add("far");
-                hearts[i].nextElementSibling.textContent = parseInt(hearts[i].nextElementSibling.textContent) - 1;
+
+                newVotesNo = parseInt(hearts[i].nextElementSibling.textContent) - 1;
+                hearts[i].nextElementSibling.textContent = newVotesNo;
                 hearts[i].parentElement.style.borderColor = "#969696";
             } 
         });
