@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\User;
 use App\Utils;
+use App\Cart;
 
 class PurchasesController extends Controller
 {
@@ -29,14 +30,39 @@ class PurchasesController extends Controller
     }
 
     public function deleteCartEntry($id_user, $id_product) {
-        \Log::info("etwrgweg");
 
-        info("test");
 
-        $user = User::getURLUser($name);
+        info("inside");
 
-        $items = $user->getCartItems();
+        $cart = Cart::where('id_user', $id_user)
+        ->where('id_product', $id_product)
+        ->first();
 
-        return $items;
+       $cart->delete();     // n ta a eliminar so um..
+
+            /*
+            " DELETE FROM cart
+            WHERE id_user = ?
+            AND id_product = ? "
+        ,[$id_user, $id_product]);*/
     }
 }
+
+/*
+    public function destroy($name)
+    {
+        $user = User::getURLUser($name);
+
+        if($user->isAuthenticatedUser() || Auth::user()->isMod())
+        {
+            if(Auth::user()->name == $user->name)
+                Auth::logout();
+                  
+            $user->delete();
+            
+            if(substr(URL::previous(), -9) == "/settings")
+                return redirect("/home");
+        }
+        else
+            abort(403, 'Permission denied');
+    }*/

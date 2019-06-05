@@ -7,12 +7,11 @@ window.onload = function()
 function addRemoveListeners()
 {
     let removeBtns = document.querySelectorAll(".list-item > i");
-    let list = document.querySelector("#list");
 
     for(let i = 0; i < removeBtns.length; i++)
-        removeBtns[i].addEventListener("click", function(event)
-        {
+        removeBtns[i].addEventListener("click", function() {
             event.preventDefault();
+            ajaxDeleteCartEntry(removeBtns[i].parentNode);
             list.removeChild(removeBtns[i].parentNode);
             updateFinalPrice();
         });
@@ -30,24 +29,23 @@ function updateFinalPrice()
 
     finalPriceElement.textContent = "Total: " + finalPrice + "€";
 
-    ajaxDeleteCartEntry();
-
 }
 
-function ajaxDeleteCartEntry()
+function ajaxDeleteCartEntry(btn)
 {
 
-    let item = document.querySelector("#item");
+    let id_user = btn.getAttribute("id_user");
 
-    let id_user = item.getAttribute("id_user");
+    let id_product = btn.getAttribute("id_product");
 
-    let id_product = item.getAttribute("id_product");
+    console.log(id_user);
+    console.log(id_product);
 
     let request = new XMLHttpRequest();
     request.open("DELETE", "/users/" + id_user + "/cart/" + id_product + "/remove", true);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    console.log("token : " + item.getAttribute("token"));
-    request.setRequestHeader('X-CSRF-TOKEN', item.getAttribute("token"));
+    request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    console.log("token : " + btn.getAttribute("token"));
+    request.setRequestHeader('X-CSRF-TOKEN', btn.getAttribute("token"));
 
     //request.addEventListener("load", function () {
     //    refresh();
