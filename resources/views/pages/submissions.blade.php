@@ -2,6 +2,7 @@
     use App\Submission;
     use App\User;
     use App\Utils;
+    use Illuminate\Support\Facades\Input;
 ?>
 
 @extends('layouts.page')
@@ -25,41 +26,41 @@
                 From:
             </button>
             <span>
-                Last Week
+                {{{Utils::reverse_slug(Input::get('filter'))}}}
             </span>
             <div class="dropdown-menu" aria-labelledby="searchDropDown">
-                <a class="dropdown-item" href="./submissions.html">Last Week</a>
-                <a class="dropdown-item" href="./submissions.html">Last Month</a>
-                <a class="dropdown-item" href="./submissions.html">Ever</a>
+                <a class="dropdown-item" href="/submissions?filter=Last-Week">Last Week</a>
+                <a class="dropdown-item" href="/submissions?filter=Last-Month">Last Month</a>
+                <a class="dropdown-item" href="/submissions?filter=Ever">Ever</a>
             </div>
         </div>
     </div>
-    @for($i = 0; $i < count($submissions); $i++)
+    @foreach($submissions as $submission)
     <div class="list-item">
-         <a href=<?="/submission/" . $submissions[$i]->id_submission?>>
-            <img src={{asset(Utils::replaceWhiteSpace($submissions[$i]->picture))}} alt="Submission Picture">
+         <a href=<?="/submission/" . $submission->id_submission?>>
+            <img src={{asset(Utils::replaceWhiteSpace($submission->picture))}} alt="Submission Picture">
         </a>
         <div class="div"></div>
-        <a href=<?="/submission/" . $submissions[$i]->id_submission?>>
-            {{{$submissions[$i]->submission_name}}}
+        <a href=<?="/submission/" . $submission->id_submission?>>
+            {{{$submission->submission_name}}}
         </a>
         <div class="div"></div>
-        <a href="{{{url('/users/' . $names[$i]->name)}}}">
-            {{{$names[$i]->name}}}
+        <a href="{{{url('/users/' . $submission->name)}}}">
+            {{{$submission->name}}}
         </a>
         <div class="div"></div>
-        <span><?=substr($submissions[$i]->submission_date, 0, 10)?></span>
+        <span><?=substr($submission->submission_date, 0, 10)?></span>
         <div>
             <button id="but1" form="accept" type="submit"><i class="fas fa-check-circle"></i></button>
             <button id="but2" form="delete" type="submit"><i class="fas fa-times-circle"></i></button>
-            <form id="accept" action="{{url('/submission/' . $submissions[$i]->id_submission . '/accept') }}" method="POST">
+            <form id="accept" action="{{url('/submission/' . $submission->id_submission . '/accept') }}" method="POST">
                 {{ csrf_field() }}
             </form>
-            <form id="delete" action="{{url('/submission/' . $submissions[$i]->id_submission . '/remove') }}" method="POST">
+            <form id="delete" action="{{url('/submission/' . $submission->id_submission . '/remove') }}" method="POST">
                 {{ csrf_field() }}
             </form>
         </div>
     </div>
-    @endfor
+    @endforeach
 </div>
 @endsection

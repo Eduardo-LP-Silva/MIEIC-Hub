@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use App\Product;
 use App\Photo;
 use App\Submission;
@@ -128,7 +129,7 @@ class SubmissionController extends Controller
         if($new_image == null)
             abort(400, 'Null file');
 
-        $new_photo_name = $user->name . "-" . $submission_name . "-" . date("Y-m-d H:i:s");;
+        $new_photo_name = $user->name . "-" . $submission_name . "-" . date("Y-m-d H:i:s");
 
         Utils::saveImage($new_image, "/img/submissions/", "public", $new_photo_name);
 
@@ -234,39 +235,34 @@ class SubmissionController extends Controller
             abort(403, 'Permission denied');
     }
 
-    public function showAllSubmissions()
+    public function showSubmissions()
     {
-      $submissions = $this->getSubmissions();
+        if(!Auth::check() || !Auth::user()->isSubManager())
+            abort(403, 'Permission denied');
 
-      $names = array();
+        $date_filter = Input::get('filter');
 
-      foreach ($submissions as $submission)
-      {
-        $username = $this->getUsername($submission->id_submission);
-        $names[] = $username[0];
-      }
+        switch($date_filter)
+        {
+            case "Last-Week":
+                $date_filter = date("Y-m-d", strtotime("-1 week +1 day"));
+                break;
 
-      return view('pages.submissions', ['submissions' => $submissions, 'names' => $names]);
-    }
+            case "Last-Month":
+                $date_filter = date("Y-m-d", strtotime("first day of previous month"));
+                break;
 
-    public function getUsername($id)
-    {
-      return DB::select(DB::raw
-      (
-          "SELECT name
-          FROM users
-          WHERE users.id = ". $id ."
-          "
-      ));
-    }
+            case "Ever":
+                $date_filter = 0;
+                break;
 
-    public function getSubmissions()
-    {
-      return DB::select(DB::raw
-      (
-          "SELECT *
-          FROM submission"
-      ));
+            default:
+                abort(400, 'Unknown date filter: ' . $date_filter);
+        }
+
+      $submissions = Submission::getSubmissions($date_filter);
+
+      return view('pages.submissions', ['submissions' => $submissions]);
     }
 
     public function udpateAccepted($id_submission)

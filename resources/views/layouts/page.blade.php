@@ -75,7 +75,7 @@
                             @if (Auth::check())
                             <a class="dropdown-item" href="{{url('/users/' . Utils::slug(Auth::user()->name))}}">Profile</a>
                                 @if(Auth::user()->isSubManager())
-                                <a class="dropdown-item" href="/submissions">Submissions</a>
+                                <a class="dropdown-item" href="/submissions?filter=Last-Week">Submissions</a>
                                 @endif
                             <a class="dropdown-item" href="{{url('/users/' .  Utils::slug(Auth::user()->name) .'/wishlist')}}">Wishlist</a>
                             <a class="dropdown-item" href="{{url('/users/'  . Utils::slug(Auth::user()->name) . '/settings')}}">Settings</a>
