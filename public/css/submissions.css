@@ -101,5 +101,36 @@ body
     border: 0.01em solid #af1c1c;
     height: 50%;
 }
-  
- 
+
+#but2 > i:last-child
+{
+  color: #af1c1c;
+  background-color: white;
+}
+
+#but2 > i
+{
+  color: #af1c1c;
+  background-color: white;
+  border: none;
+}
+
+#but2
+{
+  background-color: white;
+  border: none;
+}
+
+#but1
+{
+  background-color: white;
+  border: none;
+}
+
+#but1 > i
+{
+  background-color: white;
+  border: none;
+  color: green;
+  margin-right: 0.05em;
+}

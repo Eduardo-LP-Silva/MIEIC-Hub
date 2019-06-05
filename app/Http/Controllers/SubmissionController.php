@@ -222,20 +222,52 @@ class SubmissionController extends Controller
     {
         $submission = Submission::find($id_submission);
 
-        dump($submission);
-
         $user = Auth::user();
 
         if($user->isMod())
         {
             $submission->delete();
 
-            return redirect("/home");
+            return redirect("/submissions");
         }
         else
             abort(403, 'Permission denied');
     }
 
+    public function showAllSubmissions()
+    {
+      $submissions = $this->getSubmissions();
+
+      $names = array();
+
+      foreach ($submissions as $submission)
+      {
+        $username = $this->getUsername($submission->id_submission);
+        $names[] = $username[0];
+      }
+
+      return view('pages.submissions', ['submissions' => $submissions, 'names' => $names]);
+    }
+
+    public function getUsername($id)
+    {
+      return DB::select(DB::raw
+      (
+          "SELECT name
+          FROM users
+          WHERE users.id = ". $id ."
+          "
+      ));
+    }
+
+    public function getSubmissions()
+    {
+      return DB::select(DB::raw
+      (
+          "SELECT *
+          FROM submission"
+      ));
+    }
 
     public function udpateAccepted($id_submission)
     {
@@ -251,7 +283,7 @@ class SubmissionController extends Controller
             ->where('id_submission', $submission->id_submission)
             ->update(['accepted' => $value]);
 
-          return redirect("/home");
+          return redirect("/submissions");
       }
       else
           abort(403, 'Permission denied');
