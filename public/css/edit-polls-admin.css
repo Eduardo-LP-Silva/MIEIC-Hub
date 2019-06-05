@@ -2,13 +2,13 @@
     margin: 1em 1em 0 0;
 }
 
-.poll > button:nth-child(2)
+.poll > form > button:nth-child(1)
 {
     background-color: black;
     color: white;
 }
 
-.poll > button:nth-child(3)
+.poll > form > button:nth-child(2)
 {
     background-color: rgb(175, 28, 28);
     color: white;

@@ -16,9 +16,14 @@ class Poll extends Model
         return Poll::select('id_poll', 'poll_name', 'expiration')->where('active', true)->get();
     }
 
+    public static function getPolls()
+    {
+        return Poll::select('id_poll', 'poll_name', 'expiration', 'active')->get();
+    }
+
     public function getDesigns()
     {
-        return Submission::select('id_submission', 'picture', 'votes', 'submission_name')
+        return Submission::select('id_submission', 'picture', 'votes', 'submission_name', 'winner')
             ->where('id_poll', $this->id_poll)->get();
     }
 }

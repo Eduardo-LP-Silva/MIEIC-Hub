@@ -216,7 +216,7 @@ CREATE TABLE submission
     accepted BOOLEAN NOT NULL,
     votes INTEGER DEFAULT 0 NOT NULL CHECK(votes >= 0),
     winner BOOLEAN NOT NULL,
-    id_poll INTEGER REFERENCES poll ON UPDATE CASCADE
+    id_poll INTEGER REFERENCES poll ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE user_sub_vote
@@ -332,14 +332,14 @@ EXECUTE PROCEDURE check_submission_vote();
 
 CREATE FUNCTION select_winner() RETURNS TRIGGER AS $BODY$
 BEGIN
-    IF NEW.active IS FALSE AND OLD.active IS TRUE THEN
+    IF NEW.active IS FALSE THEN
         UPDATE submission
         SET winner = TRUE
         WHERE submission.id_poll = NEW.id_poll AND submission.votes = 
         (
             SELECT MAX(submission.votes)
             FROM submission, poll
-            WHERE poll.id_poll = NEW.id_poll AND poll.id_poll = subission.id_poll
+            WHERE poll.id_poll = NEW.id_poll AND poll.id_poll = submission.id_poll
         );
     END IF;
     RETURN NEW;
