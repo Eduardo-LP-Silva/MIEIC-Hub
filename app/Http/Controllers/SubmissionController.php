@@ -187,15 +187,13 @@ class SubmissionController extends Controller
     {
         $submission = Submission::find($id_submission);
 
-        dump($submission);
-
         $user = Auth::user();
 
         if($user->isMod())
         {
             $submission->delete();
 
-            return redirect("/home");
+            return redirect("/submissions");
         }
         else
             abort(403, 'Permission denied');
@@ -212,8 +210,6 @@ class SubmissionController extends Controller
         $username = $this->getUsername($submission->id_submission);
         $names[] = $username[0];
       }
-
-      dump($submissions);
 
       return view('pages.submissions', ['submissions' => $submissions, 'names' => $names]);
     }
@@ -252,7 +248,7 @@ class SubmissionController extends Controller
             ->where('id_submission', $submission->id_submission)
             ->update(['accepted' => $value]);
 
-          return redirect("/home");
+          return redirect("/submissions");
       }
       else
           abort(403, 'Permission denied');

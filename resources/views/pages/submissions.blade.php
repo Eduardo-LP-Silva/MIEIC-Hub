@@ -1,6 +1,7 @@
 <?php
     use App\Submission;
     use App\User;
+    use App\Utils;
 ?>
 
 @extends('layouts.page')
@@ -36,9 +37,8 @@
     </div>
     @for($i = 0; $i < count($submissions); $i++)
     <div class="list-item" href="./product.html">
-
          <a href="./submission.html">
-            <img src="../resources/images/apparel/hoodie_3_single.jpg" alt="Submission Picture">
+            <img src={{asset(Utils::replaceWhiteSpace($submissions[$i]->picture))}} alt="Submission Picture">
         </a>
         <div class="div"></div>
         <a href="./submission.html"><?= $submissions[$i]->submission_name ?></a>
@@ -47,8 +47,14 @@
         <div class="div"></div>
         <span><?=$submissions[$i]->submission_date?></span>
         <div>
-            <i class="fas fa-check-circle"></i>
-            <i class="fas fa-times-circle"></i>
+            <button id="but1" form="accept" type="submit"><i class="fas fa-check-circle"></i></button>
+            <button id="but2" form="delete" type="submit"><i class="fas fa-times-circle"></i></button>
+            <form id="accept" action="{{url('/submission/' . $submissions[$i]->id_submission . '/accept') }}" method="POST">
+                {{ csrf_field() }}
+            </form>
+            <form id="delete" action="{{url('/submission/' . $submissions[$i]->id_submission . '/remove') }}" method="POST">
+                {{ csrf_field() }}
+            </form>
         </div>
     </div>
     @endfor
