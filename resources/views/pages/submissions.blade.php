@@ -1,8 +1,15 @@
+<?php
+    use App\Submission;
+    use App\User;
+?>
+
 @extends('layouts.page')
 
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('css/submissions.css') }}">
     <link rel="stylesheet" href="../css/search-params.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 @endsection
 
 @section('title')
@@ -27,35 +34,23 @@
             </div>
         </div>
     </div>
+    @for($i = 0; $i < count($submissions); $i++)
     <div class="list-item" href="./product.html">
-        <a href="./submission.html">
+
+         <a href="./submission.html">
             <img src="../resources/images/apparel/hoodie_3_single.jpg" alt="Submission Picture">
-        </a> 
+        </a>
         <div class="div"></div>
-        <a href="./submission.html">Mouse Hoodie V2</a>
+        <a href="./submission.html"><?= $submissions[$i]->submission_name ?></a>
         <div class="div"></div>
-        <a href="./profile-orders.html">edwardS</a>
+        <a href="./profile-orders.html"><?= $names[$i]->name?></a>
         <div class="div"></div>
-        <span>12-01-2019</span>
+        <span><?=$submissions[$i]->submission_date?></span>
         <div>
             <i class="fas fa-check-circle"></i>
             <i class="fas fa-times-circle"></i>
         </div>
     </div>
-    <div class="list-item" href="./product.html">
-        <a href="./submission.html">
-            <img src="../resources/images/apparel/hoodie_2_smiley_single.jpg" alt="Submission Picture">
-        </a> 
-        <div class="div"></div>
-        <a href="./submission.html">Smiley Hoodie V2.1</a>
-        <div class="div"></div>
-        <a href="./profile-orders.html">edwardS</a>
-        <div class="div"></div>
-        <span>12-01-2019</span>
-        <div>
-            <i class="fas fa-check-circle"></i>
-            <i class="fas fa-times-circle"></i>
-        </div>
-    </div>
+    @endfor
 </div>
 @endsection

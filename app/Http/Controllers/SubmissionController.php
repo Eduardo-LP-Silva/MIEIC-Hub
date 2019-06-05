@@ -201,6 +201,42 @@ class SubmissionController extends Controller
             abort(403, 'Permission denied');
     }
 
+    public function showAllSubmissions()
+    {
+      $submissions = $this->getSubmissions();
+
+      $names = array();
+
+      foreach ($submissions as $submission)
+      {
+        $username = $this->getUsername($submission->id_submission);
+        $names[] = $username[0];
+      }
+
+      dump($submissions);
+
+      return view('pages.submissions', ['submissions' => $submissions, 'names' => $names]);
+    }
+
+    public function getUsername($id)
+    {
+      return DB::select(DB::raw
+      (
+          "SELECT name
+          FROM users
+          WHERE users.id = ". $id ."
+          "
+      ));
+    }
+
+    public function getSubmissions()
+    {
+      return DB::select(DB::raw
+      (
+          "SELECT *
+          FROM submission"
+      ));
+    }
 
     public function udpateAccepted($id_submission)
     {
