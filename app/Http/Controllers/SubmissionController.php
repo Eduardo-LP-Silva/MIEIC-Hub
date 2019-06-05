@@ -11,6 +11,7 @@ use App\Submission;
 use App\User;
 use App\Utils;
 use App\Category;
+use App\UserSubVote;
 
 class SubmissionController extends Controller
 {
@@ -30,6 +31,40 @@ class SubmissionController extends Controller
     public function index()
     {
         //
+    }
+
+    public function vote($name, $id_sub)
+    {
+        $user = User::getURLUser($name);
+
+        if(!Auth::check() || Auth::user()->name != $user->name)
+            abort(403, 'Permission denied');
+
+        $id_user = $user->id;
+
+        if(UserSubVote::hasUserVoted($id_user, $id_sub))
+            abort(400, 'User has already voted for this design on this poll');
+
+        UserSubVote::create($id_user, $id_sub);
+
+        return 200;
+    }
+
+    public function unvote($name, $id_sub)
+    {
+        $user = User::getURLUser($name);
+
+        if(!Auth::check() || Auth::user()->name != $user->name)
+            abort(403, 'Permission denied');
+
+        $id_user = $user->id;;
+
+        if(!UserSubVote::hasUserVoted($id_user, $id_sub))
+            abort(400, "User hasn't already voted for this design on this poll");
+
+        UserSubVote::remove($id_user, $id_sub);
+
+        return 200;
     }
 
      /**

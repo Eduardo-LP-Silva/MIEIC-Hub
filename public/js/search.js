@@ -51,8 +51,6 @@ function setBanListeners()
                 let list = banBtn[i].parentElement.parentElement.parentElement;
 
                 list.removeChild(banBtn[i].parentElement.parentElement);
-
-                console.log(request.responseText);
             });
 
             request.send(JSON.stringify(data));

@@ -19,7 +19,8 @@
 @endsection
 
 @section('content')
-<input id="user" type="hidden" name=<?php if(Auth::check()) echo Auth::user()->name; else echo "null";?>>
+<input id="main" type="hidden" name=<?php if(Auth::check()) echo Utils::slug(Auth::user()->name); else echo "null";?>
+    token={{csrf_token()}}>
 @foreach($polls as $poll)
 <?php $designs = $poll->getDesigns(); ?>
 <section class="poll">
@@ -28,12 +29,12 @@
             <div class="row">
                 @foreach($designs as $design)
                 <div class="col">
-                    <div class="design_container" poll=<?=$poll->id_poll?>>
+                    <div class="design_container" sub=<?=$design->id_submission?>>
                         @if(($user = Auth::user()) != null)
                             @if(UserSubVote::hasUserVoted($user->id, $design->id_submission))
-                                <i class="far fa-heart heart"></i>
-                            @else
                                 <i class="fa fa-heart heart"></i>
+                            @else
+                                <i class="far fa-heart heart"></i>
                             @endif
                         @endif
                         <span><?=$design->votes?></span>
