@@ -35,16 +35,20 @@
         </div>
     </div>
     @for($i = 0; $i < count($submissions); $i++)
-    <div class="list-item" href="./product.html">
-         <a href="./submission.html">
+    <div class="list-item">
+         <a href=<?="/submission/" . $submissions[$i]->id_submission?>>
             <img src={{asset(Utils::replaceWhiteSpace($submissions[$i]->picture))}} alt="Submission Picture">
         </a>
         <div class="div"></div>
-        <a href="./submission.html"><?= $submissions[$i]->submission_name ?></a>
+        <a href=<?="/submission/" . $submissions[$i]->id_submission?>>
+            {{{$submissions[$i]->submission_name}}}
+        </a>
         <div class="div"></div>
-        <a href="./profile-orders.html"><?= $names[$i]->name?></a>
+        <a href="{{{url('/users/' . $names[$i]->name)}}}">
+            {{{$names[$i]->name}}}
+        </a>
         <div class="div"></div>
-        <span><?=$submissions[$i]->submission_date?></span>
+        <span><?=substr($submissions[$i]->submission_date, 0, 10)?></span>
         <div>
             <button id="but1" form="accept" type="submit"><i class="fas fa-check-circle"></i></button>
             <button id="but2" form="delete" type="submit"><i class="fas fa-times-circle"></i></button>

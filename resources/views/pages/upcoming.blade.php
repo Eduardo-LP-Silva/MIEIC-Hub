@@ -29,7 +29,7 @@
     token={{csrf_token()}}>
 @if($user != null && $user->isSubManager())
 <div id="addPoll">
-    <a href="/add-poll-admin">
+    <a href="/upcoming/newpoll">
         <button type="button" class="btn btn-light">
             <i class="fa fa-plus"></i>
             Add poll
