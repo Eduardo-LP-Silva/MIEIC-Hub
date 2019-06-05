@@ -12,7 +12,7 @@
 @section('content')
   <div class="accordion" id="accordionExample">
     <h1> Frequently Asked Questions</h1>
-      @if(Auth::user()->isMod())
+      @if(Auth::check() && Auth::user()->isMod())
         <form class="card" action="faq/add" method="POST">
           {{ csrf_field() }}
           {{method_field('PUT')}}
@@ -41,21 +41,21 @@
         @endif
         @foreach($faqs as $faq)
           <form class="card" action={{url('faq/' . $faq->id_question . '/remove')}} method="GET">
-            <div class="card-header" id="headingOne">
+            <div class="card-header" id=<?="heading" . $faq->id_question?>>
               <h5 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Question {{$loop->index + 1}}: <?=$faq->question?>  🔻
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target=<?="#collapse" . $faq->id_question?> aria-expanded="true" aria-controls=<?="collapse" . $faq->id_question?>>
+                  Question {{$loop->index + 1}}: {{$faq->question}}  🔻
                 </button>
-                @if(Auth::user()->isMod())
+                @if(Auth::check() && Auth::user()->isMod())
                   <button type="submit" class="btn" name="question" value=<?=$faq->id_question?>>
                     <i class="fa fa-trash"></i>
                   </button>
                 @endif
               </h5>
             </div>
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div id=<?="collapse" . $faq->id_question?> class="collapse show" aria-labelledby=<?="heading" . $faq->id_question?> data-parent="#accordionExample">
               <div class="card-body">
-                <?=$faq->answer?>
+                {{$faq->answer}}
               </div>
             </div>
           </form>
