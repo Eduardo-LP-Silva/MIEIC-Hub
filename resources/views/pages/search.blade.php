@@ -29,7 +29,7 @@
     <div id="search_parameters">
         <div>
             <span>Search results for:</span>
-            <span><?=$query?></span>
+            <span>{{{$query}}}</span>
         </div>
         <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" id="searchDropDown" data-toggle="dropdown"
@@ -56,12 +56,12 @@
             <div class="div"></div>
             <span class="username">
                 <p>Username</p>
-                <p><?=$result->name?></p>
+                <p>{{{$result->name}}}</p>
             </span>
             <div class="div"></div>
             <span class="email">
                 <p>email</p>
-                <p><?=$result->email?></p>
+                <p>{{{$result->email}}}</p>
             </span>
             <div class="div"></div>
             <button type="submit" name=<?=Utils::slug($result->name)?> class="btn"> <i class="fa fa-ban"></i> </button>
@@ -72,7 +72,7 @@
         <a class="list-item" href=<?="/products/" . $result->id_product?>>
             <img src={{asset(Utils::replaceWhiteSpace(Product::find($result->id_product)->getPhotos(true)))}} alt="Product Picture">
             <div class="div"></div>
-            <span><?=$result->product_name?></span>
+            <span>{{{$result->product_name}}}</span>
             <div class="div"></div>
             <div class="rating">
                 @for($i = 0; $i < $result->rating; $i++)
@@ -84,7 +84,7 @@
                 @endfor
             </div>
             <div class="div"></div>
-            <span><?=$result->price?></span>
+            <span>{{{$result->price}}}</span>
         </a>
         @endforeach
     @endif

@@ -14,7 +14,7 @@
                 src={{asset(Utils::replaceWhiteSpace($product_photo))}} alt="Product"
                 data-holder-rendered="true">
             <a class="media-body row" href={{url('/products/' . $review->id_product)}}>
-                <h5 class="mt-0 col-6"><?=$review->product_name?></h5>
+                <h5 class="mt-0 col-6">{{{$review->product_name}}}</h5>
                 <div class="rating col-6">
                     @for($i = 0; $i < $review->rating; $i++)
                         <span class="fa fa-star checked"></span>
@@ -24,7 +24,7 @@
                         <span class="fa fa-star"></span>
                     @endfor
                 </div>
-                <p class="ml-4"><?=$review->comment?></p>
+                <p class="ml-4">{{{$review->comment}}}</p>
             </a>
         </div>
         @endforeach

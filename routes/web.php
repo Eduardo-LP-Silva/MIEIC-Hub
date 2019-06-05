@@ -41,6 +41,11 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset.token');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
 Route::get('upcoming', 'PollsController@upcoming');
 Route::get('poll/{poll_id}', 'PollsController@edit');
 Route::put('users/{name}/vote/{id_sub}', 'SubmissionController@vote');

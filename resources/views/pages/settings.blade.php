@@ -42,7 +42,7 @@
               <div class="card-body">
                 <div class="current_options">
                   <span>Current: </span>
-                  <span><?=$user->email?></span>
+                  <span>{{{$user->email}}}</span>
                 </div>
                 <input type="email" name="email" placeholder="   Enter Email" required>
               </div>

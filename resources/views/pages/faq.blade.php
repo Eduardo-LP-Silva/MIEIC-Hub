@@ -44,7 +44,7 @@
             <div class="card-header" id=<?="heading" . $faq->id_question?>>
               <h5 class="mb-0">
                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target=<?="#collapse" . $faq->id_question?> aria-expanded="true" aria-controls=<?="collapse" . $faq->id_question?>>
-                  Question {{$loop->index + 1}}: {{$faq->question}}  🔻
+                  Question {{$loop->index + 1}}: {{{$faq->question}}}  🔻
                 </button>
                 @if(Auth::check() && Auth::user()->isMod())
                   <button type="submit" class="btn" name="question" value=<?=$faq->id_question?>>
@@ -55,7 +55,7 @@
             </div>
             <div id=<?="collapse" . $faq->id_question?> class="collapse show" aria-labelledby=<?="heading" . $faq->id_question?> data-parent="#accordionExample">
               <div class="card-body">
-                {{$faq->answer}}
+                {{{$faq->answer}}}
               </div>
             </div>
           </form>
