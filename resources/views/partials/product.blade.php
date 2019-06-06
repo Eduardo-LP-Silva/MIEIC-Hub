@@ -2,7 +2,7 @@
  use App\Product;
 @endphp
 
-<a class="list-item" href="{{url('/products/' . $product->id_product)}}">
+<a data-id="{{$product->id_product}}" class="list-item">
     <img src="{{asset($product->getPhotos(true))}}" alt="Product Picture">
     <div class="div"></div>
     <span>{{$product->product_name}}</span>

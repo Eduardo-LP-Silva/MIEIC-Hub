@@ -16,7 +16,7 @@
 
 @section('content')
     @if(isset($products))
-    <div id="list">
+    <div id="list" data-token="{{csrf_token()}}">
         @each('partials.product', $products, 'product')
     </div>
     @else 

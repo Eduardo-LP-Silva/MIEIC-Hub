@@ -15,10 +15,10 @@ function lockOneSize() {
 }
 
 function calcRating() {
-    let rating = document.querySelectorAll(".stars-inner");
-    let productRating = rating[0].getAttribute("data-rating");
+    let rating = document.querySelector(".stars-inner");
+    let productRating = rating.getAttribute("data-rating");
     productRating = productRating * 100 / 5;
-    rating[0].style.width = productRating + "%";
+    rating.style.width = productRating + "%";
 }
 
 
@@ -38,7 +38,6 @@ function addHeartListener()
             request.addEventListener('load', function() {
                 heart.classList.remove("far");
                 heart.classList.add("fa");
-                console.log(request.responseText);
             });
         }
         else {
