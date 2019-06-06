@@ -19,6 +19,7 @@ Route::get('/', function()
 Route::get('home', 'GeneralPageController@home');
 
 Route::get('products/add', 'ProductsController@create');
+Route::post('products/add', 'ProductsController@store');
 Route::get('products/{id}', 'ProductsController@show');
 Route::delete('products/{id}/delete', 'ProductsController@destroy');
 Route::put('products/{id_product}/reviews/{id_user}', 'ReviewController@create');

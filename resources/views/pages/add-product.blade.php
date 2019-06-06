@@ -15,7 +15,8 @@
 <div id="content">
     <h1>Add product</h1>
 
-    <form action="" method="GET">
+    <form action="" method="POST" action="{{url('/products/add')}}" enctype="multipart/form-data">
+        {{ csrf_field() }}
         <div id="title" class="form-group">
             <label for="name">Name: </label>
             <input id="name" name="name" type="text" required="true">
@@ -30,23 +31,23 @@
             <label for="type">Category: </label>
             <div id="radios" class = "form-check">
                 <div class="form-check-inline form-check custom-radio">
-                    <input id="tshirt" type="radio" class="form-check-input custom-control-input" name="type" required="true"> 
+                    <input id="tshirt" value="Apparel" type="radio" class="form-check-input custom-control-input" name="type" required="true"> 
                     <label for="tshirt" class="form-check-label custom-control-label" >Apparel</label>
                 </div>
                 <div class="form-check-inline form-check custom-radio">
-                    <input id="hoodie" type="radio" class="form-check-input custom-control-input" name="type"> 
+                    <input id="hoodie" value="Phone Case" type="radio" class="form-check-input custom-control-input" name="type"> 
                     <label for="hoodie" class="form-check-label custom-control-label">Phone Cases</label>
                 </div>
                 <div class="form-check-inline form-check custom-radio">
-                    <input id="jacket" type="radio" class="form-check-input custom-control-input" name="type"> 
+                    <input id="jacket" value="Sticker" type="radio" class="form-check-input custom-control-input" name="type"> 
                     <label for="jacket" class="form-check-label custom-control-label">Stickers</label>
                 </div>
                 <div class="form-check-inline form-check custom-radio">
-                    <input id="pad" type="radio" class="form-check-input custom-control-input" name="type"> 
+                    <input id="pad" value="Poster" type="radio" class="form-check-input custom-control-input" name="type"> 
                     <label for="pad" class="form-check-label custom-control-label">Posters</label> 
                 </div>
                 <div class="form-check-inline form-check custom-radio">
-                    <input id="case" type="radio" class="form-check-input custom-control-input" name="type"> 
+                    <input id="case" value="Ticket" type="radio" class="form-check-input custom-control-input" name="type"> 
                     <label for="case" class="form-check-label custom-control-label">Tickets</label> 
                 </div>
             </div>
