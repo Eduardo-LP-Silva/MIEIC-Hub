@@ -770,17 +770,17 @@ INSERT INTO users (name, email, password, birth_date, active, stock_manager, mod
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Kylian Mdoipé', 'user50@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1999-03-05', TRUE, FALSE, FALSE, FALSE, 'The 50th best !');
 
     --Stock Manager
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Luís Alexandre', 'sm1@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1998-03-30', TRUE, TRUE, FALSE, FALSE, 'I am StockManager1 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Luís Alexandre', 'sm1@fe.up.pt', '$2y$12$DkDudH79cKCtEmiDZ7YexuBUtZ1Wnixf0zYniXqdNDBUotdH4xEFS', '1998-03-30', TRUE, TRUE, FALSE, FALSE, 'I am StockManager1 !');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Inês Faustino', 'sm2@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1996-04-21', TRUE, TRUE, FALSE, FALSE, 'I am StockManager2 !');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Leonor Silva', 'sm3@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1999-06-12', TRUE, TRUE, FALSE, FALSE, 'I am StockManager3 !');
 
     --Moderator
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('João Alves', 'm1@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1995-07-30', TRUE, FALSE, TRUE, FALSE, 'I am Moderator1 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('João Alves', 'm1@fe.up.pt', '$2y$12$j8j.DrgtTmUEw1uawuMhpOf8qWpVORJXPwjGQ4msib.krPJy16aFm', '1995-07-30', TRUE, FALSE, TRUE, FALSE, 'I am Moderator1 !');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Adolfo Dias', 'm2@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1997-08-21', TRUE, FALSE, TRUE, FALSE, 'I am Moderator2 !');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Tiago Castro', 'm3@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1993-05-12', TRUE, FALSE, TRUE, FALSE, 'I am Moderator3 !');
 
     --Submission Manager
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Diamantino da Silva', 'subm1@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1998-04-02', TRUE, FALSE, FALSE, TRUE, 'I am SubmissionManager1 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Diamantino da Silva', 'subm1@fe.up.pt', '$2y$12$.pHURel8kKr9Z6RbVJ/Ih.ESx4xpnG9N/kJe66ocZ/836iJFIUNXm', '1998-04-02', TRUE, FALSE, FALSE, TRUE, 'I am SubmissionManager1 !');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Joaquim Fausto', 'subm2@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1996-08-22', TRUE, FALSE, FALSE, TRUE, 'I am SubmissionManager2 !');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Quim Possível', 'subm3@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1997-01-02', TRUE, FALSE, FALSE, TRUE, 'I am SubmissionManager3 !');
 

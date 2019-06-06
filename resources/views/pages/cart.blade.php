@@ -46,10 +46,10 @@
 
     @empty
 
-            <div class="div" style="text-align: center;">No items added to cart</div> <!-- Tá um bocado feio -->
+            <div class="div" id="no-items" style="text-align: center;">No items added to cart</div>
 
     @endforelse
-            <div class="div"></div> <!-- Que div é este? -->
+            <div class="div"></div> 
             <div class="text-right"> 
                 <span id="totalprice"></span>
                 <button id="buy" type="button" class="btn btn-success btn-lg"><a href="{{url('/users/' . Utils::slug(Auth::user()->name) . '/checkout')}}">Checkout</a></button>

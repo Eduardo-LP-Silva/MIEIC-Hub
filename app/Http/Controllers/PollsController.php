@@ -29,14 +29,17 @@ class PollsController extends Controller
 
     public function edit($poll_id)
     {
-        if(!Auth::check() || !Auth::user()->isSubManager())
-            abort(403, 'Permission denied');
+        if(!Auth::check())
+            return redirect('/login');
+
+        if(!Auth::user()->isSubManager())
+            return redirect('/error/403');
 
         $option = Input::get('option');
         $poll = Poll::find($poll_id);
 
         if($poll_id == null)
-            abort(404, 'Poll not found');
+            return redirect('/error/404');
 
         switch($option)
         {
@@ -50,7 +53,7 @@ class PollsController extends Controller
                 break;
 
             default:
-                abort(400, 'Unknown poll action: ' . $option);
+                return redirect('/error/400');
         }
 
         return redirect("/upcoming");
@@ -58,8 +61,11 @@ class PollsController extends Controller
 
     public function addPoll(Request $request)
     {
-        if(!Auth::check() || !Auth::user()->isSubManager())
-            abort(403, 'Permission Denied');
+        if(!Auth::check())
+            return redirect('/login');
+
+        if(!Auth::user()->isSubManager())
+            return redirect('/error/403');
 
         $poll = new Poll;
         $poll->poll_name = $request->name;

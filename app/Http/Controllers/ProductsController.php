@@ -64,7 +64,7 @@ class ProductsController extends Controller {
         $image = $request->file('images');
 
         if($image == null)
-            abort(400, 'Null file');
+            return redirect('/error/404');
 
         $photoName = $title . "-" . date("Y-m-d H:i:s");
         $path = "img/" . $folderName . "/";

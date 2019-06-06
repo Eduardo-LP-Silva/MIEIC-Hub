@@ -28,18 +28,29 @@ class GeneralPageController extends Controller {
 
     public function removeFaq($id)
     {
+        if(!Auth::check())
+            return redirect('/login');
+
         if(!Auth::user()->isMod())
-            abort(403, 'Permission denied!');
+            return redirect('/error/403');
 
-        FAQ::find($id)->delete();
-
+        $faq = FAQ::find($id);
+        
+        if($faq != null)
+            $faq->delete();
+        else
+            return redirect('/error/404');
+        
         return redirect('/faq');
     }
 
     public function addFaq(Request $request)
     {
+        if(!Auth::check())
+            return redirect('/login');
+
         if(!Auth::user()->isMod())
-            abort(403, 'Permission denied!');
+            return redirect('/error/403');
 
         FAQ::create($request->question, $request->answer);
 
@@ -59,7 +70,7 @@ class GeneralPageController extends Controller {
                 $user = Auth::user();
 
                 if($user == null || !$user->isMod())
-                    abort(403, 'Permission denied');
+                    return redirect('/error/403');
 
                 $results = User::search($query);
                 break;
@@ -72,7 +83,7 @@ class GeneralPageController extends Controller {
                 break;
 
             default:
-                abort(404, 'Invalid filter');
+                return redirect('/error/404');
         }
 
         return view('pages.search', ['query' => $query, 'filter' => $filter, 'results' => $results]);
@@ -81,5 +92,10 @@ class GeneralPageController extends Controller {
     public function product()
     {
         return view('pages.product');
+    }
+
+    public function error($error_code)
+    {
+        return view('pages.error', ['code' => $error_code]);
     }
 }
