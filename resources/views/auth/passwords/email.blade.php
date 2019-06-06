@@ -11,7 +11,7 @@
 @section('content')
 
     <div class="login">
-        <img src="{{asset('img/website/avatar.png')}}" class="avatar">
+        <img src="{{asset('img/website/avatar.png')}}" class="avatar" alt="Avatar">
         
         @if (session('status'))
             <div class="alert alert-success">
@@ -19,7 +19,7 @@
             </div>
         @endif
 
-        <form method="POST" role="form" action="{{ route('password.email') }}">
+        <form method="POST" action="{{ route('password.email') }}">
             {{ csrf_field() }}
 
             @if ($errors->has('email'))
@@ -27,7 +27,7 @@
             @endif
             
             <input id="email" type="email" name="email" placeholder="🕵🏻    Email" required>
-            <a><input type="submit" value="Confirm"></a> 
+                <input type="submit" value="Confirm">
             <br>
             <br>
             </a>
