@@ -2,6 +2,11 @@ window.onload = function() {
     addHeartListener();
     addStarsListeners();
     addSizeListener();
+
+    let buttons = document.querySelectorAll("div#content div#info .btn-group button");
+    if(buttons[0].innerHTML == 'One-Size') {
+        buttons[0].style.backgroundColor = "#af1c1c";
+    }
 }
 
 
@@ -54,10 +59,10 @@ function addSizeListener()
     for(let i = 0; i < buttons.length; i++)
         buttons[i].addEventListener("click", function()
         {
-            for(let j = 0; j < buttons.length; j++)
+            for(let j = 0; j < buttons.length; j++) {
                 if(buttons[j].style.backgroundColor == "rgb(175, 28, 28)" && buttons[j] != buttons[i])
                     buttons[j].style.backgroundColor = "black";
-
+            }
 
             buttons[i].style.backgroundColor = "#af1c1c";
         });
