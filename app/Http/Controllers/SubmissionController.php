@@ -130,11 +130,11 @@ class SubmissionController extends Controller
         if($new_image == null)
             abort(400, 'Null file');
 
-        $new_photo_name = $user->name . "-" . $submission_name . "-" . date("Y-m-d H:i:s");
+        $new_photo_name = Utils::slug($user->name) . "-" . Utils::slug($submission_name) . "-" . Utils::slug(date("Y-m-d H:i:s"));
 
         Utils::saveImage($new_image, "/img/submissions/", "public", $new_photo_name);
 
-        $path = "public/img/submissions/" . $new_photo_name;
+        $path = "img/submissions/" . $new_photo_name . '.' . $new_image->getClientOriginalExtension();
 
         DB::table('submission')->insert(
             ['id_user' => $id_user,
