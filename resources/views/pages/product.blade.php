@@ -11,11 +11,11 @@
 @endsection
 
 @section('title')
-    <title>Product - MIEIC Hub</title>
+    <title>{{$product->product_name}} - MIEIC Hub</title>
 @endsection
 
 @section('content')
-<div id="content" class="container">
+<div id="content" class="container" data-id="{{$product->id_product}}" data-token="{{csrf_token()}}">
             <!-- Product -->
             <div id="product" class="row">
                 <!-- Product photos-->
@@ -55,7 +55,13 @@
                 <!-- Informations -->
                 <div id="info" class="col-md-6">
                     <h1>{{ $product->product_name }}</h1>
-                    <i class="far fa-heart heart"></i>
+                    @can('create', App\Wishlist::class)
+                        @if($inWishlist)
+                        <i class="fa fa-heart heart" ></i>
+                        @else
+                        <i class="far fa-heart heart"></i>
+                        @endif
+                    @endcan
 
                     <div class="to-flex">
                         <h2 id="price">Price: {{ $product->price }}€</h2>

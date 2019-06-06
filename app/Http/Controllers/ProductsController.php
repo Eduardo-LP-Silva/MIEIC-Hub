@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Product;
 use App\Photo;
 use App\Review;
+use App\Wishlist;
 
 class ProductsController extends Controller
 {
@@ -63,8 +64,10 @@ class ProductsController extends Controller
             where id_product = :id and product_color.id_color = color.id_color', ['id' => $id]); 
 
         $canReview = false;
+        $inWishlist = false;
         if(Auth::check()) {
             $idUser = Auth::id();
+            $inWishlist = sizeof(Wishlist::where('id_user', $idUser)->where('id_product', $id)->get()) > 0;
             $results = DB::select(
                 'select id_user 
                 from purchase, product_purchase 
@@ -76,7 +79,7 @@ class ProductsController extends Controller
             }
         }
 
-        return view('pages.product', ['product' => $product, 'photos' => $photos, 'sizes' => $sizes, 'colors' => $colors, 'reviews' => $reviews, 'canReview' => $canReview]);
+        return view('pages.product', ['product' => $product, 'photos' => $photos, 'sizes' => $sizes, 'colors' => $colors, 'reviews' => $reviews, 'canReview' => $canReview, 'inWishlist' => $inWishlist]);
     }
 
     /**

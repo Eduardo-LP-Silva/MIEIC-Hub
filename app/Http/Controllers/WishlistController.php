@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class WhislistController extends Controller
+use App\User;
+use App\Wishlist;
+use App\Product;
+
+class WishlistController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,8 +26,7 @@ class WhislistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -32,9 +36,16 @@ class WhislistController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request, $id) {
+        if ($user->can('create', Post::class)) {
+            $item = new Wishlist;
+
+            // TO DO: authorize
+            $item->id_user = Auth::id();
+            $item->id_product = $id;
+    
+            $item->save();
+        }
     }
 
     /**
@@ -43,9 +54,24 @@ class WhislistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($name) {
+        $user = User::getURLUser($name);
+        $wishlist = Wishlist::where('id_user', $user->id)->get();
+
+        if($user->cant('view', $wishlist)) {
+            // Do something
+            return;
+        }
+
+        for($i=0; $i<sizeof($wishlist); $i++) {
+            $products[$i] = Product::find($wishlist[$i]->id_product);
+        }
+
+        if(isset($products)) {
+            return view('pages.wishlist', ['products' => $products]);
+        }
+    
+        return view('pages.wishlist');
     }
 
     /**

@@ -19,7 +19,9 @@ Route::get('/', function()
 Route::get('home', 'GeneralPageController@home');
 
 Route::get('products/{id}', 'ProductsController@show');
-//Route::get('/users/{name}/wishlist', );
+Route::get('users/{name}/wishlist', 'WishlistController@show');
+Route::put('wishlist/{id}/add', 'WishlistController@store');
+Route::delete('wishlist/{id}/delete', 'WishlistController@destroy');
 
 Route::get('users/{name}', 'UsersController@show');
 Route::get('users/{name}/reviews', 'UsersController@profileReviews');
