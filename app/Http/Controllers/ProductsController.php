@@ -167,6 +167,11 @@ class ProductsController extends Controller {
             abort(403, 'Permission denied');
         }
 
+        $photos = $product->getPhotos(false);
+        for($i = 0; $i < sizeof($photos); $i++) {
+            Utils::deleteImage($photos[$i]->image_path, 'public');
+        }
+        
         $product->delete();
         return 200;
     }
