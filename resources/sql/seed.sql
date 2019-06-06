@@ -591,8 +591,6 @@ INSERT INTO product (product_name, product_description, price, delivery_cost, st
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Sleep Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Go Away Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
 
-
-
 -- Table: photo
 
 --Users
@@ -720,6 +718,7 @@ INSERT INTO users (name, email, password) VALUES('lbaw1825', 'lbaw1825@gmail.com
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Miguel Carvalho', 'up201605757@fe.up.pt','$2y$12$7M1rWpEnZg/qj6AfT2JXue1BfDG/IixigKNs7WUkMcA.VNKp20NAi', '1998-12-25', TRUE, TRUE, TRUE, TRUE, 5, 'Owner of MIEIC Hub');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Eduardo Silva', 'up201603135@fe.up.pt','$2y$12$L1d1H1PllySA.y43Dks4depIIEk4fGMQDRzZOP01dJ8VsErmyx.0a', '1998-01-22', TRUE, TRUE, TRUE, TRUE, 2, 'Co-Founder of MIEIC Hub');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Tomás Novo', 'up201604503@fe.up.pt','A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1998-07-31', TRUE, TRUE, TRUE, TRUE, 3, 'The best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Joana Ramos', 'up201605017@fe.up.pt', '$2y$12$xrvhzVNl6zN8KKa19n/gj.NZMnFGkT9ftRrrhe7L7T9roqAm6FvMK', '1998-11-02', TRUE, TRUE, TRUE, TRUE, 4, 'Co-Founder of MIEIC Hub');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Zé Luís', 'up201287644@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1994-02-11', TRUE, FALSE, FALSE, FALSE, 'MEEEC student at 2nd grade. Love music !');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Susana Castro', 'up201503453@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1997-04-15', TRUE, FALSE, FALSE, FALSE, ' Quemistry student, the one who knocks !');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('José António', 'up201703443@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1998-02-11', TRUE, FALSE, FALSE, FALSE, 'I love computers !');
@@ -816,11 +815,11 @@ button that appears on the product that you put the cursor on. Your vote is regi
 color.');
 
 -- Table: size
-INSERT INTO size (size) VALUES ('Extra-Small');
-INSERT INTO size (size) VALUES ('Small');
-INSERT INTO size (size) VALUES ('Medium');
-INSERT INTO size (size) VALUES ('Large');
-INSERT INTO size (size) VALUES ('Extra-Large');
+INSERT INTO size (size) VALUES ('XS');
+INSERT INTO size (size) VALUES ('S');
+INSERT INTO size (size) VALUES ('M');
+INSERT INTO size (size) VALUES ('L');
+INSERT INTO size (size) VALUES ('XL');
 
 
 -- Table: color
@@ -828,6 +827,17 @@ INSERT INTO color (color) VALUES ('Black');
 INSERT INTO color (color) VALUES ('Grey');
 INSERT INTO color (color) VALUES ('White');
 INSERT INTO color (color) VALUES ('Red');
+
+INSERT INTO product_color (id_product, id_color) VALUES (1, 1);
+INSERT INTO product_color (id_product, id_color) VALUES (1, 2);
+INSERT INTO product_color (id_product, id_color) VALUES (1, 3);
+INSERT INTO product_color (id_product, id_color) VALUES (1, 4);
+
+INSERT INTO product_size (id_product, id_size) VALUES (1, 1);
+INSERT INTO product_size (id_product, id_size) VALUES (1, 2);
+INSERT INTO product_size (id_product, id_size) VALUES (1, 3);
+INSERT INTO product_size (id_product, id_size) VALUES (1, 4);
+INSERT INTO product_size (id_product, id_size) VALUES (1, 5);
 
 -- Table: wishlist
 INSERT INTO wishlist (id_user,  id_product) VALUES (1, 1);

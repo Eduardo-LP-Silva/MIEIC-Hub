@@ -4,7 +4,7 @@
 @endphp
 
 <div class="media container">
-    <img class="d-flex mr-3" data-src="{{asset($user->getPhoto(true))}}" alt="Profile picture" style="width: 64px; height: 64px;" src="{{asset($user->getPhoto(true))}}" data-holder-rendered="true">
+    <img class="d-flex mr-3" alt="Profile picture" style="width: 64px; height: 64px;" src="{{asset($user->getPhoto(true))}}" data-holder-rendered="true">
     <div class="media-body row">
     <h5 class="mt-0 col-6"> {{{$user->name}}} </h5>
         <div class="rating col-6">
