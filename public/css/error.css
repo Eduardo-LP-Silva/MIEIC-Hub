@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Raleway:900');
+
+html, body
+{
+    background-color: black;
+    font-family: Poppins;
+}
+
+p
+{
+    font-family: Poppins;
+    color: #af1c1c;
+    font-size: 24pt;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+#banner
+{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+#banner > *
+{
+    font-family: Raleway;
+    font-size: 60pt;
+    text-align: center;
+    text-decoration: none;
+}
+
+#banner > a:first-child
+{
+    color: white;
+}
+
+#banner > a:nth-child(2)
+{
+    color: #af1c1c;
+}
+
+p:nth-child(1)
+{
+    font-size: 27pt;
+    font-weight: bold;
+    margin-top: 1em;
+}
+
+p:nth-child(2)
+{
+    color: white;
+}
+
+a
+{
+    text-decoration: underline;
+    font-size: 35pt;
+    color: #af1c1c;
+}
+
+a:hover
+{
+    color: #af1c1c;
+}
+
+a:focus
+{
+    outline: none;
+}

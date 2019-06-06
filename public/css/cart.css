@@ -115,3 +115,9 @@ button#buy a, button#buy a:hover, button#buy a:visited {
     text-decoration: none;
     color: white;
 }
+
+#no-items
+{
+    font-size: 18pt;
+    border: none;
+}

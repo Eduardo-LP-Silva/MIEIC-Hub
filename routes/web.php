@@ -18,6 +18,8 @@ Route::get('/', function()
 
 Route::get('home', 'GeneralPageController@home');
 
+Route::get('error/{error_code}', 'GeneralPageController@error');
+
 Route::get('products/add', 'ProductsController@create');
 Route::post('products/add', 'ProductsController@store');
 Route::get('products/{id}', 'ProductsController@show');
