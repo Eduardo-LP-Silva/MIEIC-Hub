@@ -12,6 +12,7 @@ use App\User;
 use App\Utils;
 use App\Cart;
 use App\City;
+use App\Product;
 
 class PurchasesController extends Controller
 {
@@ -34,6 +35,19 @@ class PurchasesController extends Controller
     }
 
     //
+    public function buy(Request $request, $id_product) {
+
+        $items = array(Product::find($id_product));
+
+        $cities = User::getCities();
+
+        //dump($items);
+
+        return view('pages.checkout', ['user' => Auth::user(), 'items' => $items, 'cities' => $cities,'size' => $request->size, 'color' => $request->color, 'singlebuy' => 1]);
+
+    }
+
+    //
     public function checkout($name) {
 
         $user = User::getURLUser($name);
@@ -42,17 +56,16 @@ class PurchasesController extends Controller
 
         $items = $user->getCartItems();
         
-        dump($cities);
         //dump($items);
 
         if($user->isAuthenticatedUser() || Auth::user()->isMod())                      // Mod pode ver o cart?
-            return view('pages.checkout', ['user' => $user, 'items' => $items, 'cities' => $cities] );
+            return view('pages.checkout', ['user' => $user, 'items' => $items, 'cities' => $cities, 'singlebuy' => 0] );
         else
             abort(403);
     }
 
     //
-    public function checkoutForm(Request $request, $name) {
+    public function checkoutForm(Request $request, $name, $id_product=null) {
 
         $user = User::getURLUser($name);
         $city = City::where('city', '=', $request->city)->get();
@@ -61,7 +74,7 @@ class PurchasesController extends Controller
 
         $id_city = $city[0]->id_city;
 
-        $cartitems = $user->getCartItems();
+        //$cartitems = $user->getCartItems();
 
         DB::table('delivery_info')->insert(
             ['id_city' => $id_city,
@@ -69,8 +82,6 @@ class PurchasesController extends Controller
              'delivery_address' => $address]);
 
         $id_deli_info = User::getLastInfo();
-
-        dump($id_deli_info->id_delivery_info);
         //dump($items);
 
         $purchase_date = date("Y-m-d H:i:s");
@@ -96,6 +107,21 @@ class PurchasesController extends Controller
 
         $last_purchase = $this->getLastPurchase();
 
+        if($request->singlebuy==0) {
+            $this->handleMultiplebuy($user, $last_purchase);
+        } else {
+            $this->handleSinglebuy(Product::find($id_product), $last_purchase, $request->size, $request->color);
+        }
+
+        if($user->isAuthenticatedUser() || Auth::user()->isMod())                      // Mod pode ver o cart?
+            return view('pages.cart', ['user' => $user, 'items' => $user->getCartItems()] );
+        else
+            abort(403);
+
+    }
+
+    public function handleMultiplebuy($user, $last_purchase) {
+
         $cartitems = $user->getCartItems();
 
         foreach ($cartitems as $item) {
@@ -110,19 +136,25 @@ class PurchasesController extends Controller
 
         }
 
-        //on success elimina os artigos do cart
-
-        dump($cartitems);
-
         foreach ($cartitems as $item) {
             Cart::find($item->id_cart)->delete();
         }
 
-        if($user->isAuthenticatedUser() || Auth::user()->isMod())                      // Mod pode ver o cart?
-            return view('pages.cart', ['user' => $user, 'items' => $user->getCartItems()] );
-        else
-            abort(403);
+    }
 
+    public function handleSinglebuy($item, $last_purchase, $size, $color) {
+
+        $id_size = DB::table('size')->where('size', '=', $size)->get();
+        $id_color = DB::table('color')->where('color', '=', $color)->get();
+
+        DB::table('product_purchase')->insert(
+            ['id_product' => $item->id_product,
+             'id_purchase' => $last_purchase->id_purchase,
+             'quantity' => 1,
+             'price' => 1,                      // o trigger atualiza
+             'id_size' => $id_size[0]->id_size,
+             'id_color' => $id_color[0]->id_color]);
+        
     }
 
     public function getLastPurchase() {
@@ -130,6 +162,36 @@ class PurchasesController extends Controller
         (
             "SELECT id_purchase FROM purchase ORDER BY id_purchase DESC LIMIT 1"
         ))[0];
+    }
+
+    public function addProductCart(Request $request, $id_product) {
+
+        $user = Auth::user();    
+
+        $id_size = DB::table('size')->where('size', '=', $request->size)->get();
+        $id_color = DB::table('color')->where('color', '=', $request->color)->get();
+
+        $cartitems = Cart::where('id_user', '=', $user->id)
+            ->where('id_product', '=', $id_product)
+            ->where('id_color', '=', $id_color[0]->id_color)
+            ->where('id_size', '=', $id_size[0]->id_size)
+            ->get();
+
+        if(sizeof($cartitems) > 0){
+
+        } else {
+
+            DB::table('cart')->insert(
+                ['id_user' => $user->id,
+                 'id_product' => $id_product,
+                 'id_color' => $id_color[0]->id_color,
+                 'id_size' => $id_size[0]->id_size,
+                 'quantity' => 1]);
+
+        }
+
+        return redirect('/products/' .  $id_product);
+
     }
 
     public function deleteCartEntry($id_user, $id_product) {
@@ -150,6 +212,7 @@ class PurchasesController extends Controller
             AND id_product = ? "
         ,[$id_user, $id_product]);*/
     }
+
 }
 
 /*

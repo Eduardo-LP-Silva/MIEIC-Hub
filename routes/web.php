@@ -67,5 +67,8 @@ Route::post('upcoming/newpoll', 'PollsController@addPoll');
 
 Route::get('users/{name}/cart', 'PurchasesController@showCart');
 Route::delete('users/{id_user}/cart/{id_product}/remove', 'PurchasesController@deleteCartEntry');
+Route::post('products/{id_product}/addtocart', 'PurchasesController@addProductCart');
 Route::get('users/{name}/checkout', 'PurchasesController@checkout');
 Route::post('users/{name}/checkout', 'PurchasesController@checkoutForm');
+Route::post('products/{id_product}/buy', 'PurchasesController@buy');
+Route::post('users/{name}/checkout/{id_product}', 'PurchasesController@checkoutForm');

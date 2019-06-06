@@ -92,10 +92,12 @@
                         @endif 
                     </div>
 
+                    <form action="{{url( '/products/' . $product->id_product . '/buy' )}}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
                     @if(sizeof($colors) > 0)
                     <div id="color">
                         <h2>Color:</h2>
-                        <select class="custom-select">
+                        <select name="color" class="custom-select">
                             @foreach($colors as $color)
                                 @if($loop->first)
                                 <option selected="" value="{{$color->color}}">{{$color->color}}</option>
@@ -105,6 +107,14 @@
                             @endforeach
                         </select>  
                     </div>
+                    @else
+                    <div id="color" style="display:none;">
+                        <h2>Color:</h2>
+                        <select name="color" class="custom-select">
+                                <option selected value="Black"></option>
+                        </select>  
+                    </div>
+
                     @endif
 
                     <div id="informations" class="accordion">
@@ -139,11 +149,12 @@
                             </div>
                         </div>
                     </div>
-
-                    <div id="buy">
-                        <button type="button" class="btn btn-success">Buy now</button>
-                        <button type="button" class="btn btn-success">Add to cart</button>
-                    </div>
+                        <input style="display: none" id="sizeinput" type="text" name="size" required="true" value="M">
+                        <div id="buy">
+                            <button type="submit" value="buynow" class="btn btn-success">Buy now</a>
+                            <button type="submit" value="addtocart" formaction="{{url( '/products/' . $product->id_product . '/addtocart' )}}" class="btn btn-success">Add to cart</a>
+                        </div>
+                    </form>
                 </div>
             </div>
 

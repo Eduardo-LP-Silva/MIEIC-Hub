@@ -2,6 +2,7 @@ window.onload = function() {
     addHeartListener();
     addStarsListeners();
     addSizeListener();
+    //addColorListener();
     addDeleteListener();
 
     lockOneSize();
@@ -97,6 +98,18 @@ function addStarsListeners() {
     }
 }
 
+function addColorListener()
+{
+
+    let select = document.querySelector("#color > select");
+    select.addEventListener("change", function()
+        {
+            // FORM
+            document.querySelector("#colorinput").setAttribute('value', select.querySelector("option").getAttribute('value'));
+        });
+
+}
+
 function addSizeListener()
 {
     let buttons = document.querySelectorAll("div#content div#info .btn-group button");
@@ -110,5 +123,10 @@ function addSizeListener()
             }
 
             buttons[i].style.backgroundColor = "#af1c1c";
+
+            // FORM
+            document.querySelector("#sizeinput").setAttribute('value', buttons[i].textContent);
+
         });
+
 }

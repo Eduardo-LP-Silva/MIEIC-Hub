@@ -56,7 +56,7 @@ class ProductsController extends Controller {
         $colors = DB::select(
             'select color
             from product_color, color
-            where id_product = :id and product_color.id_color = color.id_color', ['id' => $id]); 
+            where id_product = :id and product_color.id_color = color.id_color', ['id' => $id]);
 
         $canReview = false;
         $inWishlist = false;

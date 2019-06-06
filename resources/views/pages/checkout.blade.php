@@ -38,13 +38,13 @@
                 <span><?=$item->product_name?></span>
                 <div class="div"></div>
                 @if($item->quantity>1)
-                <div>
-                    <span id="itemprice"><?=$item->price?></span>
-                    <div class="div"></div>
-                    <span id="itemquantity"><?=$item->quantity?></span>
-                </div>
+                    <div>
+                        <span id="itemprice"><?=$item->price?></span>
+                        <div class="div"></div>
+                        <span id="itemquantity"><?=$item->quantity?></span>
+                    </div>
                 @else
-                <span id="itemprice"><?=$item->price?></span>
+                    <span id="itemprice"><?=$item->price?></span>
                 @endif
                 <i class="fa fa-minus"></i>
             </a>
@@ -54,8 +54,16 @@
                 <span></span>
             </div>
         </div>
-        <form action="{{url('users/'.Utils::slug($user->name).'/checkout')}}" method="POST" enctype="multipart/form-data">
+        @if($singlebuy==1)
+            <form action="{{url('users/'.Utils::slug($user->name).'/checkout/' . $item->id_product)}}" method="POST" enctype="multipart/form-data">
+            <input style="display: none" id="color" value=<?=$color?> name="color" type="text">
+            <input style="display: none" id="size" value=<?=$size?> name="size" type="text">
+        @else
+            <form action="{{url('users/'.Utils::slug($user->name).'/checkout/')}}" method="POST" enctype="multipart/form-data">
+        @endif
         {{ csrf_field() }}
+
+            <input style="display: none" id="singlebuy" value=<?=$singlebuy?> name="singlebuy" type="text">
 
             <div class="form-group">
                 <label for="contact">Contact: </label>
