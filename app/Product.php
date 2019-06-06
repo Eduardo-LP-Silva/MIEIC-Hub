@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Photo;
 use Illuminate\Support\Facades\DB;
 
-class Product extends Model 
+class Product extends Model
 {
     protected $table = 'product';
     protected $primaryKey = 'id_product';

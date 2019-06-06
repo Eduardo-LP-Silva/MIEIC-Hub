@@ -55,3 +55,5 @@ Route::get('submissions', 'SubmissionController@showAllSubmissions');
 
 Route::get('users/{name}/cart', 'PurchasesController@showCart');
 Route::delete('users/{id_user}/cart/{id_product}/remove', 'PurchasesController@deleteCartEntry');
+Route::get('users/{name}/checkout', 'PurchasesController@checkout');
+Route::post('users/{name}/checkout', 'PurchasesController@checkoutForm');

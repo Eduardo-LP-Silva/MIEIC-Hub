@@ -93,7 +93,7 @@ class SubmissionController extends Controller
         if($new_image == null)
             abort(400, 'Null file');
 
-        $new_photo_name = $user->name . "-" . $submission_name . "-" . date("Y-m-d H:i:s");;
+        $new_photo_name = $user->name . "-" . $submission_name . "-" . date("Y-m-d H:i:s");
 
         Utils::saveImage($new_image, "/img/submissions/", "public", $new_photo_name);
 

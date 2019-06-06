@@ -26,8 +26,6 @@
 
     @forelse ( $items as $item )
 
-        @for ( $i = 0 ; $i < $item->quantity ; $i++ )
-
         <?php $product_photo = Product::find($item->id_product)->getPhotos(true);?>
                 <a token={{csrf_token()}} id_user=<?=$user->id?> id_product=<?=$item->id_product?> class="list-item" href="{{url('/products/' . $item->id_product)}}">
                     <img src={{asset(Utils::replaceWhiteSpace($product_photo))}} alt="Product Picture">
@@ -37,8 +35,6 @@
                     <span><?=$item->price?>€</span>
                     <i class="fa fa-minus"></i>
                 </a>
-
-        @endfor
 
     @empty
 

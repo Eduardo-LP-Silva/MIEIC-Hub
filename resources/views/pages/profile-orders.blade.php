@@ -13,7 +13,11 @@
         <div class="div"></div>
         <span><?=$order->product_name?></span>
         <div class="div"></div>
-        <span><?=$order->price?>€</span>
+        <div>
+            <span><?=$order->price?></span>
+            <div class="div"></div>
+            <span><?=$order->quantity?></span>
+        </div>
         <div class="div"></div>
         <div>
             <span><?=$order->purchase_date?></span>
