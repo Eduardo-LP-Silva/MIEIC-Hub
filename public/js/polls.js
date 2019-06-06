@@ -51,6 +51,8 @@ function addHeartListeners()
                         newVotesNo = parseInt(hearts[i].nextElementSibling.textContent) + 1;
                         hearts[i].nextElementSibling.textContent = newVotesNo;
                     }
+
+                    console.log(request.responseText);
                 }
 
                 request.send(JSON.stringify(data));

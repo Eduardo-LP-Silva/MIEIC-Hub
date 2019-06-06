@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use App\User;
 use App\Wishlist;
@@ -37,15 +38,17 @@ class WishlistController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $id) {
-        if ($user->can('create', Post::class)) {
-            $item = new Wishlist;
+        $user = Auth::user();
 
-            // TO DO: authorize
-            $item->id_user = Auth::id();
-            $item->id_product = $id;
-    
-            $item->save();
+        if ($user->cant('create', Wishlist::class)) {
+            abort(403, 'Permission denied');
         }
+
+        DB::table('wishlist')->insert(
+            ['id_user' => $user->id,
+             'id_product' => $id]);
+        
+        return 200;
     }
 
     /**
@@ -58,9 +61,11 @@ class WishlistController extends Controller
         $user = User::getURLUser($name);
         $wishlist = Wishlist::where('id_user', $user->id)->get();
 
-        if($user->cant('view', $wishlist)) {
-            // Do something
-            return;
+        foreach($wishlist as $item) {
+            if($user->cant('view', $item)) {
+                // Do something
+                return;
+            }
         }
 
         for($i=0; $i<sizeof($wishlist); $i++) {
@@ -103,8 +108,15 @@ class WishlistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        $user = Auth::user();
+        $item = Wishlist::where('id_user', $user->id)->where('id_product', $id)->first();
+        
+        if ($user->cant('delete', $item)) {
+            abort(403, 'Permission denied');
+        }
+
+        $item->delete();
+        return 200;
     }
 }

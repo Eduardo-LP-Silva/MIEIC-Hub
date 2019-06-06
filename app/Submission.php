@@ -15,7 +15,8 @@ class Submission extends Model
     {
         $query_string = "SELECT id_submission, submission_name, picture, submission_date, users.name
         FROM submission, users
-        WHERE submission.id_user = users.id";
+        WHERE submission.id_user = users.id
+        AND submission.accepted = FALSE";
 
         if($date_filter != 0)
             $query_string .= " AND submission_date > '" . $date_filter . "'";

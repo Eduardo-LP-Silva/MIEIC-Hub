@@ -20,7 +20,7 @@ class WishlistPolicy
      * @return mixed
      */
     public function view(User $user, Wishlist $wishlist) {
-        return $user->id == $wishlist->id_user;
+        return $user->id === $wishlist->id_user;
     }
 
     /**
@@ -30,6 +30,7 @@ class WishlistPolicy
      * @return mixed
      */
     public function create(User $user) {
+        return Auth::check();
     }
 
     /**
@@ -39,9 +40,8 @@ class WishlistPolicy
      * @param  \App\Wishlist  $wishlist
      * @return mixed
      */
-    public function update(User $user, Wishlist $wishlist)
-    {
-        //
+    public function update(User $user, Wishlist $wishlist) {
+        return $user->id === $wishlist->id_user;
     }
 
     /**
@@ -51,8 +51,7 @@ class WishlistPolicy
      * @param  \App\Wishlist  $wishlist
      * @return mixed
      */
-    public function delete(User $user, Wishlist $wishlist)
-    {
-        //
+    public function delete(User $user, Wishlist $wishlist) {
+        return $user->id === $wishlist->id_user;
     }
 }
