@@ -40,7 +40,7 @@ class WishlistController extends Controller
     public function store(Request $request, $id) {
         $user = Auth::user();
 
-        if ($user->cant('create', Post::class)) {
+        if ($user->cant('create', Wishlist::class)) {
             abort(403, 'Permission denied');
         }
 
@@ -110,16 +110,13 @@ class WishlistController extends Controller
      */
     public function destroy($id) {
         $user = Auth::user();
-
-        if ($user->cant('delete', Post::class)) {
+        $item = Wishlist::where('id_user', $user->id)->where('id_product', $id)->first();
+        
+        if ($user->cant('delete', $item)) {
             abort(403, 'Permission denied');
         }
 
-        $item = Wishlist::where('id_user', $user->id)->where('id_product', $id)->get();
-        if(sizeof($item) == 0) {
-            abort(404, 'Resource not found');
-        }
-
         $item->delete();
+        return 200;
     }
 }
