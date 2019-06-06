@@ -59,8 +59,8 @@ Route::put('users/{name}/vote/{id_sub}', 'SubmissionController@vote');
 Route::delete('users/{name}/vote/{id_sub}', 'SubmissionController@unvote');
 
 Route::get('submission/{id_submission}', 'SubmissionController@show');
-Route::post('submission/{id_submission}/accept', 'SubmissionController@udpateAccepted');
-Route::post('submission/{id_submission}/remove', 'SubmissionController@destroy');
+Route::get('submission/{id_submission}/accept', 'SubmissionController@udpateAccepted');
+Route::get('submission/{id_submission}/remove', 'SubmissionController@destroy');
 Route::get('submit', 'SubmissionController@submit');
 Route::post('submit', 'SubmissionController@submitForm');
 Route::get('submissions', 'SubmissionController@showSubmissions');
