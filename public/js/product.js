@@ -7,6 +7,11 @@ window.onload = function() {
     if(buttons[0].innerHTML == 'One-Size') {
         buttons[0].style.backgroundColor = "#af1c1c";
     }
+
+    let rating = document.querySelectorAll(".stars-inner");
+    let productRating = rating[0].getAttribute("title");
+    productRating = productRating * 100 / 5;
+    rating[0].style.width = productRating + "%";
 }
 
 
