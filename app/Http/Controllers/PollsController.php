@@ -18,7 +18,7 @@ class PollsController extends Controller
         return view('pages.upcoming', ['polls' => $polls]);
     }
 
-    public function addPoll()
+    public function pollForm()
     {
       $accepted_submissions = Poll::getAcceptedSubmissions();
 
@@ -61,5 +61,11 @@ class PollsController extends Controller
         }
 
         return redirect("/upcoming");
+    }
+
+    public function addPoll(Request $request)
+    {
+      /*$array= explode(",", $_POST["data"]);
+      */
     }
 }

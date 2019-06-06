@@ -8,6 +8,11 @@
         <link rel="stylesheet" href="{{ asset('css/submit.css') }}">
 @endsection
 
+
+
+<script src="http://code.jquery.com/jquery.min.js"></script>
+@yield('scripts')
+
 @section('title')
     <title>Add Poll - MIEIC Hub</title>
 @endsection
@@ -17,7 +22,8 @@
 <div id="content">
   <h1>Add poll</h1>
 
-  <form action="" method="GET">
+  <form id="submit_checked" action="{{url('upcoming/newpoll')}}" method="POST">
+      {{ csrf_field() }}
       <div id="title" class="form-group">
           <label for="name">Title: </label>
           <input id="name" name="name" type="text" required="true">
@@ -35,21 +41,60 @@
                   <a href="{{url('/submission/' .  $accepted_submissions[$i]->id_submission )}}"><?= $accepted_submissions[$i]->submission_name?></a>
                   <div class="div"></div>
                   <a href="{{url('/users/' .  $names[$i]->name . '/reviews')}}"><?= $names[$i]->name?></a>
-                  <input type="checkbox">
+                  <input id="checkbox" type="checkbox" name="checkbox" value ="{{{$accepted_submissions[$i]->id_submission}}}" >
               </div>
               @endfor
+
+              <script type="text/javascript">
+              var cb = document.querySelectorAll('#checkbox');
+
+              let checked = [];
+
+              console.log(cb);
+              cb.forEach(function(c){
+                c.addEventListener('change', function()
+                {
+                  if(this.checked)
+                  {
+                     checked.push(this.value);
+                  }
+                  else {
+                    for( var i = 0; i < checked.length; i++)
+                    {
+                       if(checked[i] === this.value) {
+                         checked.splice(i, 1);
+                       }
+                    }
+                  }
+                });
+              });
+
+              $.ajax({
+                 type: "POST",
+                 url: "upcoming/newpoll",
+                 data: {data : checked.join(',')},
+                 cache: false,
+                 success: function(){
+                     alert("OK");
+                }
+             });
+
+              </script>
+
           </div>
       </section>
-
       <div id="date" class="form-group">
           <label for="expiration">Expiration date:</label>
           <input id="expiration" type="date">
       </div>
 
-      <div id="submission" class="form-group">
-          <input type="submit" value="Add poll!" class="btn btn-success btn-lg">
-      </div>
+
+      <div id="poll" class="form-group">
+            <input type="submit" form="submit_checked" value="Add poll!" class="btn btn-success btn-lg">
+        </div>
+
   </form>
+
 </div>
 
 @endsection

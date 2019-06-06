@@ -52,7 +52,8 @@ Route::post('submission/{id_submission}/remove', 'SubmissionController@destroy')
 Route::get('submit', 'SubmissionController@submit');
 Route::post('submit', 'SubmissionController@submitForm');
 Route::get('submissions', 'SubmissionController@showAllSubmissions');
-Route::get('upcoming/newpoll', 'PollsController@addPoll');
+Route::get('upcoming/newpoll', 'PollsController@pollForm');
+Route::post('upcoming/newpoll', 'PollsController@addPoll');
 
 Route::get('users/{name}/cart', 'PurchasesController@showCart');
 Route::delete('users/{id_user}/cart/{id_product}/remove', 'PurchasesController@deleteCartEntry');
