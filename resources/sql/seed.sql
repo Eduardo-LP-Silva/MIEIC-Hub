@@ -176,6 +176,7 @@ CREATE TABLE cart
     id_cart SERIAL PRIMARY KEY,
     id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE CASCADE,
     id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
+    quantity INTEGER NOT NULL CHECK(quantity > 0),
     id_color INTEGER NOT NULL REFERENCES color ON UPDATE CASCADE,
     id_size INTEGER NOT NULL REFERENCES size ON UPDATE Cascade
 );
@@ -855,45 +856,41 @@ INSERT INTO wishlist (id_user,  id_product) VALUES (43, 40);
 INSERT INTO wishlist (id_user,  id_product) VALUES (43, 10);
 
 -- Table: cart
-INSERT INTO cart (id_user, id_product, id_color, id_size) VALUES (1, 1, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size )  VALUES (1, 2, 2, 2);
-INSERT INTO cart (id_user, id_product, id_color, id_size )  VALUES (2, 33, 3, 4);
-INSERT INTO cart (id_user, id_product, id_color, id_size )  VALUES (2, 33, 3, 4);
-INSERT INTO cart (id_user, id_product, id_color, id_size )  VALUES (2, 33, 3, 4);
-INSERT INTO cart (id_user, id_product, id_color, id_size  ) VALUES (2, 30, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size)   VALUES (4, 40, 4, 2);
-INSERT INTO cart (id_user, id_product, id_color, id_size )  VALUES (7, 64, 1, 4);
-INSERT INTO cart (id_user, id_product, id_color, id_size  ) VALUES (28, 74, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size   )VALUES (26, 48, 3, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size)   VALUES (26, 13, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size )  VALUES (1, 14, 3, 5);
-INSERT INTO cart (id_user, id_product, id_color, id_size  ) VALUES (40, 15, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size )  VALUES (34, 77, 4, 3);
-INSERT INTO cart (id_user, id_product, id_color, id_size)   VALUES (24, 75, 1, 3);
-INSERT INTO cart (id_user, id_product, id_color, id_size)   VALUES (28, 47, 2, 2);
-INSERT INTO cart (id_user, id_product, id_color, id_size )  VALUES (13, 15, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size  ) VALUES (14, 1, 1, 4);
-INSERT INTO cart (id_user, id_product, id_color, id_size)   VALUES (15, 13, 2, 3);
-INSERT INTO cart (id_user, id_product, id_color, id_size )  VALUES (37, 1, 2, 3);
-INSERT INTO cart (id_user, id_product, id_color, id_size)   VALUES (35, 12, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size)   VALUES (35, 12, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size ) VALUES (7, 1, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size   )VALUES (5, 31, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size  )VALUES (2, 36, 2, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size)   VALUES (4, 42, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (12, 50, 3, 3);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (27, 54, 3, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (33, 55, 4, 3);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (32, 1, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (33, 1, 2, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (14, 22, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (15, 1, 2, 4);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (14, 23, 1, 5);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (7, 33, 1, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (3, 1, 1, 3);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (3, 2, 2, 2);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (3, 3, 3, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size)  VALUES (3, 3, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (1, 1, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (1, 2, 2, 2, 2);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (2, 33, 3, 4, 3);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (2, 30, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (4, 40, 4, 2, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 64, 1, 4, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (28, 74, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (26, 48, 3, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (26, 13, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (1, 14, 3, 5, 2);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (40, 15, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (34, 77, 4, 3, 4);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (24, 75, 1, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (28, 47, 2, 2, 2);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (13, 15, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (14, 1, 1, 4, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (15, 13, 2, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (37, 1, 2, 3, 3);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (35, 12, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 1, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (5, 31, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (2, 36, 2, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (4, 42, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (12, 50, 3, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (27, 54, 3, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (33, 55, 4, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (32, 1, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (33, 1, 2, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (14, 22, 1, 1, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (15, 1, 2, 4, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (14, 23, 1, 5, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 33, 1, 1, 2);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 1, 1, 3, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 2, 2, 2, 2);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 3, 3, 1, 2);
 
 -- Table: city
 INSERT INTO city (city) VALUES ('Viseu');

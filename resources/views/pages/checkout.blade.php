@@ -37,7 +37,15 @@
                 <div class="div"></div>
                 <span><?=$item->product_name?></span>
                 <div class="div"></div>
-                <span><?=$item->price?></span>
+                @if($item->quantity>1)
+                <div>
+                    <span id="itemprice"><?=$item->price?></span>
+                    <div class="div"></div>
+                    <span id="itemquantity"><?=$item->quantity?></span>
+                </div>
+                @else
+                <span id="itemprice"><?=$item->price?></span>
+                @endif
                 <i class="fa fa-minus"></i>
             </a>
     @endforeach

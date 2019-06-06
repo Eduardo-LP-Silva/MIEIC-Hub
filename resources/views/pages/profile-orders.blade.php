@@ -14,7 +14,7 @@
         <span><?=$order->product_name?></span>
         <div class="div"></div>
         <div>
-            <span><?=$order->price?></span>
+            <span><?=$order->price * $order->quantity?></span>
             <div class="div"></div>
             <span><?=$order->quantity?></span>
         </div>

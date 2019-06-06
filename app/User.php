@@ -125,9 +125,9 @@ class User extends Authenticatable
     {
         return DB::select(DB::raw
         (
-            "SELECT product.id_product, product_name, price
+            "SELECT cart.id_cart, product.id_product, product_name, price, quantity, id_size, id_color
             FROM users, product, cart
-            WHERE users.id = " . $this->id . "AND users.id = cart.id_user AND 
+            WHERE users.id = " . $this->id . "AND users.id = cart.id_user AND
             cart.id_product = product.id_product"
 
         ));
@@ -146,8 +146,8 @@ class User extends Authenticatable
     {
         return DB::select(DB::raw
         (
-            "SELECT id_delivery_info FROM delivery_info ORDER BY id_delivery_info DESC LIMIT 0, 1"
-        ));
+            "SELECT id_delivery_info FROM delivery_info ORDER BY id_delivery_info DESC LIMIT 1"
+        ))[0];
     }
 
     public static function search($query)

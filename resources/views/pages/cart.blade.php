@@ -27,12 +27,20 @@
     @forelse ( $items as $item )
 
         <?php $product_photo = Product::find($item->id_product)->getPhotos(true);?>
-                <a token={{csrf_token()}} id_user=<?=$user->id?> id_product=<?=$item->id_product?> class="list-item" href="{{url('/products/' . $item->id_product)}}">
+                <a token={{csrf_token()}} quantity=<?=$item->quantity?> id_user=<?=$user->id?> id_product=<?=$item->id_product?> class="list-item" href="{{url('/products/' . $item->id_product)}}">
                     <img src={{asset(Utils::replaceWhiteSpace($product_photo))}} alt="Product Picture">
                     <div class="div"></div>
                     <span><?=$item->product_name?></span>
                     <div class="div"></div>
-                    <span><?=$item->price?>€</span>
+                    @if($item->quantity > 1)
+                    <div>
+                        <span id="itemprice"><?=$item->price?></span>
+                        <div class="div"></div>
+                        <span id="itemquantity"><?=$item->quantity?></span>
+                    </div>
+                    @else
+                        <span id="itemprice"><?=$item->price?></span>
+                    @endif
                     <i class="fa fa-minus"></i>
                 </a>
 
@@ -43,7 +51,7 @@
     @endforelse
             <div class="div"></div> <!-- Que div é este? -->
             <div class="text-right"> 
-                <span></span>
+                <span id="totalprice"></span>
                 <button id="buy" type="button" class="btn btn-success btn-lg"><a href="{{url('/users/' . Utils::slug(Auth::user()->name) . '/checkout')}}">Checkout</a></button>
             </div>
 </div>
