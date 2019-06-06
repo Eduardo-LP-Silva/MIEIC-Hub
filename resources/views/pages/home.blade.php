@@ -53,7 +53,7 @@
                     <div class="col">
                         <div class="grid_container">
                             <a href="{{ url('/search/categories?query=apparel') }}">
-                                <img src="{{asset('img/apparel/hoodie_example.jpg')}}">
+                                <img src="{{asset('img/apparel/hoodie_example.jpg')}}" alt="Apparel Category">
                             </a>
                         </div>
                         <h1>Apparel</h1>
@@ -61,7 +61,7 @@
                     <div class="col offset-md-1">
                         <div class="grid_container">
                             <a href="{{ url('/search/categories?query=sticker') }}">
-                                <img src="{{asset('img/stickers/stickers.jpg')}}">
+                                <img src="{{asset('img/stickers/stickers.jpg')}}" alt="Stickers Category">
                             </a>
                         </div>
                         <h1>Stickers</h1>
@@ -69,7 +69,7 @@
                     <div class="col offset-md-1">
                         <div class="grid_container">
                             <a href="{{ url('/search/categories?query=case') }}">
-                                <img src="{{asset('img/cases/case_example.jpg')}}">
+                                <img src="{{asset('img/cases/case_example.jpg')}}" alt="Phone Case Category">
                             </a>
                         </div>
                         <h1>Cases</h1>
@@ -77,7 +77,7 @@
                     <div class="col offset-md-1">
                         <div class="grid_container">
                             <a href="{{ url('/search/categories?query=poster') }}">
-                                <img src="{{asset('img/posters/super.jpg')}}">
+                                <img src="{{asset('img/posters/super.jpg')}}" alt="Posters Category">
                             </a>
                         </div>
                         <h1>Posters</h1>
