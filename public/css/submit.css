@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 @import url('https://fonts.googleapis.com/css?family=Raleway:900');
 
-/* rgb(167, 243, 207) */
-
 body {
     overflow-x: hidden;
     background-color: #f3f3f3;
@@ -21,43 +19,22 @@ div#content > form {
     font-size: 1.1em;
 }
 
-/*
-section > h1
-{
-    font-family: Poppins;
-    font-size: 24pt;
-    border-bottom: 0.1em solid #af1c1c;
-    padding-bottom: 0.1em;
-}
-*/
-
 div#content h1 {
     font-family: Poppins;
     font-size: 24pt;
     border-bottom: 0.1em solid #af1c1c;
     padding-bottom: 0.5em !important;
     margin-top:0.5em;
-    /*
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.8em;
-    color: black;
-    margin: .5em;
-    margin-bottom: 1em;
-    padding: .5em;
-    border-bottom: medium solid rgb(112, 112, 112);
-    background-color: #af1c1c;
-    color: white;*/
 }
 
-div#content form > div > label {
+div#content form > div > label, div#content form > div > span {
     margin-bottom: .5em;
     margin-right: 1em;
     padding-left: .5em;
     border-left: solid #af1c1c;
 }
 
-div#content label {
+div#content label, div#content span {
     margin-bottom: 0;
 }
 
@@ -79,11 +56,11 @@ div#content div#radios div {
     margin: 1em;
 }
 
-div#content div#description label {
+div#content div#description span {
     display: block;
 }
 
-div#content div label.to-block {
+div#content div label.to-block, div#content div span.to-block{
     display: block;
 }
 
@@ -91,7 +68,7 @@ div#content div#files input[type="file"] {
     display: none;
 }
 
-div#content div#files label {
+div#content div#files label, div#content div#files span {
     border-right: thin solid #ccc; 
     border-top: thin solid #ccc; 
     border-bottom: thin solid #ccc; 
