@@ -28,16 +28,6 @@ class Poll extends Model
             ->where('id_poll', $this->id_poll)->get();
     }
 
-    public static function getAcceptedSubmissions()
-    {
-      return DB::select(DB::raw
-      (
-          "SELECT *
-          FROM submission
-          WHERE submission.accepted = 'true'"
-      ));
-    }
-
     public static function getUsername($id)
     {
       return DB::select(DB::raw

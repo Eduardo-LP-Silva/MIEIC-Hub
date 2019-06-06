@@ -200,7 +200,7 @@ CREATE TABLE poll
 (
     id_poll SERIAL PRIMARY KEY,
     poll_name TEXT UNIQUE NOT NULL,
-    poll_date DATE NOT NULL,
+    poll_date DATE DEFAULT now() NOT NULL,
     expiration DATE NOT NULL,
     active BOOLEAN NOT NULL
 );

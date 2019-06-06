@@ -24,4 +24,9 @@ class Submission extends Model
         
         return DB::select(DB::raw($query_string));
     }
+
+    public static function getAcceptedSubmissions()
+    {
+        return Submission::where('accepted', true)->get();
+    }
 }

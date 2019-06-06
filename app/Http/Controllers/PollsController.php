@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Poll;
 use App\User;
+use App\Submission;
 
 class PollsController extends Controller
 {
@@ -20,17 +21,9 @@ class PollsController extends Controller
 
     public function pollForm()
     {
-      $accepted_submissions = Poll::getAcceptedSubmissions();
+      $accepted_submissions = Submission::getAcceptedSubmissions();
 
-      $names = array();
-
-      foreach ($accepted_submissions as $accepted_submission)
-      {
-        $username = Poll::getUsername($accepted_submission->id_submission);
-        $names[] = $username[0];
-      }
-
-      return view('pages.addPoll', ['accepted_submissions' => $accepted_submissions, 'names' => $names ]);
+      return view('pages.add-poll', ['accepted_submissions' => $accepted_submissions]);
     }
 
 
@@ -65,7 +58,28 @@ class PollsController extends Controller
 
     public function addPoll(Request $request)
     {
-      /*$array= explode(",", $_POST["data"]);
-      */
+        if(!Auth::check() || !Auth::user()->isSubManager())
+            abort(403, 'Permission Denied');
+
+        $poll = new Poll;
+        $poll->poll_name = $request->name;
+        $poll->expiration = $request->expiration;
+        $poll->active = true;
+        $poll->save();
+
+        for($i = 0; $i < $request->size; $i++)
+        {
+            $sub_string = 'sub' . $i;
+
+            if($request->has($sub_string))
+            {
+                $sub = Submission::find($request->$sub_string);
+
+                $sub->id_poll = $poll->id_poll;
+                $sub->save();
+            }
+        }
+
+        return redirect('/upcoming');
     }
 }
