@@ -57,7 +57,6 @@
                     @can('viewDeleteProduct', App\Product::class)
                         <div>
                         <button id="delete-product" class="btn btn-danger">Delete product</button>
-                        <button class="btn btn-warning">Edit product</button>
                         </div>
                     @endcan
                 

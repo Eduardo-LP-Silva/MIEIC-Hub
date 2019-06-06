@@ -65,8 +65,8 @@ CREATE TABLE product
     product_name TEXT NOT NULL,
     product_description TEXT NOT NULL,
     price FLOAT NOT NULL CHECK(price > 0),
-    delivery_cost FLOAT NOT NULL CHECK(delivery_cost >= 0),
-    stock INTEGER NOT NULL CHECK(stock >= 0),
+    delivery_cost FLOAT NOT NULL CHECK(delivery_cost >= 0) DEFAULT 3.99,
+    stock INTEGER NOT NULL CHECK(stock >= 0) DEFAULT 100,
     rating FLOAT NOT NULL CHECK(rating >= 0 AND rating <= 5) DEFAULT 0,
     id_category INTEGER NOT NULL REFERENCES category ON UPDATE CASCADE
 );
