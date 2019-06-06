@@ -71,7 +71,7 @@ CREATE TABLE product
     id_category INTEGER NOT NULL REFERENCES category ON UPDATE CASCADE
 );
 
-CREATE TABLE photo 
+CREATE TABLE photo
 (
     id_photo SERIAL PRIMARY KEY,
     image_path TEXT UNIQUE NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE users
     email TEXT NOT NULL,
     password TEXT NOT NULL,
     birth_date DATE CHECK(birth_date < now()),
-    active BOOLEAN NOT NULL DEFAULT TRUE, 
+    active BOOLEAN NOT NULL DEFAULT TRUE,
     stock_manager BOOLEAN NOT NULL DEFAULT FALSE,
     moderator BOOLEAN NOT NULL DEFAULT FALSE,
     submission_manager BOOLEAN NOT NULL DEFAULT FALSE,
@@ -110,7 +110,7 @@ CREATE TABLE product_color
 (
     id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE ON DELETE CASCADE,
     id_color INTEGER NOT NULL REFERENCES color ON UPDATE CASCADE,
-    PRIMARY KEY (id_product, id_color) 
+    PRIMARY KEY (id_product, id_color)
 );
 
 CREATE TABLE product_size
@@ -193,7 +193,7 @@ CREATE TABLE faq
 (
     id_question SERIAL PRIMARY KEY,
     question TEXT UNIQUE NOT NULL,
-    answer TEXT NOT NULL 
+    answer TEXT NOT NULL
 );
 
 CREATE TABLE poll
@@ -227,7 +227,7 @@ CREATE TABLE user_sub_vote
     PRIMARY KEY (id_user, id_sub)
 );
 
-CREATE TABLE password_resets 
+CREATE TABLE password_resets
 (
 	email TEXT PRIMARY KEY,
 	token TEXT,
@@ -236,11 +236,11 @@ CREATE TABLE password_resets
 
 -- Indexes
 
-CREATE INDEX authenticate ON users USING hash(name); 
+CREATE INDEX authenticate ON users USING hash(name);
 CREATE INDEX id_category ON product USING hash(id_category);
-CREATE INDEX sub_id_poll ON submission(id_poll); 
+CREATE INDEX sub_id_poll ON submission(id_poll);
 CLUSTER submission USING sub_id_poll;
-CREATE INDEX by_price ON product(price); 
+CREATE INDEX by_price ON product(price);
 CLUSTER product USING by_price;
 CREATE INDEX search_products ON product USING GIST (to_tsvector('english', product_name || ' ' || product_description));
 
@@ -250,7 +250,7 @@ CREATE FUNCTION update_submission_vote() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' THEN
         UPDATE submission
-        SET votes = 
+        SET votes =
         (
             SELECT count(*)
             FROM user_sub_vote
@@ -260,7 +260,7 @@ BEGIN
         RETURN NEW;
     ELSEIF TG_OP = 'DELETE' THEN
         UPDATE submission
-        SET votes = 
+        SET votes =
         (
             SELECT count(*)
             FROM user_sub_vote
@@ -269,7 +269,7 @@ BEGIN
         WHERE submission.id_submission = OLD.id_sub;
         RETURN OLD;
     END IF;
-END; 
+END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER vote_on_design
@@ -286,7 +286,7 @@ CREATE FUNCTION update_product_review() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
         UPDATE product
-        SET rating = 
+        SET rating =
         (
             SELECT AVG(review.rating)
             FROM review, product
@@ -296,7 +296,7 @@ BEGIN
         RETURN NEW;
     ELSEIF TG_OP = 'DELETE' THEN
         UPDATE product
-        SET rating = 
+        SET rating =
         (
             SELECT AVG(review.rating)
             FROM review, product
@@ -316,15 +316,15 @@ EXECUTE PROCEDURE update_product_review();
 CREATE TRIGGER review_delete
 AFTER DELETE ON review
 FOR EACH ROW
-EXECUTE PROCEDURE update_product_review(); 
+EXECUTE PROCEDURE update_product_review();
 
 CREATE FUNCTION check_submission_vote() RETURNS TRIGGER AS $BODY$
 BEGIN
-    IF EXISTS 
+    IF EXISTS
     (
         SELECT poll.id_poll
         FROM poll, submission, user_sub_vote
-        WHERE NEW.id_sub = submission.id_submission AND submission.id_poll = poll.id_poll 
+        WHERE NEW.id_sub = submission.id_submission AND submission.id_poll = poll.id_poll
         AND poll.active IS FALSE
     )
     THEN RAISE EXCEPTION  'Users can no longer vote on an inactive/expired poll';
@@ -343,7 +343,7 @@ BEGIN
     IF NEW.active IS FALSE THEN
         UPDATE submission
         SET winner = TRUE
-        WHERE submission.id_poll = NEW.id_poll AND submission.votes = 
+        WHERE submission.id_poll = NEW.id_poll AND submission.votes =
         (
             SELECT MAX(submission.votes)
             FROM submission, poll
@@ -363,14 +363,14 @@ CREATE FUNCTION update_purchase_total() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
         UPDATE purchase
-        SET total = 
+        SET total =
         (
             SELECT sum(products_price)
             FROM
             (
                 SELECT product_purchase.quantity * product_purchase.price AS products_price
                 FROM product, purchase, product_purchase
-                WHERE NEW.id_purchase = purchase.id_purchase AND NEW.id_product = product.id_product 
+                WHERE NEW.id_purchase = purchase.id_purchase AND NEW.id_product = product.id_product
                 AND product_purchase.id_purchase = NEW.id_purchase AND product_purchase.id_product = NEW.id_product
             ) AS products_actual_price
         )
@@ -378,14 +378,14 @@ BEGIN
         RETURN NEW;
     ELSEIF TG_OP = 'DELETE' THEN
         UPDATE purchase
-        SET total = 
+        SET total =
         (
             SELECT sum(products_price)
             FROM
             (
                 SELECT product_purchase.quantity * product_purchase.price AS products_price
                 FROM product, purchase, product_purchase
-                WHERE OLD.id_purchase = purchase.id_purchase AND OLD.id_product = product.id_product 
+                WHERE OLD.id_purchase = purchase.id_purchase AND OLD.id_product = product.id_product
                 AND product_purchase.id_purchase = OLD.id_purchase AND product_purchase.id_product = OLD.id_product
             ) AS products_actual_price
         )
@@ -406,13 +406,13 @@ FOR EACH ROW
 EXECUTE PROCEDURE update_purchase_total();
 
 CREATE FUNCTION calculate_new_product_purchase_price() RETURNS TRIGGER AS $BODY$
-BEGIN  
+BEGIN
     UPDATE product_purchase
-    SET price = 
+    SET price =
     (
         SELECT product.price + product.delivery_cost as total_product_price
         FROM product, product_purchase
-        WHERE product.id_product = product_purchase.id_product 
+        WHERE product.id_product = product_purchase.id_product
         AND product_purchase.id_product = NEW.id_product
         AND product_purchase.id_purchase = NEW.id_purchase
     )
@@ -430,7 +430,7 @@ EXECUTE PROCEDURE calculate_new_product_purchase_price();
 CREATE FUNCTION recalculate_product_purchase_price() RETURNS TRIGGER AS $BODY$
 BEGIN
     UPDATE product_purchase
-    SET price = 
+    SET price =
     (
         SELECT product.price + product.delivery_cost as total_product_price
         FROM product, product_purchase
@@ -453,9 +453,9 @@ DECLARE
     next_id INTEGER := nextval(pg_get_serial_sequence('users', 'id'));
     new_name TEXT := 'John Doe' || MD5(OLD.name);
 BEGIN
-    INSERT INTO users (id, name, email, password, birth_date, active, stock_manager, moderator, submission_manager, 
-    id_photo, user_description) 
-    VALUES (next_id, new_name , 'mieichubsupport@gmail.com','123masfiasfnakslfmas', '1994-01-01', FALSE, FALSE, FALSE, 
+    INSERT INTO users (id, name, email, password, birth_date, active, stock_manager, moderator, submission_manager,
+    id_photo, user_description)
+    VALUES (next_id, new_name , 'mieichubsupport@gmail.com','123masfiasfnakslfmas', '1994-01-01', FALSE, FALSE, FALSE,
     FALSE, 1, 'Just a regular user, nothing to see here...');
 
     UPDATE review
@@ -495,7 +495,7 @@ INSERT INTO category (category) VALUES ('Mug');
 -- Table: product
 
     -- Apparel
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Hoodie', 'Black hoodie for FEUP students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Hoodie', 'Black hoodie for MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Sudo Rm Hoodie', 'Funny hoodie allusive to LINUX commands. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Hard Code Hoodie', 'Funny hoodie allusive to Hard Rock Caffe. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('StarCode Hoodie', 'Funny hoodie allusive to Starbucks Caffe. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
@@ -511,16 +511,16 @@ INSERT INTO product (product_name, product_description, price, delivery_cost, st
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Author Jacket', 'Jacket for MIEIC students. 100% poliester.', 19.99, 2.99, 50, 0, 1);
 
     --Phone Cases
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Case', 'Case for FEUP students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Eat Sleep Code Repeat Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Bill Gates Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('E HTML Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Army Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Army 2 Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Coding Case', 'Case for MIEIC students. Water resistant.', 9.99, 2.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('The HTML to my CSS Case', 'Case for MIEIC students. Water resistant.', 9.99, 2.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Programmer Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Love Programming Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Viva La Programacion Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('GitKraken Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('It is a feature Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Debugging Stages Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Hello World Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Coffee to Code Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Just Code It Case', 'Case related to programmers. Water resistant.', 9.99, 2.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Awsome Case', 'Case related to programmers. Water resistant.', 9.99, 2.99, 50, 0, 2);
 
     --Posters
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Today Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
@@ -536,11 +536,11 @@ INSERT INTO product (product_name, product_description, price, delivery_cost, st
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Semi Colon Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Super Bock Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('World Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Army Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('No coffee No code Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
 
     --Stickers
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Unexpected Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Coffee Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Home Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('HTML Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
@@ -577,8 +577,8 @@ INSERT INTO product (product_name, product_description, price, delivery_cost, st
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Best Programmer Ever Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
 
     --Mugs
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Mug', 'Mug for MIEIC students.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Mug', 'Mug for FEUP students.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Development Process Mug', 'Mug for MIEIC students.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Binary Mug', 'Mug for FEUP students.', 9.99, 1.99, 50, 0, 7);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('I am A Programmer Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('CSS Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Debug Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
@@ -601,7 +601,7 @@ INSERT INTO photo (image_path, id_product) VALUES ('img/users/Joana Ramos.png', 
 INSERT INTO photo (image_path, id_product) VALUES ('img/users/Miguel Carvalho.jpg', NULL);
 
     --Apparel
-INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/hoodie_sudo_rm_single.jpg', 1);
+INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/inph.jpg', 1);
 INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/hoddie_sudo_rm.jpg', 2);
 INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/hoddie_sudo_rm_single.jpg', 2);
 INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/hoodie_1_red.jpg', 3);
@@ -622,16 +622,16 @@ INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/programmer2.jpg'
 INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/author_jacket.jpg', 14);
 
     --Cases
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example1.jpg', 15);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example2.jpg', 16);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example3.jpg', 17);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example4.jpg', 18);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example5.jpg', 19);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example6.jpg', 20);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example7.jpg', 21);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example8.jpg', 22);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example9.jpg', 23);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example10.jpg', 24);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/programmer.jpg', 15);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/loveprogramming.jpg', 16);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/programacion.png', 17);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/gitkraken.jpeg', 18);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/feature.jpeg', 19);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/debug.jpg', 20);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/hello.jpeg', 21);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/coffee.jpeg', 22);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/justcodeit.jpeg', 23);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/awsome.jpg', 24);
 
     --Posters
 INSERT INTO photo (image_path, id_product) VALUES ('img/posters/today.jpg', 25);
@@ -647,11 +647,11 @@ INSERT INTO photo (image_path, id_product) VALUES ('img/posters/eat.jpg', 34);
 INSERT INTO photo (image_path, id_product) VALUES ('img/posters/semi.jpg', 35);
 INSERT INTO photo (image_path, id_product) VALUES ('img/posters/super.jpg', 36);
 INSERT INTO photo (image_path, id_product) VALUES ('img/posters/world.jpg', 37);
-INSERT INTO photo (image_path, id_product) VALUES ('img/posters/war_poster.jpg', 38);
+INSERT INTO photo (image_path, id_product) VALUES ('img/posters/nocoffee.jpeg', 38);
 
     --Stickers
 INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/feup.jpg', 39);
-INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/feup2.jpg', 40);
+INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/unexpected.jpg', 40);
 INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/coffee.jpg', 41);
 INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/home.png', 42);
 INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/html.jpg', 43);
@@ -688,8 +688,8 @@ INSERT INTO photo (image_path, id_product) VALUES ('img/mousepads/trust me.jpeg'
 INSERT INTO photo (image_path, id_product) VALUES ('img/mousepads/bestever.jpg', 70);
 
     --Mugs
-INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/feup3.jpg', 71);
-INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/feup4.jpg', 72);
+INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/process.jpeg', 71);
+INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/binary.jpeg', 72);
 INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/programmer.jpg', 73);
 INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/css.jpg', 74);
 INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/debug.jpg', 75);
@@ -1104,32 +1104,33 @@ INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (1
 
 -- Table: poll
 INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Hoodies 2019', '2019-03-01', '2019-07-15', TRUE);
-INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Jackets 2019', '2019-03-02', '2019-07-16', TRUE);
-INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Posters 2019', '2019-05-03', '2019-09-17', TRUE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Mugs 2019', '2019-05-03', '2019-09-17', TRUE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Pads 2019', '2019-03-02', '2019-07-16', TRUE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Various 2019', '2019-03-02', '2019-07-16', TRUE);
 
 -- Table: submission
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (3, 'Submission1', 1, 'Funny submission1', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-08', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (12, 'Submissio2', 1, 'Funny submissio2', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-08', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (27, 'Submission3', 1, 'Funny submissio3', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-06', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (7, 'Submission4', 1, 'Funny submissio4', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-01', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (14, 'Submission5', 1, 'Funny submissio5', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-04', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (16, 'Submission7', 1, 'Funny submissio7', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-11', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (9, 'Submission8', 1, 'Funny submission8', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-12', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Submission6', 1, 'Funny submissio6', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-02', FALSE, 0, FALSE, NULL);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (3, 'Awsome Hoodie', 1, 'Hoodie just for awsomes', 'img/submissions/awsomeHoodie.jpg', '2019-01-08', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (12, 'Feature Mug', 4, 'No bugs, only features mug !', 'img/submissions/feature.jpg', '2019-02-08', TRUE, 0, FALSE, 2);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (27, 'CSS Mug', 4, 'Funny mug about css', 'img/submissions/css.jpeg', '2019-01-06', TRUE, 0, FALSE, 2);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (7, 'Quiet Sticker', 2, 'Silence, a programmer is working', 'img/submissions/quiet.png', '2019-01-01', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (14, 'MyMachine Mug', 4, 'It works on my machine !', 'img/submissions/myMachine.jpg', '2019-02-04', TRUE, 0, FALSE, 2);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (16, 'Math Pad', 5, 'Good with Math !', 'img/submissions/math.jpeg', '2019-02-11', TRUE, 0, FALSE, 3);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (9, 'Coding Case', 6, 'Brackets phone case', 'img/submissions/coding.jpg', '2019-01-12', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Coders Case', 6, 'Coder gonna code !', 'img/submissions/coders.jpg', '2019-01-02', FALSE, 0, FALSE, NULL);
 
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Submission9', 1, 'Funny submissio9', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-04', TRUE, 0, FALSE, 2);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Submission10', 1, 'Funny submission10', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-13', TRUE, 0, FALSE, 2);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Submission11', 1, 'Funny submissio11', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-07', TRUE, 0, FALSE, 2);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Submission12', 1, 'Funny submission12', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-13', TRUE, 0, FALSE, 2);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Submission13', 1, 'Funny submissio13', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-22', FALSE, 0, FALSE, NULL);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (33, 'Submission14', 1, 'Funny submissio14', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-12', FALSE, 0, FALSE, NULL);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Cloud Sticker', 2, 'Binary sticker with cloud', 'img/submissions/cloud.jpg', '2019-01-04', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Love Case', 6, 'I love you case', 'img/submissions/love.jpeg', '2019-02-13', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Feature Poster', 3, 'Features ftw', 'img/submissions/feature.jpeg', '2019-02-07', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Friends Pad', 5, 'Pivot mixed with Friends mouse pad', 'img/submissions/friends.jpg', '2019-01-13', TRUE, 0, FALSE, 3);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Keep Calm Poster', 3, 'Keep calm poster', 'img/submissions/loveprogramming.png', '2019-02-22', FALSE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (33, 'Challenge Accepted Pad', 1, 'Will you accept it ?', 'img/submissions/challenge.jpg', '2019-02-12', FALSE, 0, FALSE, NULL);
 
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Submission15', 1, 'Funny submissio15', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-06', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Submission16', 1, 'Funny submission16', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-17', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Submission17', 1, 'Funny submissio17', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-17', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Submission18', 1, 'Funny submission18', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-13', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Submission19', 1, 'Funny submissio19', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-25', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Submission20', 1, 'Funny submissio20', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-25', FALSE, 0, FALSE, NULL);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Black Belt Hoodie', 1, 'Black belt in programming', 'img/submissions/blackbelt.jpeg', '2019-01-06', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Eat Sleep Code Hoodie', 1, 'Eat. Sleep. Code. Repeat.', 'img/submissions/esc.jpg', '2019-02-17', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Coffee to Code Hoodie', 1, 'Best conversion', 'img/submissions/coffee.jpg', '2019-01-17', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Binary Poster', 3, '011101010110010', 'img/submissions/binary.jpg', '2019-02-13', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Still Alive Case', 6, 'While alive: sleep eat code repeat !', 'img/submissions/stillAlive.jpg', '2019-01-25', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Code Pad', 5, 'I write code', 'img/submissions/code.jpg', '2019-02-25', FALSE, 0, FALSE, 3);
 
 -- Table: user_sub_vote
 INSERT INTO user_sub_vote (id_user, id_sub) VALUES (10, 2);
