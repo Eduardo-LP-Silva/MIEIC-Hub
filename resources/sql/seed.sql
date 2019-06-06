@@ -714,7 +714,7 @@ INSERT INTO users VALUES (
 
 
 
-INSERT INTO users (name, email, password) VALUES('lbaw1825', 'lbaw1825@gmail.com', '$2y$10$kOQHd3CIu4.UQRQ6OzcjouJQTF7GLUdd9g.sGRVDghn6kvDOEcjcW');
+INSERT INTO users (name, email, password) VALUES('Chandler Bing', 'lbaw1825@gmail.com', '$2y$10$kOQHd3CIu4.UQRQ6OzcjouJQTF7GLUdd9g.sGRVDghn6kvDOEcjcW');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Miguel Carvalho', 'up201605757@fe.up.pt','$2y$12$7M1rWpEnZg/qj6AfT2JXue1BfDG/IixigKNs7WUkMcA.VNKp20NAi', '1998-12-25', TRUE, TRUE, TRUE, TRUE, 5, 'Owner of MIEIC Hub');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Eduardo Silva', 'up201603135@fe.up.pt','$2y$12$L1d1H1PllySA.y43Dks4depIIEk4fGMQDRzZOP01dJ8VsErmyx.0a', '1998-01-22', TRUE, TRUE, TRUE, TRUE, 2, 'Co-Founder of MIEIC Hub');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Tomás Novo', 'up201604503@fe.up.pt','A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1998-07-31', TRUE, TRUE, TRUE, TRUE, 3, 'The best !');
@@ -1120,19 +1120,19 @@ INSERT INTO submission(id_user, submission_name, id_category, submission_descrip
 INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (9, 'Coding Case', 6, 'Brackets phone case', 'img/submissions/coding.jpg', '2019-01-12', TRUE, 0, FALSE, 4);
 INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Coders Case', 6, 'Coder gonna code !', 'img/submissions/coders.jpg', '2019-01-02', FALSE, 0, FALSE, NULL);
 
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Cloud Sticker', 2, 'Binary sticker with cloud', 'img/submissions/cloud.jpg', '2019-01-04', TRUE, 0, FALSE, 4);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Love Case', 6, 'I love you case', 'img/submissions/love.jpeg', '2019-02-13', TRUE, 0, FALSE, 4);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Feature Poster', 3, 'Features ftw', 'img/submissions/feature.jpeg', '2019-02-07', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (1, 'Cloud Sticker', 2, 'Binary sticker with cloud', 'img/submissions/cloud.jpg', '2019-01-04', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (7, 'Love Case', 6, 'I love you case', 'img/submissions/love.jpeg', '2019-02-13', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (4, 'Feature Poster', 3, 'Features ftw', 'img/submissions/feature.jpeg', '2019-02-07', TRUE, 0, FALSE, 4);
 INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Friends Pad', 5, 'Pivot mixed with Friends mouse pad', 'img/submissions/friends.jpg', '2019-01-13', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Keep Calm Poster', 3, 'Keep calm poster', 'img/submissions/loveprogramming.png', '2019-06-07', FALSE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (30, 'Keep Calm Poster', 3, 'Keep calm poster', 'img/submissions/loveprogramming.png', '2019-06-07', FALSE, 0, FALSE, 4);
 INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (33, 'Challenge Accepted Pad', 1, 'Will you accept it ?', 'img/submissions/challenge.jpeg', '2019-02-12', FALSE, 0, FALSE, NULL);
 
 INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Black Belt Hoodie', 1, 'Black belt in programming', 'img/submissions/blackbelt.jpeg', '2019-05-15', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Eat Sleep Code Hoodie', 1, 'Eat. Sleep. Code. Repeat.', 'img/submissions/esc.jpg', '2019-02-17', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (7, 'Eat Sleep Code Hoodie', 1, 'Eat. Sleep. Code. Repeat.', 'img/submissions/esc.jpg', '2019-02-17', TRUE, 0, FALSE, 1);
 INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Coffee to Code Hoodie', 1, 'Best conversion', 'img/submissions/coffee.jpg', '2019-03-05', TRUE, 0, FALSE, 1);
 INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Binary Poster', 3, '011101010110010', 'img/submissions/binary.jpg', '2019-02-13', TRUE, 0, FALSE, 4);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Still Alive Case', 6, 'While alive: sleep eat code repeat !', 'img/submissions/stillAlive.jpg', '2019-01-25', TRUE, 0, FALSE, 4);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Code Pad', 5, 'I write code', 'img/submissions/code.jpg', '2019-02-25', FALSE, 0, FALSE, 3);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (23, 'Still Alive Case', 6, 'While alive: sleep eat code repeat !', 'img/submissions/stillAlive.jpg', '2019-01-25', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (45, 'Code Pad', 5, 'I write code', 'img/submissions/code.jpg', '2019-02-25', FALSE, 0, FALSE, 3);
 
 -- Table: user_sub_vote
 INSERT INTO user_sub_vote (id_user, id_sub) VALUES (10, 2);
