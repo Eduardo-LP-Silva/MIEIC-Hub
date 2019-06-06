@@ -3,11 +3,18 @@ window.onload = function() {
     addStarsListeners();
     addSizeListener();
 
+    lockOneSize();
+    calcRating();
+}
+
+function lockOneSize() {
     let buttons = document.querySelectorAll("div#content div#info .btn-group button");
     if(buttons[0].innerHTML == 'One-Size') {
         buttons[0].style.backgroundColor = "#af1c1c";
     }
+}
 
+function calcRating() {
     let rating = document.querySelectorAll(".stars-inner");
     let productRating = rating[0].getAttribute("title");
     productRating = productRating * 100 / 5;
@@ -19,20 +26,34 @@ function addHeartListener()
 {
     let heart = document.querySelector(".heart");
 
-    heart.addEventListener("click", function() 
-    {
-        //Change condition to sync with db
+    heart.addEventListener("click", function() {
+        let id = document.querySelector("div#content").getAttribute("data-id");
+        let token = document.querySelector("div#content").getAttribute("data-token");
+        let request = new XMLHttpRequest();
 
-        if(heart.classList.contains("far"))
-        {
-            heart.classList.remove("far");
-            heart.classList.add("fa");
+        if(heart.classList.contains("far")) {
+            // Add to wishlist
+            request.open("PUT", '/wishlist/' + id + '/add/', true);
+
+            request.addEventListener('load', function() {
+                heart.classList.remove("far");
+                heart.classList.add("fa");
+                console.log(request.responseText);
+            });
         }
-        else 
-        {
-            heart.classList.remove("fa");
-            heart.classList.add("far");
+        else {
+            // Remove from wishlist
+            request.open("DELETE", '/wishlist/' + id + '/delete/', true);
+
+            request.addEventListener('load', function() {
+                heart.classList.remove("fa");
+                heart.classList.add("far");
+            });
         }
+
+        request.setRequestHeader('X-CSRF-TOKEN', token);
+        request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        request.send();
     });
 }
 
