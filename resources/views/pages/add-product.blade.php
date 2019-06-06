@@ -15,23 +15,23 @@
 <div id="content">
     <h1>Add product</h1>
 
-    <form action="" method="POST" action="{{url('/products/add')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{url('/products/add')}}" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div id="title" class="form-group">
             <label for="name">Name: </label>
-            <input id="name" name="name" type="text" required="true">
+            <input id="name" name="name" type="text" required>
         </div>
 
         <div id="price" class="form-group">
             <label for="price-input">Price: </label>
-            <input id="price-input" name="price" type="number" required="true" min="0.01" step="0.01">
+            <input id="price-input" name="price" type="number" required min="0.01" step="0.01">
         </div>
         
         <div id="types" class="form-group">
-            <label for="type">Category: </label>
+            <label for="tshirt">Category: </label>
             <div id="radios" class = "form-check">
                 <div class="form-check-inline form-check custom-radio">
-                    <input id="tshirt" value="Apparel" type="radio" class="form-check-input custom-control-input" name="type" required="true"> 
+                    <input id="tshirt" value="Apparel" type="radio" class="form-check-input custom-control-input" name="type" required> 
                     <label for="tshirt" class="form-check-label custom-control-label" >Apparel</label>
                 </div>
                 <div class="form-check-inline form-check custom-radio">
@@ -55,12 +55,12 @@
 
         <div id="description" class="form-group">
             <label for="desc">Description and details (one bullet per line): </label>
-            <textarea id="desc" required="true" name="description" rows="3" cols="35"></textarea>
+            <textarea id="desc" required name="description" rows="3" cols="35"></textarea>
         </div>
 
         <div id="files" class="form-group">
             <label for="images" >Upload images to display</label>
-            <input id="images" class="form-control-file" name="images" type="file" accept="image/png, image/jpeg" multiple>
+            <input id="images" class="form-control-file" name="images" type="file" accept="image/png, image/jpeg" multiple required>
         </div>
 
         <div id="submission" class="form-group">
