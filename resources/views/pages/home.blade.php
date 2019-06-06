@@ -91,7 +91,7 @@
                 <div class="row">
                     <div class="col">
                         <a href="{{ url('/upcoming') }}">
-                            <div class="grid_container" 
+                            <div class="grid_container"
                             style="background-image: url('{{asset('img/website/calendar.jpg')}}');">
                             </div>
                         </a>
@@ -107,7 +107,7 @@
                     </div>
                     <div class="col offset-md-1">
                         <a href="{{ url('/search/categories?query=ticket') }}">
-                            <div class="grid_container" 
+                            <div class="grid_container"
                             style="background-image: url('{{asset('img/website/workshop.jpg')}}');">
                             </div>
                         </a>

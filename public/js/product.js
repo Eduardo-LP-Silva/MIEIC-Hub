@@ -3,9 +3,29 @@ window.onload = function() {
     addStarsListeners();
     addSizeListener();
     setTrashListeners();
+    addDeleteListener();
 
     lockOneSize();
     calcRating();
+}
+
+function addDeleteListener() {
+    let btn = document.querySelector("#delete-product");
+
+    btn.addEventListener("click", function() {
+        let id = document.querySelector("div#content").getAttribute("data-id");
+        let token = document.querySelector("div#content").getAttribute("data-token");
+        let request = new XMLHttpRequest();
+        request.open("DELETE", '/products/' + id + '/delete/', true);
+        request.setRequestHeader('X-CSRF-TOKEN', token);
+        request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+        request.addEventListener('load', function() {
+            console.log(request.responseText);
+        });
+
+        request.send();
+    });
 }
 
 function lockOneSize() {
