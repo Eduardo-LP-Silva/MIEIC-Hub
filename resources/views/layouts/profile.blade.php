@@ -13,7 +13,7 @@
 @endsection
 
 @section('title')
-    <title>{{$user->name}} - MIEICHub</title>
+    <title>{{{$user->name}}} - MIEICHub</title>
 @endsection
 
 @section('content')    

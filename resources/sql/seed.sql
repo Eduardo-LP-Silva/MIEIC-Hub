@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS faq CASCADE;
 DROP TABLE IF EXISTS poll CASCADE;
 DROP TABLE IF EXISTS submission CASCADE;
 DROP TABLE IF EXISTS user_sub_vote CASCADE;
+DROP TABLE IF EXISTS password_resets CASCADE;
 DROP INDEX IF EXISTS authenticate;
 DROP INDEX IF EXISTS id_category;
 DROP INDEX IF EXISTS active_poll;
@@ -224,6 +225,13 @@ CREATE TABLE user_sub_vote
     id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE NO ACTION,
     id_sub INTEGER NOT NULL REFERENCES submission ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (id_user, id_sub)
+);
+
+CREATE TABLE password_resets 
+(
+	email TEXT PRIMARY KEY,
+	token TEXT,
+	created_at TIMESTAMP WITH TIME zone
 );
 
 -- Indexes
@@ -1088,7 +1096,6 @@ INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (1
 INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Hoodies 2019', '2019-03-01', '2019-07-15', TRUE);
 INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Jackets 2019', '2019-03-02', '2019-07-16', TRUE);
 INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Posters 2019', '2019-05-03', '2019-09-17', TRUE);
-INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Posters 2018', '2018-03-03', '2018-07-17', FALSE);
 
 -- Table: submission
 INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (3, 'Submission1', 1, 'Funny submission1', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-08', TRUE, 0, FALSE, 1);

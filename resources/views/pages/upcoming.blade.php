@@ -29,7 +29,7 @@
     token={{csrf_token()}}>
 @if($user != null && $user->isSubManager())
 <div id="addPoll">
-    <a href="/add-poll-admin.html">
+    <a href="/upcoming/newpoll">
         <button type="button" class="btn btn-light">
             <i class="fa fa-plus"></i>
             Add poll
@@ -40,7 +40,7 @@
 @foreach($polls as $poll)
 <?php $designs = $poll->getDesigns(); ?>
 <section class="poll">
-    <h1><?=$poll->poll_name?></h1>
+    <h1>{{{$poll->poll_name}}}</h1>
         @if($user != null && $user->isSubManager())
         <form action=<?="/poll/" . $poll->id_poll?> method="GET">
             @if($poll->active)
@@ -53,12 +53,7 @@
             <div class="row">
                 @foreach($designs as $design)
                 <div class="col">
-                    @if($design->winner)
-                        <?php $style = "background-color: gold; border-color: gold;"?>
-                    @else
-                        <?php $style = "background-color: white;"?>
-                    @endif
-                    <div class="design_container" sub=<?=$design->id_submission?> style=<?=$style?>>
+                    <div class="design_container" sub=<?=$design->id_submission?>>
                         @if($user != null && $poll->active)
                             @if(UserSubVote::hasUserVoted($user->id, $design->id_submission))
                                 <i class="fa fa-heart heart"></i>
@@ -71,7 +66,7 @@
                         <span><?=$design->votes?></span>
                         <img src={{Utils::replaceWhiteSpace(asset($design->picture))}}>
                     </div>
-                    <h1><?=$design->submission_name?></h1>
+                    <h1>{{{$design->submission_name}}}</h1>
                 </div>
                 @endforeach
             </div>
