@@ -26,15 +26,14 @@
 
 @section('content')
 <input id="main" type="hidden" name=<?php if(Auth::check()) echo Utils::slug(Auth::user()->name); else echo "null";?>
-    token={{csrf_token()}}>
+    data-token={{csrf_token()}}>
 @if($user != null && $user->isSubManager())
 <div id="addPoll">
-    <a href="/upcoming/newpoll">
-        <button type="button" class="btn btn-light">
+    
+        <a href="/upcoming/newpoll" class="btn btn-light">
             <i class="fa fa-plus"></i>
             Add poll
-        </button>
-    </a>
+        </a>
 </div>
 @endif
 @foreach($polls as $poll)
@@ -53,7 +52,7 @@
             <div class="row">
                 @foreach($designs as $design)
                 <div class="col">
-                    <div class="design_container" sub=<?=$design->id_submission?>>
+                    <div class="design_container" data-sub=<?=$design->id_submission?>>
                         @if($user != null && $poll->active)
                             @if(UserSubVote::hasUserVoted($user->id, $design->id_submission))
                                 <i class="fa fa-heart heart"></i>
@@ -64,7 +63,7 @@
                             <input type="hidden">
                         @endif
                         <span><?=$design->votes?></span>
-                        <img src={{Utils::replaceWhiteSpace(asset($design->picture))}}>
+                        <img src={{Utils::replaceWhiteSpace(asset($design->picture))}} alt="Design Picture">
                     </div>
                     <h1>{{{$design->submission_name}}}</h1>
                 </div>

@@ -20,7 +20,18 @@
     margin: auto;
 }
 
-#addPoll > a > button
+#addPoll > button > a
+{
+    text-decoration: none;
+    color: black;
+}
+
+#addPoll > a:focus
+{
+    outline: 0;
+}
+
+#addPoll > a
 {
     font-size: 16pt !important;
 
