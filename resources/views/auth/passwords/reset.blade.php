@@ -21,7 +21,7 @@
                 </ul>
             </div>
          @endif
-        <img src="{{asset('img/website/avatar.png')}}" class="avatar">
+        <img src="{{asset('img/website/avatar.png')}}" class="avatar" alt="Avatar">
         <form method="POST" action="{{ route('password.reset') }}">
             {{ csrf_field() }}
             <input type="hidden" name="token" value="{{ $token }}">
@@ -29,7 +29,7 @@
             <input id="password" type="password" name="password" placeholder="🔒    Password" required>
             <input id="password_confirmation" type="password" name="password_confirmation" 
             placeholder="🔒    Confirm password" required>
-            <a><input type="submit" value="Reset"></a> 
+            <input type="submit" value="Reset">
             <br>
             <br>
             </a>
