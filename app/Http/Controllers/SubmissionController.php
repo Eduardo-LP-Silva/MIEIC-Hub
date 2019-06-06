@@ -39,13 +39,16 @@ class SubmissionController extends Controller
     {
         $user = User::getURLUser($name);
 
-        if(!Auth::check() || Auth::user()->name != $user->name)
-            abort(403, 'Permission denied');
+        if(!Auth::check())
+            return redirect('/login');
+
+        if(Auth::user()->name != $user->name)
+            return redirect('/error/403');
 
         $id_user = $user->id;
 
         if(UserSubVote::hasUserVoted($id_user, $id_sub))
-            abort(400, 'User has already voted for this design on this poll');
+            return redirect('/error/400');
 
         UserSubVote::create($id_user, $id_sub);
 
@@ -56,13 +59,16 @@ class SubmissionController extends Controller
     {
         $user = User::getURLUser($name);
 
-        if(!Auth::check() || Auth::user()->name != $user->name)
-            abort(403, 'Permission denied');
+        if(!Auth::check())
+            return redirect('/login');
+
+        if(Auth::user()->name != $user->name)
+            return redirect('/error/403');
 
         $id_user = $user->id;;
 
         if(!UserSubVote::hasUserVoted($id_user, $id_sub))
-            abort(400, "User hasn't already voted for this design on this poll");
+            return redirect('/error/400');
 
         UserSubVote::remove($id_user, $id_sub);
 
@@ -80,7 +86,7 @@ class SubmissionController extends Controller
         $user = Auth::user();
 
         if($user == null)
-            abort(403, 'Permission denied');
+            return redirect('/login');
 
         if($user->isAuthenticatedUser())
             return view('pages.submit', ['user' => $user]);
@@ -98,7 +104,7 @@ class SubmissionController extends Controller
         $user = Auth::user();
 
         if($user == null)
-            abort(403, 'Permission denied');
+            return redirect('/login');
 
         $id_user = $user->id;
         $submission_name = $request->name;
@@ -118,7 +124,7 @@ class SubmissionController extends Controller
         $picture = null;
 
         if(!$request->has('photo'))
-            abort(404, 'No file');
+            return redirect('/error/400');
 
         $request->validate
         (
@@ -128,13 +134,13 @@ class SubmissionController extends Controller
         $new_image = $request->file('photo');
 
         if($new_image == null)
-            abort(400, 'Null file');
+            return redirect('/error/400');
 
-        $new_photo_name = $user->name . "-" . $submission_name . "-" . date("Y-m-d H:i:s");
+        $new_photo_name = Utils::slug($user->name) . "-" . Utils::slug($submission_name) . "-" . Utils::slug(date("Y-m-d H:i:s"));
 
         Utils::saveImage($new_image, "/img/submissions/", "public", $new_photo_name);
 
-        $path = "public/img/submissions/" . $new_photo_name;
+        $path = "img/submissions/" . $new_photo_name . '.' . $new_image->getClientOriginalExtension();
 
         DB::table('submission')->insert(
             ['id_user' => $id_user,
@@ -148,29 +154,6 @@ class SubmissionController extends Controller
              'id_poll' => $id_poll]);
 
         return redirect("/home");
-    }
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -190,36 +173,6 @@ class SubmissionController extends Controller
         return view('pages.submission', ['submission' => $submission, 'user' => $user, 'category' => $category]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id_submission)
     {
         $submission = Submission::find($id_submission);
@@ -233,13 +186,16 @@ class SubmissionController extends Controller
             return redirect(URL::previous());
         }
         else
-            abort(403, 'Permission denied');
+            return redirect('/error/403');
     }
 
     public function showSubmissions()
     {
-        if(!Auth::check() || !Auth::user()->isSubManager())
-            abort(403, 'Permission denied');
+        if(!Auth::check())
+            return redirect('/login');
+
+        if(!Auth::user()->isSubManager())
+            return redirect('/error/403');
 
         $date_filter = Input::get('filter');
 
@@ -258,7 +214,7 @@ class SubmissionController extends Controller
                 break;
 
             default:
-                abort(400, 'Unknown date filter: ' . $date_filter);
+                return redirect('/error/400');
         }
 
       $submissions = Submission::getSubmissions($date_filter);
@@ -283,6 +239,6 @@ class SubmissionController extends Controller
           return redirect(URL::previous());
       }
       else
-          abort(403, 'Permission denied');
+        return redirect('/error/403');
     }
 }

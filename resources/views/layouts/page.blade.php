@@ -5,6 +5,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        @yield('meta')
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
@@ -38,9 +39,10 @@
                         <div class="dropdown-menu" aria-labelledby="productsDD">
                             <!-- Mudar os links para terem já a pesquisa correspondente da categoria -->
                             <a class="dropdown-item" href="{{url('/search/categories?query=apparel')}}">Apparel</a>
+                            <a class="dropdown-item" href="{{url('/search/categories?query=mugs')}}">Mugs</a>
                             <a class="dropdown-item" href="{{url('/search/categories?query=case')}}">Phone Cases</a>
-                            <a class="dropdown-item" href="{{url('/search/categories?query=sticker')}}">Stickers</a>
                             <a class="dropdown-item" href="{{url('/search/categories?query=poster')}}">Posters</a>
+                            <a class="dropdown-item" href="{{url('/search/categories?query=sticker')}}">Stickers</a>
                             <a class="dropdown-item" href="{{url('/search/categories?query=ticket')}}">Tickets</a>
                         </div>
                     </li>

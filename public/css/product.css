@@ -136,7 +136,7 @@ div#content div#reviews h1{
     font-size: 1.6em;
 }
 
-div#content div#reviews div.media {
+div#content div#reviews div.media, div#content div#reviews form.media {
     padding: 1em;
     margin: 1em 0;
     border-top: thin solid grey;
@@ -148,23 +148,34 @@ div#content div#reviews div.rating {
     justify-content: flex-end;
 }
 
-div#content div#reviews div#add div.rating span:hover{
+div#content div#reviews form#add div.rating span:hover{
     cursor: pointer;
 }
 
-div#content div#reviews div#add textarea {
+div#content div#reviews form#add textarea {
     width: 80%;
     padding: .5em;
     resize: none;
 }
 
-div#content div#reviews div#add button 
+div#content div#reviews form#add button 
 {
     display: block;
     margin: auto;
     margin-right: 0;
     margin-bottom: 0;
     width: 6.5em;
+}
+
+#reviews .media.container i
+{
+  padding-top: 0.2em;
+  margin-left: 1em;
+}
+
+#reviews .media.container i:hover
+{
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {

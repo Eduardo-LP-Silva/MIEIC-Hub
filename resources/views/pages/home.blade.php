@@ -1,5 +1,12 @@
 @extends('layouts.page')
 
+@section('meta')
+    <meta property="og:title" content="MIEIC Hub" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="htpp://lbaw1825.lbaw-prod.fe.up.pt/home" />
+    <meta property="og:image" content="http://lbaw1825.lbaw-prod.fe.up.pt/img/website/MIEICHUB.png" />
+@endsection
+
 @section('stylesheets')
         <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 @endsection
@@ -91,7 +98,7 @@
                 <div class="row">
                     <div class="col">
                         <a href="{{ url('/upcoming') }}">
-                            <div class="grid_container" 
+                            <div class="grid_container"
                             style="background-image: url('{{asset('img/website/calendar.jpg')}}');">
                             </div>
                         </a>
@@ -107,7 +114,7 @@
                     </div>
                     <div class="col offset-md-1">
                         <a href="{{ url('/search/categories?query=ticket') }}">
-                            <div class="grid_container" 
+                            <div class="grid_container"
                             style="background-image: url('{{asset('img/website/workshop.jpg')}}');">
                             </div>
                         </a>

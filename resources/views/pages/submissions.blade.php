@@ -50,16 +50,12 @@
         </a>
         <div class="div"></div>
         <span><?=substr($submission->submission_date, 0, 10)?></span>
-        <div>
-            <button id="but1" form="accept" type="submit"><i class="fas fa-check-circle"></i></button>
-            <button id="but2" form="delete" type="submit"><i class="fas fa-times-circle"></i></button>
-            <form id="accept" action="{{url('/submission/' . $submission->id_submission . '/accept') }}" method="POST">
-                {{ csrf_field() }}
-            </form>
-            <form id="delete" action="{{url('/submission/' . $submission->id_submission . '/remove') }}" method="POST">
-                {{ csrf_field() }}
-            </form>
-        </div>
+        <form action="{{url('/submission/' . $submission->id_submission . '/accept') }}" method="GET">
+            <button class="but1" type="submit"><i class="fas fa-check-circle"></i></button>
+        </form>
+        <form action="{{url('/submission/' . $submission->id_submission . '/remove') }}" method="GET">
+            <button class="but2" type="submit"><i class="fas fa-times-circle"></i></button>
+        </form>
     </div>
     @endforeach
 </div>

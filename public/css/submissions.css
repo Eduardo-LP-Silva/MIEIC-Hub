@@ -79,21 +79,10 @@ body
     height: 4em;
 }
 
-.list-item > div:last-child > *
+.list-item > form
 {
     font-size: 20pt;
     cursor: pointer;
-}
-
-.list-item > div:last-child > :first-child
-{
-    margin-right: 1em;
-    color: green;
-}
-
-.list-item > div:last-child > :last-child
-{
-    color: red;
 }
 
 .div
@@ -102,32 +91,32 @@ body
     height: 50%;
 }
 
-#but2 > i:last-child
+.but2 > i:last-child
 {
   color: #af1c1c;
   background-color: white;
 }
 
-#but2 > i
+.but2 > i
 {
   color: #af1c1c;
   background-color: white;
   border: none;
 }
 
-#but2
+.but2
 {
   background-color: white;
   border: none;
 }
 
-#but1
+.but1
 {
   background-color: white;
   border: none;
 }
 
-#but1 > i
+.but1 > i
 {
   background-color: white;
   border: none;

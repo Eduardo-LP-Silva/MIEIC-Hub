@@ -33,11 +33,11 @@
                         @foreach ($photos as $photo)
                             @if ($loop->first)
                             <div class="carousel-item active">
-                                <img class="d-block w-100" src="{{asset($photo->image_path)}}">
+                                <img class="d-block w-100" src="{{asset($photo->image_path)}}" alt="product photo">
                             </div>
                             @else 
                             <div class="carousel-item">
-                                <img class="d-block w-100" src="{{asset($photo->image_path)}}">
+                                <img class="d-block w-100" src="{{asset($photo->image_path)}}" alt="product photo">
                             </div>
                             @endif
                         @endforeach
@@ -57,7 +57,6 @@
                     @can('viewDeleteProduct', App\Product::class)
                         <div>
                         <button id="delete-product" class="btn btn-danger">Delete product</button>
-                        <button class="btn btn-warning">Edit product</button>
                         </div>
                     @endcan
                 
@@ -165,7 +164,8 @@
                     <h1>Reviews</h1>
                     
                     @if($canReview)
-                        <div id="add" class="media container">
+                        <form id="add" class="media container" action={{{"/products/" . $product->id_product . "/reviews/" . Auth::id()}}} method="POST">
+                            {{ csrf_field() }}
                             <img class="d-flex mr-3" alt="64x64" style="width: 64px; height: 64px;" src="{{asset(Auth::user()->getPhoto(true))}}" data-holder-rendered="true">
                             <div class="media-body row">
                                 <h5 class="mt-0 col-6">You</h5>
@@ -175,11 +175,14 @@
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
-                                </div>    
-                                <textarea class="ml-3" placeholder="Add your review"></textarea>
-                                <button class="btn btn-success">Submit</button>
+                                </div> 
+                                <input id="new-rating" name="rating" type="hidden" value="0">
+                                <input type="hidden" name="_method" value="PUT">
+                                <textarea class="ml-3" name="review" placeholder="Add your review" maxlength="250">
+                                </textarea>
+                                <button type="submit" class="btn btn-success">Submit</button>
                             </div>
-                        </div>
+                        </form>
                     @endif
 
                     @each('partials.review', $reviews, 'review')

@@ -18,9 +18,14 @@ Route::get('/', function()
 
 Route::get('home', 'GeneralPageController@home');
 
+Route::get('error/{error_code}', 'GeneralPageController@error');
+
 Route::get('products/add', 'ProductsController@create');
+Route::post('products/add', 'ProductsController@store');
 Route::get('products/{id}', 'ProductsController@show');
 Route::delete('products/{id}/delete', 'ProductsController@destroy');
+Route::put('products/{id_product}/reviews/{id_user}', 'ReviewController@create');
+Route::delete('products/{id_product}/reviews/{id_user}', 'ReviewController@destroy');
 Route::get('users/{name}/wishlist', 'WishlistController@show');
 Route::put('wishlist/{id}/add', 'WishlistController@store');
 Route::delete('wishlist/{id}/delete', 'WishlistController@destroy');
@@ -57,8 +62,8 @@ Route::put('users/{name}/vote/{id_sub}', 'SubmissionController@vote');
 Route::delete('users/{name}/vote/{id_sub}', 'SubmissionController@unvote');
 
 Route::get('submission/{id_submission}', 'SubmissionController@show');
-Route::post('submission/{id_submission}/accept', 'SubmissionController@udpateAccepted');
-Route::post('submission/{id_submission}/remove', 'SubmissionController@destroy');
+Route::get('submission/{id_submission}/accept', 'SubmissionController@udpateAccepted');
+Route::get('submission/{id_submission}/remove', 'SubmissionController@destroy');
 Route::get('submit', 'SubmissionController@submit');
 Route::post('submit', 'SubmissionController@submitForm');
 Route::get('submissions', 'SubmissionController@showSubmissions');

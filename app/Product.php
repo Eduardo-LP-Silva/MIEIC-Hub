@@ -54,4 +54,19 @@ class Product extends Model
                 ORDER BY rank DESC"
             ));
     }
+
+    public static function getCategoryFolder($category) {
+        switch($category) {
+            case "Apparel":
+                return "apparel";
+            case "Phone Case":
+                return "cases";
+            case "Sticker":
+                return "stickers";
+            case "Poster":
+                return "posters";
+            case "Ticket":
+                return "tickets";
+        }
+    }
 }

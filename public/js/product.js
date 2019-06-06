@@ -2,7 +2,7 @@ window.onload = function() {
     addHeartListener();
     addStarsListeners();
     addSizeListener();
-    //addColorListener();
+    setTrashListeners();
     addDeleteListener();
 
     lockOneSize();
@@ -78,22 +78,30 @@ function addHeartListener()
 }
 
 function addStarsListeners() {
-    let stars = document.querySelectorAll("div#reviews div#add span.fa-star");
+    let stars = document.querySelectorAll("div#reviews form#add span.fa-star");
 
     for(let i=0; i<stars.length;i++) {
-        stars[i].addEventListener("click", function() {
+        stars[i].addEventListener("click", function() 
+        {
             let nextStar = stars[i].nextElementSibling;
-            while(nextStar != null) {
+
+            while(nextStar != null) 
+            {
                 nextStar.classList.remove("checked");
                 nextStar = nextStar.nextElementSibling;
             }
 
             stars[i].classList.add("checked");
+
             let previousStar = stars[i].previousElementSibling;
-            while( previousStar != null) {
+
+            while( previousStar != null) 
+            {
                 previousStar.classList.add("checked");
                 previousStar = previousStar.previousElementSibling;
             }
+
+            document.getElementById("new-rating").setAttribute("value", i + 1);
         });
     }
 }
@@ -129,4 +137,32 @@ function addSizeListener()
 
         });
 
+}
+
+function setTrashListeners()
+{
+    let reviewsTrash = document.querySelectorAll(".fa-trash");
+    let product_id = document.querySelector("div#content").getAttribute("data-id");
+    let token = document.querySelector("div#content").getAttribute("data-token");
+
+    for(let i = 0; i < reviewsTrash.length; i++)
+    {
+        let user_id = reviewsTrash[i].parentElement.parentElement.getAttribute("data-user-id");
+
+        reviewsTrash[i].addEventListener("click", function()
+        {
+            let request = new XMLHttpRequest();
+
+            request.open("DELETE", "/products/" + product_id + "/reviews/" + user_id, true);
+            request.setRequestHeader('X-CSRF-TOKEN', token);
+            request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+            request.addEventListener('load', function()
+            {
+                reviewsTrash[i].parentElement.parentElement.parentElement.removeChild(reviewsTrash[i].parentElement.parentElement);
+            });
+
+            request.send();
+        });
+    }
 }

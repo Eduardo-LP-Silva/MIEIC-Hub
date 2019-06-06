@@ -52,7 +52,7 @@
             <textarea required name="description" rows="3" cols="35"></textarea>
         </div>
         <div id="files" class="form-group">
-            <span>Upload images of your design </span>
+            <label for="images">Upload Image </label>
             <input id="images" class="form-control-file" name="photo" type="file" accept="image/png, image/jpeg" multiple>
         </div>
         <input type="submit" value="Submit!" class="btn btn-success btn-lg">
