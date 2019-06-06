@@ -77,6 +77,9 @@
                                 @if(Auth::user()->isSubManager())
                                 <a class="dropdown-item" href="/submissions?filter=Last-Week">Submissions</a>
                                 @endif
+                                @can('create', App\Product::class)
+                                <a class="dropdown-item" href="/products/add">New Product</a>
+                                @endcan
                             <a class="dropdown-item" href="{{url('/users/' .  Utils::slug(Auth::user()->name) .'/wishlist')}}">Wishlist</a>
                             <a class="dropdown-item" href="{{url('/users/'  . Utils::slug(Auth::user()->name) . '/settings')}}">Settings</a>
                             <a class="dropdown-item" href="{{url('/logout')}}">Sign-out</a>

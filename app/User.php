@@ -105,7 +105,7 @@ class User extends Authenticatable
     {
         return DB::select(DB::raw
         (
-            "SELECT DISTINCT product.id_product, product.product_name, product_purchase.price, purchase.purchase_date, purchase.status
+            "SELECT DISTINCT product.id_product, product.product_name, product_purchase.price, product_purchase.quantity, purchase.purchase_date, purchase.status
             FROM users, purchase, product_purchase, product
             WHERE users.id = " . $this->id .
             " AND users.id = purchase.id_user 
@@ -125,12 +125,29 @@ class User extends Authenticatable
     {
         return DB::select(DB::raw
         (
-            "SELECT product.id_product, product_name, price, quantity
+            "SELECT cart.id_cart, product.id_product, product_name, price, quantity, id_size, id_color
             FROM users, product, cart
-            WHERE users.id = " . $this->id . "AND users.id = cart.id_user AND 
+            WHERE users.id = " . $this->id . "AND users.id = cart.id_user AND
             cart.id_product = product.id_product"
 
         ));
+    }
+
+    public static function getCities()
+    {
+        return DB::select(DB::raw
+        (
+            "SELECT city
+            FROM city"
+        ));
+    }
+
+    public static function getLastInfo()
+    {
+        return DB::select(DB::raw
+        (
+            "SELECT id_delivery_info FROM delivery_info ORDER BY id_delivery_info DESC LIMIT 1"
+        ))[0];
     }
 
     public static function search($query)

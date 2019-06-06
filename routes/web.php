@@ -18,7 +18,9 @@ Route::get('/', function()
 
 Route::get('home', 'GeneralPageController@home');
 
+Route::get('products/add', 'ProductsController@create');
 Route::get('products/{id}', 'ProductsController@show');
+Route::delete('products/{id}/delete', 'ProductsController@destroy');
 Route::get('users/{name}/wishlist', 'WishlistController@show');
 Route::put('wishlist/{id}/add', 'WishlistController@store');
 Route::delete('wishlist/{id}/delete', 'WishlistController@destroy');
@@ -65,3 +67,5 @@ Route::post('upcoming/newpoll', 'PollsController@addPoll');
 
 Route::get('users/{name}/cart', 'PurchasesController@showCart');
 Route::delete('users/{id_user}/cart/{id_product}/remove', 'PurchasesController@deleteCartEntry');
+Route::get('users/{name}/checkout', 'PurchasesController@checkout');
+Route::post('users/{name}/checkout', 'PurchasesController@checkoutForm');

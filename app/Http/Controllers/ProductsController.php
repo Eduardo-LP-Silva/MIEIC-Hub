@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -11,26 +12,14 @@ use App\Photo;
 use App\Review;
 use App\Wishlist;
 
-class ProductsController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
+class ProductsController extends Controller {
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('pages.new-product');
     }
 
     /**
@@ -52,6 +41,12 @@ class ProductsController extends Controller
      */
     public function show($id) {
         $product = Product::find($id);
+
+        if($product === null) {
+            // not found
+            return Redirect::to('home');
+        }
+
         $photos = Photo::where('id_product', $id)->get();
         $reviews = Review::where('id_product', $id)->get();
         $sizes = DB::select(
@@ -111,8 +106,15 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        $user = Auth::user();
+        $product = Product::find($id);
+        
+        if ($user->cant('delete', $product)) {
+            abort(403, 'Permission denied');
+        }
+
+        $product->delete();
+        return 200;
     }
 }

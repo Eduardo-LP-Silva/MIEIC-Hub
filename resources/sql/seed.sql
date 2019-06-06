@@ -75,7 +75,7 @@ CREATE TABLE photo
 (
     id_photo SERIAL PRIMARY KEY,
     image_path TEXT UNIQUE NOT NULL,
-    id_product INTEGER REFERENCES product ON UPDATE CASCADE
+    id_product INTEGER REFERENCES product ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE users
@@ -165,7 +165,7 @@ CREATE TABLE product_purchase
 CREATE TABLE review
 (
     id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE NO ACTION,
-    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
+    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE ON DELETE CASCADE,
     comment TEXT NOT NULL,
     review_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     rating INTEGER NOT NULL CHECK(rating > 0 AND rating <= 5),
@@ -185,7 +185,7 @@ CREATE TABLE cart
 CREATE TABLE wishlist
 (
     id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE CASCADE,
-    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
+    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (id_user, id_product)
 );
 
@@ -909,7 +909,7 @@ INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (15, 
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (14, 23, 1, 5, 1);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (7, 33, 1, 1, 2);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 1, 1, 3, 1);
-INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 2, 2, 2, 1);
+INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 2, 2, 2, 2);
 INSERT INTO cart (id_user, id_product, id_color, id_size, quantity) VALUES (3, 3, 3, 1, 2);
 
 -- Table: city
@@ -968,8 +968,9 @@ INSERT INTO delivery_info (id_city, contact, delivery_address) VALUES (1, '93711
 -- Table: purchase
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (1, 1, '2019-02-03 12:40:24', 1, 'processing');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (2, 2, '2019-01-05 03:22:05', 1, 'awaiting_payment');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (10, 3, '2019-03-30 15:10:10', 1, 'in_transit');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (22, 4, '2019-02-01 19:34:22', 1, 'delivered');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (3, 2, '2019-01-05 03:22:05', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (3, 3, '2019-03-30 15:10:10', 1, 'in_transit');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (3, 4, '2019-02-01 19:34:22', 1, 'delivered');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (22, 4, '2019-01-02 20:56:12', 1, 'canceled');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (33, 6, '2019-02-09 07:32:43', 1, 'delivered');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (36, 7, '2019-03-14 12:41:56', 1, 'awaiting_payment');
@@ -1094,15 +1095,12 @@ INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUE
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-02-19 11:57:31', 1, 'processing');
 
 -- Table: product_purchase
-INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (1, 4, 1, 1, 1, 2);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (4, 6, 1, 1, 2, 3);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (15, 1, 2, 1, 4, 2);
-INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (70, 3, 1, 1, 3, 1);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (52, 14, 1, 1, 1, 2);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (11, 13, 1, 1, 1, 1);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (11, 12, 2, 1, 2, 2);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (15, 10, 1, 1, 2, 1);
-INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (26, 5, 1, 1, 2, 1);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (30, 2, 1, 1, 3, 2);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (66, 8, 3, 1, 3, 4);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (69, 9, 1, 1, 1, 3);

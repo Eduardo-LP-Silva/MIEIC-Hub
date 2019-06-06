@@ -54,6 +54,13 @@
 
                 <!-- Informations -->
                 <div id="info" class="col-md-6">
+                    @can('viewDeleteProduct', App\Product::class)
+                        <div>
+                        <button id="delete-product" class="btn btn-danger">Delete product</button>
+                        <button class="btn btn-warning">Edit product</button>
+                        </div>
+                    @endcan
+                
                     <h1>{{ $product->product_name }}</h1>
                     @can('create', App\Wishlist::class)
                         @if($inWishlist)
