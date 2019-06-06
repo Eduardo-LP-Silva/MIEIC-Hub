@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -229,7 +230,7 @@ class SubmissionController extends Controller
         {
             $submission->delete();
 
-            return redirect("/submissions");
+            return redirect(URL::previous());
         }
         else
             abort(403, 'Permission denied');
@@ -279,7 +280,7 @@ class SubmissionController extends Controller
             ->where('id_submission', $submission->id_submission)
             ->update(['accepted' => $value]);
 
-          return redirect("/submissions");
+          return redirect(URL::previous());
       }
       else
           abort(403, 'Permission denied');
