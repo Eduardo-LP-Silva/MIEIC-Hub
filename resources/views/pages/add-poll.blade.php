@@ -9,8 +9,9 @@
         <link rel="stylesheet" href="{{ asset('css/submit.css') }}">
 @endsection
 
-<script src="http://code.jquery.com/jquery.min.js"></script>
-@yield('scripts')
+@section('scripts')
+    <script src="{{ asset('js/add-poll.js')}}" defer></script>
+@endsection
 
 @section('title')
     <title>Add Poll - MIEIC Hub</title>
@@ -25,7 +26,7 @@
       {{ csrf_field() }}
       <div id="title" class="form-group">
           <label for="name">Title: </label>
-          <input id="name" name="name" type="text" required="true">
+          <input id="name" name="name" type="text" required>
       </div>
 
       <section id="designs">
@@ -34,8 +35,8 @@
               <input type="hidden" name="size" value=<?=sizeof($accepted_submissions)?>>
               @foreach($accepted_submissions as $submission)
               <?php $author = User::find($submission->id_user); ?>
-              <div class="list-item" href="./product.html">
-                  <a href="./submission.html">
+              <div class="list-item" >
+                  <a href={{url('/submission/' . $submission->id_submission)}}>
                       <img src="../resources/images/apparel/hoodie_3_single.jpg" alt="Submission Picture">
                   </a>
                   <div class="div"></div>
@@ -43,7 +44,7 @@
                   <div class="div"></div>
                   <a href="{{url('/users/' . $author->name . '/reviews')}}">{{{$author->name}}}</a>
                   <input type="checkbox" name=<?="sub" . $loop->index?> value ="{{{$submission->id_submission}}}" >
-              </div>
+                </div>
               @endforeach
           </div>
       </section>
