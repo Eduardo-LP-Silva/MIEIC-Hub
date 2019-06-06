@@ -23,7 +23,7 @@ div#content div#product div#info h1 {
 
 div#content div#product i.heart 
 {
-    font-size: 14pt;
+    font-size: 18pt;
     color: #af1c1c;
     padding-bottom: .6em;
     margin-left: .5em;
@@ -61,7 +61,7 @@ div#content div#product div#info div.to-flex{
     left: 0;
     white-space: nowrap;
     overflow: hidden;
-    width: 67%;
+    width: 0%;
 }
 
 .stars-inner::before {
@@ -185,6 +185,10 @@ div#content div#reviews div#add button
     div#content div#info div#color .custom-select {
         width: 75%;
     }
+}
+
+#info > button.btn.btn-danger {
+  background-color: rgb(175, 28, 28);
 }
 
 .carousel-control-next-icon {

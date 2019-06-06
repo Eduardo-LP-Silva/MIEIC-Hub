@@ -109,7 +109,7 @@ class UsersController extends Controller
     {
         $user = User::getURLUser($name);
 
-        if($user->isAuthenticatedUser() || Auth::user()->isMod())
+        if($user->isAuthenticatedUser() || User::isAuthMod())
             return view('pages.settings', ['user' => $user]);
         else
             abort(403, 'Permission denied');  
@@ -141,7 +141,7 @@ class UsersController extends Controller
     {
         $user = User::getURLUser($name);
 
-        if(!$user->isAuthenticatedUser() && !Auth::user()->isMod())
+        if(!$user->isAuthenticatedUser() || !Auth::user()->isMod())
             abort(403, 'Permission denied');
 
         $setting = $request->setting;

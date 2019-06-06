@@ -17,13 +17,13 @@
     <div id="content">
         <div>
             <h1>Settings</h1>
-            <img src="{{asset('img/icons/settings.png')}}" class="avatar">
+            <img src="{{asset('img/icons/settings.png')}}" class="avatar" alt="Settings Icon">
         </div>
         <div class="accordion" id="accordionExample">
           <!--Email-->
           <form class="card" action="settings/edit" method="POST">
             <div class="card-header" id="headingThree">
-              <h5 class="mb-0">
+              <div class="mb-0 h5">
                 <span>Email</span>
                 <div class="card_options">
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
@@ -36,13 +36,13 @@
                       Edit 🖋
                     </button>
                 </div>
-              </h5>
+              </div>
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
               <div class="card-body">
                 <div class="current_options">
                   <span>Current: </span>
-                  <span><?=$user->email?></span>
+                  <span>{{{$user->email}}}</span>
                 </div>
                 <input type="email" name="email" placeholder="   Enter Email" required>
               </div>
@@ -51,7 +51,7 @@
           <!--Pass  -->
           <form class="card" action="settings/edit" method="POST" onsubmit="return confirmPassword()">
             <div class="card-header" id="headingTwo">
-              <h5 class="mb-0">
+              <div class="mb-0 h5">
                 <a>Password</a>
                 <div class="card_options">
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
@@ -64,7 +64,7 @@
                       Edit 🖋
                     </button>
                 </div>
-              </h5>
+              </div>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
               <div class="card-body">
@@ -76,7 +76,7 @@
           <!--Birthdate-->
           <form class="card" action="settings/edit" method="POST">
             <div class="card-header" id="headingFour">
-              <h5 class="mb-0">
+              <div class="mb-0 h5">
                 <p>Date of birth</p>
                 <div class="card_options">
                     <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
@@ -89,7 +89,7 @@
                       Edit 🖋
                     </button>
                 </div>
-              </h5>
+              </div>
             </div>
             <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
               <div class="card-body">
@@ -104,8 +104,7 @@
           <!--Profile Pic-->
           <form id="files" class="form-group" action="settings/edit" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
-            <label for="photo">Upload new profile picture<picture>
-              </picture> </label>
+            <label for="photo">Upload new profile picture </label>
             <input id="photo" class="form-control-file" name="photo" type="file" accept="image/png, image/jpeg" multiple required>
             <div class="form-group row mb-0 mt-5">
                 <div class="col-md-8 offset-md-4">

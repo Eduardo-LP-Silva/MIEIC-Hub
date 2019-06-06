@@ -23,33 +23,59 @@ function setAspectRatio()
 function addHeartListeners()
 {
     let hearts = document.querySelectorAll(".heart");
+    let token = document.getElementById("main").getAttribute("data-token");
+    let name = document.getElementById("main").getAttribute("name");
     
     for(let i = 0; i < hearts.length; i++)
         hearts[i].addEventListener("click", function()
         {
             let newVotesNo;
+            let sub = hearts[i].parentElement.getAttribute("data-sub");
+            let data = {"name": name, "id_sub": sub};
             let request = new XMLHttpRequest();
-            let url = "/users/" + document.getElementById("user").getAttribute("name") + "/vote/"
-                + hearts[i].parentElement.getAttribute("poll");
+            let url = "/users/" + name + "/vote/" + sub;
 
             if(hearts[i].classList.contains("far"))
             {
-                request.open("PUT", "/users/" + banBtn[i].getAttribute("name") + "/delete", true);
-                hearts[i].classList.remove("far");
-                hearts[i].classList.add("fa");
+                request.open("PUT", url, true);
+                request.setRequestHeader('X-CSRF-TOKEN', token);
+                request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
-                newVotesNo = parseInt(hearts[i].nextElementSibling.textContent) + 1;
-                hearts[i].nextElementSibling.textContent = newVotesNo;
-                hearts[i].parentElement.style.borderColor = "#af1c1c";
+                request.onload = function()
+                {
+                    if(request.responseText == 200)
+                    {
+                        hearts[i].classList.remove("far");
+                        hearts[i].classList.add("fa");
+        
+                        newVotesNo = parseInt(hearts[i].nextElementSibling.textContent) + 1;
+                        hearts[i].nextElementSibling.textContent = newVotesNo;
+                    }
+
+                    console.log(request.responseText);
+                }
+
+                request.send(JSON.stringify(data));
             } 
             else
             {
-                hearts[i].classList.remove("fa");
-                hearts[i].classList.add("far");
+                request.open("DELETE", url, true);
+                request.setRequestHeader('X-CSRF-TOKEN', token);
+                request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
-                newVotesNo = parseInt(hearts[i].nextElementSibling.textContent) - 1;
-                hearts[i].nextElementSibling.textContent = newVotesNo;
-                hearts[i].parentElement.style.borderColor = "#969696";
+                request.onload = function()
+                {
+                    if(request.responseText == 200)
+                    {
+                        hearts[i].classList.remove("fa");
+                        hearts[i].classList.add("far");
+
+                        newVotesNo = parseInt(hearts[i].nextElementSibling.textContent) - 1;
+                        hearts[i].nextElementSibling.textContent = newVotesNo;
+                    }
+                }
+
+                request.send(JSON.stringify(data));
             } 
         });
 }

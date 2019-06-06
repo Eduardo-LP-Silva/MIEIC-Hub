@@ -11,11 +11,11 @@
 @endsection
 
 @section('title')
-    <title>Product - MIEIC Hub</title>
+    <title>{{$product->product_name}} - MIEIC Hub</title>
 @endsection
 
 @section('content')
-<div id="content" class="container">
+<div id="content" class="container" data-id="{{$product->id_product}}" data-token="{{csrf_token()}}">
             <!-- Product -->
             <div id="product" class="row">
                 <!-- Product photos-->
@@ -54,34 +54,58 @@
 
                 <!-- Informations -->
                 <div id="info" class="col-md-6">
+                    @can('viewDeleteProduct', App\Product::class)
+                        <div>
+                        <button id="delete-product" class="btn btn-danger">Delete product</button>
+                        <button class="btn btn-warning">Edit product</button>
+                        </div>
+                    @endcan
+                
                     <h1>{{ $product->product_name }}</h1>
-                    <i class="far fa-heart heart"></i>
+                    @can('create', App\Wishlist::class)
+                        @if($inWishlist)
+                        <i class="fa fa-heart heart" ></i>
+                        @else
+                        <i class="far fa-heart heart"></i>
+                        @endif
+                    @endcan
 
                     <div class="to-flex">
                         <h2 id="price">Price: {{ $product->price }}€</h2>
                         <div id="product-rating" class="stars-outer">
-                            <div class="stars-inner"></div>
+                            <div data-rating="{{$product->rating}}" class="stars-inner"></div>
                         </div>
                     </div>
 
                     <div id="size">
                         <h2>Size:</h2>
+                        @if(sizeof($sizes) > 0)
                         <div class="btn-group w-75" role="group" aria-label="Size">
-                            <button type="button" class="btn btn-secondary">XS</button>
-                            <button type="button" class="btn btn-secondary">S</button>
-                            <button type="button" class="btn btn-secondary">M</button>
-                            <button type="button" class="btn btn-secondary">L</button>
-                            <button type="button" class="btn btn-secondary">XL</button>
+                            @foreach($sizes as $size)
+                                <button type="button" name ="{{$size->size}}" class="btn btn-secondary">{{$size->size}}</button>
+                            @endforeach
                         </div>
+                        @else 
+                        <div class="btn-group w-25" role="group" aria-label="Size">
+                                <button type="button" name="One-Size" class="btn btn-secondary">One-Size</button>
+                        </div>    
+                        @endif 
                     </div>
 
+                    @if(sizeof($colors) > 0)
                     <div id="color">
                         <h2>Color:</h2>
                         <select class="custom-select">
-                            <option selected="" value="bordeaux">Bordeaux</option>
-                            <option value="grey">Grey</option>
+                            @foreach($colors as $color)
+                                @if($loop->first)
+                                <option selected="" value="{{$color->color}}">{{$color->color}}</option>
+                                @else
+                                <option value="{{$color->color}}">{{$color->color}}</option>
+                                @endif
+                            @endforeach
                         </select>  
                     </div>
+                    @endif
 
                     <div id="informations" class="accordion">
                         <div class="card">
@@ -124,29 +148,33 @@
             </div>
 
             <!-- Reviews -->
+            @if(sizeof($reviews) || $canReview)
             <div id="reviews" class="row">
                 <div class="col-12">
                     <h1>Reviews</h1>
-                    {{-- TO DO: auth e se comprou e não fez review ainda --}}
-                    <div id="add" class="media container">
-                        <img class="d-flex mr-3" data-src="holder.js/64x64?theme=sky" alt="64x64" style="width: 64px; height: 64px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16948714b27%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16948714b27%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
-                        <div class="media-body row">
-                            <h5 class="mt-0 col-6">You</h5>
-                            <div class="rating col-6">
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </div>    
-                            <textarea class="ml-3" placeholder="Add your review"></textarea>
-                            <button class="btn btn-success">Submit</button>
+                    
+                    @if($canReview)
+                        <div id="add" class="media container">
+                            <img class="d-flex mr-3" alt="64x64" style="width: 64px; height: 64px;" src="{{asset(Auth::user()->getPhoto(true))}}" data-holder-rendered="true">
+                            <div class="media-body row">
+                                <h5 class="mt-0 col-6">You</h5>
+                                <div class="rating col-6">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>    
+                                <textarea class="ml-3" placeholder="Add your review"></textarea>
+                                <button class="btn btn-success">Submit</button>
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     @each('partials.review', $reviews, 'review')
                           
                 </div>
             </div>
+            @endif
         </div>
 @endsection

@@ -21,9 +21,7 @@ function setFilterListener()
 
     for(let i = 0; i < dropdownItems.length; i++)
         dropdownItems[i].addEventListener("click", function()
-        {
-            //event.preventDefault();
-            
+        {            
             let filter = document.querySelector("#search_parameters > .dropdown > span");
 
             filter.textContent = dropdownItems[i].textContent;
@@ -43,7 +41,7 @@ function setBanListeners()
             let request = new XMLHttpRequest();
 
             request.open("DELETE", "/users/" + banBtn[i].getAttribute("name") + "/delete", true);
-            request.setRequestHeader('X-CSRF-TOKEN', document.getElementById("search").getAttribute("token"));
+            request.setRequestHeader('X-CSRF-TOKEN', document.getElementById("search").getAttribute("data-token"));
             request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
             request.addEventListener('load', function()
@@ -51,8 +49,6 @@ function setBanListeners()
                 let list = banBtn[i].parentElement.parentElement.parentElement;
 
                 list.removeChild(banBtn[i].parentElement.parentElement);
-
-                console.log(request.responseText);
             });
 
             request.send(JSON.stringify(data));

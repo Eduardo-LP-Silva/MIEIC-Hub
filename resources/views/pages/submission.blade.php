@@ -14,7 +14,7 @@
 @section('content')
 <div id="content">
     <div id="header">
-        <h1>Name: {{$submission->submission_name}}</h1>
+        <h1>Name: {{{$submission->submission_name}}}</h1>
         <div id="actions">
               <button id="but1" form="accept" type="submit"><i class="fas fa-check-circle"></i></button>
               <button id="but2" form="delete" type="submit"><i class="fas fa-times-circle"></i></button>
@@ -26,18 +26,18 @@
               </form>
         </div>
     </div>
-    <img src={{asset(Utils::replaceWhiteSpace($submission->picture))}}>
+    <img src={{asset(Utils::replaceWhiteSpace($submission->picture))}} alt="Submission picture">
     <br>
     <div id="author">
         <span>Author: </span>
-        <a href="{{url('/users/' . Utils::slug($user->name))}}">{{$user->name}}</a>
+        <a href="{{url('/users/' . Utils::slug($user->name))}}">{{{$user->name}}}</a>
     </div>
     <div id="category">
         <span>Category: </span>
         <span>{{$category->category}}</span>
     </div>
     <p id="description">
-        {{$submission->submission_description}}
+        {{{$submission->submission_description}}}
     </p>
 </div>
 @endsection

@@ -13,7 +13,7 @@
 @endsection
 
 @section('title')
-    <title>{{$user->name}} - MIEICHub</title>
+    <title>{{{$user->name}}} - MIEICHub</title>
 @endsection
 
 @section('content')    
@@ -24,14 +24,12 @@
                 <img id="profilepicture" src={{asset(Utils::replaceWhiteSpace($user->getPhoto(true)))}} alt="profile picture">
             <span id="name"> {{$user->name}} </span>
             </div>
-            <!-- <span class="separation"></span> -->
             <div class="status row">
                 <small style="margin-left: 10%">{{$user->user_description}}</small>
             </div>
-            <!-- <span class="separation"></span> -->
             <div class="wishlist row">
-                <a href={{url("/users/" . Utils::slug($user->name) . "/wishlist")}}>
-                    <button class="btn">Wishlist</button>
+                <a class="btn" href={{url("/users/" . Utils::slug($user->name) . "/wishlist")}}>
+                    Wishlist
                 </a>
                 @if ($user->isAuthenticatedUser() || User::isAuthMod())
                 <a href={{url('/users/' . Utils::slug($user->name) . '/settings')}}>
@@ -46,34 +44,38 @@
             <form id="privileges" action=<?="/users/" . Utils::slug($user->name) . "/privilege"?> method="GET">
                 <p> Manage privileges</p>
                 @if($user->isStockManager())
-                    <button id="stock" super="1" class="btn" type="submit" name="role" 
+                    <button id="stock" data-super="1" class="btn" type="submit" name="role" 
                     value="rm_stock_manager">Stock Manager</button>
                 @else
-                    <button id="stock" super="0" class="btn" type="submit" name="role" 
+                    <button id="stock" data-super="0" class="btn" type="submit" name="role" 
                     value="stock_manager">Stock Manager</button>
                 @endif
 
                 @if($user->isMod())
-                    <button id="mod" super="1" class="btn" type="submit" name="role" 
+                    <button id="mod" data-super="1" class="btn" type="submit" name="role" 
                     value="rm_moderator">Moderator</button>
                 @else
-                    <button id="mod" super="0" class="btn" type="submit" name="role" 
+                    <button id="mod" data-super="0" class="btn" type="submit" name="role" 
                     value="moderator">Moderator</button>
                 @endif
 
                 @if($user->isSubManager())
-                    <button id="sub" super="1" class="btn" name="role" type="submit" 
+                    <button id="sub" data-super="1" class="btn" name="role" type="submit" 
                     value="rm_submission_manager">Submission Manager</button>
                 @else
-                    <button id="sub" super="0" class="btn" name="role" type="submit" 
+                    <button id="sub" data-super="0" class="btn" name="role" type="submit" 
                     value="submission_manager">Submission Manager</button>
                 @endif
             </form>
             @endif
             @if($user->isAuthenticatedUser() || User::isAuthMod())
                 <div id="options_buttons">
-                    <a href={{url('/users/' . Utils::slug($user->name) . '/orders')}}><button type="button" class="btn btn-danger">Orders</button></a> 
-                    <a href={{url('/users/' . Utils::slug($user->name) . '/reviews')}}><button type="button" class="btn btn-danger" autofocus>Reviews</button></a> 
+                    <a class="btn btn-danger" href={{url('/users/' . Utils::slug($user->name) . '/orders')}}>
+                        Orders
+                    </a> 
+                    <a class="btn btn-danger" href={{url('/users/' . Utils::slug($user->name) . '/reviews')}}>
+                        Reviews
+                    </a> 
                 </div>
             @endif
             @yield('details')

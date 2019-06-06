@@ -2,6 +2,43 @@ window.onload = function() {
     addHeartListener();
     addStarsListeners();
     addSizeListener();
+    addDeleteListener();
+
+    lockOneSize();
+    calcRating();
+}
+
+function addDeleteListener() {
+    let btn = document.querySelector("#delete-product");
+
+    btn.addEventListener("click", function() {
+        let id = document.querySelector("div#content").getAttribute("data-id");
+        let token = document.querySelector("div#content").getAttribute("data-token");
+        let request = new XMLHttpRequest();
+        request.open("DELETE", '/products/' + id + '/delete/', true);
+        request.setRequestHeader('X-CSRF-TOKEN', token);
+        request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+        request.addEventListener('load', function() {
+            console.log(request.responseText);
+        });
+
+        request.send();
+    });
+}
+
+function lockOneSize() {
+    let buttons = document.querySelectorAll("div#content div#info .btn-group button");
+    if(buttons[0].innerHTML == 'One-Size') {
+        buttons[0].style.backgroundColor = "#af1c1c";
+    }
+}
+
+function calcRating() {
+    let rating = document.querySelector(".stars-inner");
+    let productRating = rating.getAttribute("data-rating");
+    productRating = productRating * 100 / 5;
+    rating.style.width = productRating + "%";
 }
 
 
@@ -9,20 +46,33 @@ function addHeartListener()
 {
     let heart = document.querySelector(".heart");
 
-    heart.addEventListener("click", function() 
-    {
-        //Change condition to sync with db
+    heart.addEventListener("click", function() {
+        let id = document.querySelector("div#content").getAttribute("data-id");
+        let token = document.querySelector("div#content").getAttribute("data-token");
+        let request = new XMLHttpRequest();
 
-        if(heart.classList.contains("far"))
-        {
-            heart.classList.remove("far");
-            heart.classList.add("fa");
+        if(heart.classList.contains("far")) {
+            // Add to wishlist
+            request.open("PUT", '/wishlist/' + id + '/add/', true);
+
+            request.addEventListener('load', function() {
+                heart.classList.remove("far");
+                heart.classList.add("fa");
+            });
         }
-        else 
-        {
-            heart.classList.remove("fa");
-            heart.classList.add("far");
+        else {
+            // Remove from wishlist
+            request.open("DELETE", '/wishlist/' + id + '/delete/', true);
+
+            request.addEventListener('load', function() {
+                heart.classList.remove("fa");
+                heart.classList.add("far");
+            });
         }
+
+        request.setRequestHeader('X-CSRF-TOKEN', token);
+        request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        request.send();
     });
 }
 
@@ -54,10 +104,10 @@ function addSizeListener()
     for(let i = 0; i < buttons.length; i++)
         buttons[i].addEventListener("click", function()
         {
-            for(let j = 0; j < buttons.length; j++)
+            for(let j = 0; j < buttons.length; j++) {
                 if(buttons[j].style.backgroundColor == "rgb(175, 28, 28)" && buttons[j] != buttons[i])
                     buttons[j].style.backgroundColor = "black";
-
+            }
 
             buttons[i].style.backgroundColor = "#af1c1c";
         });

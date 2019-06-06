@@ -13,9 +13,22 @@ class UserSubVote extends Model
 
     public static function hasUserVoted($id_user, $id_sub)
     {
-        return DB::table('user_sub_vote')
+        return sizeof(DB::table('user_sub_vote')
             ->where('id_user', $id_user)
-            ->where('id_sub', $id_sub)->get();
+            ->where('id_sub', $id_sub)->get()) > 0;
+    }
+
+    public static function create($id_user, $id_sub)
+    {
+        DB::table('user_sub_vote')->insert(['id_user' => $id_user, 'id_sub' => $id_sub]);
+    }
+
+    public static function remove($id_user, $id_sub)
+    {
+        $vote = UserSubVote::where('id_user', $id_user)
+            ->where('id_sub', $id_sub)->get()[0];
+
+        $vote->delete();
     }
 
     protected function setKeysForSaveQuery(\Illuminate\Database\Eloquent\Builder $query) {

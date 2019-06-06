@@ -11,16 +11,16 @@
     <a class="list-item" href="{{url('/products/' . $order->id_product)}}">
         <img src={{asset(Utils::replaceWhiteSpace($product_photo))}} alt="Product Picture">
         <div class="div"></div>
-        <span><?=$order->product_name?></span>
+        <span>{{{$order->product_name}}}</span>
         <div class="div"></div>
         <div>
-            <span><?=$order->price * $order->quantity?></span>
+            <span><?=$order->price?></span>
             <div class="div"></div>
             <span><?=$order->quantity?></span>
         </div>
         <div class="div"></div>
         <div>
-            <span><?=$order->purchase_date?></span>
+            <span><?=substr($order->purchase_date, 0, 10)?></span>
             <div class="div"></div>
             <span><?=$order->status?></span>
         </div>

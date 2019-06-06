@@ -21,7 +21,7 @@
         </div>
       @endif
 
-    <img src="{{asset('img/website/avatar.png')}}" class="avatar">
+    <img src="{{asset('img/website/avatar.png')}}" class="avatar" alt="Avatar">
     <h1>Sign Up</h1>
     <form method="POST" action="{{ route('register') }}">
         {{ csrf_field() }}
@@ -56,7 +56,7 @@
         </span>
       @endif
 
-      <a><input type="submit" value="Register"></a> 
+      <input type="submit" value="Register"> 
       <a class="button button-outline" href="{{ route('login') }}">Login instead</a>
 
     </form>

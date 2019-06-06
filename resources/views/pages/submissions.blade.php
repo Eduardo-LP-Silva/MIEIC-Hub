@@ -2,14 +2,14 @@
     use App\Submission;
     use App\User;
     use App\Utils;
+    use Illuminate\Support\Facades\Input;
 ?>
 
 @extends('layouts.page')
 
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('css/submissions.css') }}">
-    <link rel="stylesheet" href="../css/search-params.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/search-params.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 @endsection
 
@@ -26,37 +26,41 @@
                 From:
             </button>
             <span>
-                Last Week
+                {{{Utils::reverse_slug(Input::get('filter'))}}}
             </span>
             <div class="dropdown-menu" aria-labelledby="searchDropDown">
-                <a class="dropdown-item" href="./submissions.html">Last Week</a>
-                <a class="dropdown-item" href="./submissions.html">Last Month</a>
-                <a class="dropdown-item" href="./submissions.html">Ever</a>
+                <a class="dropdown-item" href="/submissions?filter=Last-Week">Last Week</a>
+                <a class="dropdown-item" href="/submissions?filter=Last-Month">Last Month</a>
+                <a class="dropdown-item" href="/submissions?filter=Ever">Ever</a>
             </div>
         </div>
     </div>
-    @for($i = 0; $i < count($submissions); $i++)
-    <div class="list-item" href="./product.html">
-         <a href="./submission.html">
-            <img src={{asset(Utils::replaceWhiteSpace($submissions[$i]->picture))}} alt="Submission Picture">
+    @foreach($submissions as $submission)
+    <div class="list-item">
+         <a href=<?="/submission/" . $submission->id_submission?>>
+            <img src={{asset(Utils::replaceWhiteSpace($submission->picture))}} alt="Submission Picture">
         </a>
         <div class="div"></div>
-        <a href="./submission.html"><?= $submissions[$i]->submission_name ?></a>
+        <a href=<?="/submission/" . $submission->id_submission?>>
+            {{{$submission->submission_name}}}
+        </a>
         <div class="div"></div>
-        <a href="./profile-orders.html"><?= $names[$i]->name?></a>
+        <a href="{{{url('/users/' . $submission->name)}}}">
+            {{{$submission->name}}}
+        </a>
         <div class="div"></div>
-        <span><?=$submissions[$i]->submission_date?></span>
+        <span><?=substr($submission->submission_date, 0, 10)?></span>
         <div>
             <button id="but1" form="accept" type="submit"><i class="fas fa-check-circle"></i></button>
             <button id="but2" form="delete" type="submit"><i class="fas fa-times-circle"></i></button>
-            <form id="accept" action="{{url('/submission/' . $submissions[$i]->id_submission . '/accept') }}" method="POST">
+            <form id="accept" action="{{url('/submission/' . $submission->id_submission . '/accept') }}" method="POST">
                 {{ csrf_field() }}
             </form>
-            <form id="delete" action="{{url('/submission/' . $submissions[$i]->id_submission . '/remove') }}" method="POST">
+            <form id="delete" action="{{url('/submission/' . $submission->id_submission . '/remove') }}" method="POST">
                 {{ csrf_field() }}
             </form>
         </div>
     </div>
-    @endfor
+    @endforeach
 </div>
 @endsection

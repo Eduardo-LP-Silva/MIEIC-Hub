@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use App\Product;
 use App\Photo;
 use App\Submission;
 use App\User;
 use App\Utils;
 use App\Category;
+use App\UserSubVote;
 
 class SubmissionController extends Controller
 {
@@ -30,6 +33,40 @@ class SubmissionController extends Controller
     public function index()
     {
         //
+    }
+
+    public function vote($name, $id_sub)
+    {
+        $user = User::getURLUser($name);
+
+        if(!Auth::check() || Auth::user()->name != $user->name)
+            abort(403, 'Permission denied');
+
+        $id_user = $user->id;
+
+        if(UserSubVote::hasUserVoted($id_user, $id_sub))
+            abort(400, 'User has already voted for this design on this poll');
+
+        UserSubVote::create($id_user, $id_sub);
+
+        return 200;
+    }
+
+    public function unvote($name, $id_sub)
+    {
+        $user = User::getURLUser($name);
+
+        if(!Auth::check() || Auth::user()->name != $user->name)
+            abort(403, 'Permission denied');
+
+        $id_user = $user->id;;
+
+        if(!UserSubVote::hasUserVoted($id_user, $id_sub))
+            abort(400, "User hasn't already voted for this design on this poll");
+
+        UserSubVote::remove($id_user, $id_sub);
+
+        return 200;
     }
 
      /**
@@ -193,45 +230,40 @@ class SubmissionController extends Controller
         {
             $submission->delete();
 
-            return redirect("/submissions");
+            return redirect(URL::previous());
         }
         else
             abort(403, 'Permission denied');
     }
 
-    public function showAllSubmissions()
+    public function showSubmissions()
     {
-      $submissions = $this->getSubmissions();
+        if(!Auth::check() || !Auth::user()->isSubManager())
+            abort(403, 'Permission denied');
 
-      $names = array();
+        $date_filter = Input::get('filter');
 
-      foreach ($submissions as $submission)
-      {
-        $username = $this->getUsername($submission->id_submission);
-        $names[] = $username[0];
-      }
+        switch($date_filter)
+        {
+            case "Last-Week":
+                $date_filter = date("Y-m-d", strtotime("-1 week +1 day"));
+                break;
 
-      return view('pages.submissions', ['submissions' => $submissions, 'names' => $names]);
-    }
+            case "Last-Month":
+                $date_filter = date("Y-m-d", strtotime("first day of previous month"));
+                break;
 
-    public function getUsername($id)
-    {
-      return DB::select(DB::raw
-      (
-          "SELECT name
-          FROM users
-          WHERE users.id = ". $id ."
-          "
-      ));
-    }
+            case "Ever":
+                $date_filter = 0;
+                break;
 
-    public function getSubmissions()
-    {
-      return DB::select(DB::raw
-      (
-          "SELECT *
-          FROM submission"
-      ));
+            default:
+                abort(400, 'Unknown date filter: ' . $date_filter);
+        }
+
+      $submissions = Submission::getSubmissions($date_filter);
+
+      return view('pages.submissions', ['submissions' => $submissions]);
     }
 
     public function udpateAccepted($id_submission)
@@ -248,7 +280,7 @@ class SubmissionController extends Controller
             ->where('id_submission', $submission->id_submission)
             ->update(['accepted' => $value]);
 
-          return redirect("/submissions");
+          return redirect(URL::previous());
       }
       else
           abort(403, 'Permission denied');

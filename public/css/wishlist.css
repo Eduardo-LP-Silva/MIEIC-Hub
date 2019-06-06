@@ -16,6 +16,7 @@
 html, body
 {
     height: 100%;
+    font-family: Poppins;
 }
 
 #list
@@ -81,6 +82,52 @@ html, body
 .list-item > i
 {
     font-size: 2em;
-    color: red;
+    color:#af1c1c;
 }
 
+.jumbotron {
+    background-color: white;
+    text-align: center;
+}
+
+.jumbotron a {
+    background-color: #af1c1c;
+    border-color: #991c1c;
+    outline: none;
+    box-shadow: none;
+}
+
+.jumbotron a:hover {
+    background-color: #991c1c;
+    border-color: #991c1c;
+    outline: none;
+    box-shadow: none;
+}
+
+div.to-flex{
+    display: flex;
+}
+
+.stars-outer {
+    display: inline-block;
+    position: relative;
+    font-family: FontAwesome;
+}
+   
+.stars-outer::before {
+    content: "\f005 \f005 \f005 \f005 \f005";
+}
+
+.stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0%;
+}
+
+.stars-inner::before {
+    content: "\f005 \f005 \f005 \f005 \f005";
+    color: orange;
+}

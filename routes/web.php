@@ -18,7 +18,12 @@ Route::get('/', function()
 
 Route::get('home', 'GeneralPageController@home');
 
+Route::get('products/add', 'ProductsController@create');
 Route::get('products/{id}', 'ProductsController@show');
+Route::delete('products/{id}/delete', 'ProductsController@destroy');
+Route::get('users/{name}/wishlist', 'WishlistController@show');
+Route::put('wishlist/{id}/add', 'WishlistController@store');
+Route::delete('wishlist/{id}/delete', 'WishlistController@destroy');
 
 Route::get('users/{name}', 'UsersController@show');
 Route::get('users/{name}/reviews', 'UsersController@profileReviews');
@@ -41,17 +46,24 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset.token');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
 Route::get('upcoming', 'PollsController@upcoming');
-Route::put('users/{name}/vote/{id}', 'PollsController@vote');
-Route::delete('users/{name}/vote/{id}', 'PollsController@unvote');
+Route::get('poll/{poll_id}', 'PollsController@edit');
+Route::put('users/{name}/vote/{id_sub}', 'SubmissionController@vote');
+Route::delete('users/{name}/vote/{id_sub}', 'SubmissionController@unvote');
 
 Route::get('submission/{id_submission}', 'SubmissionController@show');
 Route::post('submission/{id_submission}/accept', 'SubmissionController@udpateAccepted');
 Route::post('submission/{id_submission}/remove', 'SubmissionController@destroy');
 Route::get('submit', 'SubmissionController@submit');
 Route::post('submit', 'SubmissionController@submitForm');
-Route::get('submissions', 'SubmissionController@showAllSubmissions');
-
+Route::get('submissions', 'SubmissionController@showSubmissions');
+Route::get('upcoming/newpoll', 'PollsController@pollForm');
+Route::post('upcoming/newpoll', 'PollsController@addPoll');
 
 Route::get('users/{name}/cart', 'PurchasesController@showCart');
 Route::delete('users/{id_user}/cart/{id_product}/remove', 'PurchasesController@deleteCartEntry');

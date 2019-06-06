@@ -22,30 +22,18 @@
             </div>
          @endif
 
-        <img src="{{asset('img/website/avatar.png')}}" class="avatar">
+        <img src="{{asset('img/website/avatar.png')}}" class="avatar" alt="Avatar">
         <h1>Sign In</h1>
         <form method="POST" action="{{ route('login') }}">
             {{ csrf_field() }}
-
             <input id="email" type="email" name="email" placeholder="🕵🏻    Email" required>
-            {{-- @if ($errors->has('email'))
-                <span class="error">
-                {{ $errors->first('email') }}
-                </span>
-            @endif --}}
-
             <input id="password" type="password" name="password" placeholder="🔒    Password" required>
-            {{-- @if ($errors->has('password'))
-                <span class="error">
-                    {{ $errors->first('password') }}
-                </span>
-            @endif --}}
-
-            <a><input type="submit" value="Login"></a> 
+            <input type="submit" value="Login">
             <br>
             <br>
             <a href="{{ route('register') }}">Don't have an account?
             <p>Register here<p>
+            <a href="{{route('password.reset')}}">Forgot Password?</a>
             </a>
         </form>
     </div>

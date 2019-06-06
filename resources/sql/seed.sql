@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS faq CASCADE;
 DROP TABLE IF EXISTS poll CASCADE;
 DROP TABLE IF EXISTS submission CASCADE;
 DROP TABLE IF EXISTS user_sub_vote CASCADE;
+DROP TABLE IF EXISTS password_resets CASCADE;
 DROP INDEX IF EXISTS authenticate;
 DROP INDEX IF EXISTS id_category;
 DROP INDEX IF EXISTS active_poll;
@@ -70,11 +71,11 @@ CREATE TABLE product
     id_category INTEGER NOT NULL REFERENCES category ON UPDATE CASCADE
 );
 
-CREATE TABLE photo 
+CREATE TABLE photo
 (
     id_photo SERIAL PRIMARY KEY,
     image_path TEXT UNIQUE NOT NULL,
-    id_product INTEGER REFERENCES product ON UPDATE CASCADE
+    id_product INTEGER REFERENCES product ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE users
@@ -84,7 +85,7 @@ CREATE TABLE users
     email TEXT NOT NULL,
     password TEXT NOT NULL,
     birth_date DATE CHECK(birth_date < now()),
-    active BOOLEAN NOT NULL DEFAULT TRUE, 
+    active BOOLEAN NOT NULL DEFAULT TRUE,
     stock_manager BOOLEAN NOT NULL DEFAULT FALSE,
     moderator BOOLEAN NOT NULL DEFAULT FALSE,
     submission_manager BOOLEAN NOT NULL DEFAULT FALSE,
@@ -109,7 +110,7 @@ CREATE TABLE product_color
 (
     id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE ON DELETE CASCADE,
     id_color INTEGER NOT NULL REFERENCES color ON UPDATE CASCADE,
-    PRIMARY KEY (id_product, id_color) 
+    PRIMARY KEY (id_product, id_color)
 );
 
 CREATE TABLE product_size
@@ -164,7 +165,7 @@ CREATE TABLE product_purchase
 CREATE TABLE review
 (
     id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE NO ACTION,
-    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
+    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE ON DELETE CASCADE,
     comment TEXT NOT NULL,
     review_date TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     rating INTEGER NOT NULL CHECK(rating > 0 AND rating <= 5),
@@ -184,7 +185,7 @@ CREATE TABLE cart
 CREATE TABLE wishlist
 (
     id_user INTEGER NOT NULL REFERENCES users ON UPDATE CASCADE ON DELETE CASCADE,
-    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE,
+    id_product INTEGER NOT NULL REFERENCES product ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (id_user, id_product)
 );
 
@@ -192,14 +193,14 @@ CREATE TABLE faq
 (
     id_question SERIAL PRIMARY KEY,
     question TEXT UNIQUE NOT NULL,
-    answer TEXT NOT NULL 
+    answer TEXT NOT NULL
 );
 
 CREATE TABLE poll
 (
     id_poll SERIAL PRIMARY KEY,
     poll_name TEXT UNIQUE NOT NULL,
-    poll_date DATE NOT NULL,
+    poll_date DATE DEFAULT now() NOT NULL,
     expiration DATE NOT NULL,
     active BOOLEAN NOT NULL
 );
@@ -216,7 +217,7 @@ CREATE TABLE submission
     accepted BOOLEAN NOT NULL,
     votes INTEGER DEFAULT 0 NOT NULL CHECK(votes >= 0),
     winner BOOLEAN NOT NULL,
-    id_poll INTEGER REFERENCES poll ON UPDATE CASCADE
+    id_poll INTEGER REFERENCES poll ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE user_sub_vote
@@ -226,13 +227,20 @@ CREATE TABLE user_sub_vote
     PRIMARY KEY (id_user, id_sub)
 );
 
+CREATE TABLE password_resets
+(
+	email TEXT PRIMARY KEY,
+	token TEXT,
+	created_at TIMESTAMP WITH TIME zone
+);
+
 -- Indexes
 
-CREATE INDEX authenticate ON users USING hash(name); 
+CREATE INDEX authenticate ON users USING hash(name);
 CREATE INDEX id_category ON product USING hash(id_category);
-CREATE INDEX sub_id_poll ON submission(id_poll); 
+CREATE INDEX sub_id_poll ON submission(id_poll);
 CLUSTER submission USING sub_id_poll;
-CREATE INDEX by_price ON product(price); 
+CREATE INDEX by_price ON product(price);
 CLUSTER product USING by_price;
 CREATE INDEX search_products ON product USING GIST (to_tsvector('english', product_name || ' ' || product_description));
 
@@ -242,7 +250,7 @@ CREATE FUNCTION update_submission_vote() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' THEN
         UPDATE submission
-        SET votes = 
+        SET votes =
         (
             SELECT count(*)
             FROM user_sub_vote
@@ -252,16 +260,16 @@ BEGIN
         RETURN NEW;
     ELSEIF TG_OP = 'DELETE' THEN
         UPDATE submission
-        SET votes = 
+        SET votes =
         (
             SELECT count(*)
             FROM user_sub_vote
-            WHERE NEW.id_sub = user_sub_vote.id_sub
+            WHERE OLD.id_sub = user_sub_vote.id_sub
         )
         WHERE submission.id_submission = OLD.id_sub;
         RETURN OLD;
     END IF;
-END; 
+END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER vote_on_design
@@ -278,7 +286,7 @@ CREATE FUNCTION update_product_review() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
         UPDATE product
-        SET rating = 
+        SET rating =
         (
             SELECT AVG(review.rating)
             FROM review, product
@@ -288,7 +296,7 @@ BEGIN
         RETURN NEW;
     ELSEIF TG_OP = 'DELETE' THEN
         UPDATE product
-        SET rating = 
+        SET rating =
         (
             SELECT AVG(review.rating)
             FROM review, product
@@ -308,15 +316,15 @@ EXECUTE PROCEDURE update_product_review();
 CREATE TRIGGER review_delete
 AFTER DELETE ON review
 FOR EACH ROW
-EXECUTE PROCEDURE update_product_review(); 
+EXECUTE PROCEDURE update_product_review();
 
 CREATE FUNCTION check_submission_vote() RETURNS TRIGGER AS $BODY$
 BEGIN
-    IF EXISTS 
+    IF EXISTS
     (
         SELECT poll.id_poll
         FROM poll, submission, user_sub_vote
-        WHERE NEW.id_sub = submission.id_submission AND submission.id_poll = poll.id_poll 
+        WHERE NEW.id_sub = submission.id_submission AND submission.id_poll = poll.id_poll
         AND poll.active IS FALSE
     )
     THEN RAISE EXCEPTION  'Users can no longer vote on an inactive/expired poll';
@@ -332,14 +340,14 @@ EXECUTE PROCEDURE check_submission_vote();
 
 CREATE FUNCTION select_winner() RETURNS TRIGGER AS $BODY$
 BEGIN
-    IF NEW.active IS FALSE AND OLD.active IS TRUE THEN
+    IF NEW.active IS FALSE THEN
         UPDATE submission
         SET winner = TRUE
-        WHERE submission.id_poll = NEW.id_poll AND submission.votes = 
+        WHERE submission.id_poll = NEW.id_poll AND submission.votes =
         (
             SELECT MAX(submission.votes)
             FROM submission, poll
-            WHERE poll.id_poll = NEW.id_poll AND poll.id_poll = subission.id_poll
+            WHERE poll.id_poll = NEW.id_poll AND poll.id_poll = submission.id_poll
         );
     END IF;
     RETURN NEW;
@@ -355,14 +363,14 @@ CREATE FUNCTION update_purchase_total() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
         UPDATE purchase
-        SET total = 
+        SET total =
         (
             SELECT sum(products_price)
             FROM
             (
                 SELECT product_purchase.quantity * product_purchase.price AS products_price
                 FROM product, purchase, product_purchase
-                WHERE NEW.id_purchase = purchase.id_purchase AND NEW.id_product = product.id_product 
+                WHERE NEW.id_purchase = purchase.id_purchase AND NEW.id_product = product.id_product
                 AND product_purchase.id_purchase = NEW.id_purchase AND product_purchase.id_product = NEW.id_product
             ) AS products_actual_price
         )
@@ -370,14 +378,14 @@ BEGIN
         RETURN NEW;
     ELSEIF TG_OP = 'DELETE' THEN
         UPDATE purchase
-        SET total = 
+        SET total =
         (
             SELECT sum(products_price)
             FROM
             (
                 SELECT product_purchase.quantity * product_purchase.price AS products_price
                 FROM product, purchase, product_purchase
-                WHERE OLD.id_purchase = purchase.id_purchase AND OLD.id_product = product.id_product 
+                WHERE OLD.id_purchase = purchase.id_purchase AND OLD.id_product = product.id_product
                 AND product_purchase.id_purchase = OLD.id_purchase AND product_purchase.id_product = OLD.id_product
             ) AS products_actual_price
         )
@@ -398,13 +406,13 @@ FOR EACH ROW
 EXECUTE PROCEDURE update_purchase_total();
 
 CREATE FUNCTION calculate_new_product_purchase_price() RETURNS TRIGGER AS $BODY$
-BEGIN  
+BEGIN
     UPDATE product_purchase
-    SET price = 
+    SET price =
     (
         SELECT product.price + product.delivery_cost as total_product_price
         FROM product, product_purchase
-        WHERE product.id_product = product_purchase.id_product 
+        WHERE product.id_product = product_purchase.id_product
         AND product_purchase.id_product = NEW.id_product
         AND product_purchase.id_purchase = NEW.id_purchase
     )
@@ -422,7 +430,7 @@ EXECUTE PROCEDURE calculate_new_product_purchase_price();
 CREATE FUNCTION recalculate_product_purchase_price() RETURNS TRIGGER AS $BODY$
 BEGIN
     UPDATE product_purchase
-    SET price = 
+    SET price =
     (
         SELECT product.price + product.delivery_cost as total_product_price
         FROM product, product_purchase
@@ -445,9 +453,9 @@ DECLARE
     next_id INTEGER := nextval(pg_get_serial_sequence('users', 'id'));
     new_name TEXT := 'John Doe' || MD5(OLD.name);
 BEGIN
-    INSERT INTO users (id, name, email, password, birth_date, active, stock_manager, moderator, submission_manager, 
-    id_photo, user_description) 
-    VALUES (next_id, new_name , 'mieichubsupport@gmail.com','123masfiasfnakslfmas', '1994-01-01', FALSE, FALSE, FALSE, 
+    INSERT INTO users (id, name, email, password, birth_date, active, stock_manager, moderator, submission_manager,
+    id_photo, user_description)
+    VALUES (next_id, new_name , 'mieichubsupport@gmail.com','123masfiasfnakslfmas', '1994-01-01', FALSE, FALSE, FALSE,
     FALSE, 1, 'Just a regular user, nothing to see here...');
 
     UPDATE review
@@ -487,7 +495,7 @@ INSERT INTO category (category) VALUES ('Mug');
 -- Table: product
 
     -- Apparel
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Hoodie', 'Black hoodie for FEUP students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Hoodie', 'Black hoodie for MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Sudo Rm Hoodie', 'Funny hoodie allusive to LINUX commands. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Hard Code Hoodie', 'Funny hoodie allusive to Hard Rock Caffe. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('StarCode Hoodie', 'Funny hoodie allusive to Starbucks Caffe. For MIEIC students. 100% poliester.', 14.99, 2.99, 50, 0, 1);
@@ -503,16 +511,16 @@ INSERT INTO product (product_name, product_description, price, delivery_cost, st
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Author Jacket', 'Jacket for MIEIC students. 100% poliester.', 19.99, 2.99, 50, 0, 1);
 
     --Phone Cases
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Case', 'Case for FEUP students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Eat Sleep Code Repeat Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Bill Gates Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('E HTML Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Army Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Army 2 Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Case', 'Case for MIEIC students. Water resistant.', 9.99, 1.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Coding Case', 'Case for MIEIC students. Water resistant.', 9.99, 2.99, 50, 0, 2);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('The HTML to my CSS Case', 'Case for MIEIC students. Water resistant.', 9.99, 2.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Programmer Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Love Programming Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Viva La Programacion Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('GitKraken Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('It is a feature Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Debugging Stages Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Hello World Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Coffee to Code Case', 'Case related to programmers. Water resistant.', 9.99, 1.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Just Code It Case', 'Case related to programmers. Water resistant.', 9.99, 2.99, 50, 0, 2);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Awsome Case', 'Case related to programmers. Water resistant.', 9.99, 2.99, 50, 0, 2);
 
     --Posters
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Today Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
@@ -528,11 +536,11 @@ INSERT INTO product (product_name, product_description, price, delivery_cost, st
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Semi Colon Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Super Bock Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('World Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Army Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('No coffee No code Poster', 'A3 poster related to programmers', 9.99, 2.99, 50, 0, 4);
 
     --Stickers
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Unexpected Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Coffee Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Home Sticker', 'Laptop sticker.', 2.99, 0.99, 50, 0, 3);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('HTML Sticker', 'Laptop Sticker.', 2.99, 0.99, 50, 0, 3);
@@ -569,8 +577,8 @@ INSERT INTO product (product_name, product_description, price, delivery_cost, st
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Best Programmer Ever Mouse Pad', 'Funny mouse pad. For programmers.', 9.99, 1.99, 50, 0, 6);
 
     --Mugs
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('MIEIC Mug', 'Mug for MIEIC students.', 9.99, 1.99, 50, 0, 7);
-INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('FEUP Mug', 'Mug for FEUP students.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Development Process Mug', 'Mug for MIEIC students.', 9.99, 1.99, 50, 0, 7);
+INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Binary Mug', 'Mug for FEUP students.', 9.99, 1.99, 50, 0, 7);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('I am A Programmer Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('CSS Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Debug Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
@@ -583,8 +591,6 @@ INSERT INTO product (product_name, product_description, price, delivery_cost, st
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Sleep Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
 INSERT INTO product (product_name, product_description, price, delivery_cost, stock, rating, id_category) VALUES ('Go Away Mug', 'Funny mug. For programmers.', 9.99, 1.99, 50, 0, 7);
 
-
-
 -- Table: photo
 
 --Users
@@ -595,7 +601,7 @@ INSERT INTO photo (image_path, id_product) VALUES ('img/users/Joana Ramos.png', 
 INSERT INTO photo (image_path, id_product) VALUES ('img/users/Miguel Carvalho.jpg', NULL);
 
     --Apparel
-INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/hoodie_sudo_rm_single.jpg', 1);
+INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/inph.jpg', 1);
 INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/hoddie_sudo_rm.jpg', 2);
 INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/hoddie_sudo_rm_single.jpg', 2);
 INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/hoodie_1_red.jpg', 3);
@@ -616,16 +622,16 @@ INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/programmer2.jpg'
 INSERT INTO photo (image_path, id_product) VALUES ('img/apparel/author_jacket.jpg', 14);
 
     --Cases
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example1.jpg', 15);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example2.jpg', 16);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example3.jpg', 17);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example4.jpg', 18);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example5.jpg', 19);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example6.jpg', 20);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example7.jpg', 21);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example8.jpg', 22);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example9.jpg', 23);
-INSERT INTO photo (image_path, id_product) VALUES ('img/cases/case_example10.jpg', 24);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/programmer.jpg', 15);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/loveprogramming.jpg', 16);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/programacion.png', 17);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/gitkraken.jpeg', 18);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/feature.jpeg', 19);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/debug.jpg', 20);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/hello.jpeg', 21);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/coffee.jpeg', 22);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/justcodeit.jpeg', 23);
+INSERT INTO photo (image_path, id_product) VALUES ('img/cases/awsome.jpg', 24);
 
     --Posters
 INSERT INTO photo (image_path, id_product) VALUES ('img/posters/today.jpg', 25);
@@ -641,11 +647,11 @@ INSERT INTO photo (image_path, id_product) VALUES ('img/posters/eat.jpg', 34);
 INSERT INTO photo (image_path, id_product) VALUES ('img/posters/semi.jpg', 35);
 INSERT INTO photo (image_path, id_product) VALUES ('img/posters/super.jpg', 36);
 INSERT INTO photo (image_path, id_product) VALUES ('img/posters/world.jpg', 37);
-INSERT INTO photo (image_path, id_product) VALUES ('img/posters/war_poster.jpg', 38);
+INSERT INTO photo (image_path, id_product) VALUES ('img/posters/nocoffee.jpeg', 38);
 
     --Stickers
 INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/feup.jpg', 39);
-INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/feup2.jpg', 40);
+INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/unexpected.jpg', 40);
 INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/coffee.jpg', 41);
 INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/home.png', 42);
 INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/html.jpg', 43);
@@ -657,16 +663,16 @@ INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/java.png', 48);
 INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/stickers.jpg', 49);
 
     --Tickets
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket1.jpg', 50);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket2.jpg', 51);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket3.jpg', 52);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket.png', 50);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket2.png', 51);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket3.png', 52);
 INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket4.png', 53);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket5.jpg', 54);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket6.jpg', 55);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket7.jpg', 56);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket8.jpg', 57);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket5.png', 54);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket6.png', 55);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket7.png', 56);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket8.png', 57);
 INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket9.png', 58);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket10.jpg', 59);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket10.png', 59);
 
     --Mouse Pads
 INSERT INTO photo (image_path, id_product) VALUES ('img/mousepads/feup.jpg', 60);
@@ -682,8 +688,8 @@ INSERT INTO photo (image_path, id_product) VALUES ('img/mousepads/trust me.jpeg'
 INSERT INTO photo (image_path, id_product) VALUES ('img/mousepads/bestever.jpg', 70);
 
     --Mugs
-INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/feup3.jpg', 71);
-INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/feup4.jpg', 72);
+INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/process.jpeg', 71);
+INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/binary.jpeg', 72);
 INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/programmer.jpg', 73);
 INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/css.jpg', 74);
 INSERT INTO photo (image_path, id_product) VALUES ('img/mugs/debug.jpg', 75);
@@ -708,10 +714,11 @@ INSERT INTO users VALUES (
 
 
 
-INSERT INTO users (name, email, password) VALUES('lbaw1825', 'lbaw1825@gmail.com', '$2y$10$kOQHd3CIu4.UQRQ6OzcjouJQTF7GLUdd9g.sGRVDghn6kvDOEcjcW');
+INSERT INTO users (name, email, password) VALUES('Chandler Bing', 'lbaw1825@gmail.com', '$2y$10$kOQHd3CIu4.UQRQ6OzcjouJQTF7GLUdd9g.sGRVDghn6kvDOEcjcW');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Miguel Carvalho', 'up201605757@fe.up.pt','$2y$12$7M1rWpEnZg/qj6AfT2JXue1BfDG/IixigKNs7WUkMcA.VNKp20NAi', '1998-12-25', TRUE, TRUE, TRUE, TRUE, 5, 'Owner of MIEIC Hub');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Eduardo Silva', 'up201603135@fe.up.pt','$2y$12$L1d1H1PllySA.y43Dks4depIIEk4fGMQDRzZOP01dJ8VsErmyx.0a', '1998-01-22', TRUE, TRUE, TRUE, TRUE, 2, 'Co-Founder of MIEIC Hub');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Tomás Novo', 'up201604503@fe.up.pt','A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1998-07-31', TRUE, TRUE, TRUE, TRUE, 3, 'The best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, id_photo, user_description) VALUES ('Joana Ramos', 'up201605017@fe.up.pt', '$2y$12$xrvhzVNl6zN8KKa19n/gj.NZMnFGkT9ftRrrhe7L7T9roqAm6FvMK', '1998-11-02', TRUE, TRUE, TRUE, TRUE, 4, 'Co-Founder of MIEIC Hub');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Zé Luís', 'up201287644@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1994-02-11', TRUE, FALSE, FALSE, FALSE, 'MEEEC student at 2nd grade. Love music !');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Susana Castro', 'up201503453@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1997-04-15', TRUE, FALSE, FALSE, FALSE, ' Quemistry student, the one who knocks !');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('José António', 'up201703443@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1998-02-11', TRUE, FALSE, FALSE, FALSE, 'I love computers !');
@@ -721,68 +728,67 @@ INSERT INTO users (name, email, password, birth_date, active, stock_manager, mod
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Luísa Josefa', 'up201406753@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1999-03-31', TRUE, FALSE, FALSE, FALSE, 'MIEIC Student');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Alfredo Granjão', 'up201706173@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1995-02-11', TRUE, FALSE, FALSE, FALSE, 'MIEIC Student 5th grade! SOU FINALISTAAAA');
 INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Ada Beliza', 'up201302123@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1996-03-09', TRUE, FALSE, FALSE, FALSE, 'MIEIC student at 3rd grade !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User11', 'user11@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1998-11-07', TRUE, FALSE, FALSE, FALSE, 'The 11th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User12', 'user12@fe.up.pt', 'HB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1997-10-01', TRUE, FALSE, FALSE, FALSE, 'The 12th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User13', 'user13@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1997-07-03', TRUE, FALSE, FALSE, FALSE, 'The 13th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User14', 'user14@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1993-08-11', TRUE, FALSE, FALSE, FALSE, 'The 14th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User15', 'user15@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1992-04-16', TRUE, FALSE, FALSE, FALSE, 'The 15th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User16', 'user16@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1998-03-22', TRUE, FALSE, FALSE, FALSE, 'The 16th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User17', 'user17@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1999-01-30', TRUE, FALSE, FALSE, FALSE, 'The 17th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User18', 'user18@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1994-09-27', TRUE, FALSE, FALSE, FALSE, 'The 18th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User19', 'user19@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1996-10-23', TRUE, FALSE, FALSE, FALSE, 'The 19th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User20', 'user20@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1994-11-22', TRUE, FALSE, FALSE, FALSE, 'The 20th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User21', 'user21@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1993-12-21', TRUE, FALSE, FALSE, FALSE, 'The 21st best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User22', 'user22@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1997-01-26', TRUE, FALSE, FALSE, FALSE, 'The 22nd best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User23', 'user23@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1998-02-16', TRUE, FALSE, FALSE, FALSE, 'The 23rd best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User24', 'user24@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1997-03-15', TRUE, FALSE, FALSE, FALSE, 'The 24th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User25', 'user25@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1995-04-25', TRUE, FALSE, FALSE, FALSE, 'The 25th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User26', 'user26@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1998-05-22', TRUE, FALSE, FALSE, FALSE, 'The 26th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User27', 'user27@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1998-06-26', TRUE, FALSE, FALSE, FALSE, 'The 27th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User28', 'user28@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1998-07-30', TRUE, FALSE, FALSE, FALSE, 'The 28th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User29', 'user29@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1996-08-21', TRUE, FALSE, FALSE, FALSE, 'The 29th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User30', 'user30@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1999-04-12', TRUE, FALSE, FALSE, FALSE, 'The 30th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User31', 'user31@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1993-12-21', TRUE, FALSE, FALSE, FALSE, 'The 31st best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User32', 'user32@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1993-01-26', TRUE, FALSE, FALSE, FALSE, 'The 32nd best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User33', 'user33@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1992-02-16', TRUE, FALSE, FALSE, FALSE, 'The 33rd best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User34', 'user34@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1993-03-15', TRUE, FALSE, FALSE, FALSE, 'The 34th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User35', 'user35@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1990-04-25', TRUE, FALSE, FALSE, FALSE, 'The 35th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User36', 'user36@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1991-05-22', TRUE, FALSE, FALSE, FALSE, 'The 36th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User37', 'user37@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1992-06-26', TRUE, FALSE, FALSE, FALSE, 'The 37th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User38', 'user38@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1993-07-30', TRUE, FALSE, FALSE, FALSE, 'The 38th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User39', 'user39@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1994-08-21', TRUE, FALSE, FALSE, FALSE, 'The 39th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User40', 'user40@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1995-04-12', TRUE, FALSE, FALSE, FALSE, 'The 40th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User41', 'user41@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1992-11-21', TRUE, FALSE, FALSE, FALSE, 'The 41st best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User42', 'user42@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1993-11-26', TRUE, FALSE, FALSE, FALSE, 'The 42nd best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User43', 'user43@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1995-03-16', TRUE, FALSE, FALSE, FALSE, 'The 43rd best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User44', 'user44@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1994-02-15', TRUE, FALSE, FALSE, FALSE, 'The 44th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User45', 'user45@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1990-04-28', TRUE, FALSE, FALSE, FALSE, 'The 45th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User46', 'user46@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1991-05-12', TRUE, FALSE, FALSE, FALSE, 'The 46th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User47', 'user47@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1992-12-16', TRUE, FALSE, FALSE, FALSE, 'The 47th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User48', 'user48@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1995-07-31', TRUE, FALSE, FALSE, FALSE, 'The 48th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User49', 'user49@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1997-02-22', TRUE, FALSE, FALSE, FALSE, 'The 49th best !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('User50', 'user50@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1999-03-05', TRUE, FALSE, FALSE, FALSE, 'The 50th best !');
-
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Zebedeu Garcia', 'user11@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1998-11-07', TRUE, FALSE, FALSE, FALSE, 'The 11th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Anacleto Miquelino', 'user12@fe.up.pt', 'HB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1997-10-01', TRUE, FALSE, FALSE, FALSE, 'The 12th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Joana Silva', 'user13@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1997-07-03', TRUE, FALSE, FALSE, FALSE, 'The 13th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('João Ferreia', 'user14@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1993-08-11', TRUE, FALSE, FALSE, FALSE, 'The 14th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Amadeu Prazeres', 'user15@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1992-04-16', TRUE, FALSE, FALSE, FALSE, 'The 15th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Nuno Lopes', 'user16@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1998-03-22', TRUE, FALSE, FALSE, FALSE, 'The 16th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Alexandra Mendes', 'user17@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1999-01-30', TRUE, FALSE, FALSE, FALSE, 'The 17th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Carolina Soares', 'user18@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1994-09-27', TRUE, FALSE, FALSE, FALSE, 'The 18th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Christopher Abreu', 'user19@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1996-10-23', TRUE, FALSE, FALSE, FALSE, 'The 19th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Tiago Cardoso', 'user20@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1994-11-22', TRUE, FALSE, FALSE, FALSE, 'The 20th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('João Franco', 'user21@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1993-12-21', TRUE, FALSE, FALSE, FALSE, 'The 21st best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Rui Alves', 'user22@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1997-01-26', TRUE, FALSE, FALSE, FALSE, 'The 22nd best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Francisco Ferreira', 'user23@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1998-02-16', TRUE, FALSE, FALSE, FALSE, 'The 23rd best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('João Amaral', 'user24@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1997-03-15', TRUE, FALSE, FALSE, FALSE, 'The 24th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Pedro Padrão', 'user25@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1995-04-25', TRUE, FALSE, FALSE, FALSE, 'The 25th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('João Martins', 'user26@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1998-05-22', TRUE, FALSE, FALSE, FALSE, 'The 26th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Diogo Cadavez', 'user27@fe.up.pt', 'CB5738AFA52AB674CAC31008B17016033E0C165D75A07AD67133D05E468DD3AF', '1998-06-26', TRUE, FALSE, FALSE, FALSE, 'The 27th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('José Carlos', 'user28@fe.up.pt', 'EAAC49260A132A794309878B2CBB31FAB67DA5E4893487FBCC829C625E734FA0', '1998-07-30', TRUE, FALSE, FALSE, FALSE, 'The 28th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Filipe Martins', 'user29@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1996-08-21', TRUE, FALSE, FALSE, FALSE, 'The 29th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Luís Freitas', 'user30@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1999-04-12', TRUE, FALSE, FALSE, FALSE, 'The 30th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Nuno Fernandes', 'user31@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1993-12-21', TRUE, FALSE, FALSE, FALSE, 'The 31st best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Luís Lombo', 'user32@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1993-01-26', TRUE, FALSE, FALSE, FALSE, 'The 32nd best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Pedro Nunes', 'user33@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1992-02-16', TRUE, FALSE, FALSE, FALSE, 'The 33rd best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Jorge Rodrigues', 'user34@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1993-03-15', TRUE, FALSE, FALSE, FALSE, 'The 34th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Manuel Prata', 'user35@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1990-04-25', TRUE, FALSE, FALSE, FALSE, 'The 35th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Ângela Pereira', 'user36@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1991-05-22', TRUE, FALSE, FALSE, FALSE, 'The 36th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Cavaco Silva', 'user37@fe.up.pt', 'EDF755F83215D530C9BD95767A13BB7BD5BDB8F5D5108ACEFCD605A00FBEE1F1', '1992-06-26', TRUE, FALSE, FALSE, FALSE, 'The 37th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Ricardo Pereira', 'user38@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1993-07-30', TRUE, FALSE, FALSE, FALSE, 'The 38th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('André Almeida', 'user39@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1994-08-21', TRUE, FALSE, FALSE, FALSE, 'The 39th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Maria Rito', 'user40@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1995-04-12', TRUE, FALSE, FALSE, FALSE, 'The 40th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Sara Morais', 'user41@fe.up.pt', '46445B968117080EB11361F904342868D5A19B69291B876901FA7C6BCA65F5FA', '1992-11-21', TRUE, FALSE, FALSE, FALSE, 'The 41st best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Maria Beatriz', 'user42@fe.up.pt', '5B8346507DDFD4AEF39C12521ECA6ED82689C7090A3E7312F0BA3D17421BB3B2', '1993-11-26', TRUE, FALSE, FALSE, FALSE, 'The 42nd best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Bruno Guerra', 'user43@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1995-03-16', TRUE, FALSE, FALSE, FALSE, 'The 43rd best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Gonçalo Raposo', 'user44@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1994-02-15', TRUE, FALSE, FALSE, FALSE, 'The 44th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Tiago Oliveira', 'user45@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1990-04-28', TRUE, FALSE, FALSE, FALSE, 'The 45th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Raul Pires', 'user46@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1991-05-12', TRUE, FALSE, FALSE, FALSE, 'The 46th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Isabel Graça', 'user47@fe.up.pt', 'C86FD59FBCE597E2534E56EACE209EF7139529BC5B1624AD700673FDCA88B33D', '1992-12-16', TRUE, FALSE, FALSE, FALSE, 'The 47th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Cristiano Reinaldo', 'user48@fe.up.pt', 'DA34262C62CDE67274D3452AECCCE39676A73249800FA9316532D8B8F2E5055B', '1995-07-31', TRUE, FALSE, FALSE, FALSE, 'The 48th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Lionel Messias', 'user49@fe.up.pt', 'A9709902614CB2D8F66D811D4032B79FBD311AA73E9D0FE41A9B9B93464CC6FB', '1997-02-22', TRUE, FALSE, FALSE, FALSE, 'The 49th best !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Kylian Mdoipé', 'user50@fe.up.pt', 'D10AD22165F21254074DA55C9E5FEE50A2D1DD16286B6B0EAD1698AA6AFB930F', '1999-03-05', TRUE, FALSE, FALSE, FALSE, 'The 50th best !');
 
     --Stock Manager
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('StockManager1', 'sm1@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1998-03-30', TRUE, TRUE, FALSE, FALSE, 'I am StockManager1 !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('StockManager2', 'sm2@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1996-04-21', TRUE, TRUE, FALSE, FALSE, 'I am StockManager2 !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('StockManager3', 'sm3@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1999-06-12', TRUE, TRUE, FALSE, FALSE, 'I am StockManager3 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Luís Alexandre', 'sm1@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1998-03-30', TRUE, TRUE, FALSE, FALSE, 'I am StockManager1 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Inês Faustino', 'sm2@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1996-04-21', TRUE, TRUE, FALSE, FALSE, 'I am StockManager2 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Leonor Silva', 'sm3@fe.up.pt', '544F96FB9F4647141FA50A040D37712E67EC374EAAB231193B5FB56E8EA774F0', '1999-06-12', TRUE, TRUE, FALSE, FALSE, 'I am StockManager3 !');
 
     --Moderator
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Moderator1', 'm1@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1995-07-30', TRUE, FALSE, TRUE, FALSE, 'I am Moderator1 !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Moderator2', 'm2@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1997-08-21', TRUE, FALSE, TRUE, FALSE, 'I am Moderator2 !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Moderator3', 'm3@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1993-05-12', TRUE, FALSE, TRUE, FALSE, 'I am Moderator3 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('João Alves', 'm1@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1995-07-30', TRUE, FALSE, TRUE, FALSE, 'I am Moderator1 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Adolfo Dias', 'm2@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1997-08-21', TRUE, FALSE, TRUE, FALSE, 'I am Moderator2 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Tiago Castro', 'm3@fe.up.pt', 'CFDE2CA5188AFB7BDD0691C7BEF887BABA78B709AADDE8E8C535329D5751E6FE', '1993-05-12', TRUE, FALSE, TRUE, FALSE, 'I am Moderator3 !');
 
     --Submission Manager
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('SubmissionManager1', 'subm1@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1998-04-02', TRUE, FALSE, FALSE, TRUE, 'I am SubmissionManager1 !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('SubmissionManager2', 'subm2@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1996-08-22', TRUE, FALSE, FALSE, TRUE, 'I am SubmissionManager2 !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('SubmissionManager3', 'subm3@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1997-01-02', TRUE, FALSE, FALSE, TRUE, 'I am SubmissionManager3 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Diamantino da Silva', 'subm1@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1998-04-02', TRUE, FALSE, FALSE, TRUE, 'I am SubmissionManager1 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Joaquim Fausto', 'subm2@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1996-08-22', TRUE, FALSE, FALSE, TRUE, 'I am SubmissionManager2 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Quim Possível', 'subm3@fe.up.pt', '940DA794CFFFF6CBC494C0AA767E7AF19F5C053466E45F1651CC47FFEDB2340B', '1997-01-02', TRUE, FALSE, FALSE, TRUE, 'I am SubmissionManager3 !');
 
     --Admins
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Admin1', 'admin1@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1998-02-02', TRUE, TRUE, TRUE, TRUE, 'I am Admin1 !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Admin2', 'admin2@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1994-05-12', TRUE, TRUE, TRUE, TRUE, 'I am Admin2 !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Admin3', 'admin3@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1997-11-22', TRUE, TRUE, TRUE, TRUE, 'I am Admin3 !');
-INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Admin4', 'admin4@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1998-10-30', TRUE, TRUE, TRUE, TRUE, 'I am Admin4 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Bruna Sousa', 'admin1@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1998-02-02', TRUE, TRUE, TRUE, TRUE, 'I am Admin1 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Antero Ferreira', 'admin2@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1994-05-12', TRUE, TRUE, TRUE, TRUE, 'I am Admin2 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Pedro Viveiros', 'admin3@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1997-11-22', TRUE, TRUE, TRUE, TRUE, 'I am Admin3 !');
+INSERT INTO users (name, email, password, birth_date, active, stock_manager, moderator, submission_manager, user_description) VALUES ('Jorge Novo', 'admin4@fe.up.pt', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', '1998-10-30', TRUE, TRUE, TRUE, TRUE, 'I am Admin4 !');
 
 
 -- Table: faq
@@ -808,11 +814,11 @@ button that appears on the product that you put the cursor on. Your vote is regi
 color.');
 
 -- Table: size
-INSERT INTO size (size) VALUES ('Extra-Small');
-INSERT INTO size (size) VALUES ('Small');
-INSERT INTO size (size) VALUES ('Medium');
-INSERT INTO size (size) VALUES ('Large');
-INSERT INTO size (size) VALUES ('Extra-Large');
+INSERT INTO size (size) VALUES ('XS');
+INSERT INTO size (size) VALUES ('S');
+INSERT INTO size (size) VALUES ('M');
+INSERT INTO size (size) VALUES ('L');
+INSERT INTO size (size) VALUES ('XL');
 
 
 -- Table: color
@@ -821,10 +827,24 @@ INSERT INTO color (color) VALUES ('Grey');
 INSERT INTO color (color) VALUES ('White');
 INSERT INTO color (color) VALUES ('Red');
 
+INSERT INTO product_color (id_product, id_color) VALUES (1, 1);
+INSERT INTO product_color (id_product, id_color) VALUES (1, 2);
+INSERT INTO product_color (id_product, id_color) VALUES (1, 3);
+INSERT INTO product_color (id_product, id_color) VALUES (1, 4);
+
+INSERT INTO product_size (id_product, id_size) VALUES (1, 1);
+INSERT INTO product_size (id_product, id_size) VALUES (1, 2);
+INSERT INTO product_size (id_product, id_size) VALUES (1, 3);
+INSERT INTO product_size (id_product, id_size) VALUES (1, 4);
+INSERT INTO product_size (id_product, id_size) VALUES (1, 5);
+
 -- Table: wishlist
 INSERT INTO wishlist (id_user,  id_product) VALUES (1, 1);
 INSERT INTO wishlist (id_user,  id_product) VALUES (1, 3);
 INSERT INTO wishlist (id_user,  id_product) VALUES (1, 13);
+INSERT INTO wishlist (id_user,  id_product) VALUES (6, 3);
+INSERT INTO wishlist (id_user,  id_product) VALUES (6, 5);
+INSERT INTO wishlist (id_user,  id_product) VALUES (6, 6);
 INSERT INTO wishlist (id_user,  id_product) VALUES (2, 50);
 INSERT INTO wishlist (id_user,  id_product) VALUES (10, 32);
 INSERT INTO wishlist (id_user,  id_product) VALUES (10, 31);
@@ -930,7 +950,7 @@ INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUE
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (33, 6, '2019-02-09 07:32:43', 1, 'delivered');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (36, 7, '2019-03-14 12:41:56', 1, 'awaiting_payment');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-01-29 11:12:31', 1, 'processing');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (5, 9, '2019-02-13 10:06:33', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (30, 9, '2019-02-13 10:06:33', 1, 'awaiting_payment');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (6, 10, '2019-01-05 14:54:45', 1, 'in_transit');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (8, 11, '2019-03-06 17:44:55', 1, 'in_transit');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (10, 3, '2019-02-12 18:33:43', 1, 'processing');
@@ -955,166 +975,50 @@ INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size,
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (4, 5, 1, 1, 2, 1);
 
 -- Table: review
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (35,34,'auctor mus imperdiet tristique Phasellus taciti nisi Suspendisse vestibulum eros laoreet sociis Nunc inceptos','2019-01-10 21:23:03',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (2,32,'erat nisi dapibus ullamcorper aliquet porta lobortis Morbi mauris ornare purus','2019-03-14 11:54:04',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (4,51,'sociis Aenean Nulla placerat Vivamus nascetur habitant egestas aliquam semper Nam ipsum id fringilla tellus Proin sem ornare rutrum a','2019-01-22 04:20:50',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (2,56,'massa hymenaeos augue massa laoreet mus urna vehicula ultrices quam leo feugiat id Vestibulum Curae vel id egestas','2019-03-03 18:42:19',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,43,'massa sem nunc sapien pede Ut Morbi Vivamus','2019-04-08 06:39:09',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,18,'in Nam nec porttitor porttitor','2019-03-25 03:42:17',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (13,63,'semper ac nisi sociis scelerisque Class risus Nunc','2019-02-11 21:21:38',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (55,71,'tincidunt Class aliquam Curae nunc fringilla facilisis pellentesque viverra Sed ullamcorper parturient Fusce vulputate est enim mus placerat semper sagittis','2019-03-22 12:40:18',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (7,31,'leo Duis nascetur magnis aliquam','2019-02-26 16:43:17',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (4,6,'et Vestibulum velit vestibulum nisi Curae non elit Mauris augue Mauris sollicitudin placerat id cursus semper','2019-03-09 14:21:20',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (58,16,'nibh venenatis penatibus feugiat Nulla massa est vestibulum Ut urna magnis varius ullamcorper aptent conubia senectus vestibulum habitant est adipiscing','2019-02-27 01:18:43',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (23,31,'urna justo ante Lorem In euismod ridiculus quis amet sodales ipsum Etiam morbi faucibus viverra hymenaeos','2019-02-07 21:59:10',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (13,32,'suscipit venenatis facilisi risus ultrices felis taciti inceptos congue tincidunt semper consectetuer nisi dictum Nulla hymenaeos congue','2019-03-24 03:02:27',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (22,6,'leo tortor mauris porttitor ullamcorper nostra leo aliquet nibh lobortis faucibus','2019-02-18 10:44:52',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (63,57,'Curabitur posuere vitae Nam quam amet adipiscing massa sociosqu elementum lectus odio sem arcu montes quam lacinia','2019-04-07 22:20:48',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (18,8,'aptent penatibus enim ornare Nam neque enim per porta lectus diam varius cursus nulla commodo','2019-02-14 16:59:13',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (39,43,'massa Donec risus rhoncus erat dui Proin ultricies','2019-04-05 17:20:24',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (16,51,'dolor magna tempus porta Etiam amet ridiculus Fusce egestas','2019-01-29 10:28:15',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (4,46,'enim venenatis fames leo euismod','2019-01-06 20:19:31',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (4,20,'Aliquam mollis penatibus gravida iaculis Curabitur vestibulum','2019-01-04 13:53:12',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (60,50,'magnis aliquet netus Mauris senectus nonummy','2019-02-03 12:11:24',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (57,12,'Donec Etiam eros et rutrum Nullam nisi bibendum Suspendisse egestas dis velit Phasellus','2019-03-21 14:27:47',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (59,69,'varius iaculis vehicula enim ultrices arcu Proin fringilla','2019-01-29 10:52:46',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (44,71,'elit in lacus libero Nullam sociis feugiat tincidunt in tellus risus augue molestie nec nulla mus Nam pharetra','2019-03-21 05:23:45',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (60,38,'torquent penatibus lectus nulla pharetra elit risus sollicitudin semper ridiculus rutrum','2019-01-20 05:51:32',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (47,43,'In rutrum ullamcorper Ut magna neque','2019-04-07 01:53:02',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (54,71,'Lorem mauris viverra Vivamus faucibus Phasellus diam nonummy egestas consequat dolor commodo Fusce','2019-03-15 05:16:49',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (40,34,'felis Phasellus Integer nunc diam gravida velit nascetur Donec pellentesque accumsan Praesent diam morbi augue viverra torquent','2019-03-27 06:58:53',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (52,74,'eros primis metus Proin Proin iaculis malesuada vestibulum','2019-03-19 22:20:29',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (21,62,'litora rhoncus nascetur ac Etiam luctus Fusce penatibus vitae conubia Mauris','2019-03-23 23:58:42',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (13,17,'vehicula semper laoreet parturient Sed ultricies ultricies sed fames sodales mus metus Class Sed','2019-02-25 10:03:16',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (39,18,'nascetur a Cras velit dui','2019-02-15 06:17:53',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (19,27,'nulla neque molestie Nullam Sed hendrerit ipsum Integer laoreet metus mattis diam Fusce sociosqu Ut ligula','2019-03-29 15:38:51',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (47,55,'metus taciti consectetuer Lorem Class tempor molestie dapibus Vivamus','2019-01-14 20:27:40',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (1,78,'sociis libero nec eleifend molestie varius auctor venenatis vel','2019-01-16 23:24:44',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,18,'lorem id scelerisque ipsum vestibulum condimentum','2019-02-16 16:25:48',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (31,49,'pharetra pharetra amet orci Aliquam viverra fringilla ut purus','2019-01-01 04:36:11',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,17,'accumsan volutpat habitant elementum mauris aliquet risus','2019-03-02 15:49:25',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (15,44,'Aenean nec tellus Quisque Vestibulum convallis ac ultricies','2019-01-25 02:01:22',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (47,20,'Suspendisse odio fringilla dapibus placerat volutpat in','2019-04-03 03:44:04',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (21,3,'fermentum consequat fames cubilia ante morbi elementum morbi per malesuada dolor aliquet','2019-01-29 19:44:15',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (30,43,'dolor conubia non nunc rutrum turpis quis aliquet lacinia nostra mus dictum penatibus non','2019-03-10 10:21:59',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (45,47,'facilisi Duis id feugiat Proin litora Phasellus molestie urna morbi porta rhoncus placerat ipsum sed pede sed vel Phasellus','2019-01-17 08:57:33',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,67,'a velit volutpat ultricies Curabitur elementum taciti felis augue hendrerit non eget','2019-02-16 10:44:13',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,29,'gravida Nullam Ut at fames rutrum nostra','2019-02-05 10:44:18',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (5,27,'orci venenatis Proin sollicitudin dui dictum sit nisl','2019-04-01 03:49:28',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (27,71,'Cum adipiscing consequat nonummy condimentum Proin nisl augue aptent litora parturient mauris primis aliquet nec blandit dis','2019-02-03 03:14:06',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (51,30,'Pellentesque Aliquam fermentum Nam tortor','2019-02-27 20:33:43',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (5,4,'justo quam mus Nam rutrum ligula vehicula In eget Sed sociis mollis dapibus ut','2019-02-03 15:46:18',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (25,72,'pharetra lacus montes mus sagittis leo condimentum enim ultricies est Fusce','2019-03-17 01:37:43',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (55,63,'Mauris vehicula dignissim sollicitudin lectus volutpat Vestibulum eu facilisi bibendum Curae dis eros Aenean hymenaeos ornare','2019-01-01 03:44:36',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (18,60,'mollis gravida ornare senectus quam ipsum pulvinar nibh ullamcorper','2019-01-07 04:29:49',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (2,35,'nec felis urna hymenaeos habitant ultrices Phasellus pulvinar cubilia fames Vivamus sem justo dolor sagittis','2019-02-02 16:22:54',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (63,9,'Integer venenatis litora Cras Lorem natoque neque rhoncus Curae Etiam sit consequat ad tortor','2019-02-13 16:58:11',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (33,82,'porttitor aliquet pharetra Fusce molestie Cum mattis imperdiet lectus volutpat ante Etiam massa ultricies Vestibulum','2019-03-16 20:45:21',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,48,'diam Sed Fusce et justo','2019-01-16 06:07:27',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (54,19,'taciti vel felis Mauris penatibus torquent torquent sapien laoreet magna viverra justo','2019-03-03 15:05:12',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (59,73,'tempor taciti felis lacus fringilla urna arcu faucibus per erat pharetra ultrices nascetur mattis morbi iaculis fermentum ad elit','2019-01-20 14:14:04',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (13,79,'ut sollicitudin interdum sollicitudin quam egestas hendrerit tempor natoque','2019-02-02 13:47:56',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (5,5,'nisl eros eros condimentum feugiat erat viverra senectus libero Vivamus mus tortor pretium Vestibulum imperdiet rhoncus Proin','2019-02-12 22:07:20',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (5,74,'Nunc aliquam facilisis lectus arcu vulputate facilisi erat volutpat Integer In ultrices cubilia ad','2019-03-16 09:08:35',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (47,83,'commodo Morbi risus urna consequat Duis felis ut','2019-01-03 20:24:13',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,16,'Morbi purus Proin Nunc eros Nulla morbi sapien id metus lectus facilisis orci lobortis velit Nam','2019-02-03 05:09:42',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (58,30,'in Morbi in vestibulum sollicitudin Phasellus Nunc Aenean posuere urna felis mauris turpis consequat ornare fermentum aptent egestas torquent','2019-02-14 21:31:30',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,75,'Nulla ornare sodales malesuada habitant tristique imperdiet eros semper','2019-02-02 12:11:16',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (41,66,'Nulla amet Aenean pretium mi consequat justo nunc sit','2019-02-17 06:13:30',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,39,'sapien penatibus odio odio hymenaeos sagittis ullamcorper felis felis libero fermentum Donec sagittis','2019-01-11 07:14:47',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (34,62,'parturient rutrum Quisque per Nullam Aenean Nam inceptos venenatis','2019-02-22 07:40:17',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (43,47,'Nam malesuada Aenean Aliquam leo vel hendrerit in euismod ac rhoncus dapibus Nulla sodales tristique lobortis dolor','2019-02-24 04:09:02',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (5,10,'tortor varius neque varius nulla dignissim primis eros faucibus sollicitudin nibh mauris eu','2019-01-26 16:04:20',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (14,81,'aliquet pretium neque enim Cras Vivamus aptent hendrerit habitant nisi Sed luctus montes laoreet','2019-01-23 19:14:28',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (20,11,'aliquam dolor ipsum rhoncus ridiculus placerat molestie nisi augue nec nulla eleifend sit','2019-01-31 22:21:27',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (46,27,'mauris tempus bibendum ultricies massa tellus consequat cubilia nisl','2019-01-12 10:25:59',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (51,49,'interdum sapien at taciti sem nonummy Aliquam nostra massa sagittis Suspendisse conubia imperdiet eu malesuada Phasellus bibendum rhoncus','2019-01-17 09:09:09',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (29,27,'nibh felis lobortis interdum aliquet augue cubilia felis ipsum','2019-02-19 04:13:43',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (37,70,'lobortis mattis metus nonummy a Morbi laoreet ligula Cum neque penatibus rhoncus enim aptent rutrum gravida lorem hendrerit','2019-03-17 06:01:17',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,13,'et ac ac convallis ipsum rhoncus magna gravida','2019-01-20 23:51:27',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (20,80,'tempor vel magnis mattis Integer netus litora Nam Fusce quam sociis','2019-04-08 04:52:41',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (41,19,'lacus nibh eleifend Vivamus magnis nascetur netus eget tempus mollis ullamcorper Maecenas Phasellus dignissim Aliquam','2019-02-18 15:49:34',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,40,'Nulla lorem risus a felis consectetuer','2019-03-04 08:48:02',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (38,80,'varius sodales taciti pulvinar lorem Morbi adipiscing hymenaeos litora egestas fames','2019-03-14 22:49:09',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (59,64,'gravida Suspendisse commodo tristique hymenaeos neque ultricies parturient sociosqu Integer hendrerit egestas ad lobortis vel pharetra rhoncus Nunc dis id','2019-01-07 02:29:35',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (47,29,'natoque Quisque dictum eu lorem ridiculus Cum adipiscing elementum hendrerit facilisis fames taciti lectus viverra','2019-03-22 06:20:30',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (63,2,'vulputate Cum turpis mi ipsum euismod Donec interdum lectus bibendum sagittis lacus mi fringilla eu tristique nec imperdiet felis dis','2019-01-10 07:30:47',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,74,'taciti turpis Integer elit pretium laoreet cubilia dolor nisi luctus adipiscing egestas Morbi Class Quisque nonummy dis','2019-02-25 20:39:03',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (28,4,'ridiculus sagittis magnis neque scelerisque velit gravida consequat sagittis id','2019-03-28 03:19:23',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (42,64,'Aliquam ridiculus lorem semper commodo Donec semper tristique lacus Praesent congue dui pretium velit Lorem ad','2019-02-06 18:48:45',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (36,55,'commodo hendrerit egestas ante massa Quisque ligula Curabitur varius laoreet Donec per sed conubia facilisis ipsum Mauris','2019-01-05 18:17:07',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (38,34,'pretium Cras vitae nisi in venenatis ultricies Quisque per dis sodales nonummy id justo at pede','2019-01-12 13:29:04',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,37,'dapibus sodales sodales Phasellus id nec enim mus sagittis Phasellus rutrum mattis','2019-01-02 02:27:47',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (43,56,'massa In luctus et fames conubia consequat diam hymenaeos Proin tempus Phasellus non Sed rhoncus neque inceptos Etiam orci','2019-01-28 02:23:06',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (39,54,'vulputate Proin nibh semper Morbi felis ridiculus urna nisi ligula','2019-02-21 09:01:04',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (62,43,'suscipit nascetur litora id ornare Cum Mauris','2019-02-24 05:08:15',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (43,48,'semper enim hymenaeos Nunc Nam in ultricies eu id mi porta aptent sapien senectus inceptos Nam magnis molestie rhoncus','2019-02-08 14:13:51',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (34,50,'augue blandit taciti pellentesque dolor ridiculus leo ultrices Class orci ligula nulla inceptos Donec litora Duis ultrices tristique nunc','2019-02-01 12:27:29',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (36,53,'cubilia torquent parturient hendrerit volutpat Nullam fermentum fermentum eleifend augue tellus placerat Donec et pharetra arcu sit urna','2019-02-20 12:09:22',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (58,72,'enim Vivamus habitant habitant penatibus fringilla posuere eros sodales morbi dictum purus cursus purus Nunc Cum inceptos purus senectus','2019-04-05 22:54:36',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (42,24,'commodo venenatis Donec auctor Cum','2019-01-16 13:26:22',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (46,76,'tristique tortor luctus natoque libero','2019-02-18 13:18:12',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (45,77,'Nam sociosqu senectus imperdiet placerat ac elementum Fusce quam quam tempor faucibus diam congue congue molestie commodo vel','2019-03-09 13:13:31',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (21,72,'ac nibh Cum urna molestie vestibulum auctor ipsum Morbi','2019-03-12 05:17:35',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (49,18,'ligula hendrerit tortor penatibus Nulla urna placerat morbi nunc Aenean sodales pharetra','2019-01-12 13:26:55',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (31,42,'in pellentesque sapien adipiscing Aenean egestas nisl rutrum nunc dapibus Proin sapien pede mus volutpat Suspendisse','2019-02-18 00:44:52',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (21,38,'sed Donec at In Ut ligula netus sapien quis Donec inceptos Sed ultrices volutpat non nunc ornare','2019-04-02 06:14:53',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (18,59,'feugiat pellentesque ridiculus vehicula ac suscipit malesuada Aliquam pharetra lacinia','2019-01-17 20:35:34',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (19,38,'mollis mollis Praesent quis Ut laoreet ante justo rhoncus dapibus tortor Nunc odio gravida justo tempor ridiculus','2019-03-14 07:08:16',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (63,25,'eleifend viverra ullamcorper placerat condimentum ante vehicula porttitor','2019-03-19 23:05:33',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (31,28,'facilisis in at Aenean torquent egestas nonummy Ut rutrum inceptos pharetra dolor posuere gravida risus vestibulum vulputate','2019-03-03 01:57:26',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (29,13,'mauris vitae turpis interdum Sed dignissim arcu nisi Quisque feugiat ad vestibulum venenatis pretium mollis','2019-03-13 10:23:16',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (13,6,'malesuada et consectetuer magnis Maecenas purus semper','2019-04-05 06:00:59',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (17,22,'torquent aptent consequat sem dapibus quis egestas enim est condimentum eget dapibus aliquam mattis','2019-03-30 00:01:20',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (61,53,'dictum dis venenatis ligula Maecenas purus torquent Maecenas non mauris Sed eros','2019-01-22 05:07:15',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (38,39,'tellus pellentesque Cras sem odio mus leo dignissim dui ornare vulputate quam ultricies natoque amet justo accumsan','2019-01-26 18:34:31',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (13,61,'penatibus Cum inceptos ad posuere dolor euismod Curae Cum tincidunt aptent mattis lorem nostra hendrerit ad','2019-03-08 20:28:05',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (24,26,'turpis Morbi Integer a lectus Sed nonummy ligula adipiscing augue','2019-03-04 10:06:04',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (30,69,'cubilia at commodo at hendrerit nascetur quam congue vitae vulputate aliquet risus senectus ridiculus vulputate Lorem vehicula imperdiet et','2019-01-23 08:30:33',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (34,8,'Quisque libero mi lorem in commodo ipsum dapibus penatibus Etiam inceptos','2019-03-11 10:04:36',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (15,79,'fringilla semper facilisis nec scelerisque ante pulvinar','2019-03-01 22:50:08',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (27,42,'Proin quis porta nunc eros magna hymenaeos egestas ornare at dictum','2019-02-09 15:33:42',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (55,18,'orci taciti nascetur id suscipit ultrices arcu a conubia tortor sociosqu Integer','2019-01-29 01:57:12',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,46,'Suspendisse diam libero amet Phasellus','2019-03-20 07:34:21',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (43,75,'quis felis aliquam Pellentesque Mauris sed Aenean sociosqu nisi suscipit malesuada convallis nascetur Proin elementum Phasellus mi mattis','2019-02-12 15:27:39',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (17,64,'dis Aenean fringilla ullamcorper taciti primis tortor ut dolor Phasellus lacus fermentum erat torquent felis magna ornare facilisis','2019-03-18 10:36:13',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (21,18,'nibh Class quam imperdiet dignissim varius in placerat Integer hendrerit placerat placerat Proin eros in','2019-02-28 23:15:49',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (42,49,'nostra facilisis eleifend Lorem consequat non purus mollis Aenean','2019-03-23 01:34:59',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,31,'volutpat In porta ridiculus felis Pellentesque netus sed quis vehicula congue parturient tellus','2019-02-25 02:52:40',1);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (49,47,'dui augue Cras purus penatibus condimentum penatibus consectetuer penatibus','2019-01-23 16:34:54',2);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (12,53,'ridiculus turpis mauris nostra volutpat orci auctor','2019-03-22 21:49:14',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (41,73,'Maecenas molestie massa Duis eros aliquam congue ipsum cursus vestibulum','2019-01-04 23:01:40',3);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (18,68,'leo Sed Fusce Suspendisse volutpat dignissim pulvinar eleifend amet Lorem dictum commodo commodo Phasellus blandit','2019-01-08 16:32:47',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (1,1, 'Great hoodie. Beautiful. MIEIC is awsome','2019-02-08 15:40:24', 4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (2,4, 'Liked the hoodie.','2019-02-05 07:22:05', 3.5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,15, 'Funny phone case ! The water resistant is amazing. I recommend !','2019-04-05 18:10:10', 4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (22,70, 'Funny mousepad. But not very resistent','2019-02-06 14:34:22', 2);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (22,52, 'Totally worth this workshop. I learned so much.','2019-01-04 21:56:12', 4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (33,11, 'This hoodie is amazing and confortable','2019-02-19 07:32:43', 4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (36,11, 'Nice hoodie to wear in winter and represent the programmers.','2019-03-19 12:41:56', 4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (37,15, 'Liked this case so much ! And it is resistent !!.','2019-01-29 13:12:31', 4.5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (30,26, 'My room is incredible with this poster ! Amazing.','2019-04-29 16:12:31', 5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,30, 'I offered this poster to my roommate and he loved it','2019-04-02 13:22:31', 4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,66, 'Nice mousepad but came with defect','2019-04-03 18:22:31', 3);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,69, 'Funny mousepad, I really recommend it !','2019-04-06 02:22:31', 4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (31,7, 'I wear this hoodie almost everyday. Nice to use while programming','2019-04-09 07:22:31', 4.5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (1,9, 'Liked this hoodie a lot. I recommend it','2019-04-19 17:22:31', 4);
 
 -- Table: poll
 INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Hoodies 2019', '2019-03-01', '2019-07-15', TRUE);
-INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Jackets 2019', '2019-03-02', '2019-07-16', TRUE);
-INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Posters 2019', '2019-05-03', '2019-09-17', TRUE);
-INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Posters 2018', '2018-03-03', '2018-07-17', FALSE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Mugs 2019', '2019-05-03', '2019-09-17', TRUE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Pads 2019', '2019-03-02', '2019-07-16', TRUE);
+INSERT INTO poll(poll_name, poll_date, expiration, active) VALUES ('Various 2019', '2019-03-02', '2019-07-16', TRUE);
 
 -- Table: submission
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (3, 'Submission1', 1, 'Funny submission1', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-08', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (12, 'Submissio2', 1, 'Funny submissio2', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-08', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (27, 'Submission3', 1, 'Funny submissio3', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-06', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (7, 'Submission4', 1, 'Funny submissio4', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-01', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (14, 'Submission5', 1, 'Funny submissio5', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-04', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (16, 'Submission7', 1, 'Funny submissio7', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-11', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (9, 'Submission8', 1, 'Funny submission8', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-12', TRUE, 0, FALSE, 1);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Submission6', 1, 'Funny submissio6', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-02', FALSE, 0, FALSE, NULL);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (3, 'Awsome Hoodie', 1, 'Hoodie just for awsomes', 'img/submissions/awsomeHoodie.jpg', '2019-01-08', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (12, 'Feature Mug', 4, 'No bugs, only features mug !', 'img/submissions/feature.jpg', '2019-06-06', TRUE, 0, FALSE, 2);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (27, 'CSS Mug', 4, 'Funny mug about css', 'img/submissions/css.jpeg', '2019-01-06', TRUE, 0, FALSE, 2);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (7, 'Quiet Sticker', 2, 'Silence, a programmer is working', 'img/submissions/quiet.png', '2019-01-01', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (14, 'MyMachine Mug', 4, 'It works on my machine !', 'img/submissions/myMachine.jpg', '2019-02-04', TRUE, 0, FALSE, 2);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (16, 'Math Pad', 5, 'Good with Math !', 'img/submissions/math.jpeg', '2019-02-11', TRUE, 0, FALSE, 3);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (9, 'Coding Case', 6, 'Brackets phone case', 'img/submissions/coding.jpg', '2019-01-12', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Coders Case', 6, 'Coder gonna code !', 'img/submissions/coders.jpg', '2019-01-02', FALSE, 0, FALSE, NULL);
 
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Submission9', 1, 'Funny submissio9', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-04', TRUE, 0, FALSE, 2);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Submission10', 1, 'Funny submission10', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-13', TRUE, 0, FALSE, 2);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Submission11', 1, 'Funny submissio11', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-07', TRUE, 0, FALSE, 2);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Submission12', 1, 'Funny submission12', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-13', TRUE, 0, FALSE, 2);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Submission13', 1, 'Funny submissio13', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-22', FALSE, 0, FALSE, NULL);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (33, 'Submission14', 1, 'Funny submissio14', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-12', FALSE, 0, FALSE, NULL);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (1, 'Cloud Sticker', 2, 'Binary sticker with cloud', 'img/submissions/cloud.jpg', '2019-01-04', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (7, 'Love Case', 6, 'I love you case', 'img/submissions/love.jpeg', '2019-02-13', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (4, 'Feature Poster', 3, 'Features ftw', 'img/submissions/feature.jpeg', '2019-02-07', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Friends Pad', 5, 'Pivot mixed with Friends mouse pad', 'img/submissions/friends.jpg', '2019-01-13', TRUE, 0, FALSE, 3);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (30, 'Keep Calm Poster', 3, 'Keep calm poster', 'img/submissions/loveprogramming.png', '2019-06-07', FALSE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (33, 'Challenge Accepted Pad', 1, 'Will you accept it ?', 'img/submissions/challenge.jpeg', '2019-02-12', FALSE, 0, FALSE, NULL);
 
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Submission15', 1, 'Funny submissio15', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-06', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Submission16', 1, 'Funny submission16', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-17', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Submission17', 1, 'Funny submissio17', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-17', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Submission18', 1, 'Funny submission18', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-13', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Submission19', 1, 'Funny submissio19', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-01-25', TRUE, 0, FALSE, 3);
-INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (32, 'Submission20', 1, 'Funny submissio20', 'https://drive.google.com/open?id=1m-OscV37_51FpkkrAMmu5dUhGGbPtRD_', '2019-02-25', FALSE, 0, FALSE, NULL);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Black Belt Hoodie', 1, 'Black belt in programming', 'img/submissions/blackbelt.jpeg', '2019-05-15', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (7, 'Eat Sleep Code Hoodie', 1, 'Eat. Sleep. Code. Repeat.', 'img/submissions/esc.jpg', '2019-02-17', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (10, 'Coffee to Code Hoodie', 1, 'Best conversion', 'img/submissions/coffee.jpg', '2019-03-05', TRUE, 0, FALSE, 1);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (2, 'Binary Poster', 3, '011101010110010', 'img/submissions/binary.jpg', '2019-02-13', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (23, 'Still Alive Case', 6, 'While alive: sleep eat code repeat !', 'img/submissions/stillAlive.jpg', '2019-01-25', TRUE, 0, FALSE, 4);
+INSERT INTO submission(id_user, submission_name, id_category, submission_description, picture, submission_date, accepted, votes, winner, id_poll) VALUES (45, 'Code Pad', 5, 'I write code', 'img/submissions/code.jpg', '2019-02-25', FALSE, 0, FALSE, 3);
 
 -- Table: user_sub_vote
 INSERT INTO user_sub_vote (id_user, id_sub) VALUES (10, 2);
