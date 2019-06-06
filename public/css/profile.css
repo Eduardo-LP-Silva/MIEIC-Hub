@@ -106,7 +106,7 @@ li.list-group-item:hover > img {
 	margin-bottom: 2em;
 }
 
-.wishlist > a:first-child > button
+.wishlist > a:first-child
 {
 	background-color: #af1c1c;
 	color: white;
@@ -209,26 +209,26 @@ li.list-group-item:hover > img {
     transition: all 0.3s;
 }
 
-#privileges > button[super = '1']
+#privileges > button[data-super = '1']
 {
 	background: #af1c1c;
 	color: white;
 }
 
-#privileges > button[super = '1']:hover
+#privileges > button[data-super = '1']:hover
 {
 	background: white;
 	color: black;
 	border: 0.1em solid black;
 }
 
-#privileges > button[super = '0']
+#privileges > button[data-super = '0']
 {
 	background: white;
 	border: 0.1em solid black;
 }
 
-#privileges > button[super = '0']:hover
+#privileges > button[data-super = '0']:hover
 {
 	background: #af1c1c;
 	color: white;
