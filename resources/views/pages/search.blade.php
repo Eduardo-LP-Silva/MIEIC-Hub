@@ -25,7 +25,7 @@
 @endsection
 
 @section('content')
-<div id="search" token={{csrf_token()}}>
+<div id="search" data-token={{csrf_token()}}>
     <div id="search_parameters">
         <div>
             <span>Search results for:</span>

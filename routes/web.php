@@ -19,6 +19,7 @@ Route::get('/', function()
 Route::get('home', 'GeneralPageController@home');
 
 Route::get('products/{id}', 'ProductsController@show');
+//Route::get('/users/{name}/wishlist', );
 
 Route::get('users/{name}', 'UsersController@show');
 Route::get('users/{name}/reviews', 'UsersController@profileReviews');
@@ -56,7 +57,7 @@ Route::post('submission/{id_submission}/accept', 'SubmissionController@udpateAcc
 Route::post('submission/{id_submission}/remove', 'SubmissionController@destroy');
 Route::get('submit', 'SubmissionController@submit');
 Route::post('submit', 'SubmissionController@submitForm');
-Route::get('submissions', 'SubmissionController@showAllSubmissions');
+Route::get('submissions', 'SubmissionController@showSubmissions');
 Route::get('upcoming/newpoll', 'PollsController@pollForm');
 Route::post('upcoming/newpoll', 'PollsController@addPoll');
 

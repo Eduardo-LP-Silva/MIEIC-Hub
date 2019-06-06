@@ -23,14 +23,14 @@ function setAspectRatio()
 function addHeartListeners()
 {
     let hearts = document.querySelectorAll(".heart");
-    let token = document.getElementById("main").getAttribute("token");
+    let token = document.getElementById("main").getAttribute("data-token");
     let name = document.getElementById("main").getAttribute("name");
     
     for(let i = 0; i < hearts.length; i++)
         hearts[i].addEventListener("click", function()
         {
             let newVotesNo;
-            let sub = hearts[i].parentElement.getAttribute("sub");
+            let sub = hearts[i].parentElement.getAttribute("data-sub");
             let data = {"name": name, "id_sub": sub};
             let request = new XMLHttpRequest();
             let url = "/users/" + name + "/vote/" + sub;

@@ -26,7 +26,7 @@
               </form>
         </div>
     </div>
-    <img src={{asset(Utils::replaceWhiteSpace($submission->picture))}}>
+    <img src={{asset(Utils::replaceWhiteSpace($submission->picture))}} alt="Submission picture">
     <br>
     <div id="author">
         <span>Author: </span>

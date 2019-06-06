@@ -60,7 +60,7 @@
                     <div class="to-flex">
                         <h2 id="price">Price: {{ $product->price }}€</h2>
                         <div id="product-rating" class="stars-outer">
-                            <div class="stars-inner"></div>
+                            <div title="{{$product->rating}}" class="stars-inner"></div>
                         </div>
                     </div>
 
