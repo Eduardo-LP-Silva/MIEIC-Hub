@@ -16,7 +16,7 @@ function lockOneSize() {
 
 function calcRating() {
     let rating = document.querySelectorAll(".stars-inner");
-    let productRating = rating[0].getAttribute("title");
+    let productRating = rating[0].getAttribute("data-rating");
     productRating = productRating * 100 / 5;
     rating[0].style.width = productRating + "%";
 }

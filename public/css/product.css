@@ -61,7 +61,7 @@ div#content div#product div#info div.to-flex{
     left: 0;
     white-space: nowrap;
     overflow: hidden;
-    width: 67%;
+    width: 0%;
 }
 
 .stars-inner::before {
