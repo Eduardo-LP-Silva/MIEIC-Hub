@@ -19,7 +19,7 @@
           <div class="card-header" id="headingOne">
             <h5 class="mb-0">
               <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseZero"
-                aria-expanded="true" aria-controls="collapseOne">
+                aria-expanded="true" aria-controls="collapseZero">
                 Add F.A.Q 🔻
               </button>
             </h5>
