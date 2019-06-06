@@ -1,5 +1,12 @@
 @extends('layouts.page')
 
+@section('meta')
+    <meta property="og:title" content="MIEIC Hub" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="htpp://lbaw1825.lbaw-prod.fe.up.pt/home" />
+    <meta property="og:image" content="http://lbaw1825.lbaw-prod.fe.up.pt/img/website/MIEICHUB.png" />
+@endsection
+
 @section('stylesheets')
         <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 @endsection
