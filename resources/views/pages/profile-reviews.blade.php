@@ -15,15 +15,11 @@
                 data-holder-rendered="true">
             <a class="media-body row" href={{url('/products/' . $review->id_product)}}>
                 <h5 class="mt-0 col-6">{{{$review->product_name}}}</h5>
-                <div class="rating col-6">
-                    @for($i = 0; $i < $review->rating; $i++)
-                        <span class="fa fa-star checked"></span>
-                    @endfor
-
-                    @for($i = 0; $i < 5 - $review->rating; $i++)
-                        <span class="fa fa-star"></span>
-                    @endfor
-                </div>
+                <div class="to-flex rating">
+                        <div id="product-rating" class="stars-outer">
+                            <div data-rating="{{$review->rating}}" class="stars-inner"></div>
+                        </div>
+                    </div>
                 <p class="ml-4">{{{$review->comment}}}</p>
             </a>
         </div>

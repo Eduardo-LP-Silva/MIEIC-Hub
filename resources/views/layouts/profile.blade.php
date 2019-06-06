@@ -12,6 +12,10 @@
         <link rel="stylesheet" href="{{ asset('css/profile-orders.css') }}">
 @endsection
 
+@section('scripts')
+    <script src="{{asset('js/profile.js')}}" defer></script>
+@endsection
+
 @section('title')
     <title>{{{$user->name}}} - MIEICHub</title>
 @endsection

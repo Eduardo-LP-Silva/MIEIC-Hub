@@ -17,7 +17,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('js/search.js')}}"></script>
+    <script src="{{asset('js/search.js')}}" defer></script>
 @endsection
 
 @section('title')
@@ -74,14 +74,10 @@
             <div class="div"></div>
             <span>{{{$result->product_name}}}</span>
             <div class="div"></div>
-            <div class="rating">
-                @for($i = 0; $i < $result->rating; $i++)
-                    <span class="fa fa-star checked"></span>
-                @endfor
-
-                @for($i = 0; $i < 5 - $result->rating; $i++)
-                    <span class="fa fa-star"></span>
-                @endfor
+            <div class="to-flex rating">
+                <div id="product-rating" class="stars-outer">
+                    <div data-rating="{{$result->rating}}" class="stars-inner"></div>
+                </div>
             </div>
             <div class="div"></div>
             <span>{{{$result->price}}}</span>
