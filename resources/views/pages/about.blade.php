@@ -14,10 +14,10 @@
     <div class="about-us">
       <h1>Our Team</h1>
       <div class="pictures">
-        <a href="#edu"><img src="{{asset('img/images/about-us/edu.jpg')}}" alt="Eduardo"></a>
-        <a href="#joana"><img src="{{asset('img/images/about-us/joana.png')}}" alt="Joana"></a>
-        <a href="#miguel"><img src="{{asset('img/images/about-us/miguel.jpg')}}" alt="Miguel"></a>
-        <a href="#tomas"><img src="{{asset('img/images/about-us/tomas.png')}}" alt="Tomás"></a>
+        <a href="#edu"><img src="{{asset('img/about-us/edu.jpg')}}" alt="Eduardo"></a>
+        <a href="#joana"><img src="{{asset('img/about-us/joana.png')}}" alt="Joana"></a>
+        <a href="#miguel"><img src="{{asset('img/about-us/miguel.jpg')}}" alt="Miguel"></a>
+        <a href="#tomas"><img src="{{asset('img/about-us/tomas.png')}}" alt="Tomás"></a>
       </div>
     </div>
     <div class="section" id="edu">
