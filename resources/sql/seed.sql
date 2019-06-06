@@ -663,16 +663,16 @@ INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/java.png', 48);
 INSERT INTO photo (image_path, id_product) VALUES ('img/stickers/stickers.jpg', 49);
 
     --Tickets
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket1.jpg', 50);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket2.jpg', 51);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket3.jpg', 52);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket.png', 50);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket2.png', 51);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket3.png', 52);
 INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket4.png', 53);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket5.jpg', 54);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket6.jpg', 55);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket7.jpg', 56);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket8.jpg', 57);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket5.png', 54);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket6.png', 55);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket7.png', 56);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket8.png', 57);
 INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket9.png', 58);
-INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket10.jpg', 59);
+INSERT INTO photo (image_path, id_product) VALUES ('img/tickets/ticket10.png', 59);
 
     --Mouse Pads
 INSERT INTO photo (image_path, id_product) VALUES ('img/mousepads/feup.jpg', 60);
