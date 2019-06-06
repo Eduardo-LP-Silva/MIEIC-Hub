@@ -16,6 +16,7 @@
 html, body
 {
     height: 100%;
+    font-family: Poppins;
 }
 
 #list
@@ -84,3 +85,21 @@ html, body
     color: red;
 }
 
+.jumbotron {
+    background-color: white;
+    text-align: center;
+}
+
+.jumbotron a {
+    background-color: #af1c1c;
+    border-color: #991c1c;
+    outline: none;
+    box-shadow: none;
+}
+
+.jumbotron a:hover {
+    background-color: #991c1c;
+    border-color: #991c1c;
+    outline: none;
+    box-shadow: none;
+}
