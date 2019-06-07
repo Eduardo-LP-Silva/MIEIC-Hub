@@ -15,7 +15,6 @@ use App\City;
 
 class PurchasesController extends Controller
 {
-    //
     public function showCart($name) {
 
         info("test");
@@ -23,17 +22,13 @@ class PurchasesController extends Controller
         $user = User::getURLUser($name);
 
         $items = $user->getCartItems();
-        
-        //dump($user);
-        //dump($items);
 
         if($user->isAuthenticatedUser() || Auth::user()->isMod())                      // Mod pode ver o cart?
             return view('pages.cart', ['user' => $user, 'items' => $items]);
         else
-            abort(403);
+            return redirect('/error/403');
     }
 
-    //
     public function checkout($name) {
 
         $user = User::getURLUser($name);

@@ -14,37 +14,6 @@ use App\Photo;
 class UsersController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -58,12 +27,12 @@ class UsersController extends Controller
     public function privilege($name)
     {
         if(!User::isAuthMod())
-            abort(403, 'Permission denied');
+            return redirect('/error/403');
 
         $role = Input::get('role');
 
         if(strlen($role) < 3)
-            abort(404, 'Unknown role ' . $role);
+            return redirect('/error/400');
 
         $remove = substr($role, 0, 3) == "rm_";
         $privilege = null;
@@ -96,7 +65,7 @@ class UsersController extends Controller
         if($user->isAuthenticatedUser() || $current_user->isMod())
             return view('pages.profile-orders', ['user' => $user, 'orders' => $orders]);
         else
-            abort(403);
+            return redirect('/error/403');
     }
 
     /**
@@ -112,7 +81,7 @@ class UsersController extends Controller
         if($user->isAuthenticatedUser() || User::isAuthMod())
             return view('pages.settings', ['user' => $user]);
         else
-            abort(403, 'Permission denied');  
+            return redirect('/error/403');  
     }
 
     public function getURLUser($name)
@@ -124,7 +93,7 @@ class UsersController extends Controller
             $user = User::where('name', Utils::reverse_slug($name))->get();
 
             if(count($user) == 0)
-                abort(404, 'User ' . $name . ' does not exist');
+                return redirect('/error/404');
         }
 
         return $user[0];
@@ -142,7 +111,7 @@ class UsersController extends Controller
         $user = User::getURLUser($name);
 
         if(!$user->isAuthenticatedUser() || !Auth::user()->isMod())
-            abort(403, 'Permission denied');
+            return redirect('/error/403');
 
         $setting = $request->setting;
         $value = null;
@@ -152,7 +121,7 @@ class UsersController extends Controller
             case "photo": 
 
                 if(!$request->has('photo'))
-                    abort(400, 'No file');
+                    return redirect('/error/400');
 
                 $request->validate
                 (
@@ -171,7 +140,7 @@ class UsersController extends Controller
                 $new_image = $request->file('photo');
 
                 if($new_image == null)
-                    abort(400, 'Null file');
+                    return redirect('/error/400');
                 
                 $new_photo_name =  Utils::slug($user->name);
                 $value = Photo::create
@@ -193,7 +162,7 @@ class UsersController extends Controller
                 break;
 
             default:
-                abort(404, 'User setting ' . $setting . " does not exist");
+                return redirect('/error/400');
         }
 
         $user->updateSetting($setting, $value);
@@ -222,6 +191,6 @@ class UsersController extends Controller
                 return redirect("/home");
         }
         else
-            abort(403, 'Permission denied');
+            return redirect('/error/403');
     }
 }

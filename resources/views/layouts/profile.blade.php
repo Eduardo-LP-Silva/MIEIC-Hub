@@ -5,6 +5,13 @@
 
 @extends('layouts.page')
 
+@section('meta')
+    <meta property="og:title" content={{{$user->name}}}/>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={{{"htpp://lbaw1825.lbaw-prod.fe.up.pt/users/" . Utils::slug($user->name)}}} />
+    <meta property="og:image" content={{"http://lbaw1825.lbaw-prod.fe.up.pt" . asset(Utils::replaceWhiteSpace($user->getPhoto(true)))}}/>
+@endsection
+
 @section('stylesheets')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{ asset('css/profile.css') }}">

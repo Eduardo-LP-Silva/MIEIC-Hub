@@ -73,7 +73,7 @@ class User extends Authenticatable
             $user = User::where('name', Utils::reverse_slug($name))->get();
 
             if(count($user) == 0)
-                abort(404, 'User ' . $name . ' does not exist');
+                return redirect('/error/404');
         }
 
         return $user[0];
