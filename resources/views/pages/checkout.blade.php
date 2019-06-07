@@ -67,26 +67,28 @@
 
             <div class="form-group">
                 <label for="contact">Contact: </label>
-                <input id="contact" name="contact" type="text" required="true">
+                <input id="contact" name="contact" type="text" required>
             </div>
-            <div id="address" class="form-group">
+            <div class="form-group">
                 <label for="city">City: </label>
 
                 <select id="city" name="city" class="form-control form-control-sm">
                     @foreach( $cities as $city)
-                        <option value={{ $city->city }}>{{ $city->city }}</option>
+                        <option value={{ Utils::replaceWhiteSpace($city->city)}}>
+                            {{ Utils::replaceWhiteSpace($city->city) }}
+                        </option>
                     @endforeach
                 </select>
 
-                <label class="to-block" for="desc">Shipping address: </label>
-                <textarea id="address" required="address" name="address" rows="3" cols="35"></textarea>
+                <label class="to-block" for="address">Shipping address: </label>
+                <textarea id="address" required name="address" rows="3" cols="35"></textarea>
             </div>
             <div id="payment" class="form-group">
-                <label for="method">Payment method: </label>
+                <label for="paypal">Payment method: </label>
                 <div id="radios" class="form-check">
                     <div class="form-check-inline form-check custom-radio">
                         <input id="paypal" type="radio" class="form-check-input custom-control-input" name="method"
-                            required="true">
+                            required>
                         <label for="paypal" class="form-check-label custom-control-label"></label>
                         <img alt="Paypal" src="../resources/icons/paypal.png" class="icon">
                     </div>

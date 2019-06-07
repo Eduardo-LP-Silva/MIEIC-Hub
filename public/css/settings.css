@@ -109,21 +109,18 @@ body
   float: right;
   margin-bottom: 4em;
   background-color:  rgb(175, 28, 28);
-  border-color: none !important;
   border-style: none !important;
 }
 
 .btn.btn-primary:hover
 {
   background-color:  rgb(125, 28, 28);
-  border-color: none !important;
   border-style: none !important;
 }
 
 .btn.btn-primary:active
 {
   background-color:  rgb(125, 28, 28);
-  border-color: none !important;
   border-style: none !important;
 }
 
@@ -302,7 +299,7 @@ div#content form#files label {
     cursor: pointer;
     margin-top: 1em;
     color: white;
-    font-style: Poppins;
+    font-family: Poppins;
     border-radius: 5%;
 
 }
