@@ -105,9 +105,18 @@ class PurchasesController extends Controller
 
         if($request->singlebuy==0) {
             $this->handleMultiplebuy($user, $last_purchase);
+
+            if($user->isAuthenticatedUser())                      // Mod pode ver o cart?
+                return view('pages.cart', ['user' => $user, 'items' => $user->getCartItems()] );
+            else
+                abort(403);
         } else {
-            $this->handleSinglebuy($user, Product::find($id_product), $last_purchase, $request->size, $request->color);
-            return redirect("/products/" . $id_product);
+            $this->handleSinglebuy(Product::find($id_product), $last_purchase, $request->size, $request->color);
+
+            if($user->isAuthenticatedUser())                      // Mod pode ver o cart?
+                return Redirect::to('/products/' . $id_product);
+            else
+                abort(403);
         }
 
     }
@@ -130,16 +139,11 @@ class PurchasesController extends Controller
 
         foreach ($cartitems as $item) {
             Cart::find($item->id_cart)->delete();
-        }        
-
-        if($user->isAuthenticatedUser())                      // Mod pode ver o cart?
-            return view('pages.cart', ['user' => $user, 'items' => $user->getCartItems()] );
-        else
-            abort(403);
+        }
 
     }
 
-    public function handleSinglebuy($user, $item, $last_purchase, $size, $color) {
+    public function handleSinglebuy($item, $last_purchase, $size, $color) {
 
         $id_size = DB::table('size')->where('size', '=', $size)->get();
         $id_color = DB::table('color')->where('color', '=', $color)->get();
@@ -151,14 +155,7 @@ class PurchasesController extends Controller
              'price' => 1,                     
              'id_size' => $id_size[0]->id_size,
              'id_color' => $id_color[0]->id_color]);
-
-        if($user->isAuthenticatedUser()) {     
-            return redirect('/products/' . $item->id_product);
-        }
-        else{
-            abort(403);
-        }
-
+        
     }
 
     public function getLastPurchase() {
