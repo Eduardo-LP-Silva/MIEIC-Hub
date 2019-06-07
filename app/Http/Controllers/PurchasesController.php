@@ -155,7 +155,7 @@ class PurchasesController extends Controller
             ['id_product' => $item->id_product,
              'id_purchase' => $last_purchase->id_purchase,
              'quantity' => 1,
-             'price' => 1,                      // o trigger atualiza
+             'price' => 1,                     
              'id_size' => $id_size[0]->id_size,
              'id_color' => $id_color[0]->id_color]);
         
