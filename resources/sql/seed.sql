@@ -1076,23 +1076,34 @@ INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUE
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (13, 15, '2019-01-06 18:44:51', 1, 'in_transit');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (13, 15, '2019-01-06 19:34:58', 1, 'in_transit');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (13, 15, '2019-01-06 20:24:52', 1, 'in_transit');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (13, 15, '2019-01-06 21:14:52', 1, 'in_transit');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-03-06 06:02:12', 1, 'delivered');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-03-06 06:02:12', 1, 'delivered');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-03-06 06:02:12', 1, 'delivered');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-02-06 01:44:12', 1, 'delivered');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-02-14 08:02:12', 1, 'delivered');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-02-26 06:02:12', 1, 'delivered');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-02-06 06:02:12', 1, 'delivered');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (13, 15, '2019-01-06 21:14:56', 1, 'in_transit');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-03-06 06:02:57', 1, 'delivered');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-03-06 06:02:47', 1, 'delivered');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-03-06 06:02:38', 1, 'delivered');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-02-06 01:44:20', 1, 'delivered');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-02-14 08:02:21', 1, 'delivered');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-02-26 06:02:10', 1, 'delivered');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-02-06 06:02:22', 1, 'delivered');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (21, 31, '2019-02-16 06:02:12', 1, 'delivered');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-01-29 11:12:31', 1, 'processing');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-01-29 11:15:36', 1, 'processing');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-01-29 11:17:31', 1, 'processing');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-01-29 11:20:31', 1, 'processing');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-01-29 11:17:37', 1, 'processing');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-01-29 11:20:34', 1, 'processing');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-01-29 11:43:31', 1, 'processing');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-03-02 11:35:31', 1, 'processing');
-INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-01-29 11:52:31', 1, 'processing');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-03-02 11:35:21', 1, 'processing');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-01-29 11:52:05', 1, 'processing');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-02-19 11:57:10', 1, 'processing');
 INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-02-19 11:57:31', 1, 'processing');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (37, 8, '2019-02-19 11:57:36', 1, 'processing');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (3, 2, '2019-01-05 03:25:15', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (3, 2, '2019-01-05 03:27:25', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (3, 2, '2019-01-05 03:28:17', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (3, 2, '2019-01-05 03:30:46', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (3, 2, '2019-01-05 03:35:33', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (3, 2, '2019-01-05 03:40:25', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (3, 2, '2019-01-05 03:43:02', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (3, 2, '2019-01-05 03:49:55', 1, 'awaiting_payment');
+INSERT INTO purchase (id_user, id_deli_info, purchase_date, total, status) VALUES (3, 2, '2019-01-05 03:49:55', 1, 'awaiting_payment');
 
 -- Table: product_purchase
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (4, 6, 1, 1, 2, 3);
@@ -1218,6 +1229,18 @@ INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size,
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (72, 121, 1, 1, 1, 1);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (18, 122, 1, 1, 1, 1);
 INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (59, 123, 1, 1, 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (34, 124, 1, 1, 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (21, 125, 1, 1, 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (33, 126, 1, 1, 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (36, 127, 1, 1, 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (28, 128, 1, 1, 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (25, 129, 1, 1, 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (58, 130, 1, 1, 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (41, 131, 1, 1, 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (45, 132, 1, 1, 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (14, 133, 1, 1, 1, 1);
+INSERT INTO product_purchase (id_product, id_purchase, quantity, price, id_size, id_color) VALUES (83, 134, 1, 1, 1, 1);
+
 
 -- Table: review
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (1,1, 'Great hoodie. Beautiful. MIEIC is awsome','2019-04-08 15:40:24', 4);
@@ -1229,11 +1252,11 @@ INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (36,11, 'Nice hoodie to wear in winter and represent the programmers.','2019-03-19 12:41:56', 4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (37,15, 'Liked this case so much ! And it is resistent','2019-04-29 13:12:31', 4.5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (30,26, 'My room is incredible with this poster ! Amazing.','2019-04-29 16:12:31', 5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,30, 'I offered this poster to my roommate and he loved it','2019-04-02 13:22:31', 4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,30, 'I offered this poster to my roommate and he loved it','2019-04-02 13:22:31', 5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,66, 'Nice mousepad but came with defect','2019-04-03 18:22:31', 3);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,69, 'Funny mousepad, I really recommend it !','2019-04-06 02:22:31', 4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (31,7, 'I wear this hoodie almost everyday. Nice to use while programming','2019-04-09 07:22:31', 4.5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (1,9, 'Liked this hoodie a lot. I recommend it','2019-04-19 17:22:31', 4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (1,9, 'Liked this jacket a lot. I recommend it','2019-04-19 17:22:31', 4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (35,34,'Very nice poster to put where we want','2019-03-10 21:23:03', 5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (2,32,'Loved this poster.','2019-03-14 11:54:04',5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (4,51,'Amazing workshop. Loved it !','2019-01-22 04:20:50',5);
@@ -1241,9 +1264,9 @@ INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (2
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,43,'I loved this sticker','2019-04-08 06:39:09',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,18,'Meeeeh','2019-03-25 03:42:17',2.5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (13,63,'Loved this pad ! 10/10','2019-04-11 21:21:38',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (55,71,'Another amazing product by you lads !','2019-03-22 12:40:18',4.5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (55,71,'Another amazing product by you lads !','2019-03-22 12:40:18',5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (7,31,'This Poster + room = great','2019-04-26 16:43:17', 3.5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (4,6,'The design is cool, I like it a lot','2019-03-09 14:21:20',3);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (4,6,'The design is cool, I like it a lot','2019-03-09 14:21:20',5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (58,16,'It is a CASE to say this product is great','2019-04-27 01:18:43',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (23,31,'Great poster. Great quality. 8/10','2019-03-27 21:59:10',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (13,32,'Quality of product on my opinion: 8/10','2019-03-24 03:02:27',4);
@@ -1255,22 +1278,22 @@ INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (1
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (4,46,'Love the sticker but I sticked it bad :c ','2019-04-06 20:19:31',3.5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (4,20,'This case is really worth to buy','2019-03-24 13:53:12',5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (60,50,'Another great workshop guys. Keep going !','2019-04-03 12:11:24',4.5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (57,12,'My phone and this case were made for each other','2019-03-21 14:27:47',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (57,12,'Great hoodie !','2019-03-21 14:27:47',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (59,69,'Great mouse with great design in a great price with great material. You guys are great !','2019-04-22 10:52:46',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (44,71,'This pad is cool. Happilly I bought it','2019-03-21 05:23:45',3.5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (44,71,'This mug is cool. Happilly I bought it','2019-03-21 05:23:45',3.5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (60,38,'This poster in my room gives it a special touch','2019-04-20 05:51:32',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (47,43,'Great sticker ! But not much resistent','2019-04-07 01:53:02',3.5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (54,71,'I recommend a lot this product. Really cheap and great ','2019-03-15 05:16:49',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (40,34,'I have this poster next to Mia Kunis poster on PULP FICTION. My life is complete','2019-03-27 06:58:53',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (52,74,'Great pad ! Just right for your mouse sensibility','2019-03-19 22:20:29',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (52,74,'Great mug for a morning coffee !','2019-03-19 22:20:29',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (21,62,'Like this mousepad a lot','2019-03-23 23:58:42',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (13,17,'This case is very resistent, I can confirm xD Recommend !','2019-04-25 10:03:16',5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (39,18,'All my 3 cases of MIEICHub are great. I recommend a lot their cases','2019-04-15 06:17:53',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (19,27,'Amazing poster to put on top of your bed.','2019-03-29 15:38:51',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (47,55,'Great workshop ! Loved it. ','2019-04-14 20:27:40',4.5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (1,78,'Greate pad !','2019-03-16 23:24:44',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (1,78,'Love this game and love this mug ahahah !','2019-03-16 23:24:44',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,18,'In this CASE, I recommend this product ahahah','2019-04-16 16:25:48',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (31,49,'Another one in my MIEICHub collection !','2019-03-01 04:36:11',4.5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (31,49,'More stickers for my MIEICHub collection !','2019-03-01 04:36:11',4.5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,17,'Cool design I think','2019-03-02 15:49:25',3);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (15,44,'When I saw this sticker I knew I had to get it','2019-04-25 02:01:22',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (47,20,'Case design: 8/10 - Resistence: 7/10','2019-04-03 03:44:04',3.5);
@@ -1279,22 +1302,22 @@ INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (45,47,'I like this sticker a lot ! Just great !','2019-04-17 08:57:33',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,67,'Cute mouse pad','2019-03-16 10:44:13',3.5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,29,'Love your poster guys, I have 3 of them !','2019-04-05 10:44:18',4.5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (5,27,'Can u please make a poster with GOT and Programming ? Pleaaaaaaaaaaaase please ','2019-04-01 03:49:28',5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (5,27,'Great poster 10/10','2019-04-01 03:49:28',5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,31,'Great poster. Please make a Poster Malone poster','2019-04-25 02:52:40',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (5,4,'Another great product by you guys ! Thanks','2019-04-03 15:46:18',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (5,4,'Another great product by you guys ! Thanks','2019-04-03 15:46:18',5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (2,35,'Love this poster. I have like 15 posters in my room and 6 are from you guys ! Keep going ! ','2019-04-02 16:22:54',5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (5,5,'Amazing hoodie for winter. WINTER IS COMING ','2019-04-12 22:07:20',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (5,5,'Amazing jacket for winter. WINTER IS COMING  ahahah','2019-04-12 22:07:20',5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (5,74,'Love this ! Amazing bought.','2019-03-16 09:08:35',4.5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,16,'Not expensive and resistent. I recommend','2019-04-03 05:09:42',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,75,'Just another great product. Keep improving','2019-04-02 12:11:16',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,13,'Cool but sadly it hasnt more colours','2019-03-20 23:51:27',3.5);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,39,'It looks perfect on my PC :)','2019-04-11 07:14:47',3);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,75,'Just another great product. Keep improving','2019-04-02 12:11:16',5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,13,'10/10 ;)','2019-03-20 23:51:27',5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,39,'It looks perfect on my PC :)','2019-04-11 07:14:47',5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (6,46,'Another sticker fot my collection ahahaha ','2019-03-20 07:34:21',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,40,'I like a lot of this sticker.','2019-03-04 08:48:02',3);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,10,'I love hoodies and this one I bought affraid of getting scammed but it is amazing','2019-04-26 16:04:20',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,37,'Fine poster','2019-04-02 02:27:47',3);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (8,38,'Great poster, really happy with it','2019-03-14 07:08:16',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (52,49,'Funny sticker ahahah','2019-03-17 09:09:09',3.5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (52,49,'Funny stickers ahahah','2019-03-17 09:09:09',3.5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (52,30,'I love this poster so much ahahah','2019-03-27 20:33:43',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (52,72,'Another great product !','2019-04-05 22:54:36',2);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (52,63,'I have bought withou doubts an amazing mouse pad !','2019-04-01 03:44:36',4);
@@ -1310,7 +1333,7 @@ INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (31,38,'Loved this poster, for real !','2019-04-02 06:14:53',1);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,72,'Bravo guys. Bravo','2019-03-17 01:37:43',5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,60,'Great mousepad, I strongly recommend it for gaming','2019-04-07 04:29:49',4);
-INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,9,'The 6th hoodie of MIEICHub. Certainly not the last','2019-04-13 16:58:11',4.5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,9,'The 6th apparel item of MIEICHub. Certainly not the last','2019-04-13 16:58:11',4.5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,82,'10/10 ','2019-03-16 20:45:21',5);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,48,'Nice sticker','2019-04-16 06:07:27',3);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (10,19,'Cool but should have design for IPhone :(','2019-03-03 15:05:12',3);
@@ -1346,6 +1369,18 @@ INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (37,72,'Amazing product. I recommend it','2019-04-12 05:17:35',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (37,18,'Strong case ! Loved it','2019-04-12 13:26:55',4);
 INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (37,59,'Great workshop ! I expect one of LARAVEL on the future !','2019-04-17 20:35:34',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (37,22,'Great case !!','2019-04-17 20:35:34',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (37,21,' Another great case !!','2019-04-17 20:35:34',4);
+
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,33,' SET UP FOR THIS POSTEEEERS !!','2019-04-17 20:35:34',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,36,' SUPER BOCK is amazing ahahah  !!','2019-04-17 20:35:34',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,28,' I feel like hackerman now ahahh !!','2019-04-17 20:35:34',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,25,' Great poster ! Congrats','2019-04-17 20:35:34',5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,58,'Loved this PPIN Workshop !!','2019-04-17 20:35:34',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,41,' Ahaha I love coffee and this sticker !!','2019-04-17 20:35:34',5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,45,' JUST DO IT SHIA LABEOUF ahah funny sticker !!','2019-04-17 20:35:34',5);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,14,' Nice jacket! Loved it','2019-04-17 20:35:34',4);
+INSERT INTO review (id_user, id_product, comment, review_date, rating) VALUES (3,83,' Great mug !!','2019-04-17 20:35:34',4);
 
 
 -- Table: poll
