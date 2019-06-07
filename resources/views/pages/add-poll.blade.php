@@ -1,5 +1,6 @@
 <?php 
   use App\User;
+  use App\Utils;
 ?>
 
 @extends('layouts.page')
@@ -37,7 +38,7 @@
               <?php $author = User::find($submission->id_user); ?>
               <div class="list-item" >
                   <a href={{url('/submission/' . $submission->id_submission)}}>
-                      <img src="../resources/images/apparel/hoodie_3_single.jpg" alt="Submission Picture">
+                      <img src={{asset(Utils::replaceWhiteSpace($submission->picture))}} alt="Submission Picture">
                   </a>
                   <div class="div"></div>
                   <a href={{url('/submission/' .  $submission->id_submission)}}>{{{$submission->submission_name}}} </a>

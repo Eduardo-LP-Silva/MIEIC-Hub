@@ -75,7 +75,7 @@
             <span>{{{$result->product_name}}}</span>
             <div class="div"></div>
             <div class="to-flex rating">
-                <div id="product-rating" class="stars-outer">
+                <div class="stars-outer">
                     <div data-rating="{{$result->rating}}" class="stars-inner"></div>
                 </div>
             </div>
