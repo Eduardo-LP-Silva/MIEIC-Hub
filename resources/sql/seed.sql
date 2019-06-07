@@ -295,6 +295,19 @@ BEGIN
         WHERE NEW.id_product = product.id_product;
         RETURN NEW;
     ELSEIF TG_OP = 'DELETE' THEN
+        IF 
+        (
+            SELECT count(*)
+            FROM review, product 
+            WHERE review.id_product = product.id_product 
+            AND review.id_product = OLD.id_product
+        )
+        = 0
+        THEN
+        UPDATE product
+        SET rating = 0
+        WHERE OLD.id_product = product.id_product;
+        ELSE
         UPDATE product
         SET rating =
         (
@@ -303,6 +316,7 @@ BEGIN
             WHERE review.id_product = product.id_product AND review.id_product = OLD.id_product
         )
         WHERE OLD.id_product = product.id_product;
+        END IF;
         RETURN OLD;
     END IF;
 END;
