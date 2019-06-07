@@ -34,6 +34,9 @@ class PurchasesController extends Controller
     //
     public function buy(Request $request, $id_product) {
 
+        if(Auth::user() == null)
+            return back();
+
         $items = array(Product::find($id_product));
 
         $cities = User::getCities();
@@ -166,6 +169,9 @@ class PurchasesController extends Controller
     }
 
     public function addProductCart(Request $request, $id_product) {
+
+        if(Auth::user()==null)
+            return back();
 
         $user = Auth::user();    
 
