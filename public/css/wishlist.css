@@ -62,10 +62,27 @@ html, body
     outline: none;
 }
 
-.list-item > img
+.list-item > a > img
 {
     width: 4em;
     height: 4em;
+}
+
+.list-item > a > span
+{
+    text-decoration: none;
+    color: black;
+}
+
+.list-item > a:hover
+{
+    text-decoration: none;
+}
+
+
+.list-item > a:focus
+{
+    outline: none;
 }
 
 .div
@@ -130,4 +147,9 @@ div.to-flex{
 .stars-inner::before {
     content: "\f005 \f005 \f005 \f005 \f005";
     color: orange;
+}
+
+i.fa-times:hover    
+{
+    cursor: pointer;
 }

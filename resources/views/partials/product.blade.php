@@ -2,10 +2,14 @@
  use App\Product;
 @endphp
 
-<a data-id="{{$product->id_product}}" class="list-item">
-    <img src="{{asset($product->getPhotos(true))}}" alt="Product Picture">
+<div data-id="{{$product->id_product}}" class="list-item">
+    <a href={{{"/products/" . $product->id_product}}}>
+        <img src="{{asset($product->getPhotos(true))}}" alt="Product Picture">
+    </a>
     <div class="div"></div>
-    <span>{{$product->product_name}}</span>
+    <a href={{{"/products/" . $product->id_product}}}>
+     <span>{{$product->product_name}}</span>
+    </a>
     <div class="div"></div>
     <div class="to-flex rating">
         <div id="product-rating" class="stars-outer">
@@ -15,4 +19,4 @@
     <div class="div"></div>
     <span>{{$product->price}}€</span>
     <i class="fa fa-times"></i>
-</a>
+</div>

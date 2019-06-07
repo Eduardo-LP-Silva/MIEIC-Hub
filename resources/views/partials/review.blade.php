@@ -1,10 +1,15 @@
 @php 
  use App\User;
+ use App\Utils;
+
  $user = User::find($review->id_user) 
 @endphp
 
 <div class="media container" data-user-id={{{$review->id_user}}}>
-    <img class="d-flex mr-3" alt="Profile picture" style="width: 64px; height: 64px;" src="{{asset($user->getPhoto(true))}}" data-holder-rendered="true">
+    <a href={{{"/users/" . Utils::slug($user->name)}}}> 
+        <img class="d-flex mr-3" alt="Profile picture" style="width: 64px; height: 64px;" 
+        src="{{asset($user->getPhoto(true))}}" data-holder-rendered="true">
+    </a>
     <div class="media-body row">
         <h5 class="mt-0 col-6"> {{{$user->name}}} </h5>
         <div class="rating col-6">

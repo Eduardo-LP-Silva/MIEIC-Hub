@@ -15,7 +15,7 @@ class ReviewController extends Controller
 
         Review::create($id_product, $id_user, $request->rating, $request->review);
 
-        redirect("/products/" . $id_product);
+        return redirect(URL::previous());
     }
 
     public function destroy($id_product, $id_user)
