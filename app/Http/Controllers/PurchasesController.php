@@ -107,6 +107,7 @@ class PurchasesController extends Controller
             $this->handleMultiplebuy($user, $last_purchase);
         } else {
             $this->handleSinglebuy($user, Product::find($id_product), $last_purchase, $request->size, $request->color);
+            return redirect("/products/" . $id_product);
         }
 
     }
@@ -147,12 +148,12 @@ class PurchasesController extends Controller
             ['id_product' => $item->id_product,
              'id_purchase' => $last_purchase->id_purchase,
              'quantity' => 1,
-             'price' => 1,                      // o trigger atualiza
+             'price' => 1,                     
              'id_size' => $id_size[0]->id_size,
              'id_color' => $id_color[0]->id_color]);
 
-        if($user->isAuthenticatedUser()) {                     // Mod pode ver o cart?
-            return Redirect::to('products/' . $item->id_product);
+        if($user->isAuthenticatedUser()) {     
+            return redirect('/products/' . $item->id_product);
         }
         else{
             abort(403);
