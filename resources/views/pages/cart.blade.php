@@ -27,7 +27,7 @@
     @forelse ( $items as $item )
 
         <?php $product_photo = Product::find($item->id_product)->getPhotos(true);?>
-                <a token={{csrf_token()}} quantity=<?=$item->quantity?> id_user=<?=$user->id?> id_product=<?=$item->id_product?> class="list-item" href="{{url('/products/' . $item->id_product)}}">
+                <a data-token={{csrf_token()}} data-quantity=<?=$item->quantity?> data-id_user=<?=$user->id?> data-id_product=<?=$item->id_product?> class="list-item" href="{{url('/products/' . $item->id_product)}}">
                     <img src={{asset(Utils::replaceWhiteSpace($product_photo))}} alt="Product Picture">
                     <div class="div"></div>
                     <span><?=$item->product_name?></span>
@@ -52,7 +52,9 @@
             <div class="div"></div> 
             <div class="text-right"> 
                 <span id="totalprice"></span>
-                <button id="buy" type="button" class="btn btn-success btn-lg"><a href="{{url('/users/' . Utils::slug(Auth::user()->name) . '/checkout')}}">Checkout</a></button>
+                <a id="buy" class="btn btn-success btn-lg" href="{{url('/users/' . Utils::slug(Auth::user()->name) . '/checkout')}}">
+                    Checkout
+                </a>
             </div>
 </div>
 @endsection

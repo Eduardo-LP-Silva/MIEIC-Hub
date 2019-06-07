@@ -19,15 +19,11 @@ function addRemoveListeners()
 
 function removeChild(btn) {
 
-    console.log("quantity" + btn.parentNode.getAttribute('quantity') + "\n");
-
-    if(btn.parentNode.getAttribute('quantity') == 1){
-        console.log("removing child");
+    if(btn.parentNode.getAttribute('data-quantity') == 1){
         list.removeChild(btn.parentNode);
     } else {
-        btn.parentNode.setAttribute('quantity', btn.parentNode.getAttribute('quantity') - 1);
+        btn.parentNode.setAttribute('data-quantity', btn.parentNode.getAttribute('data-quantity') - 1);
         btn.parentNode.querySelector('#itemquantity').textContent = btn.parentNode.querySelector('#itemquantity').textContent-1;
-        console.log(btn.parentNode.getAttribute('quantity') - 1);
     }
 
 }
@@ -38,7 +34,7 @@ function updateFinalPrice()
     let finalPrice = 0, items = document.querySelectorAll(".list-item");
 
     for(let i = 0; i < items.length; i++)
-        finalPrice += (parseFloat(items[i].querySelector("#itemprice").textContent) * items[i].getAttribute('quantity'));
+        finalPrice += (parseFloat(items[i].querySelector("#itemprice").textContent) * items[i].getAttribute('data-quantity'));
 
     let finalPriceElement = document.querySelector("#totalprice");
 
@@ -49,18 +45,14 @@ function updateFinalPrice()
 function ajaxDeleteCartEntry(btn)
 {
 
-    let id_user = btn.getAttribute("id_user");
+    let id_user = btn.getAttribute("data-id_user");
 
-    let id_product = btn.getAttribute("id_product");
-
-    console.log("user" + id_user);
-    console.log("product" + id_product);
+    let id_product = btn.getAttribute("data-id_product");
 
     let request = new XMLHttpRequest();
     request.open("DELETE", "/users/" + id_user + "/cart/" + id_product + "/remove", true);
     request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    //console.log("token : " + btn.getAttribute("token"));
-    request.setRequestHeader('X-CSRF-TOKEN', btn.getAttribute("token"));
+    request.setRequestHeader('X-CSRF-TOKEN', btn.getAttribute("data-token"));
 
     //request.addEventListener("load", function () {
     //    refresh();
