@@ -46,6 +46,14 @@ review/rating history and their wish list.
 ### About us
 ![image](https://user-images.githubusercontent.com/32617691/73853176-5af32f80-4828-11ea-9c8a-fa7d766c3e92.png)
 
+## Usage
+
+You can run the project with the following command:
+
+```sh
+docker run -it -p 8000:80 -e DB_DATABASE="lbaw1825" -e DB_USERNAME="lbaw1825" -e DB_PASSWORD="yw86he39" joanasmramos/lbaw1825
+```
+
 ## **Team**
 * Eduardo Luís Pinheiro da Silva, up201603135@fe.up.pt
 * Joana Sofia Mendes Ramos, up201605017@fe.up.pt
